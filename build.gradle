@@ -1,0 +1,30 @@
+defaultTasks 'clean', 'test', 'checkstyle', 'assemble'
+
+subprojects {
+
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+  apply plugin: 'checkstyle'
+  
+  tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = '1.7'
+    targetCompatibility = '1.7'
+  }
+
+  javadoc {
+    options.encoding = 'UTF-8'
+  }
+
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    testCompile 'junit:junit:4.12'
+  }
+  
+  checkstyle {
+    configFile = new File(rootDir, "config/checkstyle.xml")
+  }
+}
