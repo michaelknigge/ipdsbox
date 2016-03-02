@@ -1,10 +1,13 @@
-defaultTasks 'clean', 'test', 'checkstyleMain', 'checkstyleTest', 'assemble'
+defaultTasks 'clean', 'test', 'check', 'checkstyleMain', 'checkstyleTest', 'assemble'
 
 subprojects {
 
   apply plugin: 'java'
   apply plugin: 'eclipse'
   apply plugin: 'checkstyle'
+  apply plugin: 'jacoco'
+  
+  check.dependsOn jacocoTestReport
   
   tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -26,5 +29,12 @@ subprojects {
   
   checkstyle {
     configFile = new File(rootDir, "config/checkstyle.xml")
+  }
+
+  jacocoTestReport {
+    reports {
+      xml.enabled = true
+      html.enabled = true
+    }
   }
 }
