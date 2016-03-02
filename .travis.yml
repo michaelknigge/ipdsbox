@@ -1,1 +1,11 @@
-script: "./gradlew"
+language:
+  java
+
+script:
+  "./gradlew"
+
+before_script:
+  - pip install --user codecov
+
+after_success:
+  - codecov
