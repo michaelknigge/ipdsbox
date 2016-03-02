@@ -1,4 +1,4 @@
-defaultTasks 'clean', 'test', 'checkstyle', 'assemble'
+defaultTasks 'clean', 'test', 'checkstyleMain', 'checkstyleTest', 'assemble'
 
 subprojects {
 
