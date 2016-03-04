@@ -3,6 +3,7 @@ package mk.ipdsbox.ppd;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -32,8 +33,8 @@ public final class PagePrinterRequestReaderTest extends TestCase {
      */
     public void testValidCommandWithoutData() throws Exception {
         final PagePrinterRequest req = this.getRequestFromStream("0000000800000001");
-        assert req.getRequest() == 0x01;
-        assert req.getData() == null;
+        assertEquals(1, req.getRequest());
+        assertEquals(0, req.getData().length);
     }
 
     /**
@@ -41,18 +42,16 @@ public final class PagePrinterRequestReaderTest extends TestCase {
      */
     public void testValidCommandWithData() throws Exception {
         final PagePrinterRequest req = this.getRequestFromStream("0000000B000000AB010203");
-        assert req.getRequest() == 0xAB;
-        assert req.getData().length == 3;
-        assert req.getData()[0] == 0x01;
-        assert req.getData()[1] == 0x02;
-        assert req.getData()[2] == 0x03;
+        assertEquals(0xAB, req.getRequest());
+        assertEquals(3, req.getData().length);
+        assertTrue(Arrays.equals(new byte[] {0x01, 0x02, 0x03}, req.getData()));
     }
 
     /**
      * Empty stream.
      */
     public void testEmptyStream() throws Exception {
-        assert this.getRequestFromStream("") == null;
+        assertNull(this.getRequestFromStream(""));
     }
 
     /**
@@ -62,7 +61,7 @@ public final class PagePrinterRequestReaderTest extends TestCase {
         try {
             this.getRequestFromStream("0000");
         } catch (final IOException e) {
-            assert e.getMessage().contains(PagePrinterRequestReader.ERROR_UNEXPECTED_EOF);
+            assertTrue(e.getMessage().contains(PagePrinterRequestReader.ERROR_UNEXPECTED_EOF));
         }
     }
 
@@ -73,7 +72,7 @@ public final class PagePrinterRequestReaderTest extends TestCase {
         try {
             this.getRequestFromStream("000000080000");
         } catch (final IOException e) {
-            assert e.getMessage().contains(PagePrinterRequestReader.ERROR_UNEXPECTED_EOF);
+            assertTrue(e.getMessage().contains(PagePrinterRequestReader.ERROR_UNEXPECTED_EOF));
         }
     }
 
@@ -84,7 +83,7 @@ public final class PagePrinterRequestReaderTest extends TestCase {
         try {
             this.getRequestFromStream("0000000B000000AB01");
         } catch (final IOException e) {
-            assert e.getMessage().contains(PagePrinterRequestReader.ERROR_UNEXPECTED_EOF);
+            assertTrue(e.getMessage().contains(PagePrinterRequestReader.ERROR_UNEXPECTED_EOF));
         }
     }
 }

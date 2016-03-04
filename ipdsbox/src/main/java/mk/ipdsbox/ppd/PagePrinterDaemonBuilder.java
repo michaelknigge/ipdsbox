@@ -3,26 +3,39 @@ package mk.ipdsbox.ppd;
 import java.io.InputStream;
 import java.net.ServerSocket;
 
+import mk.ipdsbox.core.IpdsConfigurationException;
 import mk.ipdsbox.core.LoggerInterface;
-import mk.ipdsbox.core.StandardLogger;
 
 /**
  * Builder for building and configuring a {@link PagePrinterDaemon}.
  */
 public final class PagePrinterDaemonBuilder {
 
-    private LoggerInterface logger = StandardLogger.INSTANCE;
+    private static final String ERROR_NO_HANDLER = "No PagePrinterRequestHandler has been specified";
+    private static final String ERROR_NO_LOGGER = "No Logger has been specified";
+    private static final String ERROR_STREAM_AND_SOCKET = "Only an input stream or a socket may be specified";
+    private static final String ERROR_NO_STREAM_OR_SOCKET = "An input stream or a socket must be specified";
+
+    private LoggerInterface logger;
     private PagePrinterRequestHandler requestHandler;
     private InputStream inputStream;
     private ServerSocket serverSocket;
 
     /**
      * Builds a {@link PagePrinterDaemon}. At least an {@link InputStream} or {@link ServerSocket}
-     * must have been set as well as a PagePrinterRequestHandler.
+     * must have been set as well as a {@link PagePrinterRequestHandler}.
+     *
+     * @throws IpdsConfigurationException if a faulty configuration is detected.
      */
-    PagePrinterDaemon build() {
+    PagePrinterDaemon build() throws IpdsConfigurationException {
         if (this.requestHandler == null) {
-            return null;
+            throw new IpdsConfigurationException(ERROR_NO_HANDLER);
+        } else if (this.logger == null) {
+            throw new IpdsConfigurationException(ERROR_NO_LOGGER);
+        } else if (this.inputStream != null && this.serverSocket != null) {
+            throw new IpdsConfigurationException(ERROR_STREAM_AND_SOCKET);
+        } else if (this.inputStream == null && this.serverSocket == null) {
+            throw new IpdsConfigurationException(ERROR_NO_STREAM_OR_SOCKET);
         }
 
         if (this.inputStream != null) {
@@ -45,28 +58,24 @@ public final class PagePrinterDaemonBuilder {
 
     /**
      * Sets the {@link InputStream} the {@link PagePrinterDaemon} will read from. If the {@link InputStream}
-     * reaches the end, the {@link PagePrinterDaemon} will terminate. If a {@link InputStream} is set
-     * any previously set {@link ServerSocket} is ignored.
+     * reaches the end, the {@link PagePrinterDaemon} will terminate.
      *
      * @param i the {@link InputStream} used for reading the PPR requests.
      */
     PagePrinterDaemonBuilder inputStream(final InputStream i) {
         this.inputStream = i;
-        this.serverSocket = null;
         return this;
     }
 
     /**
      * Sets the {@link ServerSocket} the {@link PagePrinterDaemon} will use to listen for incoming connections.
      * If an established connection terminates the {@link PagePrinterDaemon} will listen and wait for the
-     * next incoming connection. If a {@link ServerSocket} is set any previously set {@link InputStream}
-     * is ignored.
+     * next incoming connection.
      *
      * @param s the {@link ServerSocket} used for reading the PPR requests.
      */
     PagePrinterDaemonBuilder serverSocket(final ServerSocket s) {
         this.serverSocket = s;
-        this.inputStream = null;
         return this;
     }
 

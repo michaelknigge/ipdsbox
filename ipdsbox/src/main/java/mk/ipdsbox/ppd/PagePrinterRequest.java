@@ -9,6 +9,8 @@ import java.io.OutputStream;
  */
 public final class PagePrinterRequest {
 
+    private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+
     private final int request;
     private final byte[] buffer;
 
@@ -18,7 +20,7 @@ public final class PagePrinterRequest {
      * @param request The integer value of the request.
      */
     PagePrinterRequest(final int request) {
-        this(request, null);
+        this(request, EMPTY_BYTE_ARRAY);
     }
 
     /**
@@ -42,7 +44,7 @@ public final class PagePrinterRequest {
 
     /**
      * Returns the data of the request (i. e. the IPDS data).
-     * @return Integer value of the request
+     * @return Data of the request (i. e. the IPDS data)
      */
     public byte[] getData() {
         return this.buffer;
@@ -54,7 +56,7 @@ public final class PagePrinterRequest {
      * @throws IOException  if an I/O error occurs.
      */
     public void writeTo(final OutputStream out) throws IOException {
-        if (this.getData() == null || this.getData().length == 0) {
+        if (this.getData().length == 0) {
             out.write(intToByteArray(8));
             out.write(intToByteArray(this.getRequest()));
         } else {
