@@ -35,7 +35,7 @@ public final class PagePrinterRequestTest extends TestCase {
         final PagePrinterRequest req = new PagePrinterRequest(0x56781234, data);
 
         assertEquals(0x56781234, req.getRequest());
-        assertEquals(data, req.getData());
+        assertTrue(Arrays.equals(data, req.getData()));
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         req.writeTo(baos);
