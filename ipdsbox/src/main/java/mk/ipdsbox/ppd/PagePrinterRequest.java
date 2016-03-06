@@ -3,8 +3,10 @@ package mk.ipdsbox.ppd;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
- * A request from a Page Printer Requestor (the counterpart of the Page Printer Daemon, which is
+ * A request from a Page Printer Requester (the counterpart of the Page Printer Daemon, which is
  * usually a spooling system like IBM InfoPrint).
  */
 public final class PagePrinterRequest {
@@ -46,6 +48,7 @@ public final class PagePrinterRequest {
      * Returns the data of the request (i. e. the IPDS data).
      * @return Data of the request (i. e. the IPDS data)
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is intended that the buffer may be modified")
     public byte[] getData() {
         return this.buffer;
     }

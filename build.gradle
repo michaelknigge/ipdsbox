@@ -6,6 +6,7 @@ subprojects {
   apply plugin: 'eclipse'
   apply plugin: 'checkstyle'
   apply plugin: 'jacoco'
+  apply plugin: 'findbugs'
   
   check.dependsOn jacocoTestReport
   
@@ -24,6 +25,7 @@ subprojects {
   }
 
   dependencies {
+    compile 'com.google.code.findbugs:annotations:3.0.1'
     testCompile 'junit:junit:4.12'
   }
   
