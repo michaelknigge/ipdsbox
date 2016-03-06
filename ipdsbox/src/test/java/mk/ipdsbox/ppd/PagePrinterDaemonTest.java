@@ -112,8 +112,11 @@ public final class PagePrinterDaemonTest extends TestCase implements Observer {
         this.waitForState(DaemonState.ACCEPTING);
 
         final Socket socket = new Socket(LOCALHOST, PORT_NUMBER);
-        this.waitForState(DaemonState.RUNNING);
-        socket.close();
+        try {
+            this.waitForState(DaemonState.RUNNING);
+        } finally {
+            socket.close();
+        }
 
         daemon.shutdown();
         this.waitForState(DaemonState.SHUTDOWN_DONE);
@@ -129,8 +132,11 @@ public final class PagePrinterDaemonTest extends TestCase implements Observer {
 
         for (int i = 0; i < 3; ++i) {
             final Socket socket = new Socket(LOCALHOST, PORT_NUMBER);
-            this.waitForState(DaemonState.RUNNING);
-            socket.close();
+            try {
+                this.waitForState(DaemonState.RUNNING);
+            } finally {
+                socket.close();
+            }
             this.waitForState(DaemonState.ACCEPTING);
         }
 
@@ -152,13 +158,15 @@ public final class PagePrinterDaemonTest extends TestCase implements Observer {
 
         for (int i = 0; i < 3; ++i) {
             final Socket socket = new Socket(LOCALHOST, PORT_NUMBER);
-            this.waitForState(DaemonState.RUNNING);
+            try {
+                this.waitForState(DaemonState.RUNNING);
+                assertEquals(i, this.handler.getHandledRequests().size());
+                socket.getOutputStream().write(data);
+                this.waitForHandledCommand(i + 1);
+            } finally {
+                socket.close();
+            }
 
-            assertEquals(i, this.handler.getHandledRequests().size());
-            socket.getOutputStream().write(data);
-            this.waitForHandledCommand(i + 1);
-
-            socket.close();
             this.waitForState(DaemonState.ACCEPTING);
         }
 
