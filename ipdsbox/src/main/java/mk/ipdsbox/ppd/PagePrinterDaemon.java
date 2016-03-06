@@ -170,7 +170,8 @@ public final class PagePrinterDaemon extends Observable implements Runnable {
             try {
                 this.serverSocket.close();
             } catch (final IOException e) {
-                // Ignore errors (a double close may occur - we don't care).
+                this.logger.debug("An exception occurred on close of the server socket (ignored!)");
+                this.logger.debug(ExceptionHelper.stackTraceToString(e));
             }
         }
 
@@ -178,7 +179,8 @@ public final class PagePrinterDaemon extends Observable implements Runnable {
             try {
                 this.clientSocket.close();
             } catch (final IOException e) {
-                // Ignore errors (a double close may occur - we don't care).
+                this.logger.debug("An exception occurred on close of the client socket (ignored!)");
+                this.logger.debug(ExceptionHelper.stackTraceToString(e));
             }
         }
 
