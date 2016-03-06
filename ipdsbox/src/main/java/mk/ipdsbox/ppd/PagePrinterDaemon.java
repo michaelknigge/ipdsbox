@@ -91,7 +91,9 @@ public final class PagePrinterDaemon extends Observable implements Runnable {
 
     /**
      * Start up the {@link PagePrinterDaemon}. Note that the Page Printer Daemon will run
-     * asynchronous in a thread, so this method will return pretty fast.
+     * asynchronous in a thread, so this method will return pretty fast. In detail, this
+     * method start a new thread that will execute the {@link #run()} method). So if a
+     * synchronous server is needed, the #run method may be invoked directly.
      */
     public void startup() {
         this.logger.info("Starting page printer daemon....");
@@ -157,7 +159,8 @@ public final class PagePrinterDaemon extends Observable implements Runnable {
     }
 
     /**
-     * Shut down the {@link PagePrinterDaemon}.
+     * Shut down the {@link PagePrinterDaemon}. This method will just initiate the shutdown
+     * and return. This method will <b>not</b> wait until the shutdown is complete.
      */
     public void shutdown() {
         this.logger.info("Shutting down page printer daemon....");
