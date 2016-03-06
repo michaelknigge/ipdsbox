@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Observable;
+import java.util.Observer;
 
+import mk.ipdsbox.core.ExceptionHelper;
 import mk.ipdsbox.core.LoggerInterface;
 
 /**
@@ -12,17 +15,16 @@ import mk.ipdsbox.core.LoggerInterface;
  * This implementation supports TCP connections from a "real" counterpart as well as an
  * {@link InputStream}.
  */
-public final class PagePrinterDaemon {
+public final class PagePrinterDaemon extends Observable implements Runnable {
 
     private final ServerSocket serverSocket;
-    private final InputStream inputStream;
     private final LoggerInterface logger;
     private final PagePrinterRequestHandler requestHandler;
 
     /**
      * The state of the {@link PagePrinterDaemon}.
      */
-    private enum DaemonState {
+    public enum DaemonState {
         /**
          * The daemon is initialized but not running yet.
          */
@@ -50,24 +52,7 @@ public final class PagePrinterDaemon {
     }
 
     private volatile DaemonState state = DaemonState.INITIALIZED;
-
-    /**
-     * Constructs a {@link PagePrinterDaemon} that will read the requests and IPDS commands
-     * from the given {@link InputStream}. If the {@link InputStream} reaches its end the
-     * {@link PagePrinterDaemon} will be shut down.
-     *
-     * @param inputStream the {@link InputStream} to read from
-     * @param logger a logger used for output of messages to the user
-     * @param requestHandler the {@link PagePrinterRequestHandler} that will be invoked for
-     * every {@link PagePrinterRequest}
-     */
-    PagePrinterDaemon(final InputStream inputStream, final LoggerInterface logger,
-        final PagePrinterRequestHandler requestHandler) {
-        this.logger = logger;
-        this.requestHandler = requestHandler;
-        this.inputStream = inputStream;
-        this.serverSocket = null;
-    }
+    private volatile Socket clientSocket;
 
     /**
      * Constructs a {@link PagePrinterDaemon} that will read the requests and IPDS commands
@@ -84,79 +69,120 @@ public final class PagePrinterDaemon {
         this.logger = logger;
         this.requestHandler = requestHandler;
         this.serverSocket = serverSocket;
-        this.inputStream = null;
     }
 
     /**
-     * Start up the {@link PagePrinterDaemon}. The {@link PagePrinterDaemon} will start reading
-     * page printer requests and IPDS commands.
-     *
-     * @throws IOException  If an error occurred while reading from the {@link InputStream}
-     *  or when the {@link InputStream} ends unexpectedly.
+     * Returns the current state of the {@link PagePrinterDaemon}.
+     * @return the current state of the {@link PagePrinterDaemon}.
      */
-    public void startup() throws IOException {
+    public DaemonState getDaemonState() {
+        return this.state;
+    }
 
-        if (this.inputStream != null) {
-            this.logger.info("Starting page printer daemon in stream mode....");
-            this.processInputStream(this.inputStream);
-        } else {
-            this.logger.info("Starting page printer daemon in daemon mode....");
-            Socket s;
-            // TODO we need to handle SoekcteException better (gets thrown if we close the socket).
-            // TODO we should put this in a own method....
-            while ((s = this.serverSocket.accept()) != null) {
-                this.logger.info("Accepted connection from " + s.getRemoteSocketAddress());
-                this.processInputStream(s.getInputStream());
+    /**
+     * Sets the new state of the {@link PagePrinterDaemon} and notifies all
+     * {@link Observer}s of the state change.
+     */
+    private void setDaemonState(final DaemonState newState) {
+        this.state = newState;
+        this.setChanged();
+        this.notifyObservers(this.state);
+    }
 
-                if (this.state == DaemonState.RUNNING) {
-                    this.logger.info("Connection closed");
-                } else {
-                    return;
+    /**
+     * Start up the {@link PagePrinterDaemon}. Note that the Page Printer Daemon will run
+     * asynchronous in a thread, so this method will return pretty fast.
+     */
+    public void startup() {
+        this.logger.info("Starting page printer daemon....");
+        new Thread(this).start();
+    }
+
+    /**
+     * Waits for an incoming connection from a client, like IBM Info Print. The connection
+     * is accepted and handled. If the connection gets lost, the next connection will be
+     * accepted.
+     */
+    @Override
+    public void run() {
+        while (this.state != DaemonState.SHUTDOWN_REQUESTED) {
+            try {
+                this.acceptConnection();
+                this.handleConnection();
+            } catch (final IOException e) {
+                if (this.state != DaemonState.SHUTDOWN_REQUESTED) {
+                    this.logger.error(ExceptionHelper.stackTraceToString(e));
                 }
             }
         }
+        this.setDaemonState(DaemonState.SHUTDOWN_DONE);
     }
 
     /**
-     * Reads {@link PagePrinterRequest}s from the given {@link InputStream} and passes all
-     * to the registered {@link PagePrinterRequestHandler}.
+     * Listens on the {@link ServerSocket} and waits for an incoming connection.
      *
-     * @param in The {@link InputStream} from which the {@link PagePrinterRequest}s will be read.
-     *
-     * @throws IOException  If an error occurred while reading from the {@link InputStream}
-     *  or when the {@link InputStream} ends unexpectedly.
+     * @return a ready to use {@link Socket}.
+     * @throws IOException if no connection could be accepted due to an error.
      */
-    private void processInputStream(final InputStream in) throws IOException {
+    private void acceptConnection() throws IOException {
+        this.logger.info("Waiting for a connection...");
+        this.setDaemonState(DaemonState.ACCEPTING);
+        this.clientSocket = this.serverSocket.accept();
+    }
 
-        this.state = DaemonState.RUNNING;
+    /**
+     * Handles the connection. Reads {@link PagePrinterRequest}s from the given {@link Socket}
+     * and passes all of them to the registered {@link PagePrinterRequestHandler}. The method
+     * will return if the connection gets closed (gracefully or unexpectedly).
+     */
+    private void handleConnection() {
+        this.setDaemonState(DaemonState.RUNNING);
 
-        PagePrinterRequest req;
-        while ((req = PagePrinterRequestReader.read(in)) != null) {
+        try {
+            final InputStream in = this.clientSocket.getInputStream();
 
+            PagePrinterRequest req;
+            while ((req = PagePrinterRequestReader.read(in)) != null) {
+                if (this.state != DaemonState.RUNNING) {
+                    return;
+                }
+                this.requestHandler.handle(req);
+            }
+        } catch (final IOException e) {
             if (this.state != DaemonState.RUNNING) {
                 return;
             }
-
-            this.requestHandler.handle(req);
+            this.logger.error(ExceptionHelper.stackTraceToString(e));
         }
     }
 
     /**
      * Shut down the {@link PagePrinterDaemon}.
      */
-    public void shutdown() throws IOException {
+    public void shutdown() {
         this.logger.info("Shutting down page printer daemon....");
 
-        if (this.state == DaemonState.RUNNING) {
-            this.state = DaemonState.SHUTDOWN_REQUESTED;
+        if (this.state != DaemonState.SHUTDOWN_REQUESTED && this.state != DaemonState.SHUTDOWN_DONE) {
+            this.setDaemonState(DaemonState.SHUTDOWN_REQUESTED);
         }
 
-        if (this.serverSocket != null) {
-            // TODO we need to handle IOException better....
-            this.serverSocket.close();
+        if (this.serverSocket != null && !this.serverSocket.isClosed()) {
+            try {
+                this.serverSocket.close();
+            } catch (final IOException e) {
+                // Ignore errors (a double close may occur - we don't care).
+            }
         }
 
-        // TODO we need to wait for the daemon to switch to state SHUTDOWN_DONE
-        this.logger.info("Page printer daemon has been shut down.");
+        if (this.clientSocket != null && !this.clientSocket.isClosed()) {
+            try {
+                this.clientSocket.close();
+            } catch (final IOException e) {
+                // Ignore errors (a double close may occur - we don't care).
+            }
+        }
+
+        this.logger.info("Page printer shutdown request has been issued.");
     }
+
 }

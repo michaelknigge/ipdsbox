@@ -1,10 +1,6 @@
 package mk.ipdsbox.ppd;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 import junit.framework.TestCase;
 import mk.ipdsbox.core.IpdsConfigurationException;
@@ -15,29 +11,30 @@ import mk.ipdsbox.core.LoggerInterface;
  */
 public final class PagePrinterDaemonBuilderTest extends TestCase {
 
+    private static final int PORT_NUMBER = 7001;
+
     private TestcasePagePrinterRequestHandler handler;
     private LoggerInterface logger;
+    private ServerSocket serverSocket;
 
     @Override
-    protected void setUp() {
+    protected void setUp() throws Exception {
         this.handler = new TestcasePagePrinterRequestHandler();
         this.logger = new TestcaseLogger();
+
+        this.serverSocket = new ServerSocket(PORT_NUMBER);
+        this.serverSocket.setReuseAddress(true);
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        if (!this.serverSocket.isClosed()) {
+            this.serverSocket.close();
+        }
     }
 
     /**
-     * Build a {@link PagePrinterDaemon} that uses an {@link InputStream}.
-     */
-    public void testHappyFlowWithInputStream() throws Exception {
-        new PagePrinterDaemonBuilder()
-            .inputStream(new ByteArrayInputStream(new byte[0]))
-            .logger(this.logger)
-            .pagePrinterRequestHandler(this.handler)
-            .build();
-    }
-
-    /**
-     * Try to build a Build a {@link PagePrinterDaemon} without input (no {@link InputStream}
-     * and no {@link Socket}).
+     * Try to build a Build a {@link PagePrinterDaemon} without a {@link ServerSocket}.
      */
     public void testMissingInput() {
         try {
@@ -47,35 +44,17 @@ public final class PagePrinterDaemonBuilderTest extends TestCase {
                 .build();
             fail();
         } catch (final IpdsConfigurationException e) {
-            assertEquals("An input stream or a socket must be specified", e.getMessage());
-        }
-    }
-
-    /**
-     * Try to build a Build a {@link PagePrinterDaemon} with an {@link InputStream}
-     * and a {@link Socket}).
-     */
-    public void testSocketAndInputStream() throws IOException {
-        try {
-            new PagePrinterDaemonBuilder()
-                .inputStream(new ByteArrayInputStream(new byte[0]))
-                .serverSocket(new ServerSocket(1234))
-                .logger(this.logger)
-                .pagePrinterRequestHandler(this.handler)
-                .build();
-            fail();
-        } catch (final IpdsConfigurationException e) {
-            assertEquals("Only an input stream or a socket may be specified", e.getMessage());
+            assertEquals("No server socket has been specified", e.getMessage());
         }
     }
 
     /**
      * Try to build a Build a {@link PagePrinterDaemon} without a logger.
      */
-    public void testMissingLogger() {
+    public void testMissingLogger() throws Exception {
         try {
             new PagePrinterDaemonBuilder()
-                .inputStream(new ByteArrayInputStream(new byte[0]))
+                .serverSocket(this.serverSocket)
                 .pagePrinterRequestHandler(this.handler)
                 .build();
             fail();
@@ -87,10 +66,10 @@ public final class PagePrinterDaemonBuilderTest extends TestCase {
     /**
      * Try to build a Build a {@link PagePrinterDaemon} without a {@link PagePrinterRequestHandler}.
      */
-    public void testMissingRequestHandler() {
+    public void testMissingRequestHandler() throws Exception {
         try {
             new PagePrinterDaemonBuilder()
-                .inputStream(new ByteArrayInputStream(new byte[0]))
+                .serverSocket(this.serverSocket)
                 .logger(this.logger)
                 .build();
             fail();
