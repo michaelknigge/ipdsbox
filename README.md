@@ -1,5 +1,16 @@
 # ipdsbox [![Build Status](https://travis-ci.org/michaelknigge/ipdsbox.svg?branch=master)](https://travis-ci.org/michaelknigge/ipdsbox) [![codecov.io](https://codecov.io/github/michaelknigge/ipdsbox/coverage.svg?branch=master)](https://codecov.io/github/michaelknigge/ipdsbox?branch=master) [![Coverity Status](https://scan.coverity.com/projects/8130/badge.svg)](https://scan.coverity.com/projects/8130)
-Java library for parsing IPDS data streams. The library is currently in an early design phase and may not be useful for anything.
+
+**Java library for parsing IPDS data streams. The library is currently in an early design phase and may not be useful for anything.**
+
+This project provides a framework that allows you to implement a virtual IPDS printer. Each received IPDS command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into IPDS data stream and than sent back to the server.
+
+# PPD/PPR protocol
+LAN attached IPDS printers are using an special protocol named *"PPD/PPR"* (Page Printer Daemon / Page Printer Requester). This protocol encapsulates the native IPDS data stream for printers that are attached by TCP/IP (and not SNA).
+
+The specification of this protocol is (sadly) not publicy available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the author is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a z/OS Host and an IPDS enabled printer).
+
+**Beware: Because of that it is likely that the behaviour of ipdsbox is not correct in all cases.**
+
 
 # IPDS Command Sets
 The IPDS architecture contains several command sets. The following tables show the command sets and the
