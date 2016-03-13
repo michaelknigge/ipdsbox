@@ -7,7 +7,7 @@ This project provides a framework that allows you to implement a virtual IPDS pr
 # PPD/PPR protocol
 LAN attached IPDS printers are using an special protocol named *"PPD/PPR"* (Page Printer Daemon / Page Printer Requester). This protocol encapsulates the native IPDS data stream for printers that are attached by TCP/IP (and not SNA).
 
-The specification of this protocol is (sadly) not publicy available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the author is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a z/OS Host and an IPDS enabled printer).
+The specification of this protocol is (sadly) not publicy available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the developer of ipdsbox is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a z/OS Host and an IPDS enabled printer).
 
 **Beware: Because of that it is likely that the behaviour of ipdsbox is not correct in all cases.**
 
