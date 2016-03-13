@@ -15,7 +15,7 @@ The specification of this protocol is (sadly) not publicy available. The specifi
 # IPDS Command Sets
 The IPDS architecture contains several command sets. The following tables show the command sets and the
 current status of the corresponding support of the IPDS command (*"supported"* means that ipdsbox can parse
-the IPDS command and will create a specific Java Object for it).
+the IPDS command and will create a specific Java object for it).
 
 IPDS Command | Hex Value | Command Description                    | Command Set      | Supported
 ------------ | --------- | ---------------------------------------|------------------| ---------
@@ -36,7 +36,7 @@ MID          | X'D601'   | Manage IPDS Dialog                     | Device Contr
 NOP          | X'D603'   | No Operation                           | Device Control   | :x: 
 PFC          | X'D634'   | Presentation Fidelity Control          | Device Control   | :x: 
 RPO          | X'D67B'   | Rasterize Presentation Object          | Device Control   | :x: 
-STM          | X'D6E4'   | Sense Type and Model                   | Device Control   | :x: 
+STM          | X'D6E4'   | Sense Type and Model                   | Device Control   | :white_check_mark: 
 SHS          | X'D697'   | Set Home State                         | Device Control   | :x: 
 SPE          | X'D608'   | Set Presentation Environment           | Device Control   | :x: 
 XOA          | X'D633'   | Execute Order Anystate                 | Device Control   | :x: 

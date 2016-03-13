@@ -16,6 +16,6 @@ public final class SenseTypeAndModelCommand extends IpdsCommand {
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      */
     protected SenseTypeAndModelCommand(final byte[] data) throws InvalidIpdsCommandException {
-        super(data);
+        super(data, IpdsCommandId.STM);
     }
 }

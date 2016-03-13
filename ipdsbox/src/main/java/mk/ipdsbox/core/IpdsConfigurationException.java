@@ -5,7 +5,7 @@ import mk.ipdsbox.printer.IpdsPrinter;
 
 /**
  * This {@link Exception} will be thrown if a faulty configuration of the {@link IpdsPrinter}
- * of {@link PagePrinterDaemon} is detected.
+ * or {@link PagePrinterDaemon} is detected.
  */
 public final class IpdsConfigurationException extends Exception {
 

@@ -4,6 +4,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import junit.framework.TestCase;
 import mk.ipdsbox.core.InvalidIpdsCommandException;
+import mk.ipdsbox.core.IpdsboxRuntimeException;
 
 /**
  * JUnit tests of the {@link IpdsCommand}.
@@ -58,6 +59,21 @@ public final class IpdsCommandTest extends TestCase {
             fail("Should fail because the IPDS command code is unknown.");
         } catch (final InvalidIpdsCommandException e) {
             assertEquals("The IPDS command has the command id X'd611' which is unknown", e.getMessage());
+        }
+    }
+
+    /**
+     * Construction of a concrete {@link IpdsCommand} with an wrong (but valid!) IPDS command id.
+     */
+    public void testIpdsCommandWithInvalidIpdsCommandCode() throws Exception {
+        // This (D6EE) is !NOT! the command id od the STM command!
+        final byte[] data = DatatypeConverter.parseHexBinary("0005D68F80");
+        try {
+            new SenseTypeAndModelCommand(data);
+        } catch (final IpdsboxRuntimeException e) {
+            assertEquals(
+                "An IpdsCommand with command id X'd68f' was constructed but command id X'd6e4' was expected.",
+                e.getMessage());
         }
     }
 }

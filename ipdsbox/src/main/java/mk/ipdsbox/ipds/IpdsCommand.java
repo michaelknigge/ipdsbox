@@ -1,6 +1,7 @@
 package mk.ipdsbox.ipds;
 
 import mk.ipdsbox.core.InvalidIpdsCommandException;
+import mk.ipdsbox.core.IpdsboxRuntimeException;
 
 /**
  * An IPDS command sent to the printer. This is the abstract super class of all
@@ -15,9 +16,12 @@ public abstract class IpdsCommand {
     /**
      * Constructor.
      * @param data the raw IPDS data stream, not including the part of the PPD/PPR protocol.
+     * @param expectedCommandId the expected command id in bytes 2+3 of the IDPS command.
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
+     * @throws IpdsboxRuntimeException if the passed data is invalid for the concrete
+     * implementation of the {@link IpdsCommand}.
      */
-    protected IpdsCommand(final byte[] data) throws InvalidIpdsCommandException {
+    protected IpdsCommand(final byte[] data, final IpdsCommandId expectedCommandId) throws InvalidIpdsCommandException {
         this.commandLength = (data[0] & 0xFF) << 8 | (data[1] & 0xFF);
         if (data.length != this.commandLength) {
             throw new InvalidIpdsCommandException(String.format(
@@ -31,6 +35,13 @@ public abstract class IpdsCommand {
         if (this.commandCode == null) {
             throw new InvalidIpdsCommandException(String.format(
                 "The IPDS command has the command id X'%1$s' which is unknown", Integer.toHexString(intValue)));
+        }
+
+        if (this.commandCode != expectedCommandId) {
+            throw new IpdsboxRuntimeException(String.format(
+                "An IpdsCommand with command id X'%1$s' was constructed but command id X'%2$s' was expected.",
+                Integer.toHexString(this.commandCode.getValue()),
+                Integer.toHexString(expectedCommandId.getValue())));
         }
 
         this.commandFlags = new IpdsCommandFlags(data[4]);
@@ -58,5 +69,15 @@ public abstract class IpdsCommand {
      */
     public final IpdsCommandFlags getCommandFlags() {
         return this.commandFlags;
+    }
+
+    /**
+     * Returns a string representation of the {@link IpdsCommand}.
+     * @return a string starting with the acronym of the IPDS Command followed by a description.
+     */
+    @Override
+    public final String toString() {
+        return this.commandCode.toString() + " - " + this.commandCode.getDescription();
+
     }
 }
