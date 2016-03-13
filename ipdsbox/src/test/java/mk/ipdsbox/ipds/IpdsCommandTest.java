@@ -12,11 +12,13 @@ import mk.ipdsbox.core.IpdsboxRuntimeException;
 public final class IpdsCommandTest extends TestCase {
 
     /**
-     * Justs test with a valid IPDS command.
+     * Just test a valid IPDS command.
      */
     public void testValidIpdsCommand() throws Exception {
         final byte[] data = DatatypeConverter.parseHexBinary("0005D6E480");
         final IpdsCommand comand = new SenseTypeAndModelCommand(data);
+
+        assertEquals("STM - Sense Type and Model", comand.toString());
 
         assertEquals(5, comand.getCommandLength());
         assertEquals(IpdsCommandId.STM, comand.getCommandCode());
