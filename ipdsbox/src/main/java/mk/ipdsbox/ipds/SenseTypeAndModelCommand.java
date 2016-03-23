@@ -12,10 +12,10 @@ public final class SenseTypeAndModelCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link SenseTypeAndModelCommand}.
-     * @param data data the raw IPDS data stream, not including the part of the PPD/PPR protocol.
+     * @param command the raw IPDS data stream, not including the part of the PPD/PPR protocol.
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      */
-    protected SenseTypeAndModelCommand(final byte[] data) throws InvalidIpdsCommandException {
-        super(data, IpdsCommandId.STM);
+    protected SenseTypeAndModelCommand(final byte[] command) throws InvalidIpdsCommandException {
+        super(command, IpdsCommandId.STM);
     }
 }
