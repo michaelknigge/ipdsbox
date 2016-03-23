@@ -1,5 +1,8 @@
 package mk.ipdsbox.ipds;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+
 import mk.ipdsbox.core.InvalidIpdsCommandException;
 import mk.ipdsbox.core.IpdsboxRuntimeException;
 
@@ -9,28 +12,30 @@ import mk.ipdsbox.core.IpdsboxRuntimeException;
  */
 public abstract class IpdsCommand {
 
+    private final byte[] command;
     private final int commandLength;
     private final IpdsCommandId commandCode;
     private final IpdsCommandFlags commandFlags;
 
     /**
      * Constructor.
-     * @param data the raw IPDS data stream, not including the part of the PPD/PPR protocol.
+     * @param command the raw IPDS data stream, not including the part of the PPD/PPR protocol.
      * @param expectedCommandId the expected command id in bytes 2+3 of the IDPS command.
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      * @throws IpdsboxRuntimeException if the passed data is invalid for the concrete
      * implementation of the {@link IpdsCommand}.
      */
-    protected IpdsCommand(final byte[] data, final IpdsCommandId expectedCommandId) throws InvalidIpdsCommandException {
-        this.commandLength = (data[0] & 0xFF) << 8 | (data[1] & 0xFF);
-        if (data.length != this.commandLength) {
+    protected IpdsCommand(final byte[] command, final IpdsCommandId expectedCommandId)
+        throws InvalidIpdsCommandException {
+        this.commandLength = (command[0] & 0xFF) << 8 | (command[1] & 0xFF);
+        if (command.length != this.commandLength) {
             throw new InvalidIpdsCommandException(String.format(
                 "The length of the IPDS command (%1$d) does not match the length specified in the length field (%2$d).",
-                data.length,
+                command.length,
                 this.commandLength));
         }
 
-        final int intValue = (data[2] & 0xFF) << 8 | (data[3] & 0xFF);
+        final int intValue = (command[2] & 0xFF) << 8 | (command[3] & 0xFF);
         this.commandCode = IpdsCommandId.getForIfExists(intValue);
         if (this.commandCode == null) {
             throw new InvalidIpdsCommandException(String.format(
@@ -44,7 +49,8 @@ public abstract class IpdsCommand {
                 Integer.toHexString(expectedCommandId.getValue())));
         }
 
-        this.commandFlags = new IpdsCommandFlags(data[4]);
+        this.commandFlags = new IpdsCommandFlags(command[4]);
+        this.command = command;
     }
 
     /**
@@ -69,6 +75,53 @@ public abstract class IpdsCommand {
      */
     public final IpdsCommandFlags getCommandFlags() {
         return this.commandFlags;
+    }
+
+    /**
+     * Returns the data part of the IPDS command, which is the part after the flag byte or, if present,
+     * the correlation Id.
+     * @return the data part of the IPDS command.
+     */
+    public final byte[] getData() {
+        final int offset = this.getCommandFlags().hasCorrelationID() ? 7 : 5;
+        final int length = this.getCommandLength() - offset;
+
+        final byte[] data = new byte[length];
+        System.arraycopy(this.command, offset, data, 0, length);
+
+        return data;
+    }
+
+    /**
+     * Returns the data part of the IPDS command, which is the part after the flag byte or, if present,
+     * the correlation Id. The data is returned as a String, decoded with a IBM-500 character set.
+     * @return the data part of the IPDS command as a String object.
+     * @throws UnsupportedEncodingException if the character set IBM-500 is unsupported.
+     */
+    public final String getDataAsString() throws UnsupportedEncodingException {
+        return this.getDataAsString(Charset.forName("IBM-500"));
+    }
+
+    /**
+     * Returns the data part of the IPDS command, which is the part after the flag byte or, if present,
+     * the correlation Id.
+     * @param charset the name of the character set that shall be used for decoding the raw data.
+     * @return the data part of the IPDS command as a String object.
+     * @throws UnsupportedEncodingException if the given character set is unsupported.
+     */
+    public final String getDataAsString(final String charset) throws UnsupportedEncodingException {
+        return this.getDataAsString(Charset.forName(charset));
+    }
+
+    /**
+     * Returns the data part of the IPDS command, which is the part after the flag byte or, if present,
+     * the correlation Id.
+     * @param charset the character set that shall be used for decoding the raw data.
+     * @return the data part of the IPDS command as a String object.
+     * @throws UnsupportedEncodingException if the given character set is unsupported.
+     */
+    public final String getDataAsString(final Charset charset) throws UnsupportedEncodingException {
+        return new String(this.getData(), charset);
     }
 
     /**
