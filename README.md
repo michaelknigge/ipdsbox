@@ -13,9 +13,9 @@ The specification of this protocol is (sadly) not publicy available. The specifi
 
 
 # IPDS Command Sets
-The IPDS architecture contains several command sets. The following tables show the command sets and the
+The IPDS architecture contains several command sets. The following table shows the command sets and the
 current status of the corresponding support of the IPDS command (*"supported"* means that ipdsbox can parse
-the IPDS command and will create a specific Java object for it).
+the IPDS command and create a specific Java object for it).
 
 IPDS Command | Hex Value | Command Description                    | Command Set      | Supported
 ------------ | --------- | ---------------------------------------|------------------| ---------
