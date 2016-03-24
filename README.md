@@ -33,11 +33,11 @@ LFE          | X'D63F'   | Load Font Equivalence                  | Device Contr
 LPD          | X'D6CF'   | Logical Page Descriptor                | Device Control   | :x: 
 LPP          | X'D66D'   | Logical Page Position                  | Device Control   | :x: 
 MID          | X'D601'   | Manage IPDS Dialog                     | Device Control   | :x: 
-NOP          | X'D603'   | No Operation                           | Device Control   | :x: 
+NOP          | X'D603'   | No Operation                           | Device Control   | :white_check_mark:
 PFC          | X'D634'   | Presentation Fidelity Control          | Device Control   | :x: 
 RPO          | X'D67B'   | Rasterize Presentation Object          | Device Control   | :x: 
-STM          | X'D6E4'   | Sense Type and Model                   | Device Control   | :white_check_mark: 
-SHS          | X'D697'   | Set Home State                         | Device Control   | :x: 
+STM          | X'D6E4'   | Sense Type and Model                   | Device Control   | :white_check_mark:
+SHS          | X'D697'   | Set Home State                         | Device Control   | :white_check_mark:
 SPE          | X'D608'   | Set Presentation Environment           | Device Control   | :x: 
 XOA          | X'D633'   | Execute Order Anystate                 | Device Control   | :x: 
 XOH          | X'D68F'   | Execute Order Home State               | Device Control   | :x: 
