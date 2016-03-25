@@ -12,7 +12,7 @@ import mk.ipdsbox.core.InvalidIpdsCommandException;
  * these states, the partial resource is deleted before the printer returns to home state. In home state, an SHS
  * command is treated as a No Operation (NOP) command.
  */
-public class SetHomeStateCommand extends IpdsCommand {
+public final class SetHomeStateCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link SetHomeStateCommand}.

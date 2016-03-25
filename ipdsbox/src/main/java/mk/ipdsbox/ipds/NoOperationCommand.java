@@ -6,7 +6,7 @@ import mk.ipdsbox.core.InvalidIpdsCommandException;
  * The No Operation (NOP) command has no effect on presentation. Zero or more data bytes
  * may be present but are ignored. This command is valid in any printer state.
  */
-public class NoOperationCommand extends IpdsCommand {
+public final class NoOperationCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link NoOperationCommand}.
