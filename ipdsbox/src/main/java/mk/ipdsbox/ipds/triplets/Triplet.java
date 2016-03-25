@@ -1,5 +1,7 @@
 package mk.ipdsbox.ipds.triplets;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Triplets are variable-length substructures that can be used within one or more IPDS commands to provide
  * additional information for the command. A triplet is a three-part self-defining variable-length parameter
@@ -43,6 +45,7 @@ public abstract class Triplet {
      * Returns the data of the Triplet.
      * @return the data of the Triplet (not including the length field and the Triplet ID).
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is intended that the buffer may be modified")
     public final byte[] getData() {
         return this.data;
     }
