@@ -16,15 +16,4 @@ public final class IpdsboxRuntimeException extends RuntimeException {
     public IpdsboxRuntimeException(final String message) {
         super(message);
     }
-
-    /**
-     * Constructs a new {@link IpdsboxRuntimeException} with the specified detail message and
-     * nested {@link Throwable}.
-     *
-     * @param message the detail message.
-     * @param e the nested {@link Throwable}.
-     */
-    public IpdsboxRuntimeException(final String message, final Throwable e) {
-        super(message, e);
-    }
 }
