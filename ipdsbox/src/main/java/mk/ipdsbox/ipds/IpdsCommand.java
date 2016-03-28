@@ -78,16 +78,34 @@ public abstract class IpdsCommand {
     }
 
     /**
+     * Returns the offset to the data part of the IPDS command.
+     * @return the offset to the data part of the IPDS command.
+     */
+    private int getOffsetToDataPart() {
+        return this.getCommandFlags().hasCorrelationID() ? 7 : 5;
+    }
+
+    /**
      * Returns the data part of the IPDS command, which is the part after the flag byte or, if present,
      * the correlation Id.
      * @return the data part of the IPDS command.
      */
-    public final byte[] getData() {
-        final int offset = this.getCommandFlags().hasCorrelationID() ? 7 : 5;
-        final int length = this.getCommandLength() - offset;
+    protected final byte[] getData() {
+        return this.getData(0);
+    }
+
+    /**
+     * Returns the data part of the IPDS command, which is the part after the flag byte or, if present,
+     * the correlation Id, starting at the given offset.
+     * @param offset offset within the data part of the IPDS command.
+     * @return the data part of the IPDS command starting at the given offset.
+     */
+    protected final byte[] getData(final int offset) {
+        final int off = this.getOffsetToDataPart() + offset;
+        final int length = this.getCommandLength() - off;
 
         final byte[] data = new byte[length];
-        System.arraycopy(this.command, offset, data, 0, length);
+        System.arraycopy(this.command, off, data, 0, length);
 
         return data;
     }
@@ -98,7 +116,7 @@ public abstract class IpdsCommand {
      * @return the data part of the IPDS command as a String object.
      * @throws UnsupportedEncodingException if the character set IBM-500 is unsupported.
      */
-    public final String getDataAsString() throws UnsupportedEncodingException {
+    protected final String getDataAsString() throws UnsupportedEncodingException {
         return this.getDataAsString(Charset.forName("IBM-500"));
     }
 
@@ -109,7 +127,7 @@ public abstract class IpdsCommand {
      * @return the data part of the IPDS command as a String object.
      * @throws UnsupportedEncodingException if the given character set is unsupported.
      */
-    public final String getDataAsString(final String charset) throws UnsupportedEncodingException {
+    protected final String getDataAsString(final String charset) throws UnsupportedEncodingException {
         return this.getDataAsString(Charset.forName(charset));
     }
 
@@ -120,7 +138,7 @@ public abstract class IpdsCommand {
      * @return the data part of the IPDS command as a String object.
      * @throws UnsupportedEncodingException if the given character set is unsupported.
      */
-    public final String getDataAsString(final Charset charset) throws UnsupportedEncodingException {
+    protected final String getDataAsString(final Charset charset) throws UnsupportedEncodingException {
         return new String(this.getData(), charset);
     }
 
@@ -131,6 +149,15 @@ public abstract class IpdsCommand {
     @Override
     public final String toString() {
         return this.commandCode.toString() + " - " + this.commandCode.getDescription();
+    }
 
+    /**
+     * Returns the 16 bit value at the given offset of the data part of the IPDS command.
+     * @param offset offset within the data part of the IPDS command.
+     * @return the 16 bit value.
+     */
+    protected final int getWord(final int offset) {
+        final int o = this.getOffsetToDataPart() + offset;
+        return ((this.command[o] & 0xFF) << 8) | (this.command[o + 1] & 0xFF);
     }
 }

@@ -13,7 +13,7 @@ public final class NoOperationCommand extends IpdsCommand {
      * @param command the raw IPDS data stream, not including the part of the PPD/PPR protocol.
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      */
-    protected NoOperationCommand(final byte[] command) throws InvalidIpdsCommandException {
+    public NoOperationCommand(final byte[] command) throws InvalidIpdsCommandException {
         super(command, IpdsCommandId.NOP);
     }
 }

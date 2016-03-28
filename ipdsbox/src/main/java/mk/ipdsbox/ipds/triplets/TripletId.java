@@ -183,10 +183,15 @@ public enum TripletId {
 
     /**
      * Gets the enum value for the given integer.
-     * @return the enum value for the given integer or <code>null</code> if the Triplet Id is unknown.
+     * @return the enum value for the given integer.
      */
-    public static TripletId getForIfExists(final int value) {
-        return REVERSE_MAP.get(value);
+    public static TripletId getFor(final int value) throws UnknownTripletException {
+        final TripletId result = REVERSE_MAP.get(value);
+        if (result == null) {
+            throw new UnknownTripletException(
+                String.format("The Triplet with ID X'%1$s' is unknown.", Integer.toHexString(value)));
+        }
+        return result;
     }
 
     /**

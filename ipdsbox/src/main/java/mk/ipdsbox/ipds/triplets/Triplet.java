@@ -1,6 +1,7 @@
 package mk.ipdsbox.ipds.triplets;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import mk.ipdsbox.core.IpdsboxRuntimeException;
 
 /**
  * Triplets are variable-length substructures that can be used within one or more IPDS commands to provide
@@ -16,10 +17,15 @@ public abstract class Triplet {
     /**
      * Constructs the {@link Triplet}.
      * @param raw the raw data of the whole triplet.
+     * @param tripletId the expected Triplet ID
      */
-    public Triplet(final byte[] raw) {
+    public Triplet(final byte[] raw, final TripletId tripletId) {
+        if ((raw[1] & 0xFF) != tripletId.getId()) {
+            throw new IpdsboxRuntimeException("Passed invalid data");
+        }
+
         this.length = raw[0] & 0xFF;
-        this.tripletId = TripletId.getForIfExists(raw[1] & 0xFF);
+        this.tripletId = tripletId;
         this.data = new byte[raw.length - 2];
 
         System.arraycopy(raw, 2, this.data, 0, raw.length - 2);
