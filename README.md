@@ -18,7 +18,7 @@ current status of the corresponding support of the IPDS command (*"supported"* m
 the IPDS command and create a specific Java object for it).
 
 IPDS Command | Hex Value | Command Description                    | Command Set      | Supported
------------- | --------- | ---------------------------------------|------------------| ---------
+-------------|-----------|----------------------------------------|------------------|----------
 AR           | X'D62E'   | Activate Resource                      | Device Control   | :x: 
 AFO          | X'D602'   | Apply Finishing Operations             | Device Control   | :x: 
 BP           | X'D6AF'   | Begin Page                             | Device Control   | :x: 
@@ -73,3 +73,60 @@ LFCSC        | X'D619'   | Load Font Character Set Control        | Loaded Font 
 LFC          | X'D61F'   | Load Font Control                      | Loaded Font      | :x:
 LFI          | X'D60F'   | Load Font Index                        | Loaded Font      | :x:
 LSS          | X'D61E'   | Load Symbol Set                        | Loaded Font      | :x:
+
+# XOH Orders
+The IPDS command "Execute Order Home State" (XOH) ist a rather complex command that isused to
+execute orders when the printer is in *Home State*. The following table shows the orders and the
+current status of the corresponding support of the order (*"supported"* means that ipdsbox can 
+parse the order and create a specific Java object for it).
+
+Code    | Order                          | Supported
+--------|--------------------------------|----------
+X'0200' | Deactivate Saved Page Group    | :white_check_mark:
+X'0400' | Define Group Boundary          | :x:
+X'1300' | Eject to Front Facing          | :x:
+X'0700' | Erase Residual Font Data       | :x:
+X'0500' | Erase Residual Print Data      | :x:
+X'F300' | Obtain Printer Characteristics | :x:
+X'F500' | Page Counters Control          | :x:
+X'0100' | Print Buffered Data            | :x:
+X'0A00' | Remove Saved Page Group        | :x:
+X'1500' | Select Input Media Source      | :x:
+X'0E00' | Select Medium Modifications    | :x:
+X'0900' | Separate Continuous Forms      | :x:
+X'1600' | Set Media Origin               | :x:
+X'1700' | Set Media Size                 | :x:
+X'0300' | Specify Group Operation        | :x:
+X'0D00' | Stack Received Pages           | :x:
+X'F200' | Trace                          | :x:
+
+
+# Triplets
+The following table shows the Triplets and the current status of the corresponding support of the Triplet 
+(*"supported"* means that ipdsbox can parse the Triplet and create a specific Java object for it).
+
+ID    | Name                                          | Supported
+------|-----------------------------------------------|-------------------
+X'00' | Group ID                                      | :white_check_mark:
+X'01' | Coded Graphic Character Set Global Identifier | :x:
+X'02' | Fully Qualified Name                          | :x:
+X'4E' | Color Specification                           | :x:
+X'50' | Encoding Scheme ID                            | :x:
+X'5A' | Object Offset                                 | :x:
+X'62' | Local Date and Time Stamp                     | :x:
+X'6E' | Group Information                             | :x:
+X'70' | Presentation Space Reset Mixing               | :x:
+X'74' | Toner Saver                                   | :x:
+X'75' | Color Fidelity                                | :x:
+X'79' | Metric Adjustment                             | :x:
+X'84' | Font Resolution and Metric Technology         | :x:
+X'85' | Finishing Operation                           | :x:
+X'86' | Text Fidelity                                 | :x:
+X'88' | Finishing Fidelity                            | :x:
+X'8B' | Data Object Font Descriptor                   | :x:
+X'8D' | Linked Font                                   | :x:
+X'8E' | UP3I Finishing Operation                      | :x:
+X'91' | Color Management Resource Descriptor          | :x:
+X'92' | Invoke CMR                                    | :x:
+X'95' | Rendering Intent                              | :x:
+
