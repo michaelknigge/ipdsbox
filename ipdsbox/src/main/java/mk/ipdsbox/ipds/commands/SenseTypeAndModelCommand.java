@@ -1,4 +1,4 @@
-package mk.ipdsbox.ipds;
+package mk.ipdsbox.ipds.commands;
 
 import mk.ipdsbox.core.InvalidIpdsCommandException;
 

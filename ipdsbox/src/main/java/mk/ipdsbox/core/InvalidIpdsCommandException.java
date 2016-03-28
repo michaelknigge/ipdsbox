@@ -1,6 +1,6 @@
 package mk.ipdsbox.core;
 
-import mk.ipdsbox.ipds.IpdsCommand;
+import mk.ipdsbox.ipds.commands.IpdsCommand;
 
 /**
  * This {@link Exception} will be thrown if a faulty {@link IpdsCommand} is detected.
