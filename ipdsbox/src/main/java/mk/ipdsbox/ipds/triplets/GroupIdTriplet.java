@@ -30,13 +30,8 @@ public final class GroupIdTriplet extends Triplet {
     public GroupIdTriplet(final byte[] raw) throws IOException {
         super(raw, TripletId.GroupID);
 
-        if (raw.length > 2) {
-            this.format = GroupIdFormat.getForIfExists(raw[2]);
-            this.data = this.format == null ? null : this.parseFormatData(raw);
-        } else {
-            this.format = null;
-            this.data = null;
-        }
+        this.format = raw.length > 2 ? GroupIdFormat.getForIfExists(raw[2]) : null;
+        this.data = this.format != null && raw.length > 3 ? this.parseFormatData(raw) : null;
     }
 
     /**

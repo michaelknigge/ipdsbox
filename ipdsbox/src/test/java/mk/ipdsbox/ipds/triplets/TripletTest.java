@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.xml.bind.DatatypeConverter;
 
 import junit.framework.TestCase;
+import mk.ipdsbox.core.InvalidIpdsCommandException;
 
 /**
  * JUnit tests of the {@link Triplet}.
@@ -18,9 +19,10 @@ public final class TripletTest extends TestCase {
      * @return a build {@link Triplet}.
      * @throws IOException if the content of the {@link Triplet} is invalid
      * @throws UnknownTripletException if the {@link TripletId} is unknown.
+     * @throws InvalidIpdsCommandException if the IPDS data of the {@link Triplet} is invalid.
      */
     public static Triplet buildTriplet(final TripletId id, final String hex)
-        throws UnknownTripletException, IOException {
+        throws UnknownTripletException, IOException, InvalidIpdsCommandException {
         final int len = (hex.length() / 2) + 2;
         final String withLen = String.format("%02X%02X", len, id.getId()) + hex;
 
@@ -34,9 +36,10 @@ public final class TripletTest extends TestCase {
      * @return a build {@link Triplet}.
      * @throws IOException if the content of the {@link Triplet} is invalid
      * @throws UnknownTripletException if the {@link TripletId} is unknown.
+     * @throws InvalidIpdsCommandException ths the {@link Triplet} data is invalid.
      */
     public static Triplet buildTriplet(final TripletId id, final byte[] raw)
-        throws UnknownTripletException, IOException {
+        throws UnknownTripletException, IOException, InvalidIpdsCommandException {
         final byte[] result = new byte[raw.length + 2];
         result[0] = (byte) (raw.length + 2);
         result[1] = (byte) (id.getId() & 0xFF);

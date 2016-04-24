@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mk.ipdsbox.core.InvalidIpdsCommandException;
 import mk.ipdsbox.io.IpdsByteArrayInputStream;
 import mk.ipdsbox.ipds.triplets.Triplet;
 import mk.ipdsbox.ipds.triplets.TripletBuilder;
@@ -22,9 +23,10 @@ public final class DeactivateSavedPageGroupOrder extends XohOrder {
      * @throws UnknownTripletException if the the IPDS data contains an unknown {@link Triplet}.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      * @throws IOException if the IPDS data is broken.
+     * @throws InvalidIpdsCommandException if the IPDS data is invalid.
      */
     public DeactivateSavedPageGroupOrder(final byte[] data)
-        throws IOException, UnknownTripletException, UnknownXohOrderCode {
+        throws IOException, UnknownTripletException, UnknownXohOrderCode, InvalidIpdsCommandException {
         super(data, XohOrderCode.DeactivateSavedPageGroup);
         final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
         stream.skip(2);

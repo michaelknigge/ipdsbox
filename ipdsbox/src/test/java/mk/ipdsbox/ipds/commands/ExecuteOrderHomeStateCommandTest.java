@@ -6,11 +6,14 @@ import javax.xml.bind.DatatypeConverter;
 
 import junit.framework.TestCase;
 import mk.ipdsbox.core.InvalidIpdsCommandException;
+import mk.ipdsbox.ipds.triplets.CodedGraphicCharacterSetGlobalIdentifierTriplet;
 import mk.ipdsbox.ipds.triplets.GroupIdTriplet;
 import mk.ipdsbox.ipds.triplets.Triplet;
+import mk.ipdsbox.ipds.triplets.UP3IFinishingOperationTriplet;
 import mk.ipdsbox.ipds.triplets.UnknownTripletException;
 import mk.ipdsbox.ipds.triplets.group.GroupIdFormat;
 import mk.ipdsbox.ipds.xohorders.DeactivateSavedPageGroupOrder;
+import mk.ipdsbox.ipds.xohorders.DefineGroupBoundaryOrder;
 import mk.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 import mk.ipdsbox.ipds.xohorders.XohOrder;
 import mk.ipdsbox.ipds.xohorders.XohOrderCode;
@@ -77,6 +80,59 @@ public final class ExecuteOrderHomeStateCommandTest extends TestCase {
         final GroupIdTriplet triplet2 = (GroupIdTriplet) order.getTriplets().get(1);
         assertEquals(GroupIdFormat.AIX_AND_WINDOWS, triplet2.getGroupIdFormatIfExist());
         assertEquals("FILE NAME=678", triplet2.getGroupIdDataIfExist().toString());
+    }
+
+    /**
+     * Test of a {@link ExecuteOrderHomeStateCommand} with order code DSPG (Define Group
+     * Boundary Order) that initializes a group and contains just one Triplet.
+     */
+    public void testDefineGroupBoundaryOrderWithSingleTriplets() throws Exception {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("0400");
+        sb.append("0003");
+        sb.append("060100020004");
+        final DefineGroupBoundaryOrder order = (DefineGroupBoundaryOrder) getOrder(sb.toString());
+
+        assertEquals(XohOrderCode.DefineGroupBoundary, order.getOrderCode());
+        assertTrue(order.isInitiateGroup());
+        assertEquals(0x03, order.getGroupLevel());
+        assertEquals(1, order.getTriplets().size());
+
+        final CodedGraphicCharacterSetGlobalIdentifierTriplet triplet1 =
+            (CodedGraphicCharacterSetGlobalIdentifierTriplet) order.getTriplets().get(0);
+
+        assertFalse(triplet1.hasCodedCharacterSetIdentifier());
+        assertEquals(0x0002, triplet1.getGraphicCharacterSetGlobalIdentifier());
+        assertEquals(0x0004, triplet1.getCodePageGlobalIdentifier());
+
+    }
+
+    /**
+     * Test of a {@link ExecuteOrderHomeStateCommand} with order code DSPG (Define Group
+     * Boundary Order) that terminates a group and contains multiple Triplets.
+     */
+    public void testDefineGroupBoundaryOrderWithMultipleTriplets() throws Exception {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("0400");
+        sb.append("0002");
+        sb.append("060100020004");
+        sb.append("058E010002");
+        final DefineGroupBoundaryOrder order = (DefineGroupBoundaryOrder) getOrder(sb.toString());
+
+        assertEquals(XohOrderCode.DefineGroupBoundary, order.getOrderCode());
+        assertTrue(order.isInitiateGroup());
+        assertEquals(0x02, order.getGroupLevel());
+        assertEquals(2, order.getTriplets().size());
+
+        final CodedGraphicCharacterSetGlobalIdentifierTriplet triplet1 =
+            (CodedGraphicCharacterSetGlobalIdentifierTriplet) order.getTriplets().get(0);
+        assertFalse(triplet1.hasCodedCharacterSetIdentifier());
+        assertEquals(0x0002, triplet1.getGraphicCharacterSetGlobalIdentifier());
+        assertEquals(0x0004, triplet1.getCodePageGlobalIdentifier());
+
+        final UP3IFinishingOperationTriplet triplet2 =
+            (UP3IFinishingOperationTriplet) order.getTriplets().get(1);
+        assertEquals(1, triplet2.getSequenceNumber());
     }
 
     //    /**

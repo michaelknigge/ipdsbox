@@ -83,7 +83,7 @@ parse the order and create a specific Java object for it).
 Code    | Order                          | Supported
 --------|--------------------------------|----------
 X'0200' | Deactivate Saved Page Group    | :white_check_mark:
-X'0400' | Define Group Boundary          | :x:
+X'0400' | Define Group Boundary          | :white_check_mark:
 X'1300' | Eject to Front Facing          | :x:
 X'0700' | Erase Residual Font Data       | :x:
 X'0500' | Erase Residual Print Data      | :x:
@@ -108,24 +108,24 @@ The following table shows the Triplets and the current status of the correspondi
 ID    | Name                                          | Supported
 ------|-----------------------------------------------|-------------------
 X'00' | Group ID                                      | :white_check_mark:
-X'01' | Coded Graphic Character Set Global Identifier | :x:
+X'01' | Coded Graphic Character Set Global Identifier | :white_check_mark:
 X'02' | Fully Qualified Name                          | :x:
 X'4E' | Color Specification                           | :x:
 X'50' | Encoding Scheme ID                            | :x:
 X'5A' | Object Offset                                 | :x:
 X'62' | Local Date and Time Stamp                     | :x:
-X'6E' | Group Information                             | :x:
+X'6E' | Group Information                             | :white_check_mark:
 X'70' | Presentation Space Reset Mixing               | :x:
 X'74' | Toner Saver                                   | :x:
 X'75' | Color Fidelity                                | :x:
 X'79' | Metric Adjustment                             | :x:
 X'84' | Font Resolution and Metric Technology         | :x:
-X'85' | Finishing Operation                           | :x:
+X'85' | Finishing Operation                           | :white_check_mark:
 X'86' | Text Fidelity                                 | :x:
 X'88' | Finishing Fidelity                            | :x:
 X'8B' | Data Object Font Descriptor                   | :x:
 X'8D' | Linked Font                                   | :x:
-X'8E' | UP3I Finishing Operation                      | :x:
+X'8E' | UP3I Finishing Operation                      | :white_check_mark:
 X'91' | Color Management Resource Descriptor          | :x:
 X'92' | Invoke CMR                                    | :x:
 X'95' | Rendering Intent                              | :x:

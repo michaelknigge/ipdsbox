@@ -2,6 +2,7 @@ package mk.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import mk.ipdsbox.core.InvalidIpdsCommandException;
 import mk.ipdsbox.core.IpdsboxRuntimeException;
 
 /**
@@ -21,14 +22,16 @@ public final class TripletBuilder {
      * @return a concrete {@link Triplet} implementation
      * @throws UnknownTripletException if the given IPDS data describes an unknown {@link Triplet}.
      * @throws IOException if the given IPDS data is incomplete.
+     * @throws InvalidIpdsCommandException if the given IPDS data is invalid.
      */
-    public static Triplet build(final byte[] data) throws UnknownTripletException, IOException {
+    public static Triplet build(final byte[] data)
+        throws UnknownTripletException, IOException, InvalidIpdsCommandException {
         final TripletId triplet = TripletId.getFor(data[1] & 0xFF);
         switch (triplet) {
         case CMRTagFidelity:
             throw new UnknownTripletException("currently unsupported");
         case CodedGraphicCharacterSetGlobalIdentifier:
-            throw new UnknownTripletException("currently unsupported");
+            return new CodedGraphicCharacterSetGlobalIdentifierTriplet(data);
         case ColorFidelity:
             throw new UnknownTripletException("currently unsupported");
         case ColorManagementResourceDescriptor:
@@ -44,7 +47,7 @@ public final class TripletBuilder {
         case FinishingFidelity:
             throw new UnknownTripletException("currently unsupported");
         case FinishingOperation:
-            throw new UnknownTripletException("currently unsupported");
+            return new FinishingOperationTriplet(data);
         case FontResolutionandMetricTechnology:
             throw new UnknownTripletException("currently unsupported");
         case FullyQualifiedName:
@@ -52,7 +55,7 @@ public final class TripletBuilder {
         case GroupID:
             return new GroupIdTriplet(data);
         case GroupInformation:
-            throw new UnknownTripletException("currently unsupported");
+            return new GroupInformationTriplet(data);
         case ImageResolution:
             throw new UnknownTripletException("currently unsupported");
         case InvokeCMR:
@@ -76,7 +79,7 @@ public final class TripletBuilder {
         case TonerSaver:
             throw new UnknownTripletException("currently unsupported");
         case UP3IFinishingOperation:
-            throw new UnknownTripletException("currently unsupported");
+            return new UP3IFinishingOperationTriplet(data);
         default:
             throw new IpdsboxRuntimeException("No case for TripletID " + triplet.toString());
         }

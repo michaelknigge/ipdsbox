@@ -2,6 +2,7 @@ package mk.ipdsbox.ipds.triplets;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mk.ipdsbox.core.IpdsboxRuntimeException;
+import mk.ipdsbox.io.IpdsByteArrayInputStream;
 
 /**
  * Triplets are variable-length substructures that can be used within one or more IPDS commands to provide
@@ -10,6 +11,7 @@ import mk.ipdsbox.core.IpdsboxRuntimeException;
  */
 public abstract class Triplet {
 
+    private final IpdsByteArrayInputStream stream;
     private final int length;
     private final TripletId tripletId;
     private final byte[] data;
@@ -20,6 +22,7 @@ public abstract class Triplet {
      * @param tripletId the expected Triplet ID
      */
     public Triplet(final byte[] raw, final TripletId tripletId) {
+
         if ((raw[1] & 0xFF) != tripletId.getId()) {
             throw new IpdsboxRuntimeException("Passed invalid data");
         }
@@ -29,6 +32,16 @@ public abstract class Triplet {
         this.data = new byte[raw.length - 2];
 
         System.arraycopy(raw, 2, this.data, 0, raw.length - 2);
+
+        this.stream = new IpdsByteArrayInputStream(this.data);
+    }
+
+    /**
+     * Returns the {@link IpdsByteArrayInputStream} that is used to parse the data.
+     * @return the {@link IpdsByteArrayInputStream} that is used to parse the data.
+     */
+    protected final IpdsByteArrayInputStream getStream() {
+        return this.stream;
     }
 
     /**

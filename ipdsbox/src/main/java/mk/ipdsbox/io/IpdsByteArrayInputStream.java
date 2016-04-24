@@ -1,6 +1,7 @@
 package mk.ipdsbox.io;
 
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -16,14 +17,16 @@ public final class IpdsByteArrayInputStream {
     private static final Charset EBCDIC = Charset.forName("IBM500");
     private static final Charset ASCII = Charset.forName("IBM850");
 
-    private final ByteArrayInputStream stream;
+    private final ByteArrayInputStream bais;
+    private final DataInputStream stream;
 
     /**
      * Constructs an {@link IpdsByteArrayInputStream}.
      * @param data the underlying byte array.
      */
     public IpdsByteArrayInputStream(final byte[] data) {
-        this.stream = new ByteArrayInputStream(data);
+        this.bais = new ByteArrayInputStream(data);
+        this.stream = new DataInputStream(this.bais);
     }
 
     /**
@@ -38,6 +41,14 @@ public final class IpdsByteArrayInputStream {
                 "Tried to skip %1$d bytes but skipped only %2$d bytes",
                 count, skipped));
         }
+    }
+
+    /**
+     * Returns the number of remaining bytes that can be read (or skipped over) from this input stream.
+     * @return the number of remaining bytes that can be read (or skipped over) from this input stream.
+     */
+    public int available() {
+        return this.bais.available();
     }
 
     /**
@@ -78,7 +89,7 @@ public final class IpdsByteArrayInputStream {
     }
 
     /**
-     * Reads two bytes (a word) from the underlying byte array and returns the integer value of word (big
+     * Reads two bytes (a word) from the underlying byte array and returns the integer value of the word (big
      * endian byte order).
      * @return the integer value of the read word.
      * @throws IOException if there are less than two bytes available in the underlying byte array.
@@ -87,11 +98,12 @@ public final class IpdsByteArrayInputStream {
         if (this.stream.available() < 2) {
             throw new IOException("Less than 2 bytes available.");
         }
-        return (this.stream.read() << 8) | this.stream.read();
+
+        return this.stream.readShort() & 0xFFFF;
     }
 
     /**
-     * Reads four bytes (a double word) from the underlying byte array and returns the integer value of double
+     * Reads four bytes (a double word) from the underlying byte array and returns the integer value of the double
      * word (big endian byte order).
      * @return the integer value of the read double word.
      * @throws IOException if there are less than four bytes available in the underlying byte array.
@@ -100,7 +112,22 @@ public final class IpdsByteArrayInputStream {
         if (this.stream.available() < 4) {
             throw new IOException("Less than 4 bytes available.");
         }
-        return (this.stream.read() << 24) | (this.stream.read() << 16) | (this.stream.read() << 8) | this.stream.read();
+
+        return this.stream.readInt() & 0xFFFFFFFFL;
+    }
+
+    /**
+     * Reads eight bytes (a quadruple word) from the underlying byte array and returns the integer value of
+     * the quadruple word (big endian byte order).
+     * @return the integer value of the read quadruple word.
+     * @throws IOException if there are less than eight bytes available in the underlying byte array.
+     */
+    public long readQuadrupleWord() throws IOException {
+        if (this.stream.available() < 8) {
+            throw new IOException("Less than 8 bytes available.");
+        }
+
+        return this.stream.readLong();
     }
 
     /**

@@ -2,6 +2,7 @@ package mk.ipdsbox.ipds.xohorders;
 
 import java.io.IOException;
 
+import mk.ipdsbox.core.InvalidIpdsCommandException;
 import mk.ipdsbox.core.IpdsboxRuntimeException;
 import mk.ipdsbox.io.IpdsByteArrayInputStream;
 import mk.ipdsbox.ipds.triplets.Triplet;
@@ -24,9 +25,11 @@ public final class XohOrderBuilder {
      * @return a concrete {@link XohOrder} implementation
      * @throws UnknownXohOrderCode if the given IPDS data describes an unknown {@link XohOrder}.
      * @throws UnknownTripletException if the given IPDS data describes an unknown {@link Triplet}.
+     * @throws InvalidIpdsCommandException if the given IPDS data is broken.
      * @throws IOException if the given IPDS data is incomplete.
      */
-    public static XohOrder build(final byte[] data) throws UnknownXohOrderCode, IOException, UnknownTripletException {
+    public static XohOrder build(final byte[] data)
+        throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
         final IpdsByteArrayInputStream in = new IpdsByteArrayInputStream(data);
         final XohOrderCode code = XohOrderCode.getFor(in.readWord());
 
@@ -34,7 +37,7 @@ public final class XohOrderBuilder {
         case DeactivateSavedPageGroup:
             return new DeactivateSavedPageGroupOrder(data);
         case DefineGroupBoundary:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new DefineGroupBoundaryOrder(data);
         case EjectToFrontFacing:
             throw new UnknownXohOrderCode("currently unsupported");
         case EraseResidualFontData:

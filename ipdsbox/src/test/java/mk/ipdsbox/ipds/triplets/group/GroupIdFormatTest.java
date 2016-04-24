@@ -21,7 +21,7 @@ public final class GroupIdFormatTest extends TestCase {
     }
 
     /**
-     * Checks if the reverse mapping of all {@link GroupIdFormat}s works.
+     * Checks if mapping an invalid GroupIdFormat returns <code>null</code>.
      */
     public void testUnknownGroupIdFormat() {
         assertNull(GroupIdFormat.getForIfExists(0x1234));

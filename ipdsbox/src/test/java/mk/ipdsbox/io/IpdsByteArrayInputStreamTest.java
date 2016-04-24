@@ -51,7 +51,7 @@ public final class IpdsByteArrayInputStreamTest extends TestCase {
             new IpdsByteArrayInputStream(new byte[] {0x00, 0x00, (byte) 0xFF, (byte) 0xFF}).readDoubleWord());
         assertEquals(0xFFFFFF,
             new IpdsByteArrayInputStream(new byte[] {0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}).readDoubleWord());
-        assertEquals(0xFFFFFFFF,
+        assertEquals(0xFFFFFFFFL,
             new IpdsByteArrayInputStream(new byte[] {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF})
                 .readDoubleWord());
         try {
@@ -80,6 +80,69 @@ public final class IpdsByteArrayInputStreamTest extends TestCase {
             fail();
         } catch (final IOException e) {
             assertEquals("Less than 4 bytes available.", e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the readQuadrupleWord() Method.
+     */
+    public void testReadQuadrupleWord() throws Exception {
+        assertEquals(0x00, new IpdsByteArrayInputStream(new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00})
+            .readQuadrupleWord());
+
+        assertEquals(0xFF,
+            new IpdsByteArrayInputStream(new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, (byte) 0xFF})
+                .readQuadrupleWord());
+
+        assertEquals(0xFFFF,
+            new IpdsByteArrayInputStream(new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, (byte) 0xFF, (byte) 0xFF})
+                .readQuadrupleWord());
+
+        assertEquals(0xFFFFFF,
+            new IpdsByteArrayInputStream(
+                new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF}).readQuadrupleWord());
+
+        assertEquals(0xFFFFFFFFL,
+            new IpdsByteArrayInputStream(
+                new byte[] {0x00, 0x00, 0x00, 0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF})
+                    .readQuadrupleWord());
+
+        assertEquals(0xFFFFFFFFFFL,
+            new IpdsByteArrayInputStream(
+                new byte[] {0x00, 0x00, 0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF})
+                    .readQuadrupleWord());
+
+        assertEquals(0xFFFFFFFFFFFFL,
+            new IpdsByteArrayInputStream(
+                new byte[] {0x00, 0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF})
+                    .readQuadrupleWord());
+
+        assertEquals(0xFFFFFFFFFFFFFFL,
+            new IpdsByteArrayInputStream(
+                new byte[] {0x00, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                    (byte) 0xFF})
+                        .readQuadrupleWord());
+
+        assertEquals(0xFFFFFFFFFFFFFFFFL,
+            new IpdsByteArrayInputStream(
+                new byte[] {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
+                    (byte) 0xFF})
+                        .readQuadrupleWord());
+
+        try {
+            new IpdsByteArrayInputStream(new byte[0]).readQuadrupleWord();
+            fail();
+        } catch (final IOException e) {
+            assertEquals("Less than 8 bytes available.", e.getMessage());
+        }
+
+        for (int size = 1; size < 8; ++size) {
+            try {
+                new IpdsByteArrayInputStream(new byte[size]).readQuadrupleWord();
+                fail();
+            } catch (final IOException e) {
+                assertEquals("Less than 8 bytes available.", e.getMessage());
+            }
         }
     }
 
