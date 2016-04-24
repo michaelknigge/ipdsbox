@@ -1,13 +1,13 @@
 # ipdsbox [![Build Status](https://travis-ci.org/michaelknigge/ipdsbox.svg?branch=master)](https://travis-ci.org/michaelknigge/ipdsbox) [![codecov.io](https://codecov.io/github/michaelknigge/ipdsbox/coverage.svg?branch=master)](https://codecov.io/github/michaelknigge/ipdsbox?branch=master) [![Coverity Status](https://scan.coverity.com/projects/8130/badge.svg)](https://scan.coverity.com/projects/8130)
 
-**Java library for parsing IPDS data streams. The library is currently in an early design phase and may not be useful for anything. And as now the summer comes up, do not expect much progress within the next months.**
+**Java library for parsing [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data streams. The library is currently in an early design phase and may not be useful for anything. And as now the summer comes up, do not expect much progress within the next months.**
 
-This project provides a framework that allows you to implement a virtual IPDS printer. Each received IPDS command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into IPDS data stream and than sent back to the server.
+This project provides a framework that allows you to implement a virtual [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printer. Each received [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream and than sent back to the server.
 
 # PPD/PPR protocol
-LAN attached IPDS printers are using an special protocol named *"PPD/PPR"* (Page Printer Daemon / Page Printer Requester). This protocol encapsulates the native IPDS data stream for printers that are attached by TCP/IP (and not SNA).
+LAN attached [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printers are using an special protocol named *"PPD/PPR"* (Page Printer Daemon / Page Printer Requester). This protocol encapsulates the native [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream for printers that are attached by [TCP/IP](https://en.wikipedia.org/wiki/Internet_protocol_suite) (and not by [SNA](https://en.wikipedia.org/wiki/IBM_Systems_Network_Architecture)).
 
-The specification of this protocol is (sadly) not publicy available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the developer of ipdsbox is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a z/OS Host and an IPDS enabled printer).
+The specification of this protocol is (sadly) not publicy available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the developer of ipdsbox is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a z/OS Host and an [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) enabled printer).
 
 **Beware: Because of that it is likely that the behaviour of ipdsbox is not correct in all cases.**
 
