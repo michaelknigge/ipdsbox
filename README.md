@@ -1,6 +1,6 @@
 # ipdsbox [![Build Status](https://travis-ci.org/michaelknigge/ipdsbox.svg?branch=master)](https://travis-ci.org/michaelknigge/ipdsbox) [![codecov.io](https://codecov.io/github/michaelknigge/ipdsbox/coverage.svg?branch=master)](https://codecov.io/github/michaelknigge/ipdsbox?branch=master) [![Coverity Status](https://scan.coverity.com/projects/8130/badge.svg)](https://scan.coverity.com/projects/8130)
 
-**Java library for parsing IPDS data streams. The library is currently in an early design phase and may not be useful for anything.**
+**Java library for parsing IPDS data streams. The library is currently in an early design phase and may not be useful for anything. And as now the summer comes up, do not expect much progress within the next months.**
 
 This project provides a framework that allows you to implement a virtual IPDS printer. Each received IPDS command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into IPDS data stream and than sent back to the server.
 
