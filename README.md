@@ -1,6 +1,6 @@
 # ipdsbox [![Build Status](https://travis-ci.org/michaelknigge/ipdsbox.svg?branch=master)](https://travis-ci.org/michaelknigge/ipdsbox) [![codecov.io](https://codecov.io/github/michaelknigge/ipdsbox/coverage.svg?branch=master)](https://codecov.io/github/michaelknigge/ipdsbox?branch=master) [![Coverity Status](https://scan.coverity.com/projects/8130/badge.svg)](https://scan.coverity.com/projects/8130)
 
-**Java library for parsing [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data streams. The library is currently in an early design phase and may not be useful for anything. And as now the summer comes up, do not expect much progress within the next months.**
+**Java library for parsing [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data streams. The library is currently in an early design phase and may not be useful for anything. I'm currently not woking on this project. The project is not dead, but I'm currently involved in so many other projects that I don't have any time for ipdsbox.**
 
 This project provides a framework that allows you to implement a virtual [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printer. Each received [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream and than sent back to the server.
 
