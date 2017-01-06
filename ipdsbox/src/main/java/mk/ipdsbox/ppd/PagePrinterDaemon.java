@@ -15,7 +15,7 @@ import mk.ipdsbox.core.LoggerInterface;
  * This implementation supports TCP connections from a "real" counterpart as well as an
  * {@link InputStream}.
  */
-public final class PagePrinterDaemon extends Observable implements Runnable {
+final class PagePrinterDaemon extends Observable implements Runnable {
 
     private final ServerSocket serverSocket;
     private final LoggerInterface logger;
