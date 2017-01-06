@@ -63,6 +63,7 @@ public final class IpdsProxy {
 
     /**
      * This is the entry point of {@link IpdsProxy}.
+     *
      * @param args the command line arguments passed to {@link IpdsProxy}.
      */
     int realMain(final String[] args) {
@@ -122,7 +123,7 @@ public final class IpdsProxy {
     }
 
     /**
-     * Waits for an incoming connection from a print server and handles the connections.
+     * Waits for an incoming connection from a print server and handles the connection.
      * This method does this in an infinitive loop.
      *
      * @param passiveSocket the socket used to accept connections from
@@ -224,7 +225,7 @@ public final class IpdsProxy {
      */
     private static void handleConnection(final Socket printServer, final Socket printer) throws IOException {
 
-        System.out.println("Handling connections from " + printServer.getInetAddress());
+        System.out.println("Handling connection from " + printServer.getInetAddress());
 
         final InputStream streamFromPrintServer = printServer.getInputStream();
         final OutputStream streamToPrintServer = printServer.getOutputStream();
@@ -249,7 +250,7 @@ public final class IpdsProxy {
     /**
      * Reads data from an {@link InputStream} (which may be the input side of the print server
      * or the printer) and writes all read data to an {@link OutputStream} (which is the counterpart
-     * the the {@link InputStream}.
+     * of the the {@link InputStream}.
      *
      * @param in {@link InputStream} to read from
      * @param out {@link OutputStream} to write to
