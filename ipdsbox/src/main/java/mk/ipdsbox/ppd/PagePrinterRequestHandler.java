@@ -1,7 +1,7 @@
 package mk.ipdsbox.ppd;
 
 /**
- * This is the handler interface for every contructed {@link PagePrinterRequest}.
+ * This is the handler interface for every constructed {@link PagePrinterRequest}.
  */
 public interface PagePrinterRequestHandler {
 

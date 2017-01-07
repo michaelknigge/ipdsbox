@@ -8,6 +8,7 @@ generell:
 --- BIN
 --- etc.
 -- Zum Lesen den DataInputStream verwenden: https://docs.oracle.com/javase/7/docs/api/java/io/DataInputStream.html
+    oder besser https://www.cs.rit.edu/~ark/pj/doc/edu/rit/io/DataInputStream.html (da gibt es auch readUnsignedLong etc.)
 
 
 
