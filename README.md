@@ -75,7 +75,7 @@ LFI          | X'D60F'   | Load Font Index                        | Loaded Font 
 LSS          | X'D61E'   | Load Symbol Set                        | Loaded Font      | :x:
 
 # XOH Orders
-The IPDS command "Execute Order Home State" (XOH) ist a rather complex command that isused to
+The IPDS command "Execute Order Home State" (XOH) ist a rather complex command that is used to
 execute orders when the printer is in *Home State*. The following table shows the orders and the
 current status of the corresponding support of the order (*"supported"* means that ipdsbox can 
 parse the order and create a specific Java object for it).
