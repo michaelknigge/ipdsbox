@@ -22,10 +22,10 @@ public final class GroupIdDataFormatX01 extends GroupIdData {
     public GroupIdDataFormatX01(final byte[] raw) throws IOException {
         super(raw, GroupIdFormat.MVS_AND_VSE);
 
-        this.jobClass = this.getStream().readEbcdicEncodedString(1).trim();
-        this.jobName = this.getStream().readEbcdicEncodedString(8).trim();
-        this.jobId = this.getStream().readEbcdicEncodedString(8).trim();
-        this.forms = this.getStream().readEbcdicEncodedString(8).trim();
+        this.jobClass = this.getStream().readEbcdicString(1).trim();
+        this.jobName = this.getStream().readEbcdicString(8).trim();
+        this.jobId = this.getStream().readEbcdicString(8).trim();
+        this.forms = this.getStream().readEbcdicString(8).trim();
     }
 
     @Override

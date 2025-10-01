@@ -23,11 +23,11 @@ public final class GroupIdDataFormatX02 extends GroupIdData {
     public GroupIdDataFormatX02(final byte[] raw) throws IOException {
         super(raw, GroupIdFormat.VM);
 
-        this.spoolClass = this.getStream().readEbcdicEncodedString(1).trim();
-        this.fileName = this.getStream().readEbcdicEncodedString(8).trim();
-        this.userId = this.getStream().readEbcdicEncodedString(8).trim();
-        this.formName = this.getStream().readEbcdicEncodedString(8).trim();
-        this.spoolId = this.getStream().readEbcdicEncodedString(4).trim();
+        this.spoolClass = this.getStream().readEbcdicString(1).trim();
+        this.fileName = this.getStream().readEbcdicString(8).trim();
+        this.userId = this.getStream().readEbcdicString(8).trim();
+        this.formName = this.getStream().readEbcdicString(8).trim();
+        this.spoolId = this.getStream().readEbcdicString(4).trim();
     }
 
     @Override

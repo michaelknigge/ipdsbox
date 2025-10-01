@@ -1,6 +1,7 @@
 package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 import de.textmode.ipdsbox.ipds.triplets.GroupInformationTriplet;
 
@@ -9,7 +10,7 @@ import de.textmode.ipdsbox.ipds.triplets.GroupInformationTriplet;
  */
 public final class GroupInformationDataFormatX05 extends GroupInformationData {
 
-    private final long pageCount;
+    private final BigInteger pageCount;
 
     /**
      * Constructs the {@link GroupInformationDataFormatX05}.
@@ -19,7 +20,14 @@ public final class GroupInformationDataFormatX05 extends GroupInformationData {
     public GroupInformationDataFormatX05(final byte[] raw) throws IOException {
         super(raw, GroupInformationFormat.PAGE_COUNT);
 
-        this.pageCount = this.getStream().readQuadrupleWord();
+        final String leftPart = String.valueOf(this.getStream().readUnsignedInteger32());
+        final String rightPart = String.valueOf(this.getStream().readUnsignedInteger32());
+
+        this.pageCount = BigInteger
+                .ZERO
+                .add(new BigInteger(leftPart))
+                .shiftLeft(4)
+                .add(new BigInteger(rightPart));
     }
 
     /**
@@ -31,7 +39,7 @@ public final class GroupInformationDataFormatX05 extends GroupInformationData {
      * completely accurate in all circumstances.
      * @return the page count.
      */
-    public long getPageCount() {
+    public BigInteger getPageCount() {
         return this.pageCount;
     }
 

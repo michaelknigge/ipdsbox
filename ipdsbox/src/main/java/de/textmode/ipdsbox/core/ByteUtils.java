@@ -1,0 +1,124 @@
+package de.textmode.ipdsbox.core;
+
+/**
+ * Some utility methods for handling bytes in IPDS commands.
+ */
+public final class ByteUtils {
+
+    /**
+     * An empty byte array.
+     */
+    public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+
+    /**
+     * An empty int array.
+     */
+    public static final int[] EMPTY_INT_ARRAY = new int[0];
+
+    /**
+     * An empty String.
+     */
+    public static final String EMPTY_STRING = "";
+
+    /**
+     * Converts one bytes from a byte array to an unsigned integer.
+     *
+     * @param src     the source array.
+     * @param srcPos  starting position in the source array.
+     *
+     * @return the unsigned 8-bit value of the converted byte.
+     */
+    public static int toUnsignedByte(final byte[] src, final int srcPos) {
+        return src[srcPos] & 0xFF;
+    }
+
+    /**
+     * Converts one bytes from a byte array to a signed integer.
+     *
+     * @param src     the source array.
+     * @param srcPos  starting position in the source array.
+     *
+     * @return the signed 8-bit value of the converted byte.
+     */
+    public static int toByte(final byte[] src, final int srcPos) {
+        return src[srcPos];
+    }
+
+    /**
+     * Converts two bytes from a byte array to an unsigned integer (big endian format).
+     *
+     * @param src     the source array.
+     * @param srcPos  starting position in the source array.
+     *
+     * @return the unsigned 16-bit value of the converted bytes.
+     */
+    public static int toUnsignedInteger16(final byte[] src, final int srcPos) {
+        return ((src[srcPos] & 0xFF) << 8) | (src[srcPos + 1] & 0xFF);
+    }
+
+    /**
+     * Converts two bytes from a byte array to a signed integer (big endian format).
+     *
+     * @param src     the source array.
+     * @param srcPos  starting position in the source array.
+     *
+     * @return the signed 16-bit value of the converted bytes.
+     */
+    public static int toInteger16(final byte[] src, final int srcPos) {
+        return (src[srcPos] << 8) | (src[srcPos + 1] & 0xFF);
+    }
+
+    /**
+     * Converts three bytes from a byte array to an unsigned integer (big endian format).
+     *
+     * @param src     the source array.
+     * @param srcPos  starting position in the source array.
+     *
+     * @return the unsigned 24-bit value of the converted bytes.
+     */
+    public static int toUnsignedInteger24(final byte[] src, final int srcPos) {
+        return ((src[srcPos] & 0xFF) << 16) | ((src[srcPos + 1] & 0xFF) << 8) | (src[srcPos + 2] & 0xFF);
+    }
+
+    /**
+     * Converts three bytes from a byte array to an signed integer (big endian format).
+     *
+     * @param src     the source array.
+     * @param srcPos  starting position in the source array.
+     *
+     * @return the signed 24-bit value of the converted bytes.
+     */
+    public static int toInteger24(final byte[] src, final int srcPos) {
+        return (src[srcPos] << 16) | ((src[srcPos + 1] & 0xFF) << 8) | (src[srcPos + 2] & 0xFF);
+    }
+
+    /**
+     * Converts four bytes from a byte array to an unsigned long (big endian format).
+     *
+     * @param src     the source array.
+     * @param srcPos  starting position in the source array.
+     *
+     * @return the unsigned 32-bit value of the converted bytes.
+     */
+    public static long toUnsignedInteger32(final byte[] src, final int srcPos) {
+        return ((long) (src[srcPos] & 0xFF) << 24)
+                | (long) (src[srcPos + 1] & 0xFF) << 16
+                | (long) (src[srcPos + 2] & 0xFF) << 8
+                | (long) src[srcPos + 3] & 0xFF;
+    }
+
+    /**
+     * Converts four bytes from a byte array to an signed integer (big endian format).
+     *
+     * @param src     the source array.
+     * @param srcPos  starting position in the source array.
+     *
+     * @return the signed 32-bit value of the converted bytes.
+     */
+    public static int toInteger32(final byte[] src, final int srcPos) {
+        return (src[srcPos] << 24)
+                | ((src[srcPos + 1] & 0xFF) << 16)
+                | ((src[srcPos + 2] & 0xFF) << 8)
+                | (src[srcPos + 3] & 0xFF);
+    }
+}

@@ -20,8 +20,8 @@ public final class GroupInformationDataFormatX82 extends GroupInformationData {
     public GroupInformationDataFormatX82(final byte[] raw) throws IOException {
         super(raw, GroupInformationFormat.EXTENDED_COPY_SET_NUMBER);
 
-        this.copySetNumber = this.getStream().readDoubleWord();
-        this.totalCopies = this.getStream().readDoubleWord();
+        this.copySetNumber = this.getStream().readUnsignedInteger32();
+        this.totalCopies = this.getStream().readUnsignedInteger32();
     }
 
     /**

@@ -19,7 +19,7 @@ public final class GroupInformationDataFormatX02 extends GroupInformationData {
     public GroupInformationDataFormatX02(final byte[] raw) throws IOException {
         super(raw, GroupInformationFormat.COPY_SET_NUMBER);
 
-        this.copySetNumber = this.getStream().readWord();
+        this.copySetNumber = this.getStream().readUnsignedInteger16();
     }
 
     /**

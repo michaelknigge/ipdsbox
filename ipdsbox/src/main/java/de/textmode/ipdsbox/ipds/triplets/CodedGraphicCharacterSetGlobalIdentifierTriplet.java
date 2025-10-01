@@ -20,14 +20,14 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     public CodedGraphicCharacterSetGlobalIdentifierTriplet(final byte[] raw) throws IOException {
         super(raw, TripletId.CodedGraphicCharacterSetGlobalIdentifier);
 
-        this.graphicCharacterSetGlobalIdentifier = this.getStream().readWord();
+        this.graphicCharacterSetGlobalIdentifier = this.getStream().readUnsignedInteger16();
 
         if (this.graphicCharacterSetGlobalIdentifier == 0) {
-            this.codedCharacterSetIdentifier = this.getStream().readWord();
+            this.codedCharacterSetIdentifier = this.getStream().readUnsignedInteger16();
             this.codePageGlobalIdentifier = 0;
         } else {
             this.codedCharacterSetIdentifier = 0;
-            this.codePageGlobalIdentifier = this.getStream().readWord();
+            this.codePageGlobalIdentifier = this.getStream().readUnsignedInteger16();
         }
     }
 

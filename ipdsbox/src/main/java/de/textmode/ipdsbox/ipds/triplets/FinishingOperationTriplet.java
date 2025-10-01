@@ -268,6 +268,7 @@ public final class FinishingOperationTriplet extends Triplet {
     }
 
     private final OperationType operationType;
+    private final int finishingOption;
     private final ReferenceCorner referenceCorner;
     private final int count;
     private final int axisOffset;
@@ -282,15 +283,16 @@ public final class FinishingOperationTriplet extends Triplet {
     public FinishingOperationTriplet(final byte[] raw) throws IOException, InvalidIpdsCommandException {
         super(raw, TripletId.FinishingOperation);
 
-        this.operationType = OperationType.getFor(this.getStream().readByte());
-        this.getStream().skip(2);
-        this.referenceCorner = ReferenceCorner.getFor(this.getStream().readByte());
-        this.count = this.getStream().readByte();
-        this.axisOffset = this.getStream().readWord();
+        this.operationType = OperationType.getFor(this.getStream().readUnsignedByte());
+        this.finishingOption = this.getStream().readUnsignedByte();
+        this.getStream().skip(1);
+        this.referenceCorner = ReferenceCorner.getFor(this.getStream().readUnsignedByte());
+        this.count = this.getStream().readUnsignedByte();
+        this.axisOffset = this.getStream().readUnsignedInteger16();
 
         this.positions = new ArrayList<>();
-        while (this.getStream().available() != 0) {
-            this.positions.add(this.getStream().readWord());
+        while (this.getStream().bytesAvailable() != 0) {
+            this.positions.add(this.getStream().readUnsignedInteger16());
         }
     }
 

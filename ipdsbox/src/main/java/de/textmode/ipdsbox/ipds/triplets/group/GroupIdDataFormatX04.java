@@ -28,14 +28,14 @@ public final class GroupIdDataFormatX04 extends GroupIdData {
         super(raw, GroupIdFormat.MVS_AND_VSE_COM);
 
         this.fileFype = this.getStream().readByte();
-        this.jobClass = this.getStream().readEbcdicEncodedString(1).trim();
-        this.jobName = this.getStream().readEbcdicEncodedString(8).trim();
-        this.jobId = this.getStream().readEbcdicEncodedString(8).trim();
-        this.forms = this.getStream().readEbcdicEncodedString(8).trim();
-        this.programmerName = this.getStream().readEbcdicEncodedString(60).trim();
-        this.roomNumber = this.getStream().readEbcdicEncodedString(60).trim();
-        this.submissionDate = this.getStream().readEbcdicEncodedString(11).trim();
-        this.submissionTime = this.getStream().readEbcdicEncodedString(11).trim();
+        this.jobClass = this.getStream().readEbcdicString(1).trim();
+        this.jobName = this.getStream().readEbcdicString(8).trim();
+        this.jobId = this.getStream().readEbcdicString(8).trim();
+        this.forms = this.getStream().readEbcdicString(8).trim();
+        this.programmerName = this.getStream().readEbcdicString(60).trim();
+        this.roomNumber = this.getStream().readEbcdicString(60).trim();
+        this.submissionDate = this.getStream().readEbcdicString(11).trim();
+        this.submissionTime = this.getStream().readEbcdicString(11).trim();
     }
 
     @Override

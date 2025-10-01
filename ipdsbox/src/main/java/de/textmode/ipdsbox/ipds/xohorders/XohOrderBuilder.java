@@ -31,7 +31,7 @@ public final class XohOrderBuilder {
     public static XohOrder build(final byte[] data)
         throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
         final IpdsByteArrayInputStream in = new IpdsByteArrayInputStream(data);
-        final XohOrderCode code = XohOrderCode.getFor(in.readWord());
+        final XohOrderCode code = XohOrderCode.getFor(in.readUnsignedInteger16());
 
         switch (code) {
         case DeactivateSavedPageGroup:

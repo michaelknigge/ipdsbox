@@ -21,7 +21,9 @@ public final class GroupIdDataFormatX05 extends GroupIdData {
         super(raw, GroupIdFormat.AIX_AND_OS2);
 
         this.fileFype = this.getStream().readByte();
-        this.fileName = this.getStream().readAsciiEncodedString().trim();
+        this.fileName = this.getStream()
+                .readAsciiString(this.getStream().bytesAvailable())
+                .trim();
     }
 
     @Override

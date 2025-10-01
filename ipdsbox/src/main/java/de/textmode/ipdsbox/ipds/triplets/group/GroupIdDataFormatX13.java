@@ -26,14 +26,14 @@ public final class GroupIdDataFormatX13 extends GroupIdData {
     public GroupIdDataFormatX13(final byte[] raw) throws IOException {
         super(raw, GroupIdFormat.EXTENDED_OS400);
 
-        this.libraryName = this.getStream().readEbcdicEncodedString(10).trim();
-        this.queueName = this.getStream().readEbcdicEncodedString(10).trim();
-        this.fileName = this.getStream().readEbcdicEncodedString(10).trim();
-        this.fileNumber = this.getStream().readEbcdicEncodedString(6).trim();
-        this.jobName = this.getStream().readEbcdicEncodedString(10).trim();
-        this.userName = this.getStream().readEbcdicEncodedString(10).trim();
-        this.jobNumber = this.getStream().readEbcdicEncodedString(6).trim();
-        this.formsName = this.getStream().readEbcdicEncodedString(10).trim();
+        this.libraryName = this.getStream().readEbcdicString(10).trim();
+        this.queueName = this.getStream().readEbcdicString(10).trim();
+        this.fileName = this.getStream().readEbcdicString(10).trim();
+        this.fileNumber = this.getStream().readEbcdicString(6).trim();
+        this.jobName = this.getStream().readEbcdicString(10).trim();
+        this.userName = this.getStream().readEbcdicString(10).trim();
+        this.jobNumber = this.getStream().readEbcdicString(6).trim();
+        this.formsName = this.getStream().readEbcdicString(10).trim();
     }
 
     @Override

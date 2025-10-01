@@ -19,7 +19,9 @@ public final class GroupIdDataFormatX06 extends GroupIdData {
     public GroupIdDataFormatX06(final byte[] raw) throws IOException {
         super(raw, GroupIdFormat.AIX_AND_WINDOWS);
 
-        this.fileName = this.getStream().readAsciiEncodedString().trim();
+        this.fileName = this.getStream()
+                .readAsciiString(this.getStream().bytesAvailable())
+                .trim();
     }
 
     @Override
