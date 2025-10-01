@@ -1,1 +1,3 @@
-// currently empty!
+plugins {
+    id 'java-library'
+}

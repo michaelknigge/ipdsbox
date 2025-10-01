@@ -1,42 +1,73 @@
-defaultTasks 'clean', 'test', 'check', 'checkstyleMain', 'checkstyleTest', 'assemble'
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'com.github.spotbugs' version '6.0.18' apply false
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
 
 subprojects {
+    apply plugin: 'java'
+    apply plugin: 'checkstyle'
+    apply plugin: 'com.github.spotbugs'
 
-  apply plugin: 'java'
-  apply plugin: 'eclipse'
-  apply plugin: 'checkstyle'
-  apply plugin: 'jacoco'
-  apply plugin: 'findbugs'
-  
-  check.dependsOn jacocoTestReport
-  
-  tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    sourceCompatibility = '1.7'
-    targetCompatibility = '1.7'
-  }
+    group = "mk.ipdsbox"
+    version = "0.0.1"
 
-  javadoc {
-    options.encoding = 'UTF-8'
-  }
-
-  repositories {
-    jcenter()
-  }
-
-  dependencies {
-    compile 'com.google.code.findbugs:annotations:3.0.1'
-    testCompile 'junit:junit:4.12'
-  }
-  
-  checkstyle {
-    configFile = new File(rootDir, "config/checkstyle.xml")
-  }
-
-  jacocoTestReport {
-    reports {
-      xml.enabled = true
-      html.enabled = true
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
     }
-  }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+    }
+
+    checkstyle {
+        toolVersion = "10.17.0"
+        config = resources.text.fromFile("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
+    }
+
+    tasks.withType(Checkstyle).configureEach {
+        reports {
+            xml.required.set(false)
+            html.required.set(true)
+        }
+    }
+
+    dependencies {
+        compileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.0'
+
+        testCompileOnly 'com.github.spotbugs:spotbugs-annotations:4.9.0'
+		
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.14.0'
+        testImplementation 'org.junit.vintage:junit-vintage-engine:5.14.0'
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    }
+   
+    tasks.withType(Test).configureEach {
+        useJUnitPlatform()
+    }
+
+    spotbugs {
+        toolVersion = "4.9.0"
+        effort = "max"
+        reportLevel = "low"
+    }
+
+    tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+        reports {
+            xml.required.set(false)
+            html.required.set(true)
+        }
+    }
+
+    tasks.named("check") {
+        dependsOn("checkstyleMain", "spotbugsMain")
+    }
 }
