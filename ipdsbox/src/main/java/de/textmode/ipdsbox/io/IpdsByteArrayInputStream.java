@@ -40,7 +40,6 @@ public final class IpdsByteArrayInputStream {
     public IpdsByteArrayInputStream(final byte[] data, final int startOffset, final int paddingBytesToIgnore) {
         this.data = data;
         this.offset = startOffset;
-        // TODO: Hmmmmmm... will this work under z/OS for RECFM=FB???? Maybe better to pass off + len!?
         this.bytesLeft = data.length - startOffset - paddingBytesToIgnore;
     }
 
@@ -71,9 +70,9 @@ public final class IpdsByteArrayInputStream {
     }
 
     /**
-     * Returns the current offset within the {@link IpdsDataInputStream}.
+     * Returns the current offset within the {@link IpdsByteArrayInputStream}.
      *
-     * @return the current offset within the {@link IpdsDataInputStream}.
+     * @return the current offset within the {@link IpdsByteArrayInputStream}.
      */
     public int tell() {
         return this.offset;
