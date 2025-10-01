@@ -4,8 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-
-import javax.xml.bind.DatatypeConverter;
+import java.util.HexFormat;
 
 import junit.framework.TestCase;
 
@@ -23,7 +22,7 @@ public final class PagePrinterRequestReaderTest extends TestCase {
      * @throws IOException If the data is invalid
      */
     private PagePrinterRequest getRequestFromStream(final String data) throws IOException {
-        final byte[] input = DatatypeConverter.parseHexBinary(data);
+        final byte[] input = HexFormat.of().parseHex(data);
         final ByteArrayInputStream stream = new ByteArrayInputStream(input);
         return PagePrinterRequestReader.read(stream);
     }

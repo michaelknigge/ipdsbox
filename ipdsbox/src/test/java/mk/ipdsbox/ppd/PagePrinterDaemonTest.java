@@ -3,10 +3,9 @@ package mk.ipdsbox.ppd;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HexFormat;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.xml.bind.DatatypeConverter;
 
 import junit.framework.TestCase;
 import mk.ipdsbox.core.IpdsConfigurationException;
@@ -154,7 +153,7 @@ public final class PagePrinterDaemonTest extends TestCase implements Observer {
 
         // This is usually the first PPD/PPR command sent to the IPDS printer
         // after the connection has been established...
-        final byte[] data = DatatypeConverter.parseHexBinary("00000010000000010000000100000002");
+        final byte[] data = HexFormat.of().parseHex("00000010000000010000000100000002");
 
         for (int i = 0; i < 3; ++i) {
             final Socket socket = new Socket(LOCALHOST, PORT_NUMBER);

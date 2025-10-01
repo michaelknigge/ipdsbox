@@ -1,8 +1,7 @@
 package mk.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
-
-import javax.xml.bind.DatatypeConverter;
+import java.util.HexFormat;
 
 import junit.framework.TestCase;
 import mk.ipdsbox.core.InvalidIpdsCommandException;
@@ -26,7 +25,7 @@ public final class TripletTest extends TestCase {
         final int len = (hex.length() / 2) + 2;
         final String withLen = String.format("%02X%02X", len, id.getId()) + hex;
 
-        return TripletBuilder.build(DatatypeConverter.parseHexBinary(withLen));
+        return TripletBuilder.build(HexFormat.of().parseHex(withLen));
     }
 
     /**
@@ -54,7 +53,7 @@ public final class TripletTest extends TestCase {
      */
     public void testWithNoData() throws Exception {
 
-        final Triplet testTriplet = TripletBuilder.build(DatatypeConverter.parseHexBinary("0200"));
+        final Triplet testTriplet = TripletBuilder.build(HexFormat.of().parseHex("0200"));
 
         assertEquals(2, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());
@@ -66,7 +65,7 @@ public final class TripletTest extends TestCase {
      */
     public void testWithSomeBytesOfData() throws Exception {
 
-        final Triplet testTriplet = TripletBuilder.build(DatatypeConverter.parseHexBinary("060006007807"));
+        final Triplet testTriplet = TripletBuilder.build(HexFormat.of().parseHex("060006007807"));
 
         assertEquals(6, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());

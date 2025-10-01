@@ -18,7 +18,6 @@ public final class ExceptionHelperTest extends TestCase {
 
         assertTrue(s.startsWith("java.io.IOException: This is e1"));
         assertTrue(s.contains("    at mk.ipdsbox.core.ExceptionHelperTest."));
-        assertTrue(s.contains("    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)"));
     }
 
     /**
@@ -32,6 +31,5 @@ public final class ExceptionHelperTest extends TestCase {
         assertTrue(s.startsWith("java.io.IOException: This is e2"));
         assertTrue(s.contains("Caused by: java.io.IOException: This is e1"));
         assertTrue(s.contains("    at mk.ipdsbox.core.ExceptionHelperTest."));
-        assertTrue(s.contains("    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)"));
     }
 }

@@ -1,8 +1,7 @@
 package mk.ipdsbox.ipds.commands;
 
 import java.io.IOException;
-
-import javax.xml.bind.DatatypeConverter;
+import java.util.HexFormat;
 
 import junit.framework.TestCase;
 import mk.ipdsbox.core.InvalidIpdsCommandException;
@@ -30,7 +29,7 @@ public final class ExecuteOrderHomeStateCommandTest extends TestCase {
         final int len = (withoutLen.length() / 2) + 2;
         final String withLen = String.format("%04X", len) + withoutLen;
 
-        return new ExecuteOrderHomeStateCommand(DatatypeConverter.parseHexBinary(withLen)).getOrder();
+        return new ExecuteOrderHomeStateCommand(HexFormat.of().parseHex(withLen)).getOrder();
     }
 
     /**
