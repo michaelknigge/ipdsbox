@@ -15,7 +15,7 @@ subprojects {
     apply plugin: 'checkstyle'
     apply plugin: 'com.github.spotbugs'
 
-    group = "mk.ipdsbox"
+    group = "de.textmode.ipdsbox"
     version = "0.0.1"
 
     java {
