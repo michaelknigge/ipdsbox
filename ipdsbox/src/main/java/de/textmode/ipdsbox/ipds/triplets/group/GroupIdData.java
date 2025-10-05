@@ -23,7 +23,7 @@ public abstract class GroupIdData {
     protected GroupIdData(final byte[] raw, final GroupIdFormat expectedFormat) throws IOException {
         this.stream = new IpdsByteArrayInputStream(raw);
 
-        final int length = this.stream.readByte();
+        final int length = this.stream.readUnsignedByte();
         if (length < 3) {
             throw new IpdsboxRuntimeException("Passed Triplet is invalid");
         }
