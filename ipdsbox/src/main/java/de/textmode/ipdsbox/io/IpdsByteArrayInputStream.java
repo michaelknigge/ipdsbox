@@ -204,7 +204,7 @@ public final class IpdsByteArrayInputStream {
     }
 
     /**
-     * Reads and returns some bytes and treads the bytes as an encoded single byte character String.
+     * Reads and returns some bytes and treads the bytes as an ASCII encoded single byte character String.
      *
      * @param length length of the string
      *
@@ -242,7 +242,7 @@ public final class IpdsByteArrayInputStream {
     }
 
     /**
-     * Reads and returns one input byte. The byte is treated as an signed value.
+     * Reads and returns one input byte. The byte is treated as a signed value.
      *
      * @return the signed 8-bit value read.
      *
@@ -278,7 +278,7 @@ public final class IpdsByteArrayInputStream {
     }
 
     /**
-     * Reads two input bytes and returns a integer value. The value is treated as an signed value.
+     * Reads two input bytes and returns a integer value. The value is treated as a signed value.
      *
      * @return the signed 16-bit value read.
      *
@@ -314,7 +314,7 @@ public final class IpdsByteArrayInputStream {
     }
 
     /**
-     * Reads three input bytes and returns a integer value. The value is treated as an signed value.
+     * Reads three input bytes and returns a integer value. The value is treated as a signed value.
      *
      * @return the signed 24-bit value read.
      *
@@ -350,7 +350,7 @@ public final class IpdsByteArrayInputStream {
     }
 
     /**
-     * Reads four input bytes and returns a integer value. The value is treated as an signed value.
+     * Reads four input bytes and returns a integer value. The value is treated as a signed value.
      *
      * @return the signed 32-bit value read.
      *

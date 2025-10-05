@@ -81,7 +81,7 @@ public final class ByteUtils {
     }
 
     /**
-     * Converts three bytes from a byte array to an signed integer (big endian format).
+     * Converts three bytes from a byte array to a signed integer (big endian format).
      *
      * @param src     the source array.
      * @param srcPos  starting position in the source array.
@@ -108,7 +108,7 @@ public final class ByteUtils {
     }
 
     /**
-     * Converts four bytes from a byte array to an signed integer (big endian format).
+     * Converts four bytes from a byte array to a signed integer (big endian format).
      *
      * @param src     the source array.
      * @param srcPos  starting position in the source array.
