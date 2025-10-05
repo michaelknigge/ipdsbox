@@ -27,7 +27,7 @@ public final class GroupIdDataFormatX04 extends GroupIdData {
     public GroupIdDataFormatX04(final byte[] raw) throws IOException {
         super(raw, GroupIdFormat.MVS_AND_VSE_COM);
 
-        this.fileFype = this.getStream().readByte();
+        this.fileFype = this.getStream().readUnsignedByte();
         this.jobClass = this.getStream().readEbcdicString(1).trim();
         this.jobName = this.getStream().readEbcdicString(8).trim();
         this.jobId = this.getStream().readEbcdicString(8).trim();

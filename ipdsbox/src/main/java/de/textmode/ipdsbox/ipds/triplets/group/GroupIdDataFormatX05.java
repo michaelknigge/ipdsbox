@@ -20,7 +20,7 @@ public final class GroupIdDataFormatX05 extends GroupIdData {
     public GroupIdDataFormatX05(final byte[] raw) throws IOException {
         super(raw, GroupIdFormat.AIX_AND_OS2);
 
-        this.fileFype = this.getStream().readByte();
+        this.fileFype = this.getStream().readUnsignedByte();
         this.fileName = this.getStream()
                 .readAsciiString(this.getStream().bytesAvailable())
                 .trim();

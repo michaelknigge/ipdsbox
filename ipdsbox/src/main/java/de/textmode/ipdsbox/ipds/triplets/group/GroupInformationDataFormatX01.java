@@ -19,7 +19,7 @@ public final class GroupInformationDataFormatX01 extends GroupInformationData {
     public GroupInformationDataFormatX01(final byte[] raw) throws IOException {
         super(raw, GroupInformationFormat.MICROFILM_SAVE_RESTORE);
 
-        this.indicatorByte = this.getStream().readByte();
+        this.indicatorByte = this.getStream().readUnsignedByte();
     }
 
     /**

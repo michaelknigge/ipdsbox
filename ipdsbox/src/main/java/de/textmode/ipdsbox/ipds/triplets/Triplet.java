@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Triplets are variable-length substructures that can be used within one or more IPDS commands to provide
@@ -23,6 +22,7 @@ public abstract class Triplet {
      */
     public Triplet(final byte[] raw, final TripletId tripletId) {
 
+        // TEST "raw" is no longer required... Except for the if here...
         if ((raw[1] & 0xFF) != tripletId.getId()) {
             throw new IpdsboxRuntimeException("Passed invalid data");
         }
@@ -31,6 +31,7 @@ public abstract class Triplet {
         this.tripletId = tripletId;
         this.data = new byte[raw.length - 2];
 
+        // For "high performance" we could use the given raw data instead of making a copy of the data...
         System.arraycopy(raw, 2, this.data, 0, raw.length - 2);
 
         this.stream = new IpdsByteArrayInputStream(this.data);
@@ -64,8 +65,8 @@ public abstract class Triplet {
      * Returns the data of the Triplet.
      * @return the data of the Triplet (not including the length field and the Triplet ID).
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is intended that the buffer may be modified")
-    public final byte[] getData() {
-        return this.data;
-    }
+    //@SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is intended that the buffer may be modified")
+    //public final byte[] getData() {
+    //    return this.data;
+    //}
 }

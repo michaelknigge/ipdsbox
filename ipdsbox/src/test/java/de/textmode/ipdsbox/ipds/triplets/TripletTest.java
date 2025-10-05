@@ -57,7 +57,7 @@ public final class TripletTest extends TestCase {
 
         assertEquals(2, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());
-        assertEquals(0, testTriplet.getData().length);
+        assertEquals(0, testTriplet.getStream().bytesAvailable());
     }
 
     /**
@@ -69,12 +69,12 @@ public final class TripletTest extends TestCase {
 
         assertEquals(6, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());
-        assertEquals(4, testTriplet.getData().length);
+        assertEquals(4, testTriplet.getStream().bytesAvailable());
 
-        assertEquals(0x06, testTriplet.getData()[0]);
-        assertEquals(0x00, testTriplet.getData()[1]);
-        assertEquals(0x78, testTriplet.getData()[2]);
-        assertEquals(0x07, testTriplet.getData()[3]);
+        assertEquals(0x06, testTriplet.getStream().readByte());
+        assertEquals(0x00, testTriplet.getStream().readByte());
+        assertEquals(0x78, testTriplet.getStream().readByte());
+        assertEquals(0x07, testTriplet.getStream().readByte());
     }
 
     /**
@@ -95,11 +95,15 @@ public final class TripletTest extends TestCase {
 
         assertEquals(255, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());
-        assertEquals(253, testTriplet.getData().length);
+        assertEquals(253, testTriplet.getStream().bytesAvailable());
 
-        assertEquals(0x06, testTriplet.getData()[0]);
-        assertEquals(0x03, testTriplet.getData()[1]);
+        assertEquals(0x06, testTriplet.getStream().readByte());
+        assertEquals(0x03, testTriplet.getStream().readByte());
+
         // .... 0x04, 0x05, 0x06, .....
-        assertEquals(254, testTriplet.getData()[252] & 0xFF);
+        testTriplet.getStream().skip(250);
+        assertEquals(1, testTriplet.getStream().bytesAvailable());
+
+        assertEquals(254, testTriplet.getStream().readByte() & 0xFF);
     }
 }
