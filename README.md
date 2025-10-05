@@ -4,6 +4,9 @@
 
 This project provides a framework that allows you to implement a virtual [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printer. Each received [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream and than sent back to the server.
 
+# License
+The source code is publicy available, but using the source code in commercial products requires a commercial license. See the file [LICENSE](./LICENSE) for the full license details.
+
 # PPD/PPR protocol
 LAN attached [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printers are using an special protocol named *"PPD/PPR"* (Page Printer Daemon / Page Printer Requester). This protocol encapsulates the native [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream for printers that are attached by [TCP/IP](https://en.wikipedia.org/wiki/Internet_protocol_suite) (and not by [SNA](https://en.wikipedia.org/wiki/IBM_Systems_Network_Architecture)).
 
