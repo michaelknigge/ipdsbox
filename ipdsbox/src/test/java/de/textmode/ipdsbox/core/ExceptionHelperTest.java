@@ -17,7 +17,7 @@ public final class ExceptionHelperTest extends TestCase {
         final String s = ExceptionHelper.stackTraceToString(e);
 
         assertTrue(s.startsWith("java.io.IOException: This is e1"));
-        assertTrue(s.contains("    at mk.ipdsbox.core.ExceptionHelperTest."));
+        assertTrue(s.contains("    at de.textmode.ipdsbox.core.ExceptionHelperTest."));
     }
 
     /**
@@ -30,6 +30,6 @@ public final class ExceptionHelperTest extends TestCase {
 
         assertTrue(s.startsWith("java.io.IOException: This is e2"));
         assertTrue(s.contains("Caused by: java.io.IOException: This is e1"));
-        assertTrue(s.contains("    at mk.ipdsbox.core.ExceptionHelperTest."));
+        assertTrue(s.contains("    at de.textmode.ipdsbox.core.ExceptionHelperTest."));
     }
 }
