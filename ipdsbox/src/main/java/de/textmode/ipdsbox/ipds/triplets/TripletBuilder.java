@@ -26,7 +26,9 @@ public final class TripletBuilder {
      */
     public static Triplet build(final byte[] data)
         throws UnknownTripletException, IOException, InvalidIpdsCommandException {
+
         final TripletId triplet = TripletId.getFor(data[1] & 0xFF);
+        
         switch (triplet) {
         case CMRTagFidelity:
             throw new UnknownTripletException("currently unsupported");
@@ -49,7 +51,7 @@ public final class TripletBuilder {
         case FinishingOperation:
             return new FinishingOperationTriplet(data);
         case FontResolutionandMetricTechnology:
-            throw new UnknownTripletException("currently unsupported");
+            return new FontResolutionAndMetricTechnologyTriplet(data);
         case FullyQualifiedName:
             return new FullyQualifiedNameTriplet(data);
         case GroupID:
