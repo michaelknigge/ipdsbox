@@ -122,7 +122,7 @@ X'70' | Presentation Space Reset Mixing               | :x:
 X'74' | Toner Saver                                   | :x:
 X'75' | Color Fidelity                                | :x:
 X'79' | Metric Adjustment                             | :x:
-X'84' | Font Resolution and Metric Technology         | :x:
+X'84' | Font Resolution and Metric Technology         | :white_check_mark:
 X'85' | Finishing Operation                           | :white_check_mark:
 X'86' | Text Fidelity                                 | :x:
 X'88' | Finishing Fidelity                            | :x:
