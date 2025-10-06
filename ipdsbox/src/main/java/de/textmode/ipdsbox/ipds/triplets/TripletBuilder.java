@@ -67,7 +67,7 @@ public final class TripletBuilder {
         case LinkedFont:
             throw new UnknownTripletException("currently unsupported");
         case LocalDateandTimeStamp:
-            throw new UnknownTripletException("currently unsupported");
+            return new LocalDateTimeStampTriplet(data);
         case MetricAdjustment:
             throw new UnknownTripletException("currently unsupported");
         case ObjectContainerPresentationSpaceSize:

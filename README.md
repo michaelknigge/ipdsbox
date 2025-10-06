@@ -116,7 +116,7 @@ X'02' | Fully Qualified Name                          | :white_check_mark:
 X'4E' | Color Specification                           | :white_check_mark:
 X'50' | Encoding Scheme ID                            | :white_check_mark:
 X'5A' | Object Offset                                 | :white_check_mark:
-X'62' | Local Date and Time Stamp                     | :x:
+X'62' | Local Date and Time Stamp                     | :white_check_mark:
 X'6E' | Group Information                             | :white_check_mark:
 X'70' | Presentation Space Reset Mixing               | :x:
 X'74' | Toner Saver                                   | :x:
