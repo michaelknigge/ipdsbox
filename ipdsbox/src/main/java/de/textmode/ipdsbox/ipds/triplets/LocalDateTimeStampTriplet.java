@@ -17,7 +17,7 @@ public final class LocalDateTimeStampTriplet extends Triplet {
     private String hundredth;
 
     public LocalDateTimeStampTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.ObjectOffset);
+        super(raw, TripletId.LocalDateandTimeStamp);
         this.readFrom(new IpdsByteArrayInputStream(raw));
     }
 
