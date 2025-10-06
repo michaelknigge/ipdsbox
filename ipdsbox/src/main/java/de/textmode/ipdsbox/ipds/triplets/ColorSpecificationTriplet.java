@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
@@ -17,7 +16,7 @@ public final class ColorSpecificationTriplet extends Triplet {
     private int colSize4;
     private byte[] colorValue;
 
-    public ColorSpecificationTriplet(final byte[] raw) throws IOException, InvalidIpdsCommandException {
+    public ColorSpecificationTriplet(final byte[] raw) throws IOException {
         super(raw, TripletId.ColorSpecification);
     }
 
