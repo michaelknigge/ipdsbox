@@ -75,7 +75,7 @@ public final class TripletBuilder {
         case ObjectOffset:
             return new ObjectOffsetTriplet(data);
         case PresentationSpaceResetMixing:
-            throw new UnknownTripletException("currently unsupported");
+            return new PresentationSpaceResetMixingTriplet(data);
         case RenderingIntent:
             throw new UnknownTripletException("currently unsupported");
         case SetupName:
