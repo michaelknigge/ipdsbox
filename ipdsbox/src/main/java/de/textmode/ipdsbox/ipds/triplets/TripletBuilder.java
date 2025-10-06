@@ -62,6 +62,8 @@ public final class TripletBuilder {
             throw new UnknownTripletException("currently unsupported");
         case InvokeCMR:
             throw new UnknownTripletException("currently unsupported");
+        case InvokeTertiaryResource:
+            throw new UnknownTripletException("currently unsupported");
         case LinkedFont:
             throw new UnknownTripletException("currently unsupported");
         case LocalDateandTimeStamp:
@@ -75,6 +77,8 @@ public final class TripletBuilder {
         case PresentationSpaceResetMixing:
             throw new UnknownTripletException("currently unsupported");
         case RenderingIntent:
+            throw new UnknownTripletException("currently unsupported");
+        case SetupName:
             throw new UnknownTripletException("currently unsupported");
         case TextFidelity:
             throw new UnknownTripletException("currently unsupported");

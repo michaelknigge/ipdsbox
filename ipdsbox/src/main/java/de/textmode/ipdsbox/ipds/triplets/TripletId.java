@@ -160,7 +160,17 @@ public enum TripletId {
      * The Object Container Presentation Space Size triplet specifies the presentation space size
      * for a PDF object.
      */
-    ObjectContainerPresentationSpaceSize(0x9C, "Object Container Presentation Space Size");
+    ObjectContainerPresentationSpaceSize(0x9C, "Object Container Presentation Space Size"),
+
+    /**
+     * The Setup Name triplet specifies a setup name that encompasses some number of settings on a device.
+     */
+    SetupName(0x9E, "Setup Name"),
+
+    /**
+     * The Setup Name triplet specifies a setup name that encompasses some number of settings on a device.
+     */
+    InvokeTertiaryResource(0xA2, "Invoke Tertiary Resource");
 
     private static final Map<Integer, TripletId> REVERSE_MAP = new HashMap<>();
 
