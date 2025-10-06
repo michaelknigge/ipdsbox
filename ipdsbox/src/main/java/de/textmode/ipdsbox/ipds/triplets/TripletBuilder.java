@@ -51,7 +51,7 @@ public final class TripletBuilder {
         case FontResolutionandMetricTechnology:
             throw new UnknownTripletException("currently unsupported");
         case FullyQualifiedName:
-            throw new UnknownTripletException("currently unsupported");
+            return new FullyQualifiedNameTriplet(data);
         case GroupID:
             return new GroupIdTriplet(data);
         case GroupInformation:

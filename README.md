@@ -112,7 +112,7 @@ ID    | Name                                          | Supported
 ------|-----------------------------------------------|-------------------
 X'00' | Group ID                                      | :white_check_mark:
 X'01' | Coded Graphic Character Set Global Identifier | :white_check_mark:
-X'02' | Fully Qualified Name                          | :x:
+X'02' | Fully Qualified Name                          | :white_check_mark:
 X'4E' | Color Specification                           | :x:
 X'50' | Encoding Scheme ID                            | :x:
 X'5A' | Object Offset                                 | :x:
