@@ -114,7 +114,7 @@ X'00' | Group ID                                      | :white_check_mark:
 X'01' | Coded Graphic Character Set Global Identifier | :white_check_mark:
 X'02' | Fully Qualified Name                          | :white_check_mark:
 X'4E' | Color Specification                           | :white_check_mark:
-X'50' | Encoding Scheme ID                            | :x:
+X'50' | Encoding Scheme ID                            | :white_check_mark:
 X'5A' | Object Offset                                 | :x:
 X'62' | Local Date and Time Stamp                     | :x:
 X'6E' | Group Information                             | :white_check_mark:

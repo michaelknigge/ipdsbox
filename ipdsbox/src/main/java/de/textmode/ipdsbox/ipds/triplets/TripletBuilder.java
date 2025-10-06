@@ -45,7 +45,7 @@ public final class TripletBuilder {
         case DeviceAppearance:
             throw new UnknownTripletException("currently unsupported");
         case EncodingSchemeID:
-            throw new UnknownTripletException("currently unsupported");
+            return new EncodingSchemeIdTriplet(data);
         case FinishingFidelity:
             throw new UnknownTripletException("currently unsupported");
         case FinishingOperation:
