@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
+import de.textmode.ipdsbox.core.StringUtils;
+
 /**
  * The {@link IpdsByteArrayOutputStream} provides methods for writing native data types and
  * data types specific for IPDS.
@@ -45,6 +47,20 @@ public final class IpdsByteArrayOutputStream {
     }
 
     /**
+     * Writes an EBCDIC-International encoded String in the specified length (the String is filled
+     * up with spaces if needed or cutted off).
+     */
+    public void writeEbcdicString(final String toWrite, final int len) throws IOException {
+        if (toWrite.length() == len) {
+            this.baos.write(EBCDIC.encode(CharBuffer.wrap(toWrite)).array());
+        } else if (toWrite.length() >= len) {
+            this.baos.write(EBCDIC.encode(CharBuffer.wrap(toWrite.substring(0, len))).array());
+        } else {
+            this.baos.write(EBCDIC.encode(CharBuffer.wrap(StringUtils.padRight(toWrite, len))).array());
+        }
+    }
+
+    /**
      * Writes an ASCII encoded single byte character String.
      */
     public void writeAsciiString(final String toWrite) throws IOException {
@@ -52,17 +68,32 @@ public final class IpdsByteArrayOutputStream {
     }
 
     /**
+     * Writes an ASCII encoded single byte character String in the specified length (the String is filled
+     * up with spaces if needed or cutted off).
+     */
+    public void writeAsciiString(final String toWrite, final int len) throws IOException {
+        if (toWrite.length() == len) {
+            this.baos.write(ASCII.encode(CharBuffer.wrap(toWrite)).array());
+        } else if (toWrite.length() >= len) {
+            this.baos.write(ASCII.encode(CharBuffer.wrap(toWrite.substring(0, len))).array());
+        } else {
+            this.baos.write(ASCII.encode(CharBuffer.wrap(StringUtils.padRight(toWrite, len))).array());
+        }
+
+    }
+
+    /**
      * Writes one byte. The byte is treated as an unsigned value.
      */
     public void writeUnsignedByte(final int toWrite) throws IOException {
-        this.baos.write(toWrite & 0xFF); // TEST
+        this.baos.write(toWrite & 0xFF);
     }
 
     /**
      * Writes one input byte. The byte is treated as a signed value.
      */
     public void writeByte(final int toWrite) throws IOException {
-        this.baos.write(toWrite); // TEST
+        this.baos.write(toWrite);
     }
 
     /**
