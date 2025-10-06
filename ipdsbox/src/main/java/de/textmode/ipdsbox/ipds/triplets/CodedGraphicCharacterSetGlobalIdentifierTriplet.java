@@ -2,6 +2,8 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+
 /**
  * The Coded Graphic Character Set Global Identifier triplet (X'01') specifies the code page and
  * character set used to interpret character data.
@@ -65,4 +67,31 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     public int getGraphicCharacterSetGlobalIdentifier() {
         return this.graphicCharacterSetGlobalIdentifier;
     }
+
+    @Override
+    public byte[] toByteArray() throws IOException {
+        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+
+        out.writeUnsignedByte(6);
+        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedInteger16(this.graphicCharacterSetGlobalIdentifier);
+
+        if (this.graphicCharacterSetGlobalIdentifier == 0) {
+            out.writeUnsignedInteger16(this.codedCharacterSetIdentifier);
+        } else {
+            out.writeUnsignedInteger16(this.codePageGlobalIdentifier);
+        }
+
+        return out.toByteArray();
+    }
+
+    @Override
+    public String toString() {
+        return "CGCSGID{length=" + this.getLength() +
+                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                ", gcsgid=" + Integer.toHexString(this.graphicCharacterSetGlobalIdentifier) +
+                ", cpgid=" + Integer.toHexString(this.codePageGlobalIdentifier) +
+                ", ccsid=" + Integer.toHexString(this.codedCharacterSetIdentifier) + "}";
+    }
+
 }

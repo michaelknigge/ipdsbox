@@ -47,4 +47,10 @@ public abstract class GroupIdData {
     protected final IpdsByteArrayInputStream getStream() {
         return this.stream;
     }
+
+    /**
+     * Returns the raw bytes of this {@link GroupIdData}.
+     * @return the raw bytes of this {@link GroupIdData}.
+     */
+    public abstract byte[] toByteArray() throws IOException;
 }

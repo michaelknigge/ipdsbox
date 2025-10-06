@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.GroupInformationTriplet;
 
 /**
@@ -20,6 +21,13 @@ public final class GroupInformationDataFormatX02 extends GroupInformationData {
         super(raw, GroupInformationFormat.COPY_SET_NUMBER);
 
         this.copySetNumber = this.getStream().readUnsignedInteger16();
+    }
+
+    @Override
+    public byte[] toByteArray() throws IOException {
+        final IpdsByteArrayOutputStream os = new IpdsByteArrayOutputStream();
+        os.writeUnsignedInteger16(this.copySetNumber);
+        return os.toByteArray();
     }
 
     /**

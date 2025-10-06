@@ -28,6 +28,11 @@ public final class GroupInformationDataFormatX04 extends GroupInformationData {
     }
 
     @Override
+    public byte[] toByteArray() throws IOException {
+        return this.rawData;
+    }
+
+    @Override
     public String toString() {
         return "Group information = " + StringUtils.toHexString(this.rawData) + " (hex)";
     }

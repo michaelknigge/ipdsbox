@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
 
 /**
@@ -36,6 +37,23 @@ public final class GroupIdDataFormatX04 extends GroupIdData {
         this.roomNumber = this.getStream().readEbcdicString(60).trim();
         this.submissionDate = this.getStream().readEbcdicString(11).trim();
         this.submissionTime = this.getStream().readEbcdicString(11).trim();
+    }
+
+    @Override
+    public byte[] toByteArray() throws IOException {
+        final IpdsByteArrayOutputStream os = new IpdsByteArrayOutputStream();
+
+        os.writeUnsignedByte(this.fileFype);
+        os.writeEbcdicString(this.jobClass, 1);
+        os.writeEbcdicString(this.jobName, 8);
+        os.writeEbcdicString(this.jobId, 8);
+        os.writeEbcdicString(this.forms, 8);
+        os.writeEbcdicString(this.programmerName, 60);
+        os.writeEbcdicString(this.roomNumber, 60);
+        os.writeEbcdicString(this.submissionDate, 11);
+        os.writeEbcdicString(this.submissionTime, 11);
+
+        return os.toByteArray();
     }
 
     @Override

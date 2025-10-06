@@ -2,7 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.ipds.triplets.FinishingOperationTriplet.OperationType;
-import de.textmode.ipdsbox.ipds.triplets.FinishingOperationTriplet.ReferenceCorner;
+import de.textmode.ipdsbox.ipds.triplets.FinishingOperationTriplet.Reference;
 import junit.framework.TestCase;
 
 /**
@@ -36,11 +36,11 @@ public final class FinishingOperationTripletTest extends TestCase {
     }
 
     /**
-     * Checks if the reverse mapping of all {@link ReferenceCorner}s works.
+     * Checks if the reverse mapping of all {@link Reference}s works.
      */
     public void testAllReferenceCorners() throws Exception {
-        for (final ReferenceCorner f : ReferenceCorner.values()) {
-            final ReferenceCorner toCheck = ReferenceCorner.getFor(f.getValue());
+        for (final Reference f : Reference.values()) {
+            final FinishingOperationTriplet.Reference toCheck = Reference.getFor(f.getValue());
 
             assertEquals(f, toCheck);
             assertEquals(f.getValue(), toCheck.getValue());
@@ -53,7 +53,7 @@ public final class FinishingOperationTripletTest extends TestCase {
      */
     public void testUnknownReferenceCorner() {
         try {
-            ReferenceCorner.getFor(0xD0);
+            Reference.getFor(0xD0);
             fail();
         } catch (final InvalidIpdsCommandException e) {
             assert true; // Just to make Checkstyle happy...
@@ -71,7 +71,7 @@ public final class FinishingOperationTripletTest extends TestCase {
                 .buildTriplet(TripletId.FinishingOperation, hex);
 
         assertEquals(OperationType.FoldIn, triplet.getOperationType());
-        assertEquals(ReferenceCorner.TopRightCorner, triplet.getReferenceCorner());
+        assertEquals(Reference.TopRightCorner, triplet.getReference());
         assertEquals(0x00, triplet.getCount());
         assertEquals(0x1234, triplet.getAxisOffset());
         assertTrue(triplet.getPositions().isEmpty());
@@ -88,7 +88,7 @@ public final class FinishingOperationTripletTest extends TestCase {
                 .buildTriplet(TripletId.FinishingOperation, hex);
 
         assertEquals(OperationType.FoldIn, triplet.getOperationType());
-        assertEquals(ReferenceCorner.TopRightCorner, triplet.getReferenceCorner());
+        assertEquals(Reference.TopRightCorner, triplet.getReference());
         assertEquals(0x01, triplet.getCount());
         assertEquals(0x1234, triplet.getAxisOffset());
         assertEquals(1, triplet.getPositions().size());
@@ -106,7 +106,7 @@ public final class FinishingOperationTripletTest extends TestCase {
                 .buildTriplet(TripletId.FinishingOperation, hex);
 
         assertEquals(OperationType.FoldIn, triplet.getOperationType());
-        assertEquals(ReferenceCorner.TopRightCorner, triplet.getReferenceCorner());
+        assertEquals(Reference.TopRightCorner, triplet.getReference());
         assertEquals(0x02, triplet.getCount());
         assertEquals(0x1234, triplet.getAxisOffset());
         assertEquals(2, triplet.getPositions().size());

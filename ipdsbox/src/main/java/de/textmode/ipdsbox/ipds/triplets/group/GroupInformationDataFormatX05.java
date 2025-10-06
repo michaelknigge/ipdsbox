@@ -1,8 +1,6 @@
 package de.textmode.ipdsbox.ipds.triplets.group;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
+import java.io.*;
 
 import de.textmode.ipdsbox.ipds.triplets.GroupInformationTriplet;
 
@@ -26,6 +24,16 @@ public final class GroupInformationDataFormatX05 extends GroupInformationData {
         final DataInputStream dis = new DataInputStream(new ByteArrayInputStream(longBigEndian));
 
         this.pageCount = dis.readLong();
+    }
+
+    @Override
+    public byte[] toByteArray() throws IOException {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final DataOutputStream dos = new DataOutputStream(baos);
+
+        dos.writeLong(this.pageCount);
+
+        return baos.toByteArray();
     }
 
     /**

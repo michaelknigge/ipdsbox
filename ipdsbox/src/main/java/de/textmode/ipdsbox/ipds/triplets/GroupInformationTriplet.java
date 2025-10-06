@@ -3,6 +3,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.group.*;
 
 /**
@@ -25,6 +26,27 @@ public final class GroupInformationTriplet extends Triplet {
         this.data = this.format != null && raw.length > 3 ? this.parseFormatData(raw) : null;
     }
 
+    @Override
+    public byte[] toByteArray() throws IOException {
+        final byte[] dataBytes = this.data == null ? null : this.data.toByteArray();
+
+        final int len = 2 + (this.format == null ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
+
+        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+
+        out.writeUnsignedByte(len);
+        out.writeUnsignedByte(this.getTripletId().getId());
+
+        if (this.format != null) {
+            out.writeUnsignedByte(this.format.getId());
+        }
+
+        if (dataBytes != null) {
+            out.writeBytes(dataBytes);
+        }
+
+        return out.toByteArray();
+    }
     /**
      * Returns the {@link GroupInformationFormat} of the {@link GroupInformationTriplet} or <code>null</code> if the
      * {@link GroupInformationTriplet} does not contain grouping information.
@@ -60,7 +82,16 @@ public final class GroupInformationTriplet extends Triplet {
         case EXTENDED_COPY_SET_NUMBER:
             return new GroupInformationDataFormatX82(raw);
         default:
-            throw new IpdsboxRuntimeException("No case for " + this.format);
+            throw new IpdsboxRuntimeException("No case for " + this.format); // TEST is RuntimeException too much?!
         }
+    }
+
+    @Override
+    public String toString() {
+        return "GroupInformationTriplet{" +
+                "length=" + this.getLength() +
+                ", tid=0x" + String.format("%02X", this.getTripletId().getId()) +
+                ", format=" + this.format == null ? "no format" : this.format.getMeaning() +
+                ", data=" + this.data == null ? "no data" : this.data.toString();
     }
 }

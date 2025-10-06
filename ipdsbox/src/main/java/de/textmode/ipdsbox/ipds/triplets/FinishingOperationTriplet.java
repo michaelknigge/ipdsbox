@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
  * The Finishing Operation triplet (X'85') specifies a specific finishing operation to be
@@ -191,7 +192,7 @@ public final class FinishingOperationTriplet extends Triplet {
     /**
      * Reference corner and edge.
      */
-    public enum ReferenceCorner {
+    public enum Reference {
         /**
          * Bottom-right corner; bottom edge.
          */
@@ -217,10 +218,10 @@ public final class FinishingOperationTriplet extends Triplet {
          */
         DefaultCorner(0xFF, "Default corner; default edge");
 
-        private static final Map<Integer, ReferenceCorner> REVERSE_MAP = new HashMap<>();
+        private static final Map<Integer, Reference> REVERSE_MAP = new HashMap<>();
 
         static {
-            for (final ReferenceCorner code : values()) {
+            for (final Reference code : values()) {
                 REVERSE_MAP.put(code.getValue(), code);
             }
         }
@@ -231,7 +232,7 @@ public final class FinishingOperationTriplet extends Triplet {
         /**
          * Constructor of the enum value.
          */
-        ReferenceCorner(final int value, final String description) {
+        Reference(final int value, final String description) {
             this.value = value;
             this.description = description;
         }
@@ -240,8 +241,8 @@ public final class FinishingOperationTriplet extends Triplet {
          * Gets the enum value for the given integer.
          * @return the enum value for the given integer.
          */
-        public static ReferenceCorner getFor(final int value) throws InvalidIpdsCommandException {
-            final ReferenceCorner result = REVERSE_MAP.get(value);
+        public static Reference getFor(final int value) throws InvalidIpdsCommandException {
+            final Reference result = REVERSE_MAP.get(value);
             if (result == null) {
                 throw new InvalidIpdsCommandException(
                     String.format("The value X'%1$s' for the parameter Reference is unknown.",
@@ -269,7 +270,7 @@ public final class FinishingOperationTriplet extends Triplet {
 
     private final OperationType operationType;
     private final int finishingOption;
-    private final ReferenceCorner referenceCorner;
+    private final Reference reference;
     private final int count;
     private final int axisOffset;
     private final List<Integer> positions;
@@ -286,7 +287,7 @@ public final class FinishingOperationTriplet extends Triplet {
         this.operationType = OperationType.getFor(this.getStream().readUnsignedByte());
         this.finishingOption = this.getStream().readUnsignedByte();
         this.getStream().skip(1);
-        this.referenceCorner = ReferenceCorner.getFor(this.getStream().readUnsignedByte());
+        this.reference = Reference.getFor(this.getStream().readUnsignedByte());
         this.count = this.getStream().readUnsignedByte();
         this.axisOffset = this.getStream().readUnsignedInteger16();
 
@@ -294,6 +295,30 @@ public final class FinishingOperationTriplet extends Triplet {
         while (this.getStream().bytesAvailable() != 0) {
             this.positions.add(this.getStream().readUnsignedInteger16());
         }
+    }
+
+    @Override
+    public byte[] toByteArray() throws IOException {
+        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+
+        out.writeUnsignedByte(0x09);
+        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getOperationType().getValue());
+        out.writeUnsignedByte(this.finishingOption);
+        out.writeUnsignedByte(0x00);
+        out.writeUnsignedByte(this.getReference().getValue());
+        out.writeUnsignedByte(this.getCount());
+        out.writeUnsignedInteger16(this.axisOffset);
+
+        for (final Integer position : this.positions) {
+            out.writeUnsignedInteger16(position.intValue());
+        }
+
+        final byte[] result = out.toByteArray();
+
+        result[0] = (byte) (result.length & 0xFF);
+
+        return result;
     }
 
     /**
@@ -305,11 +330,19 @@ public final class FinishingOperationTriplet extends Triplet {
     }
 
     /**
+     * Returns the finishing option.
+     * @return the finishing option.
+     */
+    public int getFinishingOption() {
+        return this.finishingOption;
+    }
+
+    /**
      * Returns the reference corner and edge.
      * @return the reference corner and edge.
      */
-    public ReferenceCorner getReferenceCorner() {
-        return this.referenceCorner;
+    public Reference getReference() {
+        return this.reference;
     }
 
     /**

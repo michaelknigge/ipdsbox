@@ -15,8 +15,8 @@ public final class UP3IFinishingOperationTripletTest extends TestCase {
             (UP3IFinishingOperationTriplet) TripletTest.buildTriplet(TripletId.UP3IFinishingOperation, "010002");
 
         assertEquals(0x01, triplet.getSequenceNumber());
-        assertEquals(0x02, triplet.getFinishingOperationData()[0]);
-        assertEquals(0x01, triplet.getFinishingOperationData().length);
+        assertEquals(0x02, triplet.getData()[0]);
+        assertEquals(0x01, triplet.getData().length);
     }
 
     /**
@@ -27,10 +27,10 @@ public final class UP3IFinishingOperationTripletTest extends TestCase {
             (UP3IFinishingOperationTriplet) TripletTest.buildTriplet(TripletId.UP3IFinishingOperation, "FF0001020304");
 
         assertEquals(0xFF, triplet.getSequenceNumber());
-        assertEquals(0x01, triplet.getFinishingOperationData()[0]);
-        assertEquals(0x02, triplet.getFinishingOperationData()[1]);
-        assertEquals(0x03, triplet.getFinishingOperationData()[2]);
-        assertEquals(0x04, triplet.getFinishingOperationData()[3]);
-        assertEquals(0x04, triplet.getFinishingOperationData().length);
+        assertEquals(0x01, triplet.getData()[0]);
+        assertEquals(0x02, triplet.getData()[1]);
+        assertEquals(0x03, triplet.getData()[2]);
+        assertEquals(0x04, triplet.getData()[3]);
+        assertEquals(0x04, triplet.getData().length);
     }
 }

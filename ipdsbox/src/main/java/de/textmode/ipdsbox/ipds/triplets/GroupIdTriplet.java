@@ -3,6 +3,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.group.*;
 
 /**
@@ -66,5 +67,36 @@ public final class GroupIdTriplet extends Triplet {
         default:
             throw new IpdsboxRuntimeException("No case for " + this.format);
         }
+    }
+
+    @Override
+    public byte[] toByteArray() throws IOException {
+        final byte[] dataBytes = this.data == null ? null : this.data.toByteArray();
+
+        final int len = 2 + (this.format == null ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
+
+        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+
+        out.writeUnsignedByte(len);
+        out.writeUnsignedByte(this.getTripletId().getId());
+
+        if (this.format != null) {
+            out.writeUnsignedByte(this.format.getId());
+        }
+
+        if (dataBytes != null) {
+            out.writeBytes(dataBytes);
+        }
+
+        return out.toByteArray();
+    }
+
+    @Override
+    public String toString() {
+        return "GroupIDTriplet{" +
+                "length=" + this.getLength() +
+                ", tid=0x" + String.format("%02X", this.getTripletId().getId()) +
+                ", format=" + this.format == null ? "no format" : this.format.getMeaning() +
+                ", data=" + this.data == null ? "no data" : this.data.toString();
     }
 }

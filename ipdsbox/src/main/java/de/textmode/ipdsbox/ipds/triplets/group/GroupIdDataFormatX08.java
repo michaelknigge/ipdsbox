@@ -25,6 +25,11 @@ public final class GroupIdDataFormatX08 extends GroupIdData {
     }
 
     @Override
+    public byte[] toByteArray() throws IOException {
+        return rawData;
+    }
+
+    @Override
     public String toString() {
         return "DATA=" + StringUtils.toHexString(this.rawData);
     }

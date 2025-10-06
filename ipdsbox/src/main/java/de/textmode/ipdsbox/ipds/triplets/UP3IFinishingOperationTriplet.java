@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -11,7 +12,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class UP3IFinishingOperationTriplet extends Triplet {
 
     private final int sequenceNumber;
-    private final byte[] finishingOperationData;
+    private final byte[] data;
 
     /**
      * Constructs a {@link UP3IFinishingOperationTriplet} from the given byte array.
@@ -22,8 +23,20 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
         super(raw, TripletId.UP3IFinishingOperation);
 
         this.sequenceNumber = raw[2] & 0xFF;
-        this.finishingOperationData = new byte[raw.length - 4];
-        System.arraycopy(raw, 4, this.finishingOperationData, 0, this.finishingOperationData.length);
+        this.data = new byte[raw.length - 4];
+        System.arraycopy(raw, 4, this.data, 0, this.data.length);
+    }
+
+    @Override
+    public byte[] toByteArray() throws IOException {
+        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+
+        out.writeUnsignedByte(3 + this.data.length);
+        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.sequenceNumber);
+        out.writeBytes(this.data);
+
+        return out.toByteArray();
     }
 
     /**
@@ -39,7 +52,7 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
      * @return Finishing operation data as defined in the UP3I Specification.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is intended that the buffer may be modified")
-    public byte[] getFinishingOperationData() {
-        return this.finishingOperationData;
+    public byte[] getData() {
+        return this.data;
     }
 }

@@ -1,5 +1,7 @@
 package de.textmode.ipdsbox.ipds.triplets;
 
+import java.io.IOException;
+
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 
@@ -22,7 +24,6 @@ public abstract class Triplet {
      */
     public Triplet(final byte[] raw, final TripletId tripletId) {
 
-        // TEST "raw" is no longer required... Except for the if here...
         if ((raw[1] & 0xFF) != tripletId.getId()) {
             throw new IpdsboxRuntimeException("Passed invalid data");
         }
@@ -62,11 +63,8 @@ public abstract class Triplet {
     }
 
     /**
-     * Returns the data of the Triplet.
-     * @return the data of the Triplet (not including the length field and the Triplet ID).
+     * Builds a binary representation of the {@link TripletId}.
+     * @return the raw bytes of the {@link TripletId}.
      */
-    //@SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is intended that the buffer may be modified")
-    //public final byte[] getData() {
-    //    return this.data;
-    //}
+    public abstract byte[] toByteArray() throws IOException;
 }
