@@ -28,7 +28,7 @@ public final class TripletBuilder {
         throws UnknownTripletException, IOException, InvalidIpdsCommandException {
 
         final TripletId triplet = TripletId.getFor(data[1] & 0xFF);
-        
+
         switch (triplet) {
         case CMRTagFidelity:
             throw new UnknownTripletException("currently unsupported");
@@ -39,7 +39,7 @@ public final class TripletBuilder {
         case ColorManagementResourceDescriptor:
             throw new UnknownTripletException("currently unsupported");
         case ColorSpecification:
-            throw new UnknownTripletException("currently unsupported");
+            return new ColorSpecificationTriplet(data);
         case DataObjectFontDescriptor:
             throw new UnknownTripletException("currently unsupported");
         case DeviceAppearance:

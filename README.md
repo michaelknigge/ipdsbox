@@ -113,7 +113,7 @@ ID    | Name                                          | Supported
 X'00' | Group ID                                      | :white_check_mark:
 X'01' | Coded Graphic Character Set Global Identifier | :white_check_mark:
 X'02' | Fully Qualified Name                          | :white_check_mark:
-X'4E' | Color Specification                           | :x:
+X'4E' | Color Specification                           | :white_check_mark:
 X'50' | Encoding Scheme ID                            | :x:
 X'5A' | Object Offset                                 | :x:
 X'62' | Local Date and Time Stamp                     | :x:
@@ -132,4 +132,9 @@ X'8E' | UP3I Finishing Operation                      | :white_check_mark:
 X'91' | Color Management Resource Descriptor          | :x:
 X'92' | Invoke CMR                                    | :x:
 X'95' | Rendering Intent                              | :x:
-
+X'96' | CMR Tag Fidelity                              | :x:
+X'97' | Device Appearance                             | :x:
+X'9A' | Image Resolution                              | :x:
+X'9C' | Object Container Presentation Space Size      | :x:
+X'9E' | Setup Name                                    | :x:
+X'A2' | Invoke Tertiary Resource                      | :x:
