@@ -73,7 +73,7 @@ public final class TripletBuilder {
         case ObjectContainerPresentationSpaceSize:
             throw new UnknownTripletException("currently unsupported");
         case ObjectOffset:
-            throw new UnknownTripletException("currently unsupported");
+            return new ObjectOffsetTriplet(data);
         case PresentationSpaceResetMixing:
             throw new UnknownTripletException("currently unsupported");
         case RenderingIntent:
