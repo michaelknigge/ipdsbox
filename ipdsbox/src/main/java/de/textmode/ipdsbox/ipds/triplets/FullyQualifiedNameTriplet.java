@@ -7,13 +7,8 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class FullyQualifiedNameTriplet extends Triplet {
 
-    /** FQN type (CODE, 1). */
     private int fqnType;
-
-    /** FQN format (CODE, 1). */
     private int fqnFormat;
-
-    /** FQN (CHAR/CODE/UNDF). */
     private byte[] fqn;
 
     public FullyQualifiedNameTriplet(final byte[] raw) throws IOException {
@@ -25,7 +20,7 @@ public final class FullyQualifiedNameTriplet extends Triplet {
         this.fqnType = in.readUnsignedByte();
         this.fqnFormat = in.readUnsignedByte();
 
-        // In afuture release we could parse it to a OID byte[] or a String. But eb carefull... The
+        // In a future release we could parse it to a OID byte[] or a String. But be carefull... The
         // encoding might NOT be UTF16-BE if in the IPDS command a Coded Graphic Character Set Global Identifier
         // Triplet preceeded...
         this.fqn = in.readBytes(this.getLength() - 4);
@@ -36,7 +31,7 @@ public final class FullyQualifiedNameTriplet extends Triplet {
         final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
 
         out.writeUnsignedByte(4 + this.fqn.length);
-        out.writeUnsignedByte(this.getTripletId().getId());  // TID
+        out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.fqnType);
         out.writeUnsignedByte(this.fqnFormat);
         out.writeBytes(this.fqn);
@@ -44,35 +39,55 @@ public final class FullyQualifiedNameTriplet extends Triplet {
         return out.toByteArray();
     }
 
-    /** Returns the FQN type. */
+    /**
+     * Returns the FQN type.
+     */
     public int getFqnType() {
         return this.fqnType;
     }
 
-    /** Sets the FQN type. */
+    /**
+     * Sets the FQN type.
+     */
     public void setFqnType(final int fqnType) {
         this.fqnType = fqnType;
     }
 
-    /** Returns the FQN format. */
-    public int getFqnFormat() { return this.fqnFormat; }
+    /**
+     * Returns the FQN format.
+     */
+    public int getFqnFormat() {
+        return this.fqnFormat;
+    }
 
-    /** Sets the FQN format. */
-    public void setFqnFormat(final int fqnFormat) { this.fqnFormat = fqnFormat; }
+    /**
+     * Sets the FQN format.
+     */
+    public void setFqnFormat(final int fqnFormat) {
+        this.fqnFormat = fqnFormat;
+    }
 
-    /** Returns the FQN. */
-    public byte[] getFqn() { return this.fqn; }
+    /**
+     * Returns the FQN.
+     */
+    public byte[] getFqn() {
+        return this.fqn;
+    }
 
-    /** Sets the FQN. */
-    public void setFqn(final byte[] fqn) { this.fqn = fqn; }
+    /**
+     * Sets the FQN.
+     */
+    public void setFqn(final byte[] fqn) {
+        this.fqn = fqn;
+    }
 
     @Override
     public String toString() {
-        return "FQN{length=" + this.length +
-                ", tid=0x" + Integer.toHexString(tid) +
+        return "FQN{length=" + this.getLength() +
+                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", type=0x" + Integer.toHexString(this.fqnType) +
                 ", format=0x" + Integer.toHexString(this.fqnFormat) +
-                ", fqnBytes=" + (this.fqn ==null?0: this.fqn.length) + "}";
+                ", fqnBytes=" + (this.fqn == null ? 0 : this.fqn.length) + "}";
     }
 
 }

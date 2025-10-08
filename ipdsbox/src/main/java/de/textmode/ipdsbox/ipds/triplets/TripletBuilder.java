@@ -3,7 +3,6 @@ package de.textmode.ipdsbox.ipds.triplets;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
-import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 
 /**
  * A builder for all supported {@link Triplet}s.
@@ -31,23 +30,23 @@ public final class TripletBuilder {
 
         switch (triplet) {
         case CMRTagFidelity:
-            throw new UnknownTripletException("currently unsupported");
+            return new CmrTagFidelityTriplet(data);
         case CodedGraphicCharacterSetGlobalIdentifier:
             return new CodedGraphicCharacterSetGlobalIdentifierTriplet(data);
         case ColorFidelity:
-            throw new UnknownTripletException("currently unsupported");
+            return new ColorFidelityTriplet(data);
         case ColorManagementResourceDescriptor:
-            throw new UnknownTripletException("currently unsupported");
+            return new ColorManagementResourceDescriptorTriplet(data);
         case ColorSpecification:
             return new ColorSpecificationTriplet(data);
         case DataObjectFontDescriptor:
-            throw new UnknownTripletException("currently unsupported");
+            return new DataObjectFontDescriptorTriplet(data);
         case DeviceAppearance:
-            throw new UnknownTripletException("currently unsupported");
+            return new DeviceAppearanceTriplet(data);
         case EncodingSchemeID:
             return new EncodingSchemeIdTriplet(data);
         case FinishingFidelity:
-            throw new UnknownTripletException("currently unsupported");
+            return new FinishingFidelityTriplet(data);
         case FinishingOperation:
             return new FinishingOperationTriplet(data);
         case FontResolutionandMetricTechnology:
@@ -59,35 +58,35 @@ public final class TripletBuilder {
         case GroupInformation:
             return new GroupInformationTriplet(data);
         case ImageResolution:
-            throw new UnknownTripletException("currently unsupported");
+            return new ImageResolutionTriplet(data);
         case InvokeCMR:
-            throw new UnknownTripletException("currently unsupported");
+            return new InvokeCmrTriplet(data);
         case InvokeTertiaryResource:
-            throw new UnknownTripletException("currently unsupported");
+            return new InvokeTertiaryResourceTriplet(data);
         case LinkedFont:
-            throw new UnknownTripletException("currently unsupported");
+            return new LinkedFontTriplet(data);
         case LocalDateandTimeStamp:
             return new LocalDateTimeStampTriplet(data);
         case MetricAdjustment:
-            throw new UnknownTripletException("currently unsupported");
+            return new MetricAdjustmentTriplet(data);
         case ObjectContainerPresentationSpaceSize:
-            throw new UnknownTripletException("currently unsupported");
+            return new ObjectContainerPresentationSpaceSizeTriplet(data);
         case ObjectOffset:
             return new ObjectOffsetTriplet(data);
         case PresentationSpaceResetMixing:
             return new PresentationSpaceResetMixingTriplet(data);
         case RenderingIntent:
-            throw new UnknownTripletException("currently unsupported");
+            return new RenderingIntentTriplet(data);
         case SetupName:
-            throw new UnknownTripletException("currently unsupported");
+            return new SetupNameTriplet(data);
         case TextFidelity:
-            throw new UnknownTripletException("currently unsupported");
+            return new TextFidelityTriplet(data);
         case TonerSaver:
-            throw new UnknownTripletException("currently unsupported");
+            return new TonerSaverTriplet(data);
         case UP3IFinishingOperation:
             return new UP3IFinishingOperationTriplet(data);
         default:
-            throw new IpdsboxRuntimeException("No case for TripletID " + triplet.toString());
+            throw new UnknownTripletException("No case for TripletID " + triplet);
         }
     }
 }

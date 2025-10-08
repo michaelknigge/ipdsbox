@@ -30,7 +30,7 @@ public final class EncodingSchemeIdTriplet extends Triplet {
     /**
      * Returns the Data ESID.
      */
-    public byte[] getDataEsId() {
+    public int getDataEsId() {
         return this.dataEsId;
     }
 

@@ -21,8 +21,7 @@ public final class LocalDateTimeStampTriplet extends Triplet {
         this.readFrom(new IpdsByteArrayInputStream(raw));
     }
 
-    @Override
-    public void readFrom(final IpdsByteArrayInputStream in) throws IOException {
+    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
         this.stampType = in.readUnsignedByte();
         this.yearPart1 = in.readEbcdicString(1);
         this.yearPart2 = in.readEbcdicString(2);

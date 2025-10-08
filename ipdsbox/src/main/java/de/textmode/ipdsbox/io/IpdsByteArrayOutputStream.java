@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import de.textmode.ipdsbox.core.StringUtils;
 
@@ -15,6 +16,7 @@ public final class IpdsByteArrayOutputStream {
 
     private static final Charset EBCDIC = Charset.forName("ibm-500");
     private static final Charset ASCII = Charset.forName("ibm-850");
+    private static final Charset UTF16BE = StandardCharsets.UTF_16BE;
 
     private final ByteArrayOutputStream baos;
 
@@ -79,7 +81,27 @@ public final class IpdsByteArrayOutputStream {
         } else {
             this.baos.write(ASCII.encode(CharBuffer.wrap(StringUtils.padRight(toWrite, len))).array());
         }
+    }
 
+    /**
+     * Writes an UTF-16BE encoded character String.
+     */
+    public void writeUtf16beString(final String toWrite) throws IOException {
+        this.baos.write(UTF16BE.encode(CharBuffer.wrap(toWrite)).array());
+    }
+
+    /**
+     * Writes an UTF-16BE encoded character String in the specified length (the String is filled
+     * up with spaces if needed or cutted off).
+     */
+    public void writeUtf16beString(final String toWrite, final int len) throws IOException {
+        if (toWrite.length() == len) {
+            this.baos.write(UTF16BE.encode(CharBuffer.wrap(toWrite)).array());
+        } else if (toWrite.length() >= len) {
+            this.baos.write(UTF16BE.encode(CharBuffer.wrap(toWrite.substring(0, len))).array());
+        } else {
+            this.baos.write(UTF16BE.encode(CharBuffer.wrap(StringUtils.padRight(toWrite, len))).array());
+        }
     }
 
     /**

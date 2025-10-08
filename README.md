@@ -119,22 +119,22 @@ X'5A' | Object Offset                                 | :white_check_mark:
 X'62' | Local Date and Time Stamp                     | :white_check_mark:
 X'6E' | Group Information                             | :white_check_mark:
 X'70' | Presentation Space Reset Mixing               | :white_check_mark:
-X'74' | Toner Saver                                   | :x:
-X'75' | Color Fidelity                                | :x:
-X'79' | Metric Adjustment                             | :x:
+X'74' | Toner Saver                                   | :white_check_mark:
+X'75' | Color Fidelity                                | :white_check_mark:
+X'79' | Metric Adjustment                             | :white_check_mark:
 X'84' | Font Resolution and Metric Technology         | :white_check_mark:
 X'85' | Finishing Operation                           | :white_check_mark:
-X'86' | Text Fidelity                                 | :x:
-X'88' | Finishing Fidelity                            | :x:
-X'8B' | Data Object Font Descriptor                   | :x:
-X'8D' | Linked Font                                   | :x:
+X'86' | Text Fidelity                                 | :white_check_mark:
+X'88' | Finishing Fidelity                            | :white_check_mark:
+X'8B' | Data Object Font Descriptor                   | :white_check_mark:
+X'8D' | Linked Font                                   | :white_check_mark:
 X'8E' | UP3I Finishing Operation                      | :white_check_mark:
-X'91' | Color Management Resource Descriptor          | :x:
-X'92' | Invoke CMR                                    | :x:
-X'95' | Rendering Intent                              | :x:
-X'96' | CMR Tag Fidelity                              | :x:
-X'97' | Device Appearance                             | :x:
-X'9A' | Image Resolution                              | :x:
-X'9C' | Object Container Presentation Space Size      | :x:
-X'9E' | Setup Name                                    | :x:
-X'A2' | Invoke Tertiary Resource                      | :x:
+X'91' | Color Management Resource Descriptor          | :white_check_mark:
+X'92' | Invoke CMR                                    | :white_check_mark:
+X'95' | Rendering Intent                              | :white_check_mark:
+X'96' | CMR Tag Fidelity                              | :white_check_mark:
+X'97' | Device Appearance                             | :white_check_mark:
+X'9A' | Image Resolution                              | :white_check_mark:
+X'9C' | Object Container Presentation Space Size      | :white_check_mark:
+X'9E' | Setup Name                                    | :white_check_mark:
+X'A2' | Invoke Tertiary Resource                      | :white_check_mark:
