@@ -1,17 +1,100 @@
 package de.textmode.ipdsbox.ipds.xohorders;
 
+import java.io.IOException;
+
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+
 /**
  * This class carries all parameters of the Set Media Size order.
  */
 public final class SetMediaSizeOrder extends XohOrder {
+
+    private int unitBase;
+    private int upub;
+    private int xmExtent;
+    private int ymExtent;
 
     /**
      * Constructs the {@link SetMediaSizeOrder}.
      * @param data the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public SetMediaSizeOrder(final byte[] data) throws UnknownXohOrderCode {
+    public SetMediaSizeOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
         super(data, XohOrderCode.SetMediaSize);
+
+        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
+        stream.skip(2);
+
+        this.unitBase = stream.readUnsignedByte();
+        this.upub = stream.readUnsignedInteger16();
+        this.xmExtent = stream.readUnsignedInteger16();
+        this.ymExtent = stream.readUnsignedInteger16();
+    }
+
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedInteger16(XohOrderCode.SetMediaOrigin.getValue());
+        out.writeUnsignedByte(this.unitBase);
+        out.writeUnsignedInteger16(this.upub);
+        out.writeUnsignedInteger16(this.xmExtent);
+        out.writeUnsignedInteger16(this.ymExtent);
+    }
+
+    /**
+     * Returns the unit base.
+     */
+    public int getUnitBase() {
+        return this.unitBase;
+    }
+
+    /**
+     * Sets the unit base.
+     */
+    public void setUnitBase(final int unitBase) {
+        this.unitBase = unitBase;
+    }
+
+    /**
+     * Returns the units per unit base.
+     */
+    public int getUpub() {
+        return this.upub;
+    }
+
+    /**
+     * Sets the units per unit base.
+     */
+    public void setUpub(final int upub) {
+        this.upub = upub;
+    }
+
+    /**
+     * Returns the X extent of the medium presentation space.
+     */
+    public int getXmExtent() {
+        return this.xmExtent;
+    }
+
+    /**
+     * Sets the X extent of the medium presentation space.
+     */
+    public void setXmExtent(final int xmExtent) {
+        this.xmExtent = xmExtent;
+    }
+
+    /**
+     * Returns the Y extent of the medium presentation space.
+     */
+    public int getYmExtent() {
+        return this.ymExtent;
+    }
+
+    /**
+     * Sets the Y extent of the medium presentation space.
+     */
+    public void setYmExtent(final int ymExtent) {
+        this.ymExtent = ymExtent;
     }
 
     /**

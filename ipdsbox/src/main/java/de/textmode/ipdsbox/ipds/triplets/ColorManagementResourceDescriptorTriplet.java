@@ -16,16 +16,12 @@ public final class ColorManagementResourceDescriptorTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x05);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(0x00);
         out.writeUnsignedByte(this.mode);
         out.writeUnsignedByte(0x00);
-
-        return out.toByteArray();
     }
 
     /**

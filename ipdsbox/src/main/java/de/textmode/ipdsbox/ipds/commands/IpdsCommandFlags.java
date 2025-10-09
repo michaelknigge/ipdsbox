@@ -7,6 +7,8 @@ import de.textmode.ipdsbox.core.BitUtils;
  */
 public final class IpdsCommandFlags {
 
+    // TODO Implement Setters!
+    // TODO Builder? i. e. the setters could return "this".
     private final byte flags;
 
     /**
@@ -46,7 +48,7 @@ public final class IpdsCommandFlags {
 
     /**
      * Determines if the IPDS command contains a two byte correlation ID.
-     * @return <code>true</code> if any only ihe IPDS command contains a two byte correlation ID.
+     * @return <code>true</code> if the IPDS command contains a two byte correlation ID.
      */
     public boolean hasCorrelationID() {
         return BitUtils.isBitSet(1, this.flags);

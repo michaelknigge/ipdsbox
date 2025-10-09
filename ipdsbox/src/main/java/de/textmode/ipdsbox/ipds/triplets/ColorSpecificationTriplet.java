@@ -34,9 +34,7 @@ public final class ColorSpecificationTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(12 + this.colorValue.length);
         out.writeUnsignedByte(this.getTripletId().getId());
 
@@ -50,8 +48,6 @@ public final class ColorSpecificationTriplet extends Triplet {
         out.writeUnsignedByte(this.colSize4);
 
         out.writeBytes(this.colorValue);
-
-        return out.toByteArray();
     }
 
     /**

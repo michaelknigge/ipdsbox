@@ -28,6 +28,8 @@ public final class TripletBuilder {
 
         final TripletId triplet = TripletId.getFor(data[1] & 0xFF);
 
+        // TODO: Passs a IpdsByteArrayInputStream to the Triplet ???
+        // TODO: Convert to "modern switch"
         switch (triplet) {
         case CMRTagFidelity:
             return new CmrTagFidelityTriplet(data);
@@ -86,7 +88,7 @@ public final class TripletBuilder {
         case UP3IFinishingOperation:
             return new UP3IFinishingOperationTriplet(data);
         default:
-            throw new UnknownTripletException("No case for TripletID " + triplet);
+            throw new UnknownTripletException("Unhandled Triplet 0x" + Integer.toHexString(triplet.getId()));
         }
     }
 }

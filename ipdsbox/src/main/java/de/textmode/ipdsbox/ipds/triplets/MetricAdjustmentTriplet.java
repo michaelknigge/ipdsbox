@@ -34,9 +34,7 @@ public final class MetricAdjustmentTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x0F);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.unitBase);
@@ -46,8 +44,6 @@ public final class MetricAdjustmentTriplet extends Triplet {
         out.writeInteger16(this.vUniformIncrement);
         out.writeInteger16(this.hBaselineAdjustment);
         out.writeInteger16(this.vBaselineAdjustment);
-
-        return out.toByteArray();
     }
 
     /**
@@ -162,5 +158,4 @@ public final class MetricAdjustmentTriplet extends Triplet {
                 ", vBaselineAdjustment=" + this.vBaselineAdjustment +
                 '}';
     }
-
 }

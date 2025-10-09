@@ -1,17 +1,50 @@
 package de.textmode.ipdsbox.ipds.xohorders;
 
+import java.io.IOException;
+
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+
 /**
  * This class carries all parameters of the Set Media Origin order.
  */
 public final class SetMediaOriginOrder extends XohOrder {
+
+    private int origin;
 
     /**
      * Constructs the {@link SetMediaOriginOrder}.
      * @param data the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public SetMediaOriginOrder(final byte[] data) throws UnknownXohOrderCode {
+    public SetMediaOriginOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
         super(data, XohOrderCode.SetMediaOrigin);
+
+        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
+        stream.skip(2);
+
+        this.origin = stream.readUnsignedByte();
+    }
+
+    /**
+     * Returns the origin.
+     * @return the origin.
+     */
+    public int getOrigin() {
+        return origin;
+    }
+
+    /**
+     * Sets the origin.
+     */
+    public void setOrigin(int origin) {
+        this.origin = origin;
+    }
+
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedInteger16(XohOrderCode.SetMediaOrigin.getValue());
+        out.writeUnsignedByte(this.origin);
     }
 
     /**

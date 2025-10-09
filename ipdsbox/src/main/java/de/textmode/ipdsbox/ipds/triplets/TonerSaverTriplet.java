@@ -16,16 +16,12 @@ public final class TonerSaverTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(6);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(0);
         out.writeUnsignedByte(this.control);
         out.writeUnsignedInteger16(0);
-
-        return out.toByteArray();
     }
 
     /**

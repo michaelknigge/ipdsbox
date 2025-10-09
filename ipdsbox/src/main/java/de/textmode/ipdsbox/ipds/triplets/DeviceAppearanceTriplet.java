@@ -21,16 +21,12 @@ public final class DeviceAppearanceTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(7);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(0);
         out.writeUnsignedInteger16(this.appearance);
         out.writeUnsignedInteger16(0x0000);
-
-        return out.toByteArray();
     }
 
     /**
@@ -55,5 +51,4 @@ public final class DeviceAppearanceTriplet extends Triplet {
                 ", appearance=" + Integer.toHexString(this.appearance) +
                 "}";
     }
-
 }

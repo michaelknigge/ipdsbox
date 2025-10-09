@@ -15,6 +15,14 @@ public final class GroupIdDataFormatX05 extends GroupIdData {
 
     /**
      * Constructs the {@link GroupIdDataFormatX05}.
+     */
+    public GroupIdDataFormatX05(final int fileType, final String fileName) {
+        this.fileFype = fileType;
+        this.fileName = fileName;
+    }
+
+    /**
+     * Constructs the {@link GroupIdDataFormatX05}.
      * @param raw the raw IPDS data of the {@link GroupIdTriplet}.
      * @throws IOException if the {@link GroupIdTriplet} is broken.
      */

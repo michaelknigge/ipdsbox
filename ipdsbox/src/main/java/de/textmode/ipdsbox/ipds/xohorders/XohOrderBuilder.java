@@ -39,7 +39,7 @@ public final class XohOrderBuilder {
         case DefineGroupBoundary:
             return new DefineGroupBoundaryOrder(data);
         case EjectToFrontFacing:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new EjectToFrontFacingOrder(data);
         case EraseResidualFontData:
             throw new UnknownXohOrderCode("currently unsupported");
         case EraseResidualPrintData:

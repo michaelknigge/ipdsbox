@@ -17,6 +17,13 @@ public abstract class IpdsCommand {
     private final IpdsCommandId commandCode;
     private final IpdsCommandFlags commandFlags;
 
+    protected IpdsCommand(final IpdsCommandId commandCode) {
+        this.commandCode = commandCode;
+        this.commandFlags = null; // TODO FIX!
+        this.commandLength = 0; // TODO FIX!
+        this.command = null; // TODO FIX!
+    }
+
     /**
      * Constructor.
      * @param command the raw IPDS data stream, not including the part of the PPD/PPR protocol.

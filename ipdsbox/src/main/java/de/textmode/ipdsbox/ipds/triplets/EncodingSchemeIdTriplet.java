@@ -16,15 +16,11 @@ public final class EncodingSchemeIdTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(6);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedInteger16(0);
         out.writeUnsignedInteger16(this.dataEsId);
-
-        return out.toByteArray();
     }
 
     /**

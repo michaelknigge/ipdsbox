@@ -6,6 +6,7 @@ import java.util.List;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletBuilder;
 import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
@@ -33,6 +34,15 @@ public final class DeactivateSavedPageGroupOrder extends XohOrder {
         byte[] buffer;
         while ((buffer = stream.readTripletIfExists()) != null) {
             this.triplets.add(TripletBuilder.build(buffer));
+        }
+    }
+
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedInteger16(XohOrderCode.DeactivateSavedPageGroup.getValue());
+
+        for (final Triplet triplet : this.triplets) {
+            triplet.writeTo(out);
         }
     }
 

@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
@@ -25,18 +26,14 @@ public final class SetupNameTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        final byte[] encodedName = UTF16BE.encode(CharBuffer.wrap(this.setupName)).array();
+        final int encodedFontNameLen = encodedName.length;
 
-        out.writeUnsignedByte(0);
+        out.writeUnsignedByte(4+ encodedFontNameLen);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedInteger16(0x0000);
-        out.writeUtf16beString(this.setupName);
-
-        final byte[] result = out.toByteArray();
-        result[0] = (byte) (result.length & 0xFF);
-
-        return result;
+        out.writeBytes(encodedName);
     }
 
     /**
@@ -60,5 +57,4 @@ public final class SetupNameTriplet extends Triplet {
                 ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", setupName=" + this.setupName +"}";
     }
-
 }

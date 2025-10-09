@@ -27,12 +27,10 @@ public final class GroupInformationTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         final byte[] dataBytes = this.data == null ? null : this.data.toByteArray();
 
         final int len = 2 + (this.format == null ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
-
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
 
         out.writeUnsignedByte(len);
         out.writeUnsignedByte(this.getTripletId().getId());
@@ -44,9 +42,8 @@ public final class GroupInformationTriplet extends Triplet {
         if (dataBytes != null) {
             out.writeBytes(dataBytes);
         }
-
-        return out.toByteArray();
     }
+
     /**
      * Returns the {@link GroupInformationFormat} of the {@link GroupInformationTriplet} or <code>null</code> if the
      * {@link GroupInformationTriplet} does not contain grouping information.
@@ -90,7 +87,7 @@ public final class GroupInformationTriplet extends Triplet {
     public String toString() {
         return "GroupInformationTriplet{" +
                 "length=" + this.getLength() +
-                ", tid=0x" + String.format("%02X", this.getTripletId().getId()) +
+                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", format=" + this.format == null ? "no format" : this.format.getMeaning() +
                 ", data=" + this.data == null ? "no data" : this.data.toString();
     }

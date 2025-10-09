@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * Enumeration of all known formats of the Group Information Triplet.
  */
+// TOOD: Do we really need this enum in ipdsbox? Guess this shoul better be implemented in a conrete app...
 public enum GroupInformationFormat {
     /**
      * Microfilm save/restore format.

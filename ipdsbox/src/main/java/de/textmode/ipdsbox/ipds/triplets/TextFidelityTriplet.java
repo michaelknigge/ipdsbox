@@ -18,17 +18,13 @@ public final class TextFidelityTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(7);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.continuationRule);
         out.writeUnsignedByte(0);
         out.writeUnsignedByte(this.reportingRule);
         out.writeUnsignedInteger16(0);
-
-        return out.toByteArray();
     }
 
     /**

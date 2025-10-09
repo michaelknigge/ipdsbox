@@ -12,7 +12,12 @@ import de.textmode.ipdsbox.ipds.triplets.TripletId;
  */
 public abstract class GroupIdData {
 
+    // TODO get rid of this thing!
     private final IpdsByteArrayInputStream stream;
+
+    protected GroupIdData() {
+        stream = null;
+    }
 
     /**
      * Constructs the {@link GroupIdData}.

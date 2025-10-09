@@ -11,11 +11,22 @@ import de.textmode.ipdsbox.ipds.triplets.group.*;
  */
 public final class GroupIdTriplet extends Triplet {
 
-    private final GroupIdFormat format;
-    private final GroupIdData data;
+    private GroupIdFormat format;
+    private GroupIdData data;
 
     /**
-     * Constructs a {@link GroupIdTriplet} from the given byte array.
+     * Constructs a {@link GroupIdTriplet} with default Data.
+     */
+    public GroupIdTriplet() {
+        super(TripletId.GroupID);
+
+        this.format = null;
+        this.data = null;
+    }
+
+
+    /**
+     * Constructs a {@link GroupIdTriplet} from the given data.
      * @param raw raw IPDS data of the {@link Triplet}.
      * @throws IOException if the given IPDS data is incomplete
      */
@@ -32,8 +43,15 @@ public final class GroupIdTriplet extends Triplet {
      * @return the {@link GroupIdFormat} of the {@link GroupIdTriplet} or <code>null</code> if the
      * {@link GroupIdTriplet} does not contain grouping information.
      */
-    public GroupIdFormat getGroupIdFormatIfExist() {
+    public GroupIdFormat getGroupIdFormat() {
         return this.format;
+    }
+
+    /**
+     * Sets the {@link GroupIdFormat} of the {@link GroupIdTriplet}.
+     */
+    public void setGroupIdFormat(final GroupIdFormat format) {
+        this.format = format;
     }
 
     /**
@@ -42,8 +60,15 @@ public final class GroupIdTriplet extends Triplet {
      * @return the {@link GroupIdData} of the {@link GroupIdTriplet} or <code>null</code> if the
      * {@link GroupIdTriplet} does not contain grouping information.
      */
-    public GroupIdData getGroupIdDataIfExist() {
+    public GroupIdData getGroupIdData() {
         return this.data;
+    }
+
+    /**
+     * Sets the {@link GroupIdData} of the {@link GroupIdTriplet}.
+     */
+    public void setGroupIdData(final GroupIdData data) {
+        this.data = data;
     }
 
     private GroupIdData parseFormatData(final byte[] raw) throws IOException {
@@ -70,12 +95,10 @@ public final class GroupIdTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         final byte[] dataBytes = this.data == null ? null : this.data.toByteArray();
 
         final int len = 2 + (this.format == null ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
-
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
 
         out.writeUnsignedByte(len);
         out.writeUnsignedByte(this.getTripletId().getId());
@@ -87,8 +110,6 @@ public final class GroupIdTriplet extends Triplet {
         if (dataBytes != null) {
             out.writeBytes(dataBytes);
         }
-
-        return out.toByteArray();
     }
 
     @Override

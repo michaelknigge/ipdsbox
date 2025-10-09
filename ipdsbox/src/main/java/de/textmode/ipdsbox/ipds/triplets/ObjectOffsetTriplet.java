@@ -19,16 +19,12 @@ public final class ObjectOffsetTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(8);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.objectType);
         out.writeUnsignedByte(0x00);
         out.writeUnsignedInteger32(this.objectOffset);
-
-        return out.toByteArray();
     }
 
     /**

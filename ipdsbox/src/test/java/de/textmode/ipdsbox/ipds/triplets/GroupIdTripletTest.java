@@ -32,7 +32,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, forms, 8);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.MVS_AND_VSE, triplet.getGroupIdFormatIfExist());
+        assertEquals(GroupIdFormat.MVS_AND_VSE, triplet.getGroupIdFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("JOBCLASS=");
@@ -43,7 +43,7 @@ public final class GroupIdTripletTest extends TestCase {
         sb.append(jobId);
         sb.append(", FORMS=");
         sb.append(forms);
-        assertEquals(sb.toString(), triplet.getGroupIdDataIfExist().toString());
+        assertEquals(sb.toString(), triplet.getGroupIdData().toString());
     }
 
     /**
@@ -69,7 +69,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, spoolId, 4);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.VM, triplet.getGroupIdFormatIfExist());
+        assertEquals(GroupIdFormat.VM, triplet.getGroupIdFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("SPOOL CLASS=");
@@ -82,7 +82,7 @@ public final class GroupIdTripletTest extends TestCase {
         sb.append(formName);
         sb.append(", SPOOL ID=");
         sb.append(spoolId);
-        assertEquals(sb.toString(), triplet.getGroupIdDataIfExist().toString());
+        assertEquals(sb.toString(), triplet.getGroupIdData().toString());
     }
 
     /**
@@ -131,7 +131,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, formsName, 10);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(format, triplet.getGroupIdFormatIfExist());
+        assertEquals(format, triplet.getGroupIdFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("LIBRARY NAME=");
@@ -150,7 +150,7 @@ public final class GroupIdTripletTest extends TestCase {
         sb.append(jobNumber);
         sb.append(", FORMS NAME=");
         sb.append(formsName);
-        assertEquals(sb.toString(), triplet.getGroupIdDataIfExist().toString());
+        assertEquals(sb.toString(), triplet.getGroupIdData().toString());
 
     }
 
@@ -199,7 +199,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, submissionTime, 11);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.MVS_AND_VSE_COM, triplet.getGroupIdFormatIfExist());
+        assertEquals(GroupIdFormat.MVS_AND_VSE_COM, triplet.getGroupIdFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("FILE TYPE=");
@@ -221,7 +221,7 @@ public final class GroupIdTripletTest extends TestCase {
         sb.append(submissionDate);
         sb.append(", TIME=");
         sb.append(submissionTime);
-        assertEquals(sb.toString(), triplet.getGroupIdDataIfExist().toString());
+        assertEquals(sb.toString(), triplet.getGroupIdData().toString());
     }
 
     /**
@@ -249,7 +249,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeAsciiString(baos, fileName);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.AIX_AND_OS2, triplet.getGroupIdFormatIfExist());
+        assertEquals(GroupIdFormat.AIX_AND_OS2, triplet.getGroupIdFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("FILE TYPE=");
@@ -257,7 +257,7 @@ public final class GroupIdTripletTest extends TestCase {
         sb.append(typeString);
         sb.append(", FILE NAME=");
         sb.append(fileName);
-        assertEquals(sb.toString(), triplet.getGroupIdDataIfExist().toString());
+        assertEquals(sb.toString(), triplet.getGroupIdData().toString());
     }
 
     /**
@@ -271,12 +271,12 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeAsciiString(baos, fileName);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.AIX_AND_WINDOWS, triplet.getGroupIdFormatIfExist());
+        assertEquals(GroupIdFormat.AIX_AND_WINDOWS, triplet.getGroupIdFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("FILE NAME=");
         sb.append(fileName);
-        assertEquals(sb.toString(), triplet.getGroupIdDataIfExist().toString());
+        assertEquals(sb.toString(), triplet.getGroupIdData().toString());
     }
 
     /**
@@ -290,11 +290,11 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeAsciiString(baos, data);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.VARIABLE_LENGTH_GROUP_ID, triplet.getGroupIdFormatIfExist());
+        assertEquals(GroupIdFormat.VARIABLE_LENGTH_GROUP_ID, triplet.getGroupIdFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("DATA=");
         sb.append(StringUtils.toHexString(data.getBytes("IBM850")));
-        assertEquals(sb.toString(), triplet.getGroupIdDataIfExist().toString());
+        assertEquals(sb.toString(), triplet.getGroupIdData().toString());
     }
 }

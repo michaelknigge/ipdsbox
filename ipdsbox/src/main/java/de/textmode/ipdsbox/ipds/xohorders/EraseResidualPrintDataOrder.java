@@ -1,5 +1,9 @@
 package de.textmode.ipdsbox.ipds.xohorders;
 
+import java.io.IOException;
+
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+
 /**
  * This class carries all parameters of the Erase Residual Print Data order.
  */
@@ -12,6 +16,11 @@ public final class EraseResidualPrintDataOrder extends XohOrder {
      */
     public EraseResidualPrintDataOrder(final byte[] data) throws UnknownXohOrderCode {
         super(data, XohOrderCode.EraseResidualPrintData);
+    }
+
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedInteger16(XohOrderCode.EraseResidualPrintData.getValue());
     }
 
     /**

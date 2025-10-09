@@ -56,32 +56,16 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
     /**
      * Converts the triplet fields into a byte array in the correct structure.
      *
-     * @return the byte array representing the triplet
      * @throws IOException if an I/O error occurs
      */
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
-        // Length: UBIN length 1
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(8);
-
-        // TID: CODE length 1
         out.writeUnsignedByte(this.getTripletId().getId());
-
-        // Metric technology: CODE length 1
         out.writeUnsignedByte(this.metricTechnology);
-
-        // Unit base: CODE length 1
         out.writeUnsignedByte(this.unitBase);
-
-        // X units per unit base: UBIN length 2
         out.writeUnsignedInteger16(this.xUnitsPerUnitBase);
-
-        // Y units per unit base: UBIN length 2
         out.writeUnsignedInteger16(this.yUnitsPerUnitBase);
-
-        return out.toByteArray();
     }
 
     /**

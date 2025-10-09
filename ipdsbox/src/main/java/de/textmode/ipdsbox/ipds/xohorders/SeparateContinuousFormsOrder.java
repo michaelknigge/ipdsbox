@@ -1,5 +1,9 @@
 package de.textmode.ipdsbox.ipds.xohorders;
 
+import java.io.IOException;
+
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+
 /**
  * This class carries all parameters of the Separate Continuous Forms order.
  */
@@ -12,6 +16,11 @@ public final class SeparateContinuousFormsOrder extends XohOrder {
      */
     public SeparateContinuousFormsOrder(final byte[] data) throws UnknownXohOrderCode {
         super(data, XohOrderCode.SeparateContinuousForms);
+    }
+
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedInteger16(XohOrderCode.SeparateContinuousForms.getValue());
     }
 
     /**

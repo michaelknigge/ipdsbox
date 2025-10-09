@@ -29,16 +29,15 @@ public final class ImageResolutionTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedByte(0x0A);
+        out.writeUnsignedByte(this.getTripletId().getId());
 
         out.writeUnsignedInteger16(0x0000);
         out.writeUnsignedByte(this.xUnitBase);
         out.writeUnsignedByte(this.yUnitBase);
         out.writeUnsignedInteger16(this.xupub);
         out.writeUnsignedInteger16(this.yupub);
-
-        return out.toByteArray();
     }
 
     /**

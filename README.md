@@ -1,8 +1,8 @@
 # ipdsbox [![Build Status](https://travis-ci.org/michaelknigge/ipdsbox.svg?branch=master)](https://travis-ci.org/michaelknigge/ipdsbox) [![codecov.io](https://codecov.io/github/michaelknigge/ipdsbox/coverage.svg?branch=master)](https://codecov.io/github/michaelknigge/ipdsbox?branch=master) [![Coverity Status](https://scan.coverity.com/projects/8130/badge.svg)](https://scan.coverity.com/projects/8130)
 
-**Java library for parsing [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data streams. The library is currently in an early design phase and may not be useful for anything. I'm currently not woking on this project. The project is not dead, but I'm currently involved in so many other projects that I don't have any time for ipdsbox.**
+**Java library for parsing and creating [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data streams. The library is currently in an early design phase and may not be useful for anything. I'm currently not woking on this project. The project is not dead, but I'm currently involved in so many other projects that I don't have any time for ipdsbox.**
 
-This project provides a framework that allows you to implement a virtual [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printer. Each received [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream and than sent back to the server.
+This project provides a framework that allows you to implement a virtual [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printer. Each received [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream and than sent back to the server. The library can also be used to build a IPDS spooling system.
 
 # License
 The source code is publicy available, but using the source code in commercial products requires a commercial license. See the file [LICENSE](./LICENSE) for the full license details.
@@ -87,21 +87,21 @@ Code    | Order                          | Supported
 --------|--------------------------------|----------
 X'0200' | Deactivate Saved Page Group    | :white_check_mark:
 X'0400' | Define Group Boundary          | :white_check_mark:
-X'1300' | Eject to Front Facing          | :x:
-X'0700' | Erase Residual Font Data       | :x:
-X'0500' | Erase Residual Print Data      | :x:
-X'F300' | Obtain Printer Characteristics | :x:
-X'F500' | Page Counters Control          | :x:
-X'0100' | Print Buffered Data            | :x:
-X'0A00' | Remove Saved Page Group        | :x:
-X'1500' | Select Input Media Source      | :x:
-X'0E00' | Select Medium Modifications    | :x:
-X'0900' | Separate Continuous Forms      | :x:
-X'1600' | Set Media Origin               | :x:
-X'1700' | Set Media Size                 | :x:
-X'0300' | Specify Group Operation        | :x:
-X'0D00' | Stack Received Pages           | :x:
-X'F200' | Trace                          | :x:
+X'1300' | Eject to Front Facing          | :white_check_mark:
+X'0700' | Erase Residual Font Data       | :white_check_mark:
+X'0500' | Erase Residual Print Data      | :white_check_mark:
+X'F300' | Obtain Printer Characteristics | :white_check_mark:
+X'F500' | Page Counters Control          | :white_check_mark:
+X'0100' | Print Buffered Data            | :white_check_mark:
+X'0A00' | Remove Saved Page Group        | :white_check_mark:
+X'1500' | Select Input Media Source      | :white_check_mark:
+X'0E00' | Select Medium Modifications    | :white_check_mark:
+X'0900' | Separate Continuous Forms      | :white_check_mark:
+X'1600' | Set Media Origin               | :white_check_mark:
+X'1700' | Set Media Size                 | :white_check_mark:
+X'0300' | Specify Group Operation        | :white_check_mark:
+X'0D00' | Stack Received Pages           | :white_check_mark:
+X'F200' | Trace                          | :white_check_mark:
 
 
 # Triplets

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
  * Triplets are variable-length substructures that can be used within one or more IPDS commands to provide
@@ -12,10 +13,25 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
  */
 public abstract class Triplet {
 
+    // TODO: Maybe it's better to use ONLY the IpdsByteArrayInputStream and not the
+    //   underlying "data" (see below)...
     private final IpdsByteArrayInputStream stream;
     private final int length;
     private final TripletId tripletId;
     private final byte[] data;
+
+    /**
+     * Constructs the {@link Triplet}.
+     * @param tripletId the expected Triplet ID
+     */
+    public Triplet(final TripletId tripletId) {
+        this.tripletId = tripletId;
+
+        // TODO remove!
+        this.data = null;
+        this.stream = null;
+        this.length = 0;
+    }
 
     /**
      * Constructs the {@link Triplet}.
@@ -33,6 +49,7 @@ public abstract class Triplet {
         this.data = new byte[raw.length - 2];
 
         // For "high performance" we could use the given raw data instead of making a copy of the data...
+        // TODO: Check why we create a new byte[] .... Maybe we did this for a good reason ;-)
         System.arraycopy(raw, 2, this.data, 0, raw.length - 2);
 
         this.stream = new IpdsByteArrayInputStream(this.data);
@@ -51,6 +68,7 @@ public abstract class Triplet {
      * @return length of the whole Triplet (including the length field and the Triplet ID).
      */
     public final int getLength() {
+        // TODO only valid if read from a IPDS data stream...
         return this.length;
     }
 
@@ -63,8 +81,7 @@ public abstract class Triplet {
     }
 
     /**
-     * Builds a binary representation of the {@link TripletId}.
-     * @return the raw bytes of the {@link TripletId}.
+     * Writes this {@link Triplet} to the given {@link IpdsByteArrayOutputStream}.
      */
-    public abstract byte[] toByteArray() throws IOException;
+    public abstract void writeTo(IpdsByteArrayOutputStream out) throws IOException;
 }

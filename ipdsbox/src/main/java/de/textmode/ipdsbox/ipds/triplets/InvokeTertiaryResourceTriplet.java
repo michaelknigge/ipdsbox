@@ -36,9 +36,7 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(12);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.tertiaryResourceType);
@@ -46,8 +44,6 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
         out.writeUnsignedInteger32(0);
         out.writeUnsignedByte(this.idType);
         out.writeUnsignedInteger16(this.internalResourceId);
-
-        return out.toByteArray();
     }
 
     /**
@@ -123,5 +119,4 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
                 ", idType=" + this.idType +
                 ", internalResourceId=" + this.internalResourceId + "}";
     }
-
 }

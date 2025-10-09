@@ -33,8 +33,7 @@ public final class LocalDateTimeStampTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x11);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.stampType);
@@ -45,8 +44,6 @@ public final class LocalDateTimeStampTriplet extends Triplet {
         out.writeEbcdicString(this.minute, 2);
         out.writeEbcdicString(this.second, 2);
         out.writeEbcdicString(this.hundredth, 2);
-
-        return out.toByteArray();
     }
 
     /**

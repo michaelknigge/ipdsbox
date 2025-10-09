@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
@@ -32,38 +33,43 @@ public final class LinkedFontTriplet extends Triplet {
 
         if (this.fontIdType == 0x00) {
             this.fontIndex = -1;
-            this.fullFontName = "";
+            this.fullFontName = null;
         } else if (this.fontIdType == 0x01) {
             this.fontIndex = in.readUnsignedInteger16();
-            this.fullFontName = "";
+            this.fullFontName = null;
         } else if (this.fontIdType == 0x02) {
             this.fontIndex = -1;
             this.fullFontName = UTF16BE.decode(ByteBuffer.wrap(in.readRemainingBytes())).toString();
         }
-
-        // TODO: Shall we throw an exception if font ID type is unsupported?!?
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
 
-        out.writeUnsignedByte(0);
+        final byte[] encodedFontName =  this.fullFontName == null
+                ? null
+                : UTF16BE.encode(CharBuffer.wrap(this.fullFontName)).array();
+
+        final int encodedFontNameLen = encodedFontName == null
+                ? 0
+                : encodedFontName.length;
+
+        if (this.fontIdType == 0x00) {
+            out.writeUnsignedByte(4);
+        } else if (this.fontIdType == 0x01) {
+            out.writeUnsignedByte(6);
+        } else if (this.fontIdType == 0x02) {
+            out.writeUnsignedByte(4 + encodedFontNameLen);
+        }
+
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedInteger16(this.hostAssignedId);
 
         if (this.fontIdType == 0x01) {
             out.writeUnsignedInteger16(this.fontIndex);
         } else if (this.fontIdType == 0x02) {
-            out.writeUtf16beString(this.fullFontName);
+            out.writeBytes(encodedFontName);
         }
-
-        // TODO: Shall we throw an exception if font ID type is unsupported?!?
-
-        final byte[] result = out.toByteArray();
-        result[0] = (byte) (result.length & 0xFF);
-
-        return result;
     }
 
     /**

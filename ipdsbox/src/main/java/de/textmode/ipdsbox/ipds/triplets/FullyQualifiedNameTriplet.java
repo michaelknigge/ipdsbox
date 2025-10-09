@@ -27,16 +27,12 @@ public final class FullyQualifiedNameTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(4 + this.fqn.length);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.fqnType);
         out.writeUnsignedByte(this.fqnFormat);
         out.writeBytes(this.fqn);
-
-        return out.toByteArray();
     }
 
     /**
@@ -89,5 +85,4 @@ public final class FullyQualifiedNameTriplet extends Triplet {
                 ", format=0x" + Integer.toHexString(this.fqnFormat) +
                 ", fqnBytes=" + (this.fqn == null ? 0 : this.fqn.length) + "}";
     }
-
 }

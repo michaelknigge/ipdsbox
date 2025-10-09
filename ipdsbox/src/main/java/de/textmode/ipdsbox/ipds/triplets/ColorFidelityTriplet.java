@@ -10,6 +10,20 @@ public final class ColorFidelityTriplet extends Triplet {
     private int reportingRule;
     private int substitutionRule;
 
+    /**
+     * Creates a {@link ColorFidelityTriplet} with default values.
+     */
+    public ColorFidelityTriplet() {
+        super(TripletId.ColorFidelity);
+
+        this.continuationRule = 0x02;
+        this.reportingRule = 0x02;
+        this.substitutionRule = 0x01;
+    }
+
+    /**
+     * Creates a {@link ColorFidelityTriplet} from the given data.
+     */
     public ColorFidelityTriplet(final byte[] raw) throws IOException {
         super(raw, TripletId.ColorFidelity);
 
@@ -21,9 +35,7 @@ public final class ColorFidelityTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(8);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.continuationRule);
@@ -32,8 +44,6 @@ public final class ColorFidelityTriplet extends Triplet {
         out.writeUnsignedByte(0);
         out.writeUnsignedByte(this.substitutionRule);
         out.writeUnsignedByte(0);
-
-        return out.toByteArray();
     }
 
     /**

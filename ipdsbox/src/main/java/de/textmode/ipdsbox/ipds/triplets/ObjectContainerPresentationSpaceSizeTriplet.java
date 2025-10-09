@@ -42,9 +42,7 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         if (this.xupub != 0 && this.yupub != 0 && this.xocExtent != 0 && this.yocExtent != 0) {
             out.writeUnsignedByte(0x11);
             out.writeUnsignedByte(this.getTripletId().getId());
@@ -62,8 +60,6 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
             out.writeUnsignedInteger16(0x0000);
             out.writeUnsignedByte(this.pdfPresentationSpaceSize);
         }
-
-        return out.toByteArray();
     }
 
     /**

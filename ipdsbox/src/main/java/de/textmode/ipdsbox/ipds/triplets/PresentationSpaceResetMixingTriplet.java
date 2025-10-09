@@ -16,14 +16,10 @@ public final class PresentationSpaceResetMixingTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(3);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.mixingFlags);
-
-        return out.toByteArray();
     }
 
     /**

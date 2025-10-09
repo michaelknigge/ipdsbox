@@ -14,6 +14,27 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     private final int codePageGlobalIdentifier;
     private final int codedCharacterSetIdentifier;
 
+
+    public CodedGraphicCharacterSetGlobalIdentifierTriplet(
+            final int graphicCharacterSetGlobalIdentifier,
+            final int codePageGlobalIdentifier) {
+
+        super(TripletId.CodedGraphicCharacterSetGlobalIdentifier);
+
+        this.graphicCharacterSetGlobalIdentifier = graphicCharacterSetGlobalIdentifier;
+        this.codePageGlobalIdentifier = codePageGlobalIdentifier;
+        this.codedCharacterSetIdentifier = 0;
+
+    }
+
+    public CodedGraphicCharacterSetGlobalIdentifierTriplet(final int codedCharacterSetIdentifier) {
+        super(TripletId.CodedGraphicCharacterSetGlobalIdentifier);
+
+        this.codedCharacterSetIdentifier = codedCharacterSetIdentifier;
+        this.graphicCharacterSetGlobalIdentifier = 0;
+        this.codePageGlobalIdentifier = 0;
+    }
+
     /**
      * Constructs a {@link CodedGraphicCharacterSetGlobalIdentifierTriplet} from the given byte array.
      * @param raw raw IPDS data of the {@link Triplet}.
@@ -69,9 +90,7 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(6);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedInteger16(this.graphicCharacterSetGlobalIdentifier);
@@ -81,8 +100,6 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
         } else {
             out.writeUnsignedInteger16(this.codePageGlobalIdentifier);
         }
-
-        return out.toByteArray();
     }
 
     @Override
@@ -93,5 +110,4 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
                 ", cpgid=" + Integer.toHexString(this.codePageGlobalIdentifier) +
                 ", ccsid=" + Integer.toHexString(this.codedCharacterSetIdentifier) + "}";
     }
-
 }

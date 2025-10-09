@@ -1,5 +1,9 @@
 package de.textmode.ipdsbox.ipds.xohorders;
 
+import java.io.IOException;
+
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+
 /**
  * This class carries all parameters of the Stack Received Pages order.
  */
@@ -12,6 +16,11 @@ public final class StackReceivedPagesOrder extends XohOrder {
      */
     public StackReceivedPagesOrder(final byte[] data) throws UnknownXohOrderCode {
         super(data, XohOrderCode.StackReceivedPages);
+    }
+
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedInteger16(XohOrderCode.StackReceivedPages.getValue());
     }
 
     /**

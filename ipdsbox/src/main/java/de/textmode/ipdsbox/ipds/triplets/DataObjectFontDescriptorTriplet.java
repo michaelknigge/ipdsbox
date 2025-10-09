@@ -31,9 +31,7 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x10);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.fontFlags);
@@ -43,10 +41,7 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
         out.writeInteger16(this.characterRotation);
         out.writeInteger16(this.encodingEnvironment);
         out.writeInteger16(this.encodingID);
-
-        return out.toByteArray();
     }
-
 
     /**
      * Returns the Font flags.

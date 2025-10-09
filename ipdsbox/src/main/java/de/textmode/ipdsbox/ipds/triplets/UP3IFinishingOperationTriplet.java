@@ -28,15 +28,11 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(3 + this.data.length);
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.sequenceNumber);
         out.writeBytes(this.data);
-
-        return out.toByteArray();
     }
 
     /**
@@ -55,4 +51,6 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
     public byte[] getData() {
         return this.data;
     }
+
+    //TODO Implement public String toString() {
 }

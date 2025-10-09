@@ -275,6 +275,17 @@ public final class FinishingOperationTriplet extends Triplet {
     private final int axisOffset;
     private final List<Integer> positions;
 
+    public FinishingOperationTriplet(final OperationType operationType) {
+        super(TripletId.FinishingOperation);
+
+        this.operationType = operationType;
+        this.finishingOption = 0x00;
+        this.reference = Reference.DefaultCorner;
+        this.count = 0x00;
+        this.axisOffset = 0xFFFF;
+        this.positions = new ArrayList<>();
+    }
+
     /**
      * Constructs a {@link FinishingOperationTriplet} from the given byte array.
      * @param raw raw IPDS data of the {@link Triplet}.
@@ -298,10 +309,8 @@ public final class FinishingOperationTriplet extends Triplet {
     }
 
     @Override
-    public byte[] toByteArray() throws IOException {
-        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
-
-        out.writeUnsignedByte(0x09);
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedByte(0x09 + (this.positions.size() * 2));
         out.writeUnsignedByte(this.getTripletId().getId());
         out.writeUnsignedByte(this.getOperationType().getValue());
         out.writeUnsignedByte(this.finishingOption);
@@ -313,12 +322,6 @@ public final class FinishingOperationTriplet extends Triplet {
         for (final Integer position : this.positions) {
             out.writeUnsignedInteger16(position.intValue());
         }
-
-        final byte[] result = out.toByteArray();
-
-        result[0] = (byte) (result.length & 0xFF);
-
-        return result;
     }
 
     /**
@@ -369,4 +372,6 @@ public final class FinishingOperationTriplet extends Triplet {
     public List<Integer> getPositions() {
         return this.positions;
     }
+
+    //TODO Implement public String toString() {
 }
