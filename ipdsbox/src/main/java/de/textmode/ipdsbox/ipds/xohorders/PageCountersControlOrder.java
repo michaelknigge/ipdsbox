@@ -14,17 +14,13 @@ public final class PageCountersControlOrder extends XohOrder {
 
     /**
      * Constructs the {@link PageCountersControlOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public PageCountersControlOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
-        super(data, XohOrderCode.PageCountersControl);
+    public PageCountersControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.PageCountersControl);
 
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
-
-        this.counterUpdate = stream.readUnsignedByte();
-
+        this.counterUpdate = ipds.readUnsignedByte();
     }
 
     @Override

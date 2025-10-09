@@ -43,7 +43,7 @@ STM          | X'D6E4'   | Sense Type and Model                   | Device Contr
 SHS          | X'D697'   | Set Home State                         | Device Control   | :white_check_mark:
 SPE          | X'D608'   | Set Presentation Environment           | Device Control   | :x: 
 XOA          | X'D633'   | Execute Order Anystate                 | Device Control   | :x: 
-XOH          | X'D68F'   | Execute Order Home State               | Device Control   | :x: 
+XOH          | X'D68F'   | Execute Order Home State               | Device Control   | :white_check_mark: 
 LE           | X'D61D'   | Load Equivalence                       | Text             | :x:
 WTC          | X'D688'   | Write Text Control                     | Text             | :x:
 WT           | X'D62D'   | Write Text                             | Text             | :x:

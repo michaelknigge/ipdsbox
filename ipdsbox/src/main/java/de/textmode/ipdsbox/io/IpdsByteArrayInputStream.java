@@ -91,6 +91,21 @@ public final class IpdsByteArrayInputStream {
     }
 
     /**
+     * Rewind count bytes of input from this input stream.
+     * @param count the number of bytes to be walk back.
+     * @throws IOException if there was an error in rewinding (usually tried to rewinding more bytes than available)
+     */
+    public void rewind(final int count) throws IOException {
+
+        if (this.offset - count < 0) {
+            throw new IOException("Tried to rewind " + count + " bytes at offset " + this.offset);
+        }
+
+        this.offset -= count;
+        this.bytesLeft += count;
+    }
+
+    /**
      * Reads a complete {@link Triplet} from the underlying byte array.
      * @return A byte array containg the raw data of the {@link Triplet} or <code>null</code> if there is
      * no further {@link Triplet} available.

@@ -14,16 +14,13 @@ public final class SelectInputMediaSourceOrder extends XohOrder {
 
     /**
      * Constructs the {@link SelectInputMediaSourceOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public SelectInputMediaSourceOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
-        super(data, XohOrderCode.SelectInputMediaSource);
+    public SelectInputMediaSourceOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.SelectInputMediaSource);
 
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
-
-        this.sourceId = stream.readUnsignedByte();
+        this.sourceId = ipds.readUnsignedByte();
     }
 
     @Override
@@ -37,13 +34,13 @@ public final class SelectInputMediaSourceOrder extends XohOrder {
      * @return the source ID.
      */
     public int getSourceId() {
-        return sourceId;
+        return this.sourceId;
     }
 
     /**
      * Sets the source ID.
      */
-    public void setSourceId(int sourceId) {
+    public void setSourceId(final int sourceId) {
         this.sourceId = sourceId;
     }
 

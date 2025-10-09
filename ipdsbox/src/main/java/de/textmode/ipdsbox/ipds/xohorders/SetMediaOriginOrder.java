@@ -14,16 +14,13 @@ public final class SetMediaOriginOrder extends XohOrder {
 
     /**
      * Constructs the {@link SetMediaOriginOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public SetMediaOriginOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
-        super(data, XohOrderCode.SetMediaOrigin);
+    public SetMediaOriginOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.SetMediaOrigin);
 
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
-
-        this.origin = stream.readUnsignedByte();
+        this.origin = ipds.readUnsignedByte();
     }
 
     /**
@@ -31,13 +28,13 @@ public final class SetMediaOriginOrder extends XohOrder {
      * @return the origin.
      */
     public int getOrigin() {
-        return origin;
+        return this.origin;
     }
 
     /**
      * Sets the origin.
      */
-    public void setOrigin(int origin) {
+    public void setOrigin(final int origin) {
         this.origin = origin;
     }
 

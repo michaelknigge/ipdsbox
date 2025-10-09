@@ -185,4 +185,22 @@ public final class IpdsByteArrayInputStreamTest extends TestCase {
         assertTrue((Arrays.equals(HexFormat.of().parseHex("00"), is.readBytes(0, 1))));
         assertEquals(9, is.bytesAvailable());
     }
+
+    /**
+     * Tests reading and rewinding.
+     */
+    public void testReadAndRewind() throws Exception {
+        final IpdsByteArrayInputStream is = buildIpdsByteArrayInputStream("00112233445566778899");
+
+        assertTrue(is.readUnsignedByte() == 0x00);
+        assertTrue(is.readUnsignedByte() == 0x11);
+        assertTrue(is.readUnsignedByte() == 0x22);
+
+        is.rewind(1);
+        assertTrue(is.readUnsignedByte() == 0x22);
+
+        is.rewind(2);
+        assertTrue(is.readUnsignedByte() == 0x11);
+
+    }
 }

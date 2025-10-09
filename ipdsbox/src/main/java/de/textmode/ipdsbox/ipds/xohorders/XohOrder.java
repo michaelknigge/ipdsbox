@@ -2,33 +2,38 @@ package de.textmode.ipdsbox.ipds.xohorders;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
- * Superclass of all Execute Home State Orders. Note that all implementations have to implement
- * a constructor (and just this one constructor) that accepts a byte[] as the one any only parameter.
+ * Superclass of all Execute Home State Orders.
  */
 public abstract class XohOrder {
 
     private final XohOrderCode orderCode;
 
+    /**
+     * Constructs the {@link XohOrder}.
+     */
     public XohOrder(final XohOrderCode orderCode) {
         this.orderCode = orderCode;
     }
 
     /**
-     * Constructs the {@link XohOrder} object.
-     * @param data the raw IPDS data of the {@link XohOrder}.
+     * Constructs the {@link XohOrder} object from IPDS data read with an {@link IpdsByteArrayInputStream}.
+     *
+     * @param ipds the raw IPDS data of the {@link XohOrder}.
      * @param code the expected {@link XohOrderCode}.
+     *
+     * @throws IOException if the the IPDS data is invalid / truncated.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown XOH order code.
      */
-    public XohOrder(final byte[] data, final XohOrderCode code) throws UnknownXohOrderCode {
-        // TODO Use IpdsByteArrayInputStream...
-        final int c = ((data[0] & 0xFF) << 8) | (data[1] & 0xFF);
-        if (c != code.getValue()) {
+    public XohOrder(final IpdsByteArrayInputStream ipds, final XohOrderCode code) throws UnknownXohOrderCode, IOException {
+        if (ipds.readUnsignedInteger16() != code.getValue()) {
             throw new UnknownXohOrderCode("Passed invalid data");
         }
-        this.orderCode = XohOrderCode.getFor(c);
+
+        this.orderCode = code;
     }
 
     /**

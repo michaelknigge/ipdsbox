@@ -20,19 +20,18 @@ public final class DeactivateSavedPageGroupOrder extends XohOrder {
 
     /**
      * Constructs the {@link DeactivateSavedPageGroupOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownTripletException if the the IPDS data contains an unknown {@link Triplet}.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      * @throws IOException if the IPDS data is broken.
      * @throws InvalidIpdsCommandException if the IPDS data is invalid.
      */
-    public DeactivateSavedPageGroupOrder(final byte[] data)
+    public DeactivateSavedPageGroupOrder(final IpdsByteArrayInputStream ipds)
         throws IOException, UnknownTripletException, UnknownXohOrderCode, InvalidIpdsCommandException {
-        super(data, XohOrderCode.DeactivateSavedPageGroup);
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
+        super(ipds, XohOrderCode.DeactivateSavedPageGroup);
+
         byte[] buffer;
-        while ((buffer = stream.readTripletIfExists()) != null) {
+        while ((buffer = ipds.readTripletIfExists()) != null) {
             this.triplets.add(TripletBuilder.build(buffer));
         }
     }

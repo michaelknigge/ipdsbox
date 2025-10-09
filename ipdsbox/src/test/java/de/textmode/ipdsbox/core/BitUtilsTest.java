@@ -44,4 +44,20 @@ public final class BitUtilsTest extends TestCase {
         assertFalse(BitUtils.isBitSet(7, (byte) 0x02));
     }
 
+    /**
+     * Checks the BitUtils.setBit() and BitUtils.unsetBit() methods.
+     */
+    public void testSetAndUnsetBit() {
+        // Bit 0
+        assertEquals(0x00, BitUtils.unsetBit(0, (byte) (0x80 & 0xFF)) & 0xFF);
+        assertEquals(0x0F, BitUtils.unsetBit(0, (byte) (0x0F & 0xFF)) & 0xFF);
+        assertEquals(0x80, BitUtils.setBit(0, (byte) (0x80 & 0xFF)) & 0xFF);
+        assertEquals(0x80, BitUtils.setBit(0, (byte) (0x00 & 0xFF)) & 0xFF);
+
+        // Bit 1
+        assertEquals(0x3F, BitUtils.unsetBit(1, (byte) (0x7F & 0xFF)) & 0xFF);
+        assertEquals(0x3F, BitUtils.unsetBit(1, (byte) (0x3F & 0xFF)) & 0xFF);
+        assertEquals(0x6F, BitUtils.setBit(1, (byte) (0x6F & 0xFF)) & 0xFF);
+        assertEquals(0x40, BitUtils.setBit(1, (byte) (0x00 & 0xFF)) & 0xFF);
+    }
 }

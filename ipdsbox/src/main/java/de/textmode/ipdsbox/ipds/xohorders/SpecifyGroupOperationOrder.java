@@ -15,17 +15,14 @@ public final class SpecifyGroupOperationOrder extends XohOrder {
 
     /**
      * Constructs the {@link SpecifyGroupOperationOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public SpecifyGroupOperationOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
-        super(data, XohOrderCode.SpecifyGroupOperation);
+    public SpecifyGroupOperationOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.SpecifyGroupOperation);
 
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
-
-        this.operation = stream.readUnsignedByte();
-        this.groupLevel = stream.readUnsignedByte();
+        this.operation = ipds.readUnsignedByte();
+        this.groupLevel = ipds.readUnsignedByte();
     }
 
     @Override

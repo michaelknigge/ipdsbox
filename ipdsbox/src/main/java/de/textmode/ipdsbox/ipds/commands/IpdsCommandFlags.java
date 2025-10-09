@@ -7,9 +7,14 @@ import de.textmode.ipdsbox.core.BitUtils;
  */
 public final class IpdsCommandFlags {
 
-    // TODO Implement Setters!
-    // TODO Builder? i. e. the setters could return "this".
-    private final byte flags;
+    private byte flags;
+
+    /**
+     * Constructs an {@link IpdsCommandFlags} object with not bits set.
+     */
+    public IpdsCommandFlags() {
+        this.flags = 0x00;
+    }
 
     /**
      * Constructs an {@link IpdsCommandFlags} object.
@@ -25,7 +30,17 @@ public final class IpdsCommandFlags {
      */
     public boolean isAcknowledgmentRequired() {
         return BitUtils.isBitSet(0, this.flags);
+    }
 
+    /**
+     * Sets or unsets the "Acknowledge Reply required" flag.
+     */
+    public void isAcknowledgmentRequired(final boolean trueOrFalse) {
+        if (trueOrFalse) {
+            this.flags = BitUtils.setBit(0, this.flags);
+        } else {
+            this.flags = BitUtils.unsetBit(0, this.flags);
+        }
     }
 
     /**
@@ -34,6 +49,17 @@ public final class IpdsCommandFlags {
      */
     public boolean isAcknowledgmentContinuationRequested() {
         return BitUtils.isBitSet(2, this.flags);
+    }
+
+    /**
+     * Sets or unsets the "Acknowledge Continuation Requested" flag.
+     */
+    public void isAcknowledgmentContinuationRequested(final boolean trueOrFalse) {
+        if (trueOrFalse) {
+            this.flags = BitUtils.setBit(2, this.flags);
+        } else {
+            this.flags = BitUtils.unsetBit(2, this.flags);
+        }
     }
 
     /**
@@ -47,6 +73,17 @@ public final class IpdsCommandFlags {
     }
 
     /**
+     * Sets or unsets the "Long Acknowledge Reply Accepted" flag.
+     */
+    public void isLongAcknowledgeReplyAccepted(final boolean trueOrFalse) {
+        if (trueOrFalse) {
+            this.flags = BitUtils.setBit(3, this.flags);
+        } else {
+            this.flags = BitUtils.unsetBit(3, this.flags);
+        }
+    }
+
+    /**
      * Determines if the IPDS command contains a two byte correlation ID.
      * @return <code>true</code> if the IPDS command contains a two byte correlation ID.
      */
@@ -54,4 +91,30 @@ public final class IpdsCommandFlags {
         return BitUtils.isBitSet(1, this.flags);
     }
 
+
+    /**
+     * Determines if the IPDS command contains a two byte correlation ID.
+     * @return <code>true</code> if the IPDS command contains a two byte correlation ID.
+     */
+    public void hasCorrelationID(final boolean trueOrFalse) {
+        if (trueOrFalse) {
+            this.flags = BitUtils.setBit(1, this.flags);
+        } else {
+            this.flags = BitUtils.unsetBit(1, this.flags);
+        }
+    }
+
+    /**
+     * Returns the flag byte.
+     */
+    public byte getFlags() {
+        return this.flags;
+    }
+
+    /**
+     * Sets the flag byte.
+     */
+    public void setFlags(final byte flags) {
+        this.flags = flags;
+    }
 }

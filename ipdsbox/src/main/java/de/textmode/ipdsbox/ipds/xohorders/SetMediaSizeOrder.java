@@ -17,19 +17,16 @@ public final class SetMediaSizeOrder extends XohOrder {
 
     /**
      * Constructs the {@link SetMediaSizeOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public SetMediaSizeOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
-        super(data, XohOrderCode.SetMediaSize);
+    public SetMediaSizeOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.SetMediaSize);
 
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
-
-        this.unitBase = stream.readUnsignedByte();
-        this.upub = stream.readUnsignedInteger16();
-        this.xmExtent = stream.readUnsignedInteger16();
-        this.ymExtent = stream.readUnsignedInteger16();
+        this.unitBase = ipds.readUnsignedByte();
+        this.upub = ipds.readUnsignedInteger16();
+        this.xmExtent = ipds.readUnsignedInteger16();
+        this.ymExtent = ipds.readUnsignedInteger16();
     }
 
     @Override

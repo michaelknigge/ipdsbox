@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.xohorders;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
@@ -11,11 +12,11 @@ public final class StackReceivedPagesOrder extends XohOrder {
 
     /**
      * Constructs the {@link StackReceivedPagesOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public StackReceivedPagesOrder(final byte[] data) throws UnknownXohOrderCode {
-        super(data, XohOrderCode.StackReceivedPages);
+    public StackReceivedPagesOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.StackReceivedPages);
     }
 
     @Override

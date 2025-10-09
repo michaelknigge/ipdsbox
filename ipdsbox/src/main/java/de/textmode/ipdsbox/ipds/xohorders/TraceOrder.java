@@ -16,18 +16,15 @@ public final class TraceOrder extends XohOrder {
 
     /**
      * Constructs the {@link TraceOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public TraceOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
-        super(data, XohOrderCode.Trace);
+    public TraceOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.Trace);
 
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
-
-        this.function = stream.readUnsignedByte();
-        this.controlFlags = stream.readUnsignedByte();
-        this.options = stream.readRemainingBytes();
+        this.function = ipds.readUnsignedByte();
+        this.controlFlags = ipds.readUnsignedByte();
+        this.options = ipds.readRemainingBytes();
     }
 
     @Override

@@ -3,6 +3,8 @@ package de.textmode.ipdsbox.ipds.commands;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
@@ -24,17 +26,17 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link ExecuteOrderHomeStateCommand}.
-     * @param command the raw IPDS data stream, not including the part of the PPD/PPR protocol.
+     * @param ipds the raw IPDS data stream, not including the part of the PPD/PPR protocol.
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      * @throws UnknownXohOrderCode if the given IPDS data describes an unknown {@link XohOrder}.
      * @throws UnknownTripletException if the given IPDS data describes an unknown {@link Triplet}.
      * @throws IOException if the given IPDS data is broken.
      */
-    public ExecuteOrderHomeStateCommand(final byte[] command)
+    public ExecuteOrderHomeStateCommand(final IpdsByteArrayInputStream ipds)
         throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException, UnknownTripletException {
-        super(command, IpdsCommandId.XOH);
+        super(ipds, IpdsCommandId.XOH);
 
-        this.order = XohOrderBuilder.build(this.getData());
+        this.order = XohOrderBuilder.build(ipds);
     }
 
     /**
@@ -45,5 +47,10 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
      */
     public XohOrder getOrder() {
         return this.order;
+    }
+
+    @Override
+    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+        this.order.writeTo(ipds);
     }
 }

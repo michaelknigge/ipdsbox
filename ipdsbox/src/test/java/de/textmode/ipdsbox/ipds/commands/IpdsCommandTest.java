@@ -1,11 +1,11 @@
 package de.textmode.ipdsbox.ipds.commands;
 
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HexFormat;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import junit.framework.TestCase;
 
 /**
@@ -13,16 +13,22 @@ import junit.framework.TestCase;
  */
 public final class IpdsCommandTest extends TestCase {
 
+    static IpdsByteArrayInputStream streamFromHex(final String hex) {
+        final byte[] rawData = HexFormat.of().parseHex(hex);
+        final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(rawData);
+
+        return ipds;
+    }
+
     /**
      * Just test a valid IPDS command.
      */
     public void testValidIpdsCommand() throws Exception {
-        final byte[] data = HexFormat.of().parseHex("0005D6E480");
-        final IpdsCommand command = new SenseTypeAndModelCommand(data);
+        final IpdsCommand command = new SenseTypeAndModelCommand(streamFromHex("0005D6E480"));
 
         assertEquals("STM - Sense Type and Model", command.toString());
 
-        assertEquals(5, command.getCommandLength());
+        //assertEquals(5, command.getCommandLength());
         assertEquals(IpdsCommandId.STM, command.getCommandCode());
         assertTrue(command.getCommandFlags().isAcknowledgmentRequired());
 
@@ -34,9 +40,9 @@ public final class IpdsCommandTest extends TestCase {
     /**
      * An IPDS command with an invalid length in the first two length bytes.
      */
-    public void testIpdsCommandWithInvalidLengthInLengthBytes() {
+    public void testIpdsCommandWithInvalidLengthInLengthBytes() throws Exception {
         try {
-            new SenseTypeAndModelCommand(HexFormat.of().parseHex("0004D6E480"));
+            new SenseTypeAndModelCommand(streamFromHex("0004D6E480"));
             fail("Should fail because the length in the length field is too short.");
         } catch (final InvalidIpdsCommandException e) {
             assertEquals(
@@ -45,7 +51,7 @@ public final class IpdsCommandTest extends TestCase {
         }
 
         try {
-            new SenseTypeAndModelCommand(HexFormat.of().parseHex("0006D6E480"));
+            new SenseTypeAndModelCommand(streamFromHex("0006D6E480"));
             fail("Should fail because the length in the length field is too big.");
         } catch (final InvalidIpdsCommandException e) {
             assertEquals(
@@ -57,9 +63,9 @@ public final class IpdsCommandTest extends TestCase {
     /**
      * An IPDS command with an unknown IPDS command code.
      */
-    public void testIpdsCommandWithUnknownIpdsCommandCode() {
+    public void testIpdsCommandWithUnknownIpdsCommandCode() throws Exception{
         try {
-            new SenseTypeAndModelCommand(HexFormat.of().parseHex("0005D61180"));
+            new SenseTypeAndModelCommand(streamFromHex("0005D61180"));
             fail("Should fail because the IPDS command code is unknown.");
         } catch (final InvalidIpdsCommandException e) {
             assertEquals("The IPDS command has the command id X'd611' which is unknown", e.getMessage());
@@ -70,10 +76,9 @@ public final class IpdsCommandTest extends TestCase {
      * Construction of a concrete {@link IpdsCommand} with an wrong (but valid!) IPDS command id.
      */
     public void testIpdsCommandWithInvalidIpdsCommandCode() throws Exception {
-        // This (D6EE) is !NOT! the command id of the STM command!
-        final byte[] data = HexFormat.of().parseHex("0005D68F80");
         try {
-            new SenseTypeAndModelCommand(data);
+            // This (D6EE) is !NOT! the command id of the STM command!
+            new SenseTypeAndModelCommand(streamFromHex("0005D68F80"));
         } catch (final IpdsboxRuntimeException e) {
             assertEquals(
                 "An IpdsCommand with command id X'd68f' was constructed but command id X'd6e4' was expected.",
@@ -85,59 +90,49 @@ public final class IpdsCommandTest extends TestCase {
      * Getting the data portion of an IPDS command that has no correlation id.
      */
     public void testGetDataWithoutCorrelationId() throws Exception {
-        final IpdsCommand command = new NoOperationCommand(HexFormat.of().parseHex("0008D60300F1F2F3"));
+        final NoOperationCommand command = new NoOperationCommand(streamFromHex("0008D60300F1F2F3"));
         assertEquals("NOP - No Operation", command.toString());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
         assertFalse(command.getCommandFlags().hasCorrelationID());
-        assertTrue(Arrays.equals(new byte[] {(byte) 0xF1, (byte) 0xF2, (byte) 0xF3}, command.getData()));
-        assertEquals("123", command.getDataAsString());
-        assertEquals("123", command.getDataAsString("IBM500"));
-        assertEquals("123", command.getDataAsString(Charset.forName("IBM500")));
+        assertTrue(Arrays.equals(new byte[] {(byte) 0xF1, (byte) 0xF2, (byte) 0xF3}, command.getDataBytes()));
     }
 
     /**
      * Getting the data portion of an IPDS command that has a correlation id.
      */
     public void testNoOperationWithCorrelationId() throws Exception {
-        final IpdsCommand command = new NoOperationCommand(HexFormat.of().parseHex("000AD603401234F1F2F3"));
+        final NoOperationCommand command = new NoOperationCommand(streamFromHex("000AD603401234F1F2F3"));
         assertEquals("NOP - No Operation", command.toString());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
         assertTrue(command.getCommandFlags().hasCorrelationID());
-        assertTrue(Arrays.equals(new byte[] {(byte) 0xF1, (byte) 0xF2, (byte) 0xF3}, command.getData()));
-        assertEquals("123", command.getDataAsString());
-        assertEquals("123", command.getDataAsString("IBM500"));
-        assertEquals("123", command.getDataAsString(Charset.forName("IBM500")));
+        assertEquals(0x1234, command.getCorrelationId());
+        assertTrue(Arrays.equals(new byte[] {(byte) 0xF1, (byte) 0xF2, (byte) 0xF3}, command.getDataBytes()));
     }
 
     /**
      * Getting the data portion of an IPDS command that has no correlation id when there is no data portion.
      */
     public void testGetDataWithoutCorrelationIdWhenThereIsNoData() throws Exception {
-        final IpdsCommand command = new NoOperationCommand(HexFormat.of().parseHex("0005D60300"));
+        final NoOperationCommand command = new NoOperationCommand(streamFromHex("0005D60300"));
         assertEquals("NOP - No Operation", command.toString());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
         assertFalse(command.getCommandFlags().hasCorrelationID());
-        assertEquals(0, command.getData().length);
-        assertTrue(command.getDataAsString().isEmpty());
-        assertTrue(command.getDataAsString("IBM500").isEmpty());
-        assertTrue(command.getDataAsString(Charset.forName("IBM500")).isEmpty());
+        assertEquals(0, command.getDataBytes().length);
     }
 
     /**
      * Getting the data portion of an IPDS command that has a correlation id when there is no data portion.
      */
     public void testGetDataWithCorrelationIdWhenThereIsNoData() throws Exception {
-        final IpdsCommand command = new NoOperationCommand(HexFormat.of().parseHex("0007D603401234"));
+        final NoOperationCommand command = new NoOperationCommand(streamFromHex("0007D603401234"));
         assertEquals("NOP - No Operation", command.toString());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
         assertTrue(command.getCommandFlags().hasCorrelationID());
-        assertEquals(0, command.getData().length);
-        assertTrue(command.getDataAsString().isEmpty());
-        assertTrue(command.getDataAsString("IBM500").isEmpty());
-        assertTrue(command.getDataAsString(Charset.forName("IBM500")).isEmpty());
+        assertEquals(0x1234, command.getCorrelationId());
+        assertEquals(0, command.getDataBytes().length);
     }
 }

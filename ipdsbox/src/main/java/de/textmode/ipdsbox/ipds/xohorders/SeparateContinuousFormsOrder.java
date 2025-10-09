@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.xohorders;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
@@ -11,11 +12,11 @@ public final class SeparateContinuousFormsOrder extends XohOrder {
 
     /**
      * Constructs the {@link SeparateContinuousFormsOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public SeparateContinuousFormsOrder(final byte[] data) throws UnknownXohOrderCode {
-        super(data, XohOrderCode.SeparateContinuousForms);
+    public SeparateContinuousFormsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.SeparateContinuousForms);
     }
 
     @Override

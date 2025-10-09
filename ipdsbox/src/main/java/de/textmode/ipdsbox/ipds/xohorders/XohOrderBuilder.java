@@ -21,53 +21,54 @@ public final class XohOrderBuilder {
 
     /**
      * Builds a {@link XohOrder} from the given byte array.
-     * @param data the raw IPDS data of the {@link XohOrder}.
+     * @param ipds the raw IPDS data of the {@link XohOrder}.
      * @return a concrete {@link XohOrder} implementation
      * @throws UnknownXohOrderCode if the given IPDS data describes an unknown {@link XohOrder}.
      * @throws UnknownTripletException if the given IPDS data describes an unknown {@link Triplet}.
      * @throws InvalidIpdsCommandException if the given IPDS data is broken.
      * @throws IOException if the given IPDS data is incomplete.
      */
-    public static XohOrder build(final byte[] data)
+    public static XohOrder build(final IpdsByteArrayInputStream ipds)
         throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
-        final IpdsByteArrayInputStream in = new IpdsByteArrayInputStream(data);
-        final XohOrderCode code = XohOrderCode.getFor(in.readUnsignedInteger16());
+
+        final XohOrderCode code = XohOrderCode.getFor(ipds.readUnsignedInteger16());
+        ipds.rewind(2); // Go back so the Order-Implementations will read the complete order...
 
         switch (code) {
         case DeactivateSavedPageGroup:
-            return new DeactivateSavedPageGroupOrder(data);
+            return new DeactivateSavedPageGroupOrder(ipds);
         case DefineGroupBoundary:
-            return new DefineGroupBoundaryOrder(data);
+            return new DefineGroupBoundaryOrder(ipds);
         case EjectToFrontFacing:
-            return new EjectToFrontFacingOrder(data);
+            return new EjectToFrontFacingOrder(ipds);
         case EraseResidualFontData:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new EraseResidualFontDataOrder(ipds);
         case EraseResidualPrintData:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new EraseResidualPrintDataOrder(ipds);
         case ObtainPrinterCharacteristics:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new ObtainPrinterCharacteristicsOrder(ipds);
         case PageCountersControl:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new PageCountersControlOrder(ipds);
         case PrintBufferedData:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new PrintBufferedDataOrder(ipds);
         case RemoveSavedGroup:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new RemoveSavedPageGroupOrder(ipds);
         case SelectInputMediaSource:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new SelectInputMediaSourceOrder(ipds);
         case SelectMediumModifications:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new SelectMediumModificationsOrder(ipds);
         case SeparateContinuousForms:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new SeparateContinuousFormsOrder(ipds);
         case SetMediaOrigin:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new SetMediaOriginOrder(ipds);
         case SetMediaSize:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new SetMediaSizeOrder(ipds);
         case SpecifyGroupOperation:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new SpecifyGroupOperationOrder(ipds);
         case StackReceivedPages:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new StackReceivedPagesOrder(ipds);
         case Trace:
-            throw new UnknownXohOrderCode("currently unsupported");
+            return new TraceOrder(ipds);
         default:
             throw new IpdsboxRuntimeException("No case for XohOrderCode " + code.toString());
         }

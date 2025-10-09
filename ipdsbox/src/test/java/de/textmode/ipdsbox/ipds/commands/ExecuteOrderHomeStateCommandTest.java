@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HexFormat;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.ipds.triplets.*;
 import de.textmode.ipdsbox.ipds.triplets.group.GroupIdFormat;
 import de.textmode.ipdsbox.ipds.xohorders.*;
@@ -21,7 +22,10 @@ public final class ExecuteOrderHomeStateCommandTest extends TestCase {
         final int len = (withoutLen.length() / 2) + 2;
         final String withLen = String.format("%04X", len) + withoutLen;
 
-        return new ExecuteOrderHomeStateCommand(HexFormat.of().parseHex(withLen)).getOrder();
+        final byte[] rawData = HexFormat.of().parseHex(withLen);
+        final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(rawData);
+
+        return new ExecuteOrderHomeStateCommand(ipds).getOrder();
     }
 
     /**

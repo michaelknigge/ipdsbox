@@ -20,4 +20,19 @@ public final class BitUtils {
         return ((value >> (7 - bit)) & 1) == 1;
     }
 
+    /**
+     * Returns the given <i>value</i> with the bit <i>bit</i> set.
+     * Note that this method assumes that bit 0 is the left most bit.
+     */
+    public static byte setBit(final int bit, final byte value) {
+        return (byte) ((value & 0xFF) | (1 << (7 - bit)));
+    }
+
+    /**
+     * Returns the given <i>value</i> with the bit <i>bit</i> unset.
+     * Note that this method assumes that bit 0 is the left most bit.
+     */
+    public static byte unsetBit(final int bit, final byte value) {
+        return (byte) ((value & 0xFF) & ~(1 << (7 - bit)));
+    }
 }

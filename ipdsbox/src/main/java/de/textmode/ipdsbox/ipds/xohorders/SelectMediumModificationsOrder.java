@@ -18,19 +18,16 @@ public final class SelectMediumModificationsOrder extends XohOrder {
 
     /**
      * Constructs the {@link SelectMediumModificationsOrder}.
-     * @param data the raw IPDS data of the order.
+     * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
-    public SelectMediumModificationsOrder(final byte[] data) throws UnknownXohOrderCode, IOException {
-        super(data, XohOrderCode.SelectMediumModifications);
+    public SelectMediumModificationsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+        super(ipds, XohOrderCode.SelectMediumModifications);
 
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
+        ipds.skip(8);
 
-        stream.skip(8);
-
-        while (stream.bytesAvailable() > 0) {
-            this.modifications.add(new MediumModification(stream));
+        while (ipds.bytesAvailable() > 0) {
+            this.modifications.add(new MediumModification(ipds));
         }
     }
 
@@ -123,7 +120,7 @@ public final class SelectMediumModificationsOrder extends XohOrder {
          * Writes this {@link MediumModification} to the given {@link IpdsByteArrayOutputStream}.
          */
 
-        public void writeTo(IpdsByteArrayOutputStream out) throws IOException {
+        public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
             out.writeUnsignedInteger16(
                     5 + (this.modificationParameters == null ? 0 : this.modificationParameters.length) );
 

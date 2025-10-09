@@ -1,6 +1,10 @@
 package de.textmode.ipdsbox.ipds.commands;
 
+import java.io.IOException;
+
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
  * The No Operation (NOP) command has no effect on presentation. Zero or more data bytes
@@ -8,12 +12,50 @@ import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
  */
 public final class NoOperationCommand extends IpdsCommand {
 
+    private byte[] dataBytes;
+
     /**
      * Constructs the {@link NoOperationCommand}.
-     * @param command the raw IPDS data stream, not including the part of the PPD/PPR protocol.
-     * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      */
-    public NoOperationCommand(final byte[] command) throws InvalidIpdsCommandException {
-        super(command, IpdsCommandId.NOP);
+    public NoOperationCommand() {
+        this(new byte[0]); // We do not like null ;-)
+    }
+
+    /**
+     * Constructs the {@link NoOperationCommand}.
+     */
+    public NoOperationCommand(final byte[] dataBytes) {
+        super(IpdsCommandId.NOP);
+
+        this.dataBytes = dataBytes;
+    }
+    /**
+     * Constructs the {@link NoOperationCommand}.
+     */
+    public NoOperationCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+        super(ipds, IpdsCommandId.NOP);
+
+        this.dataBytes = ipds.readRemainingBytes();
+    }
+
+    /**
+     * Returns the data bytes of the NOP.
+     */
+    public byte[] getDataBytes() {
+        return this.dataBytes;
+    }
+
+    /**
+     * Sets the data bytes of the NOP.
+     */
+    public void setDataBytes(final byte[] dataBytes) {
+        this.dataBytes = dataBytes;
+    }
+
+    @Override
+    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+        if (this.dataBytes != null) {
+            ipds.writeBytes(this.dataBytes);
+        }
     }
 }

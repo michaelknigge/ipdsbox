@@ -32,24 +32,24 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
 
     /**
      * Constructs the {@link DefineGroupBoundaryOrder}.
-     * @param data the raw IPDS data of the order.
+     *
+     * @param ipds the raw IPDS data of the order.
+     *
      * @throws UnknownTripletException if the the IPDS data contains an unknown {@link Triplet}.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      * @throws IOException if the IPDS data is broken.
      * @throws InvalidIpdsCommandException if the order contains invalid data.
      */
-    public DefineGroupBoundaryOrder(final byte[] data)
+    public DefineGroupBoundaryOrder(final IpdsByteArrayInputStream ipds)
         throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
 
-        super(data, XohOrderCode.DefineGroupBoundary);
-        final IpdsByteArrayInputStream stream = new IpdsByteArrayInputStream(data);
-        stream.skip(2);
+        super(ipds, XohOrderCode.DefineGroupBoundary);
 
-        this.orderType = stream.readByte();
-        this.groupLevel = stream.readByte();
+        this.orderType = ipds.readByte();
+        this.groupLevel = ipds.readByte();
 
         byte[] buffer;
-        while ((buffer = stream.readTripletIfExists()) != null) {
+        while ((buffer = ipds.readTripletIfExists()) != null) {
             this.triplets.add(TripletBuilder.build(buffer));
         }
     }
