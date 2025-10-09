@@ -103,6 +103,26 @@ X'0300' | Specify Group Operation        | :white_check_mark:
 X'0D00' | Stack Received Pages           | :white_check_mark:
 X'F200' | Trace                          | :white_check_mark:
 
+# XOA Orders
+The IPDS command "Execute Order Anystate" (XOA) ist a rather complex command, too.
+The following table shows the orders and the
+current status of the corresponding support of the order (*"supported"* means that ipdsbox can 
+parse the order and create a specific Java object for it).
+
+Code    | Order                                   | Supported
+--------|-----------------------------------------|----------
+X'1000' | Activate Printer Alarm                  | :white_check_mark:
+X'0A00' | Alternate Offset Stacker                | :white_check_mark:
+X'0C00' | Control Edge Marks                      | :white_check_mark:
+X'F200' | Discard Buffered Data                   | :white_check_mark:
+X'F500' | Discard Unstacked Pages                 | :white_check_mark:
+X'F600' | Exception-Handling Control              | :white_check_mark:
+X'0800' | Mark Form                               | :white_check_mark:
+X'F900' | Obtain Additional Exception Information | :white_check_mark:
+X'F800' | Print-Quality Control                   | :white_check_mark:
+X'F400' | Request Resource List                   | :white_check_mark:
+X'FA00' | Request Setup Name List                 | :white_check_mark:
+
 
 # Triplets
 The following table shows the Triplets and the current status of the corresponding support of the Triplet 
