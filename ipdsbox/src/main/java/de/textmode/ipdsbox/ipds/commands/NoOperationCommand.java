@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.core.ByteUtils;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
@@ -18,7 +19,7 @@ public final class NoOperationCommand extends IpdsCommand {
      * Constructs the {@link NoOperationCommand}.
      */
     public NoOperationCommand() {
-        this(new byte[0]); // We do not like null ;-)
+        this(ByteUtils.EMPTY_BYTE_ARRAY);
     }
 
     /**

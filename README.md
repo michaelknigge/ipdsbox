@@ -24,11 +24,11 @@ IPDS Command | Hex Value | Command Description                    | Command Set 
 -------------|-----------|----------------------------------------|------------------|----------
 AR           | X'D62E'   | Activate Resource                      | Device Control   | :x: 
 AFO          | X'D602'   | Apply Finishing Operations             | Device Control   | :x: 
-BP           | X'D6AF'   | Begin Page                             | Device Control   | :x: 
+BP           | X'D6AF'   | Begin Page                             | Device Control   | :white_check_mark: 
 DF           | X'D64F'   | Deactivate Font                        | Device Control   | :x: 
 DUA          | X'D6CE'   | Define User Area                       | Device Control   | :x: 
-END          | X'D65D'   | End                                    | Device Control   | :x: 
-EP           | X'D6BF'   | End Page                               | Device Control   | :x: 
+END          | X'D65D'   | End                                    | Device Control   | :white_check_mark: 
+EP           | X'D6BF'   | End Page                               | Device Control   | :white_check_mark:
 ISP          | X'D67E'   | Include Saved Page                     | Device Control   | :x: 
 ICMR         | X'D66B'   | Invoke CMR                             | Device Control   | :x: 
 LCC          | X'D69F'   | Load Copy Control                      | Device Control   | :x: 
@@ -37,7 +37,7 @@ LPD          | X'D6CF'   | Logical Page Descriptor                | Device Contr
 LPP          | X'D66D'   | Logical Page Position                  | Device Control   | :x: 
 MID          | X'D601'   | Manage IPDS Dialog                     | Device Control   | :x: 
 NOP          | X'D603'   | No Operation                           | Device Control   | :white_check_mark:
-PFC          | X'D634'   | Presentation Fidelity Control          | Device Control   | :x: 
+PFC          | X'D634'   | Presentation Fidelity Control          | Device Control   | :white_check_mark: 
 RPO          | X'D67B'   | Rasterize Presentation Object          | Device Control   | :x: 
 STM          | X'D6E4'   | Sense Type and Model                   | Device Control   | :white_check_mark:
 SHS          | X'D697'   | Set Home State                         | Device Control   | :white_check_mark:

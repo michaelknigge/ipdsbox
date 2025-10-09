@@ -32,7 +32,6 @@ public final class RemoveSavedPageGroupOrder extends XohOrder {
         while ((buffer = ipds.readTripletIfExists()) != null) {
             this.triplets.add(TripletBuilder.build(buffer));
         }
-
     }
 
     @Override
