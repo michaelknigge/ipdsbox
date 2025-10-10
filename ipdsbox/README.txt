@@ -26,9 +26,6 @@ mk.ipdsbox.ipds.exceptions
 mk.ipdsbox.ipds.common
 --> Allgemeines Zeuchs - gilt es aber so weit es geht zu vermeiden....
 
-mk.ipdsbox.ipds.util
---> Byte und Bit-Parserei
-
 mk.ipdsbox.ipds.commandset.devicecontrol
 --> Device Control Set
 

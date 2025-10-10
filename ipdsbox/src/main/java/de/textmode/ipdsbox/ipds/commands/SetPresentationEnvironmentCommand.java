@@ -34,6 +34,8 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
     public SetPresentationEnvironmentCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException, UnknownTripletException {
         super(ipds, IpdsCommandId.SPE);
 
+        ipds.skip(2);
+
         byte[] buffer;
         while ((buffer = ipds.readTripletIfExists()) != null) {
             this.triplets.add(TripletBuilder.build(buffer));
@@ -56,6 +58,8 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
 
     @Override
     void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+        ipds.writeUnsignedInteger16(0x0000);
+
         for (final Triplet triplet : this.triplets) {
             triplet.writeTo(ipds);
         }

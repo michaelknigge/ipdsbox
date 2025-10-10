@@ -23,19 +23,19 @@ the IPDS command and create a specific Java object for it).
 IPDS Command | Hex Value | Command Description                    | Command Set      | Supported
 -------------|-----------|----------------------------------------|------------------|----------
 ACK          | X'D6FF'   | Acknowledge Reply                      | Device Control   | :white_check_mark:
-AR           | X'D62E'   | Activate Resource                      | Device Control   | :x: 
+AR           | X'D62E'   | Activate Resource                      | Device Control   | :white_check_mark:
 AFO          | X'D602'   | Apply Finishing Operations             | Device Control   | :white_check_mark:
 BP           | X'D6AF'   | Begin Page                             | Device Control   | :white_check_mark:
-DF           | X'D64F'   | Deactivate Font                        | Device Control   | :x: 
-DUA          | X'D6CE'   | Define User Area                       | Device Control   | :x: 
+DF           | X'D64F'   | Deactivate Font                        | Device Control   | :white_check_mark:
+DUA          | X'D6CE'   | Define User Area                       | Device Control   | :white_check_mark:
 END          | X'D65D'   | End                                    | Device Control   | :white_check_mark:
 EP           | X'D6BF'   | End Page                               | Device Control   | :white_check_mark:
 ISP          | X'D67E'   | Include Saved Page                     | Device Control   | :white_check_mark:
-ICMR         | X'D66B'   | Invoke CMR                             | Device Control   | :x: 
-LCC          | X'D69F'   | Load Copy Control                      | Device Control   | :x: 
-LFE          | X'D63F'   | Load Font Equivalence                  | Device Control   | :x: 
-LPD          | X'D6CF'   | Logical Page Descriptor                | Device Control   | :x: 
-LPP          | X'D66D'   | Logical Page Position                  | Device Control   | :x: 
+ICMR         | X'D66B'   | Invoke CMR                             | Device Control   | :white_check_mark:
+LCC          | X'D69F'   | Load Copy Control                      | Device Control   | :white_check_mark:
+LFE          | X'D63F'   | Load Font Equivalence                  | Device Control   | :white_check_mark:
+LPD          | X'D6CF'   | Logical Page Descriptor                | Device Control   | :white_check_mark:
+LPP          | X'D66D'   | Logical Page Position                  | Device Control   | :white_check_mark:
 MID          | X'D601'   | Manage IPDS Dialog                     | Device Control   | :white_check_mark:
 NOP          | X'D603'   | No Operation                           | Device Control   | :white_check_mark:
 PFC          | X'D634'   | Presentation Fidelity Control          | Device Control   | :white_check_mark:
