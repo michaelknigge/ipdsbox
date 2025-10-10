@@ -100,7 +100,7 @@ public abstract class IpdsCommand {
      * Writes the binary data that is specific for the IPDS command to
      * the given {@link IpdsByteArrayOutputStream}.
      */
-    abstract void writeDataTo(IpdsByteArrayOutputStream ipds) throws IOException;
+    abstract void writeDataTo(IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException;
 
     /**
      * Determines the {@link IpdsCommandId} of the {@link IpdsCommand}.
