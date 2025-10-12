@@ -1,10 +1,12 @@
-package de.textmode.ipdsbox.ipds.commands;
+package de.textmode.ipdsbox.ipds.acknowledge;
 
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+import de.textmode.ipdsbox.ipds.commands.IpdsCommand;
+import de.textmode.ipdsbox.ipds.commands.IpdsCommandId;
 
 /**
  * The printer uses the Acknowledge Reply to return information such as page counters, copy counters, sense
@@ -12,7 +14,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * uses the acknowledge data to maintain control over the printing process and to initiate exception-recovery
  * procedures when necessary.
  */
-public final class AcknowledgeReplyCommand extends IpdsCommand {
+public final class AcknowledgeReply extends IpdsCommand {
 
     private int acktype;
 
@@ -28,22 +30,20 @@ public final class AcknowledgeReplyCommand extends IpdsCommand {
     private int jamRecoveryPageCounter;
     private int jamRecoveryCopyCounter;
 
-    // TODO implement abstract + concrrete classes for the specific data areas... helpful with "toString()" !
-    private byte[] ackTypeData;
-
+    private AcknowledgeData acknowledgeData;
 
 
     /**
-     * Constructs the {@link AcknowledgeReplyCommand}.
+     * Constructs the {@link AcknowledgeReply}.
      */
-    public AcknowledgeReplyCommand() {
+    public AcknowledgeReply() {
         this(0xFF);
     }
 
     /**
-     * Constructs the {@link AcknowledgeReplyCommand}.
+     * Constructs the {@link AcknowledgeReply}.
      */
-    public AcknowledgeReplyCommand(final int acktype) {
+    public AcknowledgeReply(final int acktype) {
         super(IpdsCommandId.ACK);
 
         this.acktype = acktype;
@@ -51,9 +51,9 @@ public final class AcknowledgeReplyCommand extends IpdsCommand {
     }
 
     /**
-     * Constructs the {@link AcknowledgeReplyCommand}.
+     * Constructs the {@link AcknowledgeReply}.
      */
-    public AcknowledgeReplyCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    public AcknowledgeReply(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
         super(ipds, IpdsCommandId.ACK);
 
         this.acktype = ipds.readUnsignedByte();
@@ -77,7 +77,33 @@ public final class AcknowledgeReplyCommand extends IpdsCommand {
             this.stackedCopyCounter = ipds.readUnsignedInteger16();
         }
 
-        this.ackTypeData = ipds.readRemainingBytes();
+        this.acknowledgeData = AcknowledgeDataBuilder.build(this.acktype, ipds);
+    }
+
+    @Override
+    public void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {
+        ipds.writeUnsignedByte(this.acktype);
+
+        if (this.acktype == 0xFF) {
+            // no counters..
+        } else if (getCounterLen(this.acktype) == 4) {
+            ipds.writeUnsignedInteger16(this.stackedPageCounter);
+            ipds.writeUnsignedInteger16(this.stackedCopyCounter);
+        } else {
+            ipds.writeUnsignedInteger16(this.receivedPageCounter);
+            ipds.writeUnsignedInteger16(this.committedPageCounter);
+            ipds.writeUnsignedInteger16(this.committedCopyCounter);
+            ipds.writeUnsignedInteger16(this.operatorViewingPageCounter);
+            ipds.writeUnsignedInteger16(this.operatorViewingCopyCounter);
+            ipds.writeUnsignedInteger16(this.jamRecoveryPageCounter);
+            ipds.writeUnsignedInteger16(this.jamRecoveryCopyCounter);
+            ipds.writeUnsignedInteger16(this.stackedPageCounter);
+            ipds.writeUnsignedInteger16(this.stackedCopyCounter);
+        }
+
+        if (this.acktype != 0xFF) {
+            this.acknowledgeData.writeTo(ipds);
+        }
     }
 
     private static int getCounterLen(final int ackType) throws InvalidIpdsCommandException {
@@ -262,29 +288,5 @@ public final class AcknowledgeReplyCommand extends IpdsCommand {
      */
     public void setAckTypeData(final byte[] ackTypeData) {
         this.ackTypeData = ackTypeData;
-    }
-
-    @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {
-        ipds.writeUnsignedByte(this.acktype);
-
-        if (this.acktype == 0xFF) {
-            // no counters..
-        } else if (getCounterLen(this.acktype) == 4) {
-            ipds.writeUnsignedInteger16(this.stackedPageCounter);
-            ipds.writeUnsignedInteger16(this.stackedCopyCounter);
-        } else {
-            ipds.writeUnsignedInteger16(this.receivedPageCounter);
-            ipds.writeUnsignedInteger16(this.committedPageCounter);
-            ipds.writeUnsignedInteger16(this.committedCopyCounter);
-            ipds.writeUnsignedInteger16(this.operatorViewingPageCounter);
-            ipds.writeUnsignedInteger16(this.operatorViewingCopyCounter);
-            ipds.writeUnsignedInteger16(this.jamRecoveryPageCounter);
-            ipds.writeUnsignedInteger16(this.jamRecoveryCopyCounter);
-            ipds.writeUnsignedInteger16(this.stackedPageCounter);
-            ipds.writeUnsignedInteger16(this.stackedCopyCounter);
-        }
-
-        ipds.writeBytes(this.ackTypeData);
     }
 }

@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.ipds.acknowledge.AcknowledgeReply;
 import de.textmode.ipdsbox.ipds.commands.*;
 import de.textmode.ipdsbox.ipds.xohorders.SetMediaOriginOrder;
 import de.textmode.ipdsbox.ipds.xohorders.SetMediaSizeOrder;
@@ -204,7 +205,7 @@ public final class IpdsClient {
 
         final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(requestIn.getData());
         ipds.skip(8);
-        final AcknowledgeReplyCommand acknowledgeReply = new AcknowledgeReplyCommand(ipds);
+        final AcknowledgeReply acknowledgeReply = new AcknowledgeReply(ipds);
 
         System.out.println(StringUtils.toPrettyString(acknowledgeReply));
     }
@@ -309,7 +310,7 @@ public final class IpdsClient {
 
         final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(requestIn.getData());
         ipds.skip(8);
-        final AcknowledgeReplyCommand acknowledgeReply = new AcknowledgeReplyCommand(ipds);
+        final AcknowledgeReply acknowledgeReply = new AcknowledgeReply(ipds);
 
         System.out.println(StringUtils.toPrettyString(acknowledgeReply));
     }
