@@ -20,6 +20,14 @@ public final class SetHomeStateCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link SetHomeStateCommand}.
+     * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
+     */
+    public SetHomeStateCommand() throws InvalidIpdsCommandException, IOException {
+        super(IpdsCommandId.SHS);
+    }
+
+    /**
+     * Constructs the {@link SetHomeStateCommand}.
      * @param ipds the raw IPDS data stream, not including the part of the PPD/PPR protocol.
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      */

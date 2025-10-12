@@ -47,7 +47,7 @@ XOA          | X'D633'   | Execute Order Anystate                 | Device Contr
 XOH          | X'D68F'   | Execute Order Home State               | Device Control   | :white_check_mark:
 LE           | X'D61D'   | Load Equivalence                       | Text             | :x:
 WTC          | X'D688'   | Write Text Control                     | Text             | :x:
-WT           | X'D62D'   | Write Text                             | Text             | :x:
+WT           | X'D62D'   | Write Text                             | Text             | :white_check_mark:
 WIC          | X'D63D'   | Write Image Control                    | IM-Image         | :x:
 WI           | X'D64D'   | Write Image                            | IM-Image         | :x:
 WIC2         | X'D63E'   | Write Image Control 2                  | IO-Image         | :x:

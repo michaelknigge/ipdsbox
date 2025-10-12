@@ -8,5 +8,5 @@ dependencies {
 }
 
 application {
-    mainClass = "mk.ipdsbox.ipdsproxy.IpdsProxy"
+    mainClass = "de.textmode.ipdsbox.ipdsproxy.IpdsProxy"
 }

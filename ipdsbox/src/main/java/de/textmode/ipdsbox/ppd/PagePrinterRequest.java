@@ -3,6 +3,8 @@ package de.textmode.ipdsbox.ppd;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+import de.textmode.ipdsbox.ipds.commands.IpdsCommand;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -18,10 +20,17 @@ public final class PagePrinterRequest {
 
     /**
      * Constructs a {@link PagePrinterRequest}.
+     */
+    public PagePrinterRequest(final IpdsCommand ipdsCommand) throws IOException {
+        this(0x0E, commandToByteArray(ipdsCommand));
+    }
+
+    /**
+     * Constructs a {@link PagePrinterRequest}.
      *
      * @param request The integer value of the request.
      */
-    PagePrinterRequest(final int request) {
+    public PagePrinterRequest(final int request) {
         this(request, EMPTY_BYTE_ARRAY);
     }
 
@@ -31,9 +40,16 @@ public final class PagePrinterRequest {
      * @param request The integer value of the request.
      * @param buffer The raw data of the whole request.
      */
-    PagePrinterRequest(final int request, final byte[] buffer) {
+    public PagePrinterRequest(final int request, final byte[] buffer) {
         this.request = request;
         this.buffer = buffer;
+    }
+
+    private static byte[] commandToByteArray(final IpdsCommand ipdsCommand) throws IOException {
+        final IpdsByteArrayOutputStream os = new IpdsByteArrayOutputStream();
+        ipdsCommand.writeTo(os);
+
+        return os.toByteArray();
     }
 
     /**
@@ -67,6 +83,9 @@ public final class PagePrinterRequest {
             out.write(intToByteArray(this.getRequest()));
             out.write(this.getData());
         }
+
+        // Make sure to send it as fast as possible...
+        out.flush();
     }
 
     /**

@@ -16,6 +16,16 @@ public final class SenseTypeAndModelCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link SenseTypeAndModelCommand}.
+     */
+    public SenseTypeAndModelCommand() throws InvalidIpdsCommandException, IOException {
+        super(IpdsCommandId.STM);
+
+        // We should not send STM's without a ARQ (which will be a NOP)...
+        this.getCommandFlags().isAcknowledgmentRequired(true);
+    }
+
+    /**
+     * Constructs the {@link SenseTypeAndModelCommand}.
      * @param ipds the raw IPDS data stream, not including the part of the PPD/PPR protocol.
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      */

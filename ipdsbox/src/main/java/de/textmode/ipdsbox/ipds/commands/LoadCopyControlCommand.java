@@ -25,6 +25,13 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         }
     }
 
+    /**
+     * Returns a list of copy subgroups.
+     */
+    public List<CopySubgroup> getCopySubgroups() {
+        return this.subgroups;
+    }
+
     @Override
     void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         for (final CopySubgroup subgroup : this.subgroups) {
@@ -70,11 +77,11 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         }
     }
 
-    public class Keyword {
+    public static class Keyword {
         private int keywordId;
         private int keywordParameter;
 
-        Keyword(final int keywordId, final int keywordParameter) {
+        public Keyword(final int keywordId, final int keywordParameter) {
             this.keywordId = keywordId;
             this.keywordParameter = keywordParameter;
         }

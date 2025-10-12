@@ -7,7 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 
+import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.ppd.PagePrinterRequest;
 import de.textmode.ipdsbox.ppd.PagePrinterRequestReader;
 import org.apache.commons.cli.*;
@@ -41,6 +43,11 @@ public final class IpdsProxy {
     private static final String OPTION_PRINTER_TEXT = "printer to forward to (portnumer may be specified if not 5001)";
 
     private static final int DEFAULT_PORT_NUMBER = 5001;
+
+    private enum Direction {
+        FROM_SPOOLER_TO_PRINTER,
+        FROM_PRINTER_TO_SPOOLER
+    }
 
     private IpdsProxy() {
     }
@@ -105,6 +112,18 @@ public final class IpdsProxy {
             System.err.println("IpdsProxy: " + exp.getMessage());
             return showHelp(options);
         }
+
+        System.out.println("|o|                                                 |o|"); //$NON-NLS-1$
+        System.out.println("|o|                                                 |o|"); //$NON-NLS-1$
+        System.out.println("|o|    I P D S B O X   D E M O N S T R A T I O N    |o|"); //$NON-NLS-1$
+        System.out.println("|o|                                                 |o|"); //$NON-NLS-1$
+        System.out.println("|o|                                                 |o|"); //$NON-NLS-1$
+        System.out.println("|o|               I P D S - P R O X Y               |o|"); //$NON-NLS-1$
+        System.out.println("|o|                                                 |o|"); //$NON-NLS-1$
+        System.out.println("|o|                                                 |o|"); //$NON-NLS-1$
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         try (final ServerSocket passiveSocket = new ServerSocket(localPortNumber)) {
             this.accecptAndHandleConnections(passiveSocket, remotePrinterHost, remotePortNumber);
@@ -230,14 +249,14 @@ public final class IpdsProxy {
         final Thread t = new Thread() {
             @Override
             public void run() {
-                readAndWriteData(streamFromPrinter, streamToPrintServer);
+                readAndWriteData(streamFromPrinter, streamToPrintServer, Direction.FROM_PRINTER_TO_SPOOLER);
             }
         };
 
         t.start();
 
         // Read data from the print server and pass it to the printer...
-        readAndWriteData(streamFromPrintServer, streamToPrinter);
+        readAndWriteData(streamFromPrintServer, streamToPrinter, Direction.FROM_SPOOLER_TO_PRINTER);
     }
 
     /**
@@ -248,11 +267,37 @@ public final class IpdsProxy {
      * @param in {@link InputStream} to read from
      * @param out {@link OutputStream} to write to
      */
-    private static void readAndWriteData(final InputStream in, final OutputStream out) {
+    private static void readAndWriteData(
+            final InputStream in,
+            final OutputStream out,
+            final Direction direction) {
+
         try {
             PagePrinterRequest req;
+
             while ((req = PagePrinterRequestReader.read(in)) != null) {
-                out.write(req.getData());
+                System.out.println("\n\n");
+                if (direction == Direction.FROM_PRINTER_TO_SPOOLER) {
+                    System.out.println("=== Received from Printer =========================\n");
+                } else {
+                    System.out.println("=== Received from Spooler =========================\n");
+                }
+
+                // TODO: Build IpdsCommand from byte[]
+                // TODO: Print the IpdsCommandFlags
+                // TODO: Print the decoded IpdsCommand
+                // TODO: Handle "unknown" IPDS Commands
+                // TODO: Synchronized output becase two threads are reading and writing at the same time...
+
+                System.out.println(
+                        LocalDateTime.now()
+                        + " "
+                        + "Request: 0x"
+                        + Integer.toHexString(req.getRequest())
+                        + " : "
+                        + StringUtils.toHexString(req.getData()));
+
+                req.writeTo(out);
             }
         } catch (final IOException e) {
             System.err.println(e.getMessage());

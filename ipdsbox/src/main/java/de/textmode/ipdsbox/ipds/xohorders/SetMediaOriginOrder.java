@@ -12,6 +12,16 @@ public final class SetMediaOriginOrder extends XohOrder {
 
     private int origin;
 
+    public SetMediaOriginOrder() {
+        super(XohOrderCode.SetMediaOrigin);
+        this.origin = 0x00;
+    }
+
+    public SetMediaOriginOrder(final int origin) {
+        super(XohOrderCode.SetMediaOrigin);
+        this.origin = origin;
+    }
+
     /**
      * Constructs the {@link SetMediaOriginOrder}.
      * @param ipds the raw IPDS data of the order.

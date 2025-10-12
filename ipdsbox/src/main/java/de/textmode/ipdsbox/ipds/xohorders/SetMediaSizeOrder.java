@@ -17,6 +17,18 @@ public final class SetMediaSizeOrder extends XohOrder {
 
     /**
      * Constructs the {@link SetMediaSizeOrder}.
+     */
+    public SetMediaSizeOrder() throws UnknownXohOrderCode, IOException {
+        super(XohOrderCode.SetMediaSize);
+
+        this.unitBase = 0x00;
+        this.upub = 0x3840;
+        this.xmExtent = 0xFFFF;
+        this.ymExtent = 0xFFFF;
+    }
+
+    /**
+     * Constructs the {@link SetMediaSizeOrder}.
      * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */

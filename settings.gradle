@@ -1,2 +1,3 @@
 include 'ipdsbox'
 include 'ipdsproxy'
+include 'ipdsclient'
