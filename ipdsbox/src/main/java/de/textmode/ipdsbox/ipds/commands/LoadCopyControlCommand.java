@@ -33,7 +33,7 @@ public final class LoadCopyControlCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         for (final CopySubgroup subgroup : this.subgroups) {
             subgroup.writeTo(ipds);
         }

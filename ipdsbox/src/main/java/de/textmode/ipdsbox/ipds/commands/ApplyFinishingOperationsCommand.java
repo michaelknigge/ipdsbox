@@ -55,7 +55,7 @@ public final class ApplyFinishingOperationsCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         for (final Triplet triplet : this.triplets) {
             triplet.writeTo(ipds);
         }

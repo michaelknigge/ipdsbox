@@ -85,7 +85,7 @@ public final class PresentationFidelityControlCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedByte(0x00);
         ipds.writeUnsignedByte(this.fidelityControlFlags);
         ipds.writeUnsignedInteger16(0x00);

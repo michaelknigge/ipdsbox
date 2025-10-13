@@ -81,8 +81,7 @@ public final class AcknowledgeReply extends IpdsCommand {
     }
 
     @Override
-    public void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {
-        ipds.writeUnsignedByte(this.acktype);
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {        ipds.writeUnsignedByte(this.acktype);
 
         if (this.acktype == 0xFF) {
             // no counters..
@@ -279,14 +278,14 @@ public final class AcknowledgeReply extends IpdsCommand {
     /**
      * Returns the special data area of the Ack.
      */
-    public byte[] getAckTypeData() {
-        return this.ackTypeData;
+    public AcknowledgeData getAcknowledgeData() {
+        return this.acknowledgeData;
     }
 
     /**
      * Sets the special data area of the Ack.
      */
-    public void setAckTypeData(final byte[] ackTypeData) {
-        this.ackTypeData = ackTypeData;
+    public void setAcknowledgeData(final AcknowledgeData acknowledgeData) {
+        this.acknowledgeData = acknowledgeData;
     }
 }

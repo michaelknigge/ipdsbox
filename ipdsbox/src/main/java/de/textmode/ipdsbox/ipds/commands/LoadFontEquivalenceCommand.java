@@ -44,7 +44,7 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         for (final FontEquivalenceEntry entry : this.entries) {
             entry.writeTo(ipds);
         }

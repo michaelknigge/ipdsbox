@@ -38,7 +38,7 @@ public final class DeactivateFontCommand extends IpdsCommand {
 
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedByte(this.deactivationType);
         ipds.writeUnsignedInteger16(this.haid);
         ipds.writeUnsignedByte(this.sectionID);

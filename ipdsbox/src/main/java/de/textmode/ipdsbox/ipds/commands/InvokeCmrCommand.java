@@ -42,7 +42,7 @@ public final class InvokeCmrCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedByte(this.invocationFlags);
         ipds.writeUnsignedInteger32(0x00000000);
 

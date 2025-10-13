@@ -54,7 +54,7 @@ public final class BeginPageCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedInteger32(this.pageId);
     }
 }

@@ -279,9 +279,14 @@ public final class IpdsClient {
         requestOut.writeTo(streamToPrinter);
         System.out.println("Step 8: Send WT command");
 
-        requestOut = new PagePrinterRequest(new EndPageCommand());
+        final EndPageCommand endPageCommand = new EndPageCommand();
+        endPageCommand.getCommandFlags().isAcknowledgmentRequired(true);
+        requestOut = new PagePrinterRequest(endPageCommand);
         requestOut.writeTo(streamToPrinter);
         System.out.println("Step 8: Send EP command");
+
+        System.out.println("Step 8b: Wait for Ackknowledge Reply");
+        requestIn = this.waitForServer();
 
         requestOut = new PagePrinterRequest(new SetHomeStateCommand());
         requestOut.writeTo(streamToPrinter);

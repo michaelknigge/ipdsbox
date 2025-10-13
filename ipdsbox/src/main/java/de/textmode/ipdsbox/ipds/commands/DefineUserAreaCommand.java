@@ -44,7 +44,7 @@ public final class DefineUserAreaCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedByte(this.reset);
         ipds.writeUnsignedByte(this.unitBase);
         ipds.writeUnsignedInteger16(this.upub);

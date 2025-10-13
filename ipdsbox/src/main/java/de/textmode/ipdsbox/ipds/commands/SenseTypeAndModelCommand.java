@@ -34,7 +34,7 @@ public final class SenseTypeAndModelCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) {
         // No data is transmitted with this command.
     }
 }

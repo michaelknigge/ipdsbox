@@ -35,7 +35,7 @@ public final class LogicalPagePositionCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedByte(0x00);
         ipds.writeUnsignedInteger24(this.xmPageOffset);
         ipds.writeUnsignedByte(this.placement);

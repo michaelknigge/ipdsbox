@@ -52,7 +52,7 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         this.order.writeTo(ipds);
     }
 }

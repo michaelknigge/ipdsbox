@@ -58,7 +58,7 @@ public final class EndCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         if (this.dataBytes != null) {
             ipds.writeBytes(this.dataBytes);
         }

@@ -99,7 +99,7 @@ public final class LogicalPageDescriptorCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedByte(this.unitBase);
         ipds.writeUnsignedByte(0x00);
 

@@ -39,11 +39,11 @@ public final class ActivateResourceCommand extends IpdsCommand {
      * Returns the entries of the AR command.
      */
     public List<ActivateResourceEntry> getEntries() {
-        return entries;
+        return this.entries;
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         for (final ActivateResourceEntry entry : this.entries) {
             entry.writeTo(ipds);
         }

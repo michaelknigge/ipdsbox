@@ -78,7 +78,13 @@ public final class StringUtils {
                 final Object value = field.get(obj);
 
                 if (isAllowedType(field.getType())) {
-                    joiner.add(indention + field.getName() + ": " + value);
+                    if (field.getType().equals(int.class)) {
+                        joiner.add(indention + field.getName() + ": 0x" + Integer.toHexString((int) value) + " (" + value + ")");
+                    } else if (field.getType().equals(long.class)) {
+                        joiner.add(indention + field.getName() + ": 0x" + Long.toHexString((long) value) + " (" + value + ")");
+                    } else {
+                        joiner.add(indention + field.getName() + ": " + value);
+                    }
                 } else if (isIpdsboxType(field.getType())) {
                     joiner.add(indention + field.getName() + ": " + toPrettyString(indention + INDENTION, value));
                 } else if (Collection.class.isAssignableFrom(field.getType()) && value != null) {
@@ -106,6 +112,7 @@ public final class StringUtils {
 
     private static boolean isIpdsboxType(final Class<?> type) {
         return type.getName().startsWith("de.textmode.ipdsbox.ipds.triplets.") ||
+                type.getName().startsWith("de.textmode.ipdsbox.ipds.acknowledge.") ||
                 type.getName().startsWith("de.textmode.ipdsbox.ipds.xohorders.") ||
                 type.getName().startsWith("de.textmode.ipdsbox.ipds.commands");
     }

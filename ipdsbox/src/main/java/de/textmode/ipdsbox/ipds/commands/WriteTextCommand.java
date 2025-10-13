@@ -56,7 +56,7 @@ public final class WriteTextCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         if (this.ptocaData != null) {
             ipds.writeBytes(this.ptocaData);
         }

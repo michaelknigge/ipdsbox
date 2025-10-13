@@ -57,7 +57,7 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
     }
 
     @Override
-    void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedInteger16(0x0000);
 
         for (final Triplet triplet : this.triplets) {
