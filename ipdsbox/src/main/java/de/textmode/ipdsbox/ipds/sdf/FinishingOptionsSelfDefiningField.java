@@ -1,0 +1,65 @@
+package de.textmode.ipdsbox.ipds.sdf;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+
+/**
+ * The Finishing Operations self-defining field lists all the different types of finishing operations that the printer
+ * supports with the Finishing Operation (X'85') triplet.
+ */
+public class FinishingOptionsSelfDefiningField extends SelfDefiningField{
+
+    private List<Integer> operationTypes = new ArrayList<>();
+
+    /**
+     * Constructs the {@link FinishingOptionsSelfDefiningField}.
+     */
+    public FinishingOptionsSelfDefiningField() throws IOException {
+        super (SelfDefiningFieldId.FinishingOperations);
+    }
+
+    /**
+     * Constructs the {@link FinishingOptionsSelfDefiningField}.
+     */
+    public FinishingOptionsSelfDefiningField(
+            final IpdsByteArrayInputStream ipds,
+            final SelfDefiningFieldId expectedId) throws IOException, UnknownSelfDefinedFieldException {
+
+        super(ipds, expectedId);
+
+        while (ipds.bytesAvailable() > 0) {
+            this.operationTypes.add(ipds.readUnsignedByte());
+        }
+    }
+
+    /**
+     * Writes this {@link FinishingOptionsSelfDefiningField} to the given {@link IpdsByteArrayOutputStream}.
+     */
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedInteger16(4 + this.operationTypes.size());
+        out.writeUnsignedInteger16(super.getSelfDefiningFieldId().getId());
+
+        for (final Integer operationType : this.operationTypes) {
+            out.writeUnsignedByte(operationType);
+        }
+    }
+
+    /**
+     * Returns a list with all operation types.
+     */
+    public List<Integer> getOperationTypes() {
+        return this.operationTypes;
+    }
+
+    /**
+     * Sets a list with all operation types. Can be used to add and remove operation types.
+     */
+    public void setOperationTypes(final List<Integer> operationTypes) {
+        this.operationTypes = operationTypes;
+    }
+}

@@ -10,7 +10,7 @@ The source code is publicy available, but using the source code in commercial pr
 # PPD/PPR protocol
 LAN attached [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printers are using an special protocol named *"PPD/PPR"* (Page Printer Daemon / Page Printer Requester). This protocol encapsulates the native [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream for printers that are attached by [TCP/IP](https://en.wikipedia.org/wiki/Internet_protocol_suite) (and not by [SNA](https://en.wikipedia.org/wiki/IBM_Systems_Network_Architecture)).
 
-The specification of this protocol is (sadly) not publicy available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the developer of ipdsbox is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a z/OS Host and an [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) enabled printer).
+The specification of this protocol is (sadly) not publicy available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the developer of ipdsbox is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a [z/OS](https://en.wikipedia.org/wiki/Z/OS) [Mainframe](https://en.wikipedia.org/wiki/Mainframe_computer) and an [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) enabled printer).
 
 **Beware: Because of that it is likely that the behaviour of ipdsbox is not correct in all cases.**
 
@@ -128,8 +128,8 @@ X'FA00' | Request Setup Name List                 | :white_check_mark:
 The following table shows the self-defining fields and the current status of the corresponding support of the Self-defining field
 (*"supported"* means that ipdsbox can parse the Self-defining field and create a specific Java object for it).
 
-ID    | Name                                          | Supported
-------|-----------------------------------------------|-------------------
+ID      | Name                                                                     | Supported
+--------|--------------------------------------------------------------------------|-------------------
 X'0001' | Printable-Area Self-Defining Field                                       | :x:
 X'0002' | Symbol-Set Support Self-Defining Field                                   | :x:
 X'0003' | IM-Image and Coded-Font Resolution Self-Defining Field                   | :x:
@@ -151,7 +151,7 @@ X'0013' | Product Identifier Self-Defining Field                                
 X'0014' | Object-Container Type Support Self-Defining Field                        | :x:
 X'0015' | DF Deactivation Types Supported Self-Defining Field                      | :x:
 X'0016' | PFC Triplets Supported Self-Defining Field                               | :x:
-X'0017' | Printer Setup Self-Defining Field                                        | :x:
+X'0017' | Printer Setup Self-Defining Field                                        | :white_check_mark:
 X'0018' | Finishing Operations Self-Defining Field                                 | :x:
 X'0019' | UP3I Tupel Self-Defining Field                                           | :x:
 X'001A' | UP3I Paper Input Media Self-Defining Field                               | :x:
@@ -161,7 +161,7 @@ X'0024' | Keep-Group-Together-as-a-Recovery-Unit Self-Defining Field            
 X'0025' | Recognized Group ID Formats Self-Defining Field                          | :x:
 X'0026' | Supported Device Resolutions Self-Defining Field                         | :x:
 X'0027' | Object-Container Version Support Self-Defining Field                     | :x:
-X'0028' | Finishing Options Self-Defining Field                                    | :x:
+X'0028' | Finishing Options Self-Defining Field                                    | :white_check_mark:
 X'0029' | Printer Speed Self-Defining Field                                        | :x:
 X'002A' | Active Setup Name Self-Defining Field                                    | :x:
 

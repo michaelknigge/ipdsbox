@@ -5,6 +5,8 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 import de.textmode.ipdsbox.core.ByteUtils;
+import de.textmode.ipdsbox.ipds.sdf.SelfDefiningField;
+import de.textmode.ipdsbox.ipds.triplets.Triplet;
 
 /**
  * The {@link IpdsByteArrayInputStream} is not really an DataInputStream, but it follows the
@@ -131,6 +133,37 @@ public final class IpdsByteArrayInputStream {
 
         this.offset += (length - 1);
         this.bytesLeft -= (length - 1);
+
+        return buffer;
+    }
+
+    /**
+     * Reads a complete {@link SelfDefiningField} from the underlying byte array.
+     * @return A byte array containg the raw data of the {@link SelfDefiningField} or <code>null</code> if there is
+     * no further {@link SelfDefiningField} available.
+     * @throws IOException if the {@link SelfDefiningField} to be read is broken.
+     */
+    public byte[] readSelfDefiningFieldIfExists() throws IOException {
+        final int available = this.bytesAvailable();
+        if (available == 0) {
+            return null;
+        }
+
+        final int length = this.readUnsignedInteger16();
+        if (available < (length - 2)) {
+            throw new IOException(String.format(
+                    "A self-defining field to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
+                    length, available));
+        }
+
+        final byte[] buffer = new byte[length];
+        buffer[0] = (byte) ((length >>> 8) & 0xFF);
+        buffer[1] = (byte) (length & 0xFF);
+
+        System.arraycopy(this.data, this.offset, buffer, 2, length - 2);
+
+        this.offset += (length - 2);
+        this.bytesLeft -= (length - 2);
 
         return buffer;
     }

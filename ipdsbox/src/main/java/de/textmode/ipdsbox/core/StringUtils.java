@@ -78,6 +78,8 @@ public final class StringUtils {
                 final Object value = field.get(obj);
 
                 if (isAllowedType(field.getType())) {
+                    // TOOD: for "byte" and "int" that ends on "flag" or "flags", additionally output the
+                    // set bits, i.e. "bits=0,5,7" or "bits=*none*"
                     if (field.getType().equals(int.class)) {
                         joiner.add(indention + field.getName() + ": 0x" + Integer.toHexString((int) value) + " (" + value + ")");
                     } else if (field.getType().equals(long.class)) {
