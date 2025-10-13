@@ -124,6 +124,46 @@ X'F800' | Print-Quality Control                   | :white_check_mark:
 X'F400' | Request Resource List                   | :white_check_mark:
 X'FA00' | Request Setup Name List                 | :white_check_mark:
 
+# Self-defining fields
+The following table shows the self-defining fields and the current status of the corresponding support of the Self-defining field
+(*"supported"* means that ipdsbox can parse the Self-defining field and create a specific Java object for it).
+
+ID    | Name                                          | Supported
+------|-----------------------------------------------|-------------------
+X'0001' | Printable-Area Self-Defining Field                                       | :x:
+X'0002' | Symbol-Set Support Self-Defining Field                                   | :x:
+X'0003' | IM-Image and Coded-Font Resolution Self-Defining Field                   | :x:
+X'0004' | Storage Pools Self-Defining Field                                        | :x:
+X'0005' | Retired Item 130 (Standard OCA Color Value Support Self-Defining Field)  | :x:
+X'0006' | Installed Features Self-Defining Field                                   | :x:
+X'0007' | Available Features Self-Defining Field                                   | :x:
+X'0008' | Resident Symbol-Set Support Self-Defining Field                          | :x:
+X'0009' | Print-Quality Support Self-Defining Field                                | :x:
+X'000A' | XOA-RRL RT & RIDF Support Self-Defining Field                            | :x:
+X'000B' | Activate Resource RT & RIDF Support Self-Defining Field                  | :x:
+X'000C' | Retired item 134                                                         | :x:
+X'000D' | Medium Modification IDs Supported Self-Defining Field                    | :x:
+X'000E' | Deprecated (Common Bar Code Type/Modifier Self-Defining Field)           | :x:
+X'000F' | Bar Code Type/Modifier Self-Defining Field                               | :x:
+X'0010' | Media-Destinations Self-Defining Field                                   | :x:
+X'0012' | Supported Group Operations Self-Defining Field                           | :x:
+X'0013' | Product Identifier Self-Defining Field                                   | :x:
+X'0014' | Object-Container Type Support Self-Defining Field                        | :x:
+X'0015' | DF Deactivation Types Supported Self-Defining Field                      | :x:
+X'0016' | PFC Triplets Supported Self-Defining Field                               | :x:
+X'0017' | Printer Setup Self-Defining Field                                        | :x:
+X'0018' | Finishing Operations Self-Defining Field                                 | :x:
+X'0019' | UP3I Tupel Self-Defining Field                                           | :x:
+X'001A' | UP3I Paper Input Media Self-Defining Field                               | :x:
+X'0021' | Colorant-Identification Self-Defining Field                              | :x:
+X'0022' | Device-Appearance Self-Defining Field                                    | :x:
+X'0024' | Keep-Group-Together-as-a-Recovery-Unit Self-Defining Field               | :x:
+X'0025' | Recognized Group ID Formats Self-Defining Field                          | :x:
+X'0026' | Supported Device Resolutions Self-Defining Field                         | :x:
+X'0027' | Object-Container Version Support Self-Defining Field                     | :x:
+X'0028' | Finishing Options Self-Defining Field                                    | :x:
+X'0029' | Printer Speed Self-Defining Field                                        | :x:
+X'002A' | Active Setup Name Self-Defining Field                                    | :x:
 
 # Triplets
 The following table shows the Triplets and the current status of the corresponding support of the Triplet 
