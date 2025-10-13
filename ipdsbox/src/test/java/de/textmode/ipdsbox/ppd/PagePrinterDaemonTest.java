@@ -50,12 +50,12 @@ public final class PagePrinterDaemonTest extends TestCase implements Observer {
      */
     private PagePrinterDaemon buildPagePrinterDaemon()
         throws IpdsConfigurationException, IOException {
-        final PagePrinterDaemon daemon = new PagePrinterDaemonBuilder()
+        final PagePrinterDaemon daemon = new PagePrinterDaemonFactory()
             .serverSocket(this.serverSocket)
             .logger(this.logger)
             .observer(this)
             .pagePrinterRequestHandler(this.handler)
-            .build();
+            .create();
 
         this.state = daemon.getDaemonState();
 

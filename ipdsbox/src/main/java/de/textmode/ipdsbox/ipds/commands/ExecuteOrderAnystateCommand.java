@@ -9,7 +9,7 @@ import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xoaorders.XoaOrder;
-import de.textmode.ipdsbox.ipds.xoaorders.XoaOrderBuilder;
+import de.textmode.ipdsbox.ipds.xoaorders.XoaOrderFactory;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.XohOrder;
 
@@ -38,7 +38,7 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
             throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException, UnknownTripletException, UnknownXoaOrderCode {
         super(ipds, IpdsCommandId.XOA);
 
-        this.order = XoaOrderBuilder.build(ipds);
+        this.order = XoaOrderFactory.create(ipds);
     }
 
     /**

@@ -8,9 +8,9 @@ import de.textmode.ipdsbox.core.IpdsConfigurationException;
 import de.textmode.ipdsbox.core.LoggerInterface;
 
 /**
- * Builder for building and configuring a {@link PagePrinterDaemon}.
+ * Factory for building and configuring a {@link PagePrinterDaemon}.
  */
-public final class PagePrinterDaemonBuilder {
+public final class PagePrinterDaemonFactory {
 
     private static final String ERROR_NO_HANDLER = "No PagePrinterRequestHandler has been specified";
     private static final String ERROR_NO_LOGGER = "No Logger has been specified";
@@ -22,12 +22,12 @@ public final class PagePrinterDaemonBuilder {
     private Observer observer;
 
     /**
-     * Builds a {@link PagePrinterDaemon}. At least an {@link InputStream} or {@link ServerSocket}
+     * Creates a {@link PagePrinterDaemon}. At least an {@link InputStream} or {@link ServerSocket}
      * must have been set as well as a {@link PagePrinterRequestHandler}.
      *
      * @throws IpdsConfigurationException if a faulty configuration is detected.
      */
-    PagePrinterDaemon build() throws IpdsConfigurationException {
+    PagePrinterDaemon create() throws IpdsConfigurationException {
         if (this.requestHandler == null) {
             throw new IpdsConfigurationException(ERROR_NO_HANDLER);
         } else if (this.logger == null) {
@@ -52,7 +52,7 @@ public final class PagePrinterDaemonBuilder {
      *
      * @param o the {@link Observer} of the {@link PagePrinterDaemon}.
      */
-    PagePrinterDaemonBuilder observer(final Observer o) {
+    PagePrinterDaemonFactory observer(final Observer o) {
         this.observer = o;
         return this;
     }
@@ -63,7 +63,7 @@ public final class PagePrinterDaemonBuilder {
      *
      * @param l the {@link LoggerInterface} implementation used for logging.
      */
-    PagePrinterDaemonBuilder logger(final LoggerInterface l) {
+    PagePrinterDaemonFactory logger(final LoggerInterface l) {
         this.logger = l;
         return this;
     }
@@ -75,7 +75,7 @@ public final class PagePrinterDaemonBuilder {
      *
      * @param s the {@link ServerSocket} used for reading the PPR requests.
      */
-    PagePrinterDaemonBuilder serverSocket(final ServerSocket s) {
+    PagePrinterDaemonFactory serverSocket(final ServerSocket s) {
         this.serverSocket = s;
         return this;
     }
@@ -85,7 +85,7 @@ public final class PagePrinterDaemonBuilder {
      *
      * @param h the {@link PagePrinterRequestHandler} used for processing {@link PagePrinterRequest}.
      */
-    PagePrinterDaemonBuilder pagePrinterRequestHandler(final PagePrinterRequestHandler h) {
+    PagePrinterDaemonFactory pagePrinterRequestHandler(final PagePrinterRequestHandler h) {
         this.requestHandler = h;
         return this;
     }

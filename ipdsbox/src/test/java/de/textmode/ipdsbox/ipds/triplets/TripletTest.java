@@ -25,7 +25,7 @@ public final class TripletTest extends TestCase {
         final int len = (hex.length() / 2) + 2;
         final String withLen = String.format("%02X%02X", len, id.getId()) + hex;
 
-        return TripletBuilder.build(HexFormat.of().parseHex(withLen));
+        return TripletFactory.create(HexFormat.of().parseHex(withLen));
     }
 
     /**
@@ -44,7 +44,7 @@ public final class TripletTest extends TestCase {
         result[1] = (byte) (id.getId() & 0xFF);
         System.arraycopy(raw, 0, result, 2, raw.length);
 
-        return TripletBuilder.build(result);
+        return TripletFactory.create(result);
     }
 
     /**
@@ -53,7 +53,7 @@ public final class TripletTest extends TestCase {
      */
     public void testWithNoData() throws Exception {
 
-        final Triplet testTriplet = TripletBuilder.build(HexFormat.of().parseHex("0200"));
+        final Triplet testTriplet = TripletFactory.create(HexFormat.of().parseHex("0200"));
 
         assertEquals(2, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());
@@ -65,7 +65,7 @@ public final class TripletTest extends TestCase {
      */
     public void testWithSomeBytesOfData() throws Exception {
 
-        final Triplet testTriplet = TripletBuilder.build(HexFormat.of().parseHex("060006007807"));
+        final Triplet testTriplet = TripletFactory.create(HexFormat.of().parseHex("060006007807"));
 
         assertEquals(6, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());
@@ -91,7 +91,7 @@ public final class TripletTest extends TestCase {
             raw[i] = (byte) i;
         }
 
-        final Triplet testTriplet = TripletBuilder.build(raw);
+        final Triplet testTriplet = TripletFactory.create(raw);
 
         assertEquals(255, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());

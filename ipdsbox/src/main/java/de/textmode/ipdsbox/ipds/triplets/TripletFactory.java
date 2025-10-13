@@ -5,25 +5,25 @@ import java.io.IOException;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 
 /**
- * A builder for all supported {@link Triplet}s.
+ * A factory for all supported {@link Triplet}s.
  */
-public final class TripletBuilder {
+public final class TripletFactory {
 
     /**
      * Private constructor to make checkstyle happy.
      */
-    private TripletBuilder() {
+    private TripletFactory() {
     }
 
     /**
-     * Builds a {@link Triplet} from the given byte array.
+     * Creates a {@link Triplet} from the given byte array.
      * @param data the raw IPDS data of the {@link Triplet}.
      * @return a concrete {@link Triplet} implementation
      * @throws UnknownTripletException if the given IPDS data describes an unknown {@link Triplet}.
      * @throws IOException if the given IPDS data is incomplete.
      * @throws InvalidIpdsCommandException if the given IPDS data is invalid.
      */
-    public static Triplet build(final byte[] data)
+    public static Triplet create(final byte[] data)
         throws UnknownTripletException, IOException, InvalidIpdsCommandException {
 
         final TripletId triplet = TripletId.getFor(data[1] & 0xFF);

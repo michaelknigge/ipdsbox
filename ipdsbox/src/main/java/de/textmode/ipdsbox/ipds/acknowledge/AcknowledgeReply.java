@@ -77,7 +77,7 @@ public final class AcknowledgeReply extends IpdsCommand {
             this.stackedCopyCounter = ipds.readUnsignedInteger16();
         }
 
-        this.acknowledgeData = AcknowledgeDataBuilder.build(this.acktype, ipds);
+        this.acknowledgeData = AcknowledgeDataFactory.create(this.acktype, ipds);
     }
 
     @Override

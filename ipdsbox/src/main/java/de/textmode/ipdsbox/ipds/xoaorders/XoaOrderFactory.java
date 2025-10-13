@@ -8,18 +8,18 @@ import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
- * A builder for all supported {@link XoaOrder}s.
+ * A factory for all supported {@link XoaOrder}s.
  */
-public final class XoaOrderBuilder {
+public final class XoaOrderFactory {
 
     /**
      * Private constructor to make checkstyle happy.
      */
-    private XoaOrderBuilder() {
+    private XoaOrderFactory() {
     }
 
     /**
-     * Builds a {@link XoaOrder} from the given byte array.
+     * Creates a {@link XoaOrder} from the given byte array.
      * @param ipds the raw IPDS data of the {@link XoaOrder}.
      * @return a concrete {@link XoaOrder} implementation
      * @throws UnknownXoaOrderCode if the given IPDS data describes an unknown {@link XoaOrder}.
@@ -27,7 +27,7 @@ public final class XoaOrderBuilder {
      * @throws InvalidIpdsCommandException if the given IPDS data is broken.
      * @throws IOException if the given IPDS data is incomplete.
      */
-    public static XoaOrder build(final IpdsByteArrayInputStream ipds)
+    public static XoaOrder create(final IpdsByteArrayInputStream ipds)
         throws UnknownXoaOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
 
         final XoaOrderCode code = XoaOrderCode.getFor(ipds.readUnsignedInteger16());

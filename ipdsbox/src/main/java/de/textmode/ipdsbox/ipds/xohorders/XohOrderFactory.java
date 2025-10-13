@@ -9,18 +9,18 @@ import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
- * A builder for all supported {@link XohOrder}s.
+ * A factory for all supported {@link XohOrder}s.
  */
-public final class XohOrderBuilder {
+public final class XohOrderFactory {
 
     /**
      * Private constructor to make checkstyle happy.
      */
-    private XohOrderBuilder() {
+    private XohOrderFactory() {
     }
 
     /**
-     * Builds a {@link XohOrder} from the given byte array.
+     * Creates a {@link XohOrder} from the given byte array.
      * @param ipds the raw IPDS data of the {@link XohOrder}.
      * @return a concrete {@link XohOrder} implementation
      * @throws UnknownXohOrderCode if the given IPDS data describes an unknown {@link XohOrder}.
@@ -28,7 +28,7 @@ public final class XohOrderBuilder {
      * @throws InvalidIpdsCommandException if the given IPDS data is broken.
      * @throws IOException if the given IPDS data is incomplete.
      */
-    public static XohOrder build(final IpdsByteArrayInputStream ipds)
+    public static XohOrder create(final IpdsByteArrayInputStream ipds)
         throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
 
         final XohOrderCode code = XohOrderCode.getFor(ipds.readUnsignedInteger16());

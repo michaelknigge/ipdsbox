@@ -7,9 +7,9 @@ import de.textmode.ipdsbox.core.LoggerInterface;
 import junit.framework.TestCase;
 
 /**
- * JUnit tests of the {@link PagePrinterDaemonBuilder}.
+ * JUnit tests of the {@link PagePrinterDaemonFactory}.
  */
-public final class PagePrinterDaemonBuilderTest extends TestCase {
+public final class PagePrinterDaemonFactoryTest extends TestCase {
 
     private static final int PORT_NUMBER = 7001;
 
@@ -34,14 +34,14 @@ public final class PagePrinterDaemonBuilderTest extends TestCase {
     }
 
     /**
-     * Try to build a Build a {@link PagePrinterDaemon} without a {@link ServerSocket}.
+     * Try to create a {@link PagePrinterDaemon} without a {@link ServerSocket}.
      */
     public void testMissingInput() {
         try {
-            new PagePrinterDaemonBuilder()
+            new PagePrinterDaemonFactory()
                 .logger(this.logger)
                 .pagePrinterRequestHandler(this.handler)
-                .build();
+                .create();
             fail();
         } catch (final IpdsConfigurationException e) {
             assertEquals("No server socket has been specified", e.getMessage());
@@ -49,14 +49,14 @@ public final class PagePrinterDaemonBuilderTest extends TestCase {
     }
 
     /**
-     * Try to build a Build a {@link PagePrinterDaemon} without a logger.
+     * Try to create a {@link PagePrinterDaemon} without a logger.
      */
     public void testMissingLogger() throws Exception {
         try {
-            new PagePrinterDaemonBuilder()
+            new PagePrinterDaemonFactory()
                 .serverSocket(this.serverSocket)
                 .pagePrinterRequestHandler(this.handler)
-                .build();
+                .create();
             fail();
         } catch (final IpdsConfigurationException e) {
             assertEquals("No Logger has been specified", e.getMessage());
@@ -64,14 +64,14 @@ public final class PagePrinterDaemonBuilderTest extends TestCase {
     }
 
     /**
-     * Try to build a Build a {@link PagePrinterDaemon} without a {@link PagePrinterRequestHandler}.
+     * Try to create a {@link PagePrinterDaemon} without a {@link PagePrinterRequestHandler}.
      */
     public void testMissingRequestHandler() throws Exception {
         try {
-            new PagePrinterDaemonBuilder()
+            new PagePrinterDaemonFactory()
                 .serverSocket(this.serverSocket)
                 .logger(this.logger)
-                .build();
+                .create();
             fail();
         } catch (final IpdsConfigurationException e) {
             assertEquals("No PagePrinterRequestHandler has been specified", e.getMessage());

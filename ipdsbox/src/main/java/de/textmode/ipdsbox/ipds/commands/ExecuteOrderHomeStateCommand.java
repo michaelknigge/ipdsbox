@@ -9,7 +9,7 @@ import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.XohOrder;
-import de.textmode.ipdsbox.ipds.xohorders.XohOrderBuilder;
+import de.textmode.ipdsbox.ipds.xohorders.XohOrderFactory;
 
 /**
  * The Execute Order Home State (XOH) command identifies a set of orders that may be received
@@ -36,7 +36,7 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
         throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException, UnknownTripletException {
         super(ipds, IpdsCommandId.XOH);
 
-        this.order = XohOrderBuilder.build(ipds);
+        this.order = XohOrderFactory.create(ipds);
     }
 
     /**

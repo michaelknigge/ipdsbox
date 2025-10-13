@@ -5,20 +5,20 @@ import java.io.IOException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 
 /**
- * A builder for all supported {@link AcknowledgeData}.
+ * A factory for all supported {@link AcknowledgeData}.
  */
-public final class AcknowledgeDataBuilder {
+public final class AcknowledgeDataFactory {
 
     /**
      * Private constructor to make checkstyle happy.
      */
-    private AcknowledgeDataBuilder() {
+    private AcknowledgeDataFactory() {
     }
 
     /**
-     * Builds a {@link AcknowledgeData} from the given byte array.
+     * Creates a {@link AcknowledgeData} from the given byte array.
      */
-    public static AcknowledgeData build(final int ackType, final IpdsByteArrayInputStream ipds) throws IOException {
+    public static AcknowledgeData create(final int ackType, final IpdsByteArrayInputStream ipds) throws IOException {
 
         return switch (ackType) {
             case 0x00 -> new NoAcknowledgeData();

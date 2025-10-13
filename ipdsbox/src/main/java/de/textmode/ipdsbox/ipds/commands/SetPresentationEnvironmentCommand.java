@@ -8,7 +8,7 @@ import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
-import de.textmode.ipdsbox.ipds.triplets.TripletBuilder;
+import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
 import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
@@ -38,7 +38,7 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
 
         byte[] buffer;
         while ((buffer = ipds.readTripletIfExists()) != null) {
-            this.triplets.add(TripletBuilder.build(buffer));
+            this.triplets.add(TripletFactory.create(buffer));
         }
     }
 
