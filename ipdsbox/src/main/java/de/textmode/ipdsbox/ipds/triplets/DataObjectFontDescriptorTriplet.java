@@ -15,19 +15,16 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
     private int encodingEnvironment;
     private int encodingID;
 
-    public DataObjectFontDescriptorTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.DataObjectFontDescriptor);
-        this.readFrom(this.getStream());
-    }
+    public DataObjectFontDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.DataObjectFontDescriptor);
 
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        this.fontFlags = in.readUnsignedByte();
-        this.fontTechnology = in.readUnsignedByte();
-        this.verticalFontSize = in.readUnsignedInteger16();
-        this.horizontalScaleFactor = in.readUnsignedInteger16();
-        this.characterRotation = in.readInteger16();
-        this.encodingEnvironment = in.readUnsignedInteger16();
-        this.encodingID = in.readUnsignedInteger16();
+        this.fontFlags = ipds.readUnsignedByte();
+        this.fontTechnology = ipds.readUnsignedByte();
+        this.verticalFontSize = ipds.readUnsignedInteger16();
+        this.horizontalScaleFactor = ipds.readUnsignedInteger16();
+        this.characterRotation = ipds.readInteger16();
+        this.encodingEnvironment = ipds.readUnsignedInteger16();
+        this.encodingID = ipds.readUnsignedInteger16();
     }
 
     @Override
@@ -145,8 +142,7 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
     @Override
     public String toString() {
         return "DataObjectFontDescriptor{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", fontFlags=0x" + Integer.toHexString(this.fontFlags) +
                 ", fontTechnology=0x" + Integer.toHexString(this.fontTechnology) +
                 ", specifiedVerticalFontSize=" + this.verticalFontSize +
@@ -154,6 +150,6 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
                 ", characterRotation=" + this.characterRotation +
                 ", encodingEnvironment=" + this.encodingEnvironment +
                 ", encodingID=" + this.encodingID +
-                '}';
+                "}";
     }
 }

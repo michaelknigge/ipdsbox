@@ -2,13 +2,14 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
 
 /**
  * MVS and VSE COM-data format.
  */
-public final class GroupIdDataFormatX04 extends GroupIdData {
+public final class MvsAndVseComDataFormat extends GroupIdData {
 
     private final int fileFype;
     private final String jobClass;
@@ -21,22 +22,18 @@ public final class GroupIdDataFormatX04 extends GroupIdData {
     private final String submissionTime;
 
     /**
-     * Constructs the {@link GroupIdDataFormatX04}.
-     * @param raw the raw IPDS data of the {@link GroupIdTriplet}.
-     * @throws IOException if the {@link GroupIdTriplet} is broken.
+     * Constructs the {@link MvsAndVseComDataFormat}.
      */
-    public GroupIdDataFormatX04(final byte[] raw) throws IOException {
-        super(raw, GroupIdFormat.MVS_AND_VSE_COM);
-
-        this.fileFype = this.getStream().readUnsignedByte();
-        this.jobClass = this.getStream().readEbcdicString(1).trim();
-        this.jobName = this.getStream().readEbcdicString(8).trim();
-        this.jobId = this.getStream().readEbcdicString(8).trim();
-        this.forms = this.getStream().readEbcdicString(8).trim();
-        this.programmerName = this.getStream().readEbcdicString(60).trim();
-        this.roomNumber = this.getStream().readEbcdicString(60).trim();
-        this.submissionDate = this.getStream().readEbcdicString(11).trim();
-        this.submissionTime = this.getStream().readEbcdicString(11).trim();
+    public MvsAndVseComDataFormat(final IpdsByteArrayInputStream ipds) throws IOException {
+        this.fileFype = ipds.readUnsignedByte();
+        this.jobClass = ipds.readEbcdicString(1).trim();
+        this.jobName = ipds.readEbcdicString(8).trim();
+        this.jobId = ipds.readEbcdicString(8).trim();
+        this.forms = ipds.readEbcdicString(8).trim();
+        this.programmerName = ipds.readEbcdicString(60).trim();
+        this.roomNumber = ipds.readEbcdicString(60).trim();
+        this.submissionDate = ipds.readEbcdicString(11).trim();
+        this.submissionTime = ipds.readEbcdicString(11).trim();
     }
 
     @Override

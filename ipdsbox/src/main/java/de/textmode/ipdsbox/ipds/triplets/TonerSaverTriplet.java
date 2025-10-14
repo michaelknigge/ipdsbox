@@ -2,17 +2,18 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class TonerSaverTriplet extends Triplet {
 
     private int control;
 
-    public TonerSaverTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.TonerSaver);
+    public TonerSaverTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.TonerSaver);
 
-        this.getStream().skip(1);
-        this.control = this.getStream().readUnsignedByte();
+        ipds.skip(1);
+        this.control = ipds.readUnsignedByte();
     }
 
     @Override
@@ -41,8 +42,8 @@ public final class TonerSaverTriplet extends Triplet {
     @Override
     public String toString() {
         return "TonerSaver{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
-                ", control=0x" + Integer.toHexString(this.control) + '}';
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                ", control=0x" + Integer.toHexString(this.control) +
+                "}";
     }
 }

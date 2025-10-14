@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
@@ -36,21 +37,19 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     }
 
     /**
-     * Constructs a {@link CodedGraphicCharacterSetGlobalIdentifierTriplet} from the given byte array.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link CodedGraphicCharacterSetGlobalIdentifierTriplet}.
      */
-    public CodedGraphicCharacterSetGlobalIdentifierTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.CodedGraphicCharacterSetGlobalIdentifier);
+    public CodedGraphicCharacterSetGlobalIdentifierTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.CodedGraphicCharacterSetGlobalIdentifier);
 
-        this.graphicCharacterSetGlobalIdentifier = this.getStream().readUnsignedInteger16();
+        this.graphicCharacterSetGlobalIdentifier = ipds.readUnsignedInteger16();
 
         if (this.graphicCharacterSetGlobalIdentifier == 0) {
-            this.codedCharacterSetIdentifier = this.getStream().readUnsignedInteger16();
+            this.codedCharacterSetIdentifier = ipds.readUnsignedInteger16();
             this.codePageGlobalIdentifier = 0;
         } else {
             this.codedCharacterSetIdentifier = 0;
-            this.codePageGlobalIdentifier = this.getStream().readUnsignedInteger16();
+            this.codePageGlobalIdentifier = ipds.readUnsignedInteger16();
         }
     }
 
@@ -104,10 +103,11 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
 
     @Override
     public String toString() {
-        return "CGCSGID{length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+        return "CGCSGID{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", gcsgid=" + Integer.toHexString(this.graphicCharacterSetGlobalIdentifier) +
                 ", cpgid=" + Integer.toHexString(this.codePageGlobalIdentifier) +
-                ", ccsid=" + Integer.toHexString(this.codedCharacterSetIdentifier) + "}";
+                ", ccsid=" + Integer.toHexString(this.codedCharacterSetIdentifier) +
+                "}";
     }
 }

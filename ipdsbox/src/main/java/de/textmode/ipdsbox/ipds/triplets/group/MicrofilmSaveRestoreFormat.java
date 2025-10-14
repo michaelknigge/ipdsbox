@@ -2,25 +2,21 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.triplets.GroupInformationTriplet;
 
 /**
  * Microfilm save/restore format.
  */
-public final class GroupInformationDataFormatX01 extends GroupInformationData {
+public final class MicrofilmSaveRestoreFormat extends GroupInformationData {
 
     private final int indicatorByte;
 
     /**
-     * Constructs the {@link GroupInformationDataFormatX01}.
-     * @param raw the raw IPDS data of the {@link GroupInformationTriplet}.
-     * @throws IOException if the {@link GroupInformationTriplet} is broken.
+     * Constructs the {@link MicrofilmSaveRestoreFormat}.
      */
-    public GroupInformationDataFormatX01(final byte[] raw) throws IOException {
-        super(raw, GroupInformationFormat.MICROFILM_SAVE_RESTORE);
-
-        this.indicatorByte = this.getStream().readUnsignedByte();
+    public MicrofilmSaveRestoreFormat(final IpdsByteArrayInputStream ipds) throws IOException {
+        this.indicatorByte = ipds.readUnsignedByte();
     }
 
     @Override

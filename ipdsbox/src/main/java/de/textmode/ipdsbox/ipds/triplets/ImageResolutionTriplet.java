@@ -12,20 +12,14 @@ public final class ImageResolutionTriplet extends Triplet {
     private int xupub;
     private int yupub;
 
-    public ImageResolutionTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.ImageResolution);
-        this.readFrom(this.getStream());
-    }
+    public ImageResolutionTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.ImageResolution);
 
-    /**
-     * Reads all fields from the given {@code IpdsByteArrayInputStream} in the order of the table offsets.
-     */
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        in.skip(2);
-        this.xUnitBase = in.readUnsignedByte();
-        this.yUnitBase = in.readUnsignedByte();
-        this.xupub = in.readUnsignedInteger16();
-        this.yupub = in.readUnsignedInteger16();
+        ipds.skip(2);
+        this.xUnitBase = ipds.readUnsignedByte();
+        this.yUnitBase = ipds.readUnsignedByte();
+        this.xupub = ipds.readUnsignedInteger16();
+        this.yupub = ipds.readUnsignedInteger16();
     }
 
     @Override
@@ -99,8 +93,7 @@ public final class ImageResolutionTriplet extends Triplet {
     @Override
     public String toString() {
         return "ImageResolution{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", xUnitBase=0x" + Integer.toHexString(this.xUnitBase) +
                 ", yUnitBase=0x" + Integer.toHexString(this.yUnitBase) +
                 ", xupub=" + this.xupub +

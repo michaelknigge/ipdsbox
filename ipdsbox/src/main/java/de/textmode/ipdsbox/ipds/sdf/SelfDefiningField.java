@@ -29,7 +29,7 @@ public abstract class SelfDefiningField {
         final int length = ipds.readUnsignedInteger16();
         final int available = ipds.bytesAvailable();
 
-        if (length - 2 != ipds.bytesAvailable()) {
+        if (length - 2 != available) {
             throw new IOException(String.format(
                     "A self-defining field to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
                     length, available));

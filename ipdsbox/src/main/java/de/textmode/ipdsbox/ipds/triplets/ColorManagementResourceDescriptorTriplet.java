@@ -2,17 +2,18 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class ColorManagementResourceDescriptorTriplet extends Triplet {
 
     private int mode;
 
-    public ColorManagementResourceDescriptorTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.ColorManagementResourceDescriptor);
+    public ColorManagementResourceDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.ColorManagementResourceDescriptor);
 
-        this.getStream().skip(1);
-        this.mode = this.getStream().readUnsignedByte();
+        ipds.skip(1);
+        this.mode = ipds.readUnsignedByte();
     }
 
     @Override
@@ -41,9 +42,8 @@ public final class ColorManagementResourceDescriptorTriplet extends Triplet {
     @Override
     public String toString() {
         return "ColorManagementResourceDescriptor{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", mode=0x" + Integer.toHexString(this.mode) +
-                '}';
+                "}";
     }
 }

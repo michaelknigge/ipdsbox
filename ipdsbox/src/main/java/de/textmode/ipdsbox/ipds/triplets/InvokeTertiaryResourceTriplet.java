@@ -13,24 +13,18 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
     private int internalResourceId;
 
     /**
-     * Constructs a {@link InvokeTertiaryResourceTriplet} from the given byte array.
-     *
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link InvokeTertiaryResourceTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public InvokeTertiaryResourceTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.InvokeTertiaryResource);
-        this.readFrom(this.getStream());
-    }
+    public InvokeTertiaryResourceTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.InvokeTertiaryResource);
 
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        this.tertiaryResourceType = in.readUnsignedByte();
-        this.hostAssignedId = in.readUnsignedInteger16();
+        this.tertiaryResourceType = ipds.readUnsignedByte();
+        this.hostAssignedId = ipds.readUnsignedInteger16();
 
-        in.skip(4);
+        ipds.skip(4);
 
-        this.idType = in.readUnsignedByte();
-        this.internalResourceId = in.readUnsignedInteger16();
+        this.idType = ipds.readUnsignedByte();
+        this.internalResourceId = ipds.readUnsignedInteger16();
 
         // TODO Shall we throw an exception if idType is not 0x01 ???
     }
@@ -112,11 +106,12 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "InvokeTertiaryResource{length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+        return "InvokeTertiaryResource{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", tertiaryResourceType=" + Integer.toHexString(this.tertiaryResourceType) +
                 ", haid=" + Integer.toHexString(this.hostAssignedId) +
                 ", idType=" + this.idType +
-                ", internalResourceId=" + this.internalResourceId + "}";
+                ", internalResourceId=" + this.internalResourceId +
+                "}";
     }
 }

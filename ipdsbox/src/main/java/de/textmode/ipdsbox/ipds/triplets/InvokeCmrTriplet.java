@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class InvokeCmrTriplet extends Triplet {
@@ -9,13 +10,11 @@ public final class InvokeCmrTriplet extends Triplet {
     private int hostAssignedId;
 
     /**
-     * Constructs a {@link InvokeCmrTriplet} from the given byte array.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link InvokeCmrTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public InvokeCmrTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.LinkedFont);
-        this.hostAssignedId = this.getStream().readUnsignedInteger16();
+    public InvokeCmrTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.LinkedFont);
+        this.hostAssignedId = ipds.readUnsignedInteger16();
     }
 
     @Override
@@ -27,7 +26,6 @@ public final class InvokeCmrTriplet extends Triplet {
 
     /**
      * Returns the host assigned ID.
-     * @return the host assigned ID.
      */
     public int getHostAssignedId() {
         return this.hostAssignedId;
@@ -42,8 +40,8 @@ public final class InvokeCmrTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "InvokeCmr{length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+        return "InvokeCmr{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", haid=" + Integer.toHexString(this.hostAssignedId) +
                 "}";
     }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
@@ -287,24 +288,21 @@ public final class FinishingOperationTriplet extends Triplet {
     }
 
     /**
-     * Constructs a {@link FinishingOperationTriplet} from the given byte array.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
-     * @throws InvalidIpdsCommandException if the given IPDS data is broken.
+     * Constructs a {@link FinishingOperationTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public FinishingOperationTriplet(final byte[] raw) throws IOException, InvalidIpdsCommandException {
-        super(raw, TripletId.FinishingOperation);
+    public FinishingOperationTriplet(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException, UnknownTripletException {
+        super(ipds, TripletId.FinishingOperation);
 
-        this.operationType = OperationType.getFor(this.getStream().readUnsignedByte());
-        this.finishingOption = this.getStream().readUnsignedByte();
-        this.getStream().skip(1);
-        this.reference = Reference.getFor(this.getStream().readUnsignedByte());
-        this.count = this.getStream().readUnsignedByte();
-        this.axisOffset = this.getStream().readUnsignedInteger16();
+        this.operationType = OperationType.getFor(ipds.readUnsignedByte());
+        this.finishingOption = ipds.readUnsignedByte();
+        ipds.skip(1);
+        this.reference = Reference.getFor(ipds.readUnsignedByte());
+        this.count = ipds.readUnsignedByte();
+        this.axisOffset = ipds.readUnsignedInteger16();
 
         this.positions = new ArrayList<>();
-        while (this.getStream().bytesAvailable() != 0) {
-            this.positions.add(this.getStream().readUnsignedInteger16());
+        while (ipds.bytesAvailable() != 0) {
+            this.positions.add(ipds.readUnsignedInteger16());
         }
     }
 
@@ -373,5 +371,16 @@ public final class FinishingOperationTriplet extends Triplet {
         return this.positions;
     }
 
-    //TODO Implement public String toString() {
+    @Override
+    public String toString() {
+        return "FinishingOperationTriplet{" +
+                "tid=0x" + String.format("%02X", this.getTripletId().getId()) +
+                ", operationType=" + operationType +
+                ", finishingOption=0x" + Integer.toHexString(finishingOption) +
+                ", reference=" + reference +
+                ", count=" + count +
+                ", axisOffset=" + axisOffset +
+                ", positions=" + positions +
+                "}";
+    }
 }

@@ -11,45 +11,22 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
-    /** Metric technology used by the raster font. */
     private int metricTechnology;
-
-    /** Raster-pattern resolution unit base. */
     private int unitBase;
-
-    /** Raster-pattern resolution units per unit base in the X direction. */
     private int xUnitsPerUnitBase;
-
-    /** Optional raster-pattern resolution units per unit base in the Y direction. */
     private int yUnitsPerUnitBase;
 
-    public FontResolutionAndMetricTechnologyTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.FontResolutionandMetricTechnology);
-        this.readFrom(this.getStream());
-    }
+    public FontResolutionAndMetricTechnologyTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.FontResolutionandMetricTechnology);
 
-    /**
-     * Reads the triplet fields from the given byte array input stream using the specific methods
-     * for UBIN, SBIN, CODE, CHAR, BITS, and UNDF formats, storing values in the required types.
-     *
-     * @param in the IPDS byte array input stream
-     * @throws IOException if an I/O error occurs
-     */
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        // Metric technology: CODE length 1 -> int
-        this.metricTechnology = in.readUnsignedByte();
+        this.metricTechnology = ipds.readUnsignedByte();
+        this.unitBase = ipds.readUnsignedByte();
+        this.xUnitsPerUnitBase = ipds.readUnsignedInteger16();
 
-        // Unit base: CODE length 1 -> int
-        this.unitBase = in.readUnsignedByte();
-
-        // X units per unit base: UBIN length 2 -> int
-        this.xUnitsPerUnitBase = in.readUnsignedInteger16();
-
-        // Optional Y units per unit base: UBIN length 2 -> int
-        if (this.getLength() == 8) {
-            this.yUnitsPerUnitBase = in.readUnsignedInteger16();
-        } else {
+        if (ipds.bytesAvailable() == 0) {
             this.yUnitsPerUnitBase = this.xUnitsPerUnitBase;
+        } else {
+            this.yUnitsPerUnitBase = ipds.readUnsignedInteger16();
         }
     }
 
@@ -148,12 +125,11 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
     @Override
     public String toString() {
         return "FontResolutionAndMetricTechnologyTriplet{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + String.format("%02X", this.getTripletId().getId()) +
+                "tid=0x" + String.format("%02X", this.getTripletId().getId()) +
                 ", metricTechnology=0x" + String.format("%02X", this.metricTechnology) +
                 ", unitBase=0x" + String.format("%02X", this.unitBase) +
                 ", xUnitsPerUnitBase=" + this.xUnitsPerUnitBase +
                 ", yUnitsPerUnitBase=" + this.yUnitsPerUnitBase +
-                '}';
+                "}";
     }
 }

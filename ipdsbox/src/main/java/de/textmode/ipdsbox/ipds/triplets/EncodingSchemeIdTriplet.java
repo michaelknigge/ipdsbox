@@ -2,17 +2,18 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class EncodingSchemeIdTriplet extends Triplet {
 
     private int dataEsId;
 
-    public EncodingSchemeIdTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.EncodingSchemeID);
+    public EncodingSchemeIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.EncodingSchemeID);
 
-        this.getStream().skip(2);
-        this.dataEsId = this.getStream().readUnsignedInteger16();
+        ipds.skip(2);
+        this.dataEsId = ipds.readUnsignedInteger16();
     }
 
     @Override
@@ -39,8 +40,9 @@ public final class EncodingSchemeIdTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "EncodingSchemeId{len=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
-                ", esid=" + Integer.toHexString(this.dataEsId) + "}";
+        return "EncodingSchemeId{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                ", esid=" + Integer.toHexString(this.dataEsId) +
+                "}";
     }
 }

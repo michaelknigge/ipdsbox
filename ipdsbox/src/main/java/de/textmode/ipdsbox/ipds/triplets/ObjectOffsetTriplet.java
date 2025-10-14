@@ -2,20 +2,21 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class ObjectOffsetTriplet extends Triplet {
 
     private int objectType;
-    private long objectOffset; // UBIN(4) → long
+    private long objectOffset;
 
 
-    public ObjectOffsetTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.ObjectOffset);
+    public ObjectOffsetTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.ObjectOffset);
 
-        this.objectType = this.getStream().readUnsignedByte();
-        this.getStream().skip(1);
-        this.objectOffset = this.getStream().readUnsignedInteger32();
+        this.objectType = ipds.readUnsignedByte();
+        ipds.skip(1);
+        this.objectOffset = ipds.readUnsignedInteger32();
     }
 
     @Override
@@ -57,9 +58,10 @@ public final class ObjectOffsetTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "ObjectOffset{len=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+        return "ObjectOffset{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", type=0x" + Integer.toHexString(this.objectType) +
-                ", offset=" + this.objectOffset + "}";
+                ", offset=" + this.objectOffset +
+                "}";
     }
 }

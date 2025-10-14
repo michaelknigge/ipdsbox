@@ -2,36 +2,34 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
 
 /**
  * AIX and OS/2 COM-data format.
  */
-public final class GroupIdDataFormatX05 extends GroupIdData {
+public final class AixAndOs2ComDataFormat extends GroupIdData {
 
     private final int fileFype;
     private final String fileName;
 
     /**
-     * Constructs the {@link GroupIdDataFormatX05}.
+     * Constructs the {@link AixAndOs2ComDataFormat}.
      */
-    public GroupIdDataFormatX05(final int fileType, final String fileName) {
+    public AixAndOs2ComDataFormat(final int fileType, final String fileName) {
         this.fileFype = fileType;
         this.fileName = fileName;
     }
 
     /**
-     * Constructs the {@link GroupIdDataFormatX05}.
-     * @param raw the raw IPDS data of the {@link GroupIdTriplet}.
-     * @throws IOException if the {@link GroupIdTriplet} is broken.
+     * Constructs the {@link AixAndOs2ComDataFormat}.
      */
-    public GroupIdDataFormatX05(final byte[] raw) throws IOException {
-        super(raw, GroupIdFormat.AIX_AND_OS2);
+    public AixAndOs2ComDataFormat(final IpdsByteArrayInputStream ipds) throws IOException {
 
-        this.fileFype = this.getStream().readUnsignedByte();
-        this.fileName = this.getStream()
-                .readAsciiString(this.getStream().bytesAvailable())
+        this.fileFype = ipds.readUnsignedByte();
+        this.fileName = ipds
+                .readAsciiString(ipds.bytesAvailable())
                 .trim();
     }
 

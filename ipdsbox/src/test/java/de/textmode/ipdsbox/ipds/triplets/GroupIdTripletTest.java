@@ -13,7 +13,7 @@ import junit.framework.TestCase;
 public final class GroupIdTripletTest extends TestCase {
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX01}.
+     * Tests the {@link GroupIdTriplet} with {@link MvsAndVsePrintDataFormat}.
      */
     public void testFormatX01() throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -86,21 +86,21 @@ public final class GroupIdTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX03}.
+     * Tests the {@link GroupIdTriplet} with {@link Os400PrintDataFormat}.
      */
     public void testFormatX03() throws Exception {
         testFormatOS400(GroupIdFormat.OS400);
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX13}.
+     * Tests the {@link GroupIdTriplet} with {@link ExtendedOs400PrintDataFormat}.
      */
     public void testFormatX13() throws Exception {
         testFormatOS400(GroupIdFormat.EXTENDED_OS400);
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX03} or {@link GroupIdDataFormatX13}.
+     * Tests the {@link GroupIdTriplet} with {@link Os400PrintDataFormat} or {@link ExtendedOs400PrintDataFormat}.
      */
     private static void testFormatOS400(final GroupIdFormat format) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -155,7 +155,7 @@ public final class GroupIdTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX04}.
+     * Tests the {@link GroupIdTriplet} with {@link MvsAndVseComDataFormat}.
      */
     public void testFormatX04() throws Exception {
         testFormatX04((byte) 0x80, " (Job header)");
@@ -167,7 +167,7 @@ public final class GroupIdTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX04}.
+     * Tests the {@link GroupIdTriplet} with {@link MvsAndVseComDataFormat}.
      */
     private static void testFormatX04(final byte type, final String typeString) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -225,7 +225,7 @@ public final class GroupIdTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX05}.
+     * Tests the {@link GroupIdTriplet} with {@link AixAndOs2ComDataFormat}.
      */
     public void testFormatX05() throws Exception {
         testFormatX05((byte) 0x80, " (Job header)");
@@ -238,7 +238,7 @@ public final class GroupIdTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX05}.
+     * Tests the {@link GroupIdTriplet} with {@link AixAndOs2ComDataFormat}.
      */
     private static void testFormatX05(final byte type, final String typeString) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -261,7 +261,7 @@ public final class GroupIdTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX06}.
+     * Tests the {@link GroupIdTriplet} with {@link AixAndWindowsPrintDataFormat}.
      */
     public void testFormatX06() throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -280,7 +280,7 @@ public final class GroupIdTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX08}.
+     * Tests the {@link GroupIdTriplet} with {@link VariableLengthGroupIdFormat}.
      */
     public void testFormatX08() throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -15,22 +15,19 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
     private int xocExtent;
     private int yocExtent;
 
-    public ObjectContainerPresentationSpaceSizeTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.ObjectContainerPresentationSpaceSize);
-        this.readFrom(this.getStream());
-    }
+    public ObjectContainerPresentationSpaceSizeTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.ObjectContainerPresentationSpaceSize);
 
-    public void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        in.skip(2);
-        this.pdfPresentationSpaceSize = in.readUnsignedByte();
+        ipds.skip(2);
+        this.pdfPresentationSpaceSize = ipds.readUnsignedByte();
 
-        if (this.getLength() >= 0x11) {
-            this.xUnitBase = in.readUnsignedByte();
-            this.yUnitBase = in.readUnsignedByte();
-            this.xupub = in.readUnsignedInteger16();
-            this.yupub = in.readUnsignedInteger16();
-            this.xocExtent = in.readUnsignedInteger24();
-            this.yocExtent = in.readUnsignedInteger24();
+        if (ipds.bytesAvailable() >= 12) {
+            this.xUnitBase = ipds.readUnsignedByte();
+            this.yUnitBase = ipds.readUnsignedByte();
+            this.xupub = ipds.readUnsignedInteger16();
+            this.yupub = ipds.readUnsignedInteger16();
+            this.xocExtent = ipds.readUnsignedInteger24();
+            this.yocExtent = ipds.readUnsignedInteger24();
         } else {
             this.xUnitBase = 0x00;
             this.yUnitBase = 0x00;
@@ -162,25 +159,22 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
 
     @Override
     public String toString() {
-        if (this.getLength() == 5) {
+        if (this.xupub != 0 && this.yupub != 0 && this.xocExtent != 0 && this.yocExtent != 0) {
             return "ObjectContainerPresentationSpaceSize{" +
-                    "length=" + this.getLength() +
-                    ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                    "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                     ", pdfPresentationSpaceSize=0x" + Integer.toHexString(this.pdfPresentationSpaceSize) +
+                    ", xUnitBase=" + Integer.toHexString(this.xUnitBase) +
+                    ", yUnitBase=" + Integer.toHexString(this.yUnitBase) +
+                    ", xupub=" + this.xupub +
+                    ", yupub=" + this.yupub +
+                    ", xocExtent=" + this.xocExtent +
+                    ", yocExtent=" + this.yocExtent +
                     '}';
-
         }
 
         return "ObjectContainerPresentationSpaceSize{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", pdfPresentationSpaceSize=0x" + Integer.toHexString(this.pdfPresentationSpaceSize) +
-                ", xUnitBase=" + Integer.toHexString(this.xUnitBase) +
-                ", yUnitBase=" + Integer.toHexString(this.yUnitBase) +
-                ", xupub=" + this.xupub +
-                ", yupub=" + this.yupub +
-                ", xocExtent=" + this.xocExtent +
-                ", yocExtent=" + this.yocExtent +
                 '}';
     }
 }

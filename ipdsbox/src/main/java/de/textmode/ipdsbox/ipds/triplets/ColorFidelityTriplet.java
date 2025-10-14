@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class ColorFidelityTriplet extends Triplet {
@@ -24,14 +25,14 @@ public final class ColorFidelityTriplet extends Triplet {
     /**
      * Creates a {@link ColorFidelityTriplet} from the given data.
      */
-    public ColorFidelityTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.ColorFidelity);
+    public ColorFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.ColorFidelity);
 
-        this.continuationRule = this.getStream().readUnsignedByte();
-        this.getStream().skip(1);
-        this.reportingRule = this.getStream().readUnsignedByte();
-        this.getStream().skip(1);
-        this.substitutionRule = this.getStream().readUnsignedByte();
+        this.continuationRule = ipds.readUnsignedByte();
+        ipds.skip(1);
+        this.reportingRule = ipds.readUnsignedByte();
+        ipds.skip(1);
+        this.substitutionRule = ipds.readUnsignedByte();
     }
 
     @Override
@@ -93,10 +94,10 @@ public final class ColorFidelityTriplet extends Triplet {
     @Override
     public String toString() {
         return "ColorFidelity{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", continueRule=0x" + Integer.toHexString(this.continuationRule) +
                 ", report=0x" + Integer.toHexString(this.reportingRule) +
-                ", substitute=0x" + Integer.toHexString(this.substitutionRule) + '}';
+                ", substitute=0x" + Integer.toHexString(this.substitutionRule) +
+                "}";
     }
 }

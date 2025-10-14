@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class DeviceAppearanceTriplet extends Triplet {
@@ -9,15 +10,13 @@ public final class DeviceAppearanceTriplet extends Triplet {
     private int appearance;
 
     /**
-     * Constructs a {@link DeviceAppearanceTriplet} from the given byte array.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link DeviceAppearanceTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public DeviceAppearanceTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.DeviceAppearance);
+    public DeviceAppearanceTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.DeviceAppearance);
 
-        this.getStream().skip(1);
-        this.appearance = this.getStream().readUnsignedInteger16();
+        ipds.skip(1);
+        this.appearance = ipds.readUnsignedInteger16();
     }
 
     @Override
@@ -31,7 +30,6 @@ public final class DeviceAppearanceTriplet extends Triplet {
 
     /**
      * Returns the appearance.
-     * @return the appearance.
      */
     public int getAppearance() {
         return this.appearance;
@@ -46,8 +44,8 @@ public final class DeviceAppearanceTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "DeviceAppearance{length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+        return "DeviceAppearance{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", appearance=" + Integer.toHexString(this.appearance) +
                 "}";
     }

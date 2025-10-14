@@ -3,25 +3,21 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.StringUtils;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
 
 /**
  * Variable-length Group ID format.
  */
-public final class GroupIdDataFormatX08 extends GroupIdData {
+public final class VariableLengthGroupIdFormat extends GroupIdData {
 
     private final byte[] rawData;
 
     /**
-     * Constructs the {@link GroupIdDataFormatX08}.
-     * @param raw the raw IPDS data of the {@link GroupIdTriplet}.
-     * @throws IOException if the {@link GroupIdTriplet} is broken.
+     * Constructs the {@link VariableLengthGroupIdFormat}.
      */
-    public GroupIdDataFormatX08(final byte[] raw) throws IOException {
-        super(raw, GroupIdFormat.VARIABLE_LENGTH_GROUP_ID);
-
-        this.rawData = new byte[raw.length - 3];
-        System.arraycopy(raw, 3, this.rawData, 0, raw.length - 3);
+    public VariableLengthGroupIdFormat(final IpdsByteArrayInputStream ipds) throws IOException {
+        this.rawData = ipds.readRemainingBytes();
     }
 
     @Override

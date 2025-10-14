@@ -1,7 +1,10 @@
 package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
+import java.util.Arrays;
 
+import de.textmode.ipdsbox.core.StringUtils;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -15,16 +18,13 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
     private final byte[] data;
 
     /**
-     * Constructs a {@link UP3IFinishingOperationTriplet} from the given byte array.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link UP3IFinishingOperationTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public UP3IFinishingOperationTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.UP3IFinishingOperation);
+    public UP3IFinishingOperationTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.UP3IFinishingOperation);
 
-        this.sequenceNumber = raw[2] & 0xFF;
-        this.data = new byte[raw.length - 4];
-        System.arraycopy(raw, 4, this.data, 0, this.data.length);
+        this.sequenceNumber = ipds.readUnsignedByte();
+        this.data = ipds.readRemainingBytes();
     }
 
     @Override
@@ -37,7 +37,6 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
 
     /**
      * Returns the sequence number of this triplet.
-     * @return the sequence number of this triplet.
      */
     public int getSequenceNumber() {
         return this.sequenceNumber;
@@ -45,12 +44,16 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
 
     /**
      * Returns finishing operation data as defined in the UP3I Specification.
-     * @return Finishing operation data as defined in the UP3I Specification.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is intended that the buffer may be modified")
     public byte[] getData() {
         return this.data;
     }
 
-    //TODO Implement public String toString() {
+    @Override
+    public String toString() {
+        return "UP3IFinishingOperationTriplet{" +
+                "sequenceNumber=" + this.sequenceNumber +
+                ", data=" + StringUtils.toHexString(this.data) +
+                "}";
+    }
 }

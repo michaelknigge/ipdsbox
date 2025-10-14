@@ -13,22 +13,16 @@ public final class RenderingIntentTriplet extends Triplet {
     private int goca;
 
     /**
-     * Constructs a {@link RenderingIntentTriplet} from the given byte array.
-     *
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link RenderingIntentTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public RenderingIntentTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.RenderingIntent);
-        this.readFrom(this.getStream());
-    }
+    public RenderingIntentTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.RenderingIntent);
 
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        in.skip(2);
-        this.ioca = in.readUnsignedByte();
-        this.objectContainer = in.readUnsignedByte();
-        this.ptoca = in.readUnsignedByte();
-        this.goca = in.readUnsignedByte();
+        ipds.skip(2);
+        this.ioca = ipds.readUnsignedByte();
+        this.objectContainer = ipds.readUnsignedByte();
+        this.ptoca = ipds.readUnsignedByte();
+        this.goca = ipds.readUnsignedByte();
     }
 
     @Override
@@ -102,8 +96,7 @@ public final class RenderingIntentTriplet extends Triplet {
     @Override
     public String toString() {
         return "RenderingIntent{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", ioca=0x" + Integer.toHexString(this.ioca) +
                 ", objectContainer=0x" + Integer.toHexString(this.objectContainer) +
                 ", ptoca=0x" + Integer.toHexString(this.ptoca) +

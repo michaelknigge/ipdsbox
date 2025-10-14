@@ -5,6 +5,7 @@ import java.io.IOException;
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+import de.textmode.ipdsbox.ipds.sdf.SelfDefiningFieldId;
 
 /**
  * Triplets are variable-length substructures that can be used within one or more IPDS commands to provide
@@ -13,68 +14,42 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public abstract class Triplet {
 
-    // TODO: Maybe it's better to use ONLY the IpdsByteArrayInputStream and not the
-    //   underlying "data" (see below)...
-    private final IpdsByteArrayInputStream stream;
-    private final int length;
     private final TripletId tripletId;
-    private final byte[] data;
 
     /**
-     * Constructs the {@link Triplet}.
-     * @param tripletId the expected Triplet ID
+     * Constructs a new {@link Triplet}.
      */
     public Triplet(final TripletId tripletId) {
         this.tripletId = tripletId;
-
-        // TODO remove!
-        this.data = null;
-        this.stream = null;
-        this.length = 0;
     }
 
     /**
-     * Constructs the {@link Triplet}.
-     * @param raw the raw data of the whole triplet.
-     * @param tripletId the expected Triplet ID
+     * Constructs the {@link Triplet} from an {@link IpdsByteArrayInputStream}.
      */
-    public Triplet(final byte[] raw, final TripletId tripletId) {
+    public Triplet(
+            final IpdsByteArrayInputStream ipds,
+            final TripletId expectedTripletId) throws IOException, UnknownTripletException {
 
-        if ((raw[1] & 0xFF) != tripletId.getId()) {
-            throw new IpdsboxRuntimeException("Passed invalid data");
+        final int length = ipds.readUnsignedByte();
+        final int available = ipds.bytesAvailable();
+        if (length - 1 != available) {
+            throw new IOException(String.format(
+                    "A tripket to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
+                    length, available));
         }
 
-        this.length = raw[0] & 0xFF;
-        this.tripletId = tripletId;
-        this.data = new byte[raw.length - 2];
-
-        // For "high performance" we could use the given raw data instead of making a copy of the data...
-        // TODO: Check why we create a new byte[] .... Maybe we did this for a good reason ;-)
-        System.arraycopy(raw, 2, this.data, 0, raw.length - 2);
-
-        this.stream = new IpdsByteArrayInputStream(this.data);
-    }
-
-    /**
-     * Returns the {@link IpdsByteArrayInputStream} that is used to parse the data.
-     * @return the {@link IpdsByteArrayInputStream} that is used to parse the data.
-     */
-    protected final IpdsByteArrayInputStream getStream() {
-        return this.stream;
-    }
-
-    /**
-     * Returns the length of the whole Triplet.
-     * @return length of the whole Triplet (including the length field and the Triplet ID).
-     */
-    public final int getLength() {
-        // TODO only valid if read from a IPDS data stream...
-        return this.length;
+        // TODO maybee better to create a "RawTriplet" instead of throwing an exception...
+        this.tripletId = TripletId.getFor(ipds.readUnsignedByte());
+        if (!tripletId.equals(expectedTripletId.getId())) {
+            throw new IOException(String.format(
+                    "Expected triplet 0x%1$s but got 0x%2$s",
+                    Integer.toHexString(expectedTripletId.getId()),
+                    Integer.toHexString(tripletId.getId())));
+        }
     }
 
     /**
      * Returns the {@link TripletId} of the Triplet.
-     * @return the {@link TripletId} of the Triplet.
      */
     public final TripletId getTripletId() {
         return this.tripletId;

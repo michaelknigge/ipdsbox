@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class SetupNameTriplet extends Triplet {
@@ -14,15 +15,13 @@ public final class SetupNameTriplet extends Triplet {
     private String setupName;
 
     /**
-     * Constructs a {@link SetupNameTriplet} from the given byte array.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link SetupNameTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public SetupNameTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.SetupName);
+    public SetupNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.SetupName);
 
-        this.getStream().skip(2);
-        this.setupName = UTF16BE.decode(ByteBuffer.wrap(this.getStream().readRemainingBytes())).toString();
+        ipds.skip(2);
+        this.setupName = UTF16BE.decode(ByteBuffer.wrap(ipds.readRemainingBytes())).toString();
     }
 
     @Override
@@ -53,8 +52,9 @@ public final class SetupNameTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "SetupName{length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
-                ", setupName=" + this.setupName +"}";
+        return "SetupName{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                ", setupName=" + this.setupName +
+                "}";
     }
 }

@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class TextFidelityTriplet extends Triplet {
@@ -9,12 +10,12 @@ public final class TextFidelityTriplet extends Triplet {
     private int continuationRule;
     private int reportingRule;
 
-    public TextFidelityTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.TextFidelity);
+    public TextFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.TextFidelity);
 
-        this.continuationRule = this.getStream().readUnsignedByte();
-        this.getStream().skip(1);
-        this.reportingRule = this.getStream().readUnsignedByte();
+        this.continuationRule = ipds.readUnsignedByte();
+        ipds.skip(1);
+        this.reportingRule = ipds.readUnsignedByte();
     }
 
     @Override
@@ -58,9 +59,9 @@ public final class TextFidelityTriplet extends Triplet {
     @Override
     public String toString() {
         return "TextFidelity{" +
-                "length=" + this.getLength() +
                 ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", continueRule=0x" + Integer.toHexString(this.continuationRule) +
-                ", report=0x" + Integer.toHexString(this.reportingRule) + '}';
+                ", report=0x" + Integer.toHexString(this.reportingRule) +
+                "}";
     }
 }

@@ -3,6 +3,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.group.*;
 
@@ -11,7 +12,7 @@ import de.textmode.ipdsbox.ipds.triplets.group.*;
  */
 public final class GroupIdTriplet extends Triplet {
 
-    private GroupIdFormat format;
+    private int format;
     private GroupIdData data;
 
     /**
@@ -20,37 +21,37 @@ public final class GroupIdTriplet extends Triplet {
     public GroupIdTriplet() {
         super(TripletId.GroupID);
 
-        this.format = null;
+        this.format = -1;
         this.data = null;
     }
 
 
     /**
-     * Constructs a {@link GroupIdTriplet} from the given data.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link GroupIdTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public GroupIdTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.GroupID);
+    public GroupIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.GroupID);
 
-        this.format = raw.length > 2 ? GroupIdFormat.getForIfExists(raw[2] & 0xFF) : null;
-        this.data = this.format != null && raw.length > 3 ? this.parseFormatData(raw) : null;
+        if (ipds.bytesAvailable() >= 1) {
+            this.format = ipds.readUnsignedByte();
+            this.data = ipds.bytesAvailable() >= 1 ? parseFormatData(ipds) : null;
+        } else {
+            this.format = -1;
+            this.data = null;
+        }
     }
 
     /**
-     * Returns the {@link GroupIdFormat} of the {@link GroupIdTriplet} or <code>null</code> if the
-     * {@link GroupIdTriplet} does not contain grouping information.
-     * @return the {@link GroupIdFormat} of the {@link GroupIdTriplet} or <code>null</code> if the
-     * {@link GroupIdTriplet} does not contain grouping information.
+     * Returns the format or -1 if no format is set in this triplet.
      */
-    public GroupIdFormat getGroupIdFormat() {
+    public int getFormat() {
         return this.format;
     }
 
     /**
-     * Sets the {@link GroupIdFormat} of the {@link GroupIdTriplet}.
+     * Sets the format or -1 if no format shoule be set in this triplet.
      */
-    public void setGroupIdFormat(final GroupIdFormat format) {
+    public void setFormat(final int format) {
         this.format = format;
     }
 
@@ -65,46 +66,38 @@ public final class GroupIdTriplet extends Triplet {
     }
 
     /**
-     * Sets the {@link GroupIdData} of the {@link GroupIdTriplet}.
+     * Sets the {@link GroupIdData} of the {@link GroupIdTriplet} or <code>null</code> if the
+     * {@link GroupIdTriplet} does not contain grouping information.
      */
-    public void setGroupIdData(final GroupIdData data) {
+    public void setGroupInformationDataIfExist(final GroupIdData data) {
         this.data = data;
     }
 
-    private GroupIdData parseFormatData(final byte[] raw) throws IOException {
-        switch (this.format) {
-        case AIX_AND_OS2:
-            return new GroupIdDataFormatX05(raw);
-        case AIX_AND_WINDOWS:
-            return new GroupIdDataFormatX06(raw);
-        case EXTENDED_OS400:
-            return new GroupIdDataFormatX13(raw);
-        case MVS_AND_VSE:
-            return new GroupIdDataFormatX01(raw);
-        case MVS_AND_VSE_COM:
-            return new GroupIdDataFormatX04(raw);
-        case OS400:
-            return new GroupIdDataFormatX03(raw);
-        case VARIABLE_LENGTH_GROUP_ID:
-            return new GroupIdDataFormatX08(raw);
-        case VM:
-            return new GroupIdDataFormatX02(raw);
-        default:
-            throw new IpdsboxRuntimeException("No case for " + this.format);
-        }
+    private GroupIdData parseFormatData(final IpdsByteArrayInputStream ipds) throws IOException {
+        return switch (this.format) {
+            case 0x01 -> new MvsAndVsePrintDataFormat(ipds);
+            case 0x02 -> new VmPrintDataFormat(ipds);
+            case 0x03 -> new Os400PrintDataFormat(ipds);
+            case 0x04 -> new MvsAndVseComDataFormat(ipds);
+            case 0x05 -> new AixAndOs2ComDataFormat(ipds);
+            case 0x06 -> new AixAndWindowsPrintDataFormat(ipds);
+            case 0x08 -> new VariableLengthGroupIdFormat(ipds);
+            case 0x13 -> new ExtendedOs400PrintDataFormat(ipds);
+            default -> new UnknownGroupIdDataFormat(ipds);
+        };
     }
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         final byte[] dataBytes = this.data == null ? null : this.data.toByteArray();
 
-        final int len = 2 + (this.format == null ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
+        final int len = 2 + (this.format == -1 ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
 
         out.writeUnsignedByte(len);
         out.writeUnsignedByte(this.getTripletId().getId());
 
-        if (this.format != null) {
-            out.writeUnsignedByte(this.format.getId());
+        if (this.format != -1) {
+            out.writeUnsignedByte(this.format);
         }
 
         if (dataBytes != null) {
@@ -115,9 +108,9 @@ public final class GroupIdTriplet extends Triplet {
     @Override
     public String toString() {
         return "GroupIDTriplet{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + String.format("%02X", this.getTripletId().getId()) +
-                ", format=" + this.format == null ? "no format" : this.format.getMeaning() +
-                ", data=" + this.data == null ? "no data" : this.data.toString();
+                "tid=0x" + String.format("%02X", this.getTripletId().getId()) +
+                ", format=" + (this.format == -1 ? "no format" : this.format) +
+                ", data=" + (this.data == null ? "no data" : this.data) +
+                "}";
     }
 }

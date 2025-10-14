@@ -18,28 +18,23 @@ public final class LinkedFontTriplet extends Triplet {
     private String fullFontName;
 
     /**
-     * Constructs a {@link LinkedFontTriplet} from the given byte array.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link LinkedFontTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public LinkedFontTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.LinkedFont);
-        this.readFrom(this.getStream());
-    }
+    public LinkedFontTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.LinkedFont);
 
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        this.hostAssignedId = in.readUnsignedInteger16();
-        this.fontIdType = in.readUnsignedByte();
+        this.hostAssignedId = ipds.readUnsignedInteger16();
+        this.fontIdType = ipds.readUnsignedByte();
 
         if (this.fontIdType == 0x00) {
             this.fontIndex = -1;
             this.fullFontName = null;
         } else if (this.fontIdType == 0x01) {
-            this.fontIndex = in.readUnsignedInteger16();
+            this.fontIndex = ipds.readUnsignedInteger16();
             this.fullFontName = null;
         } else if (this.fontIdType == 0x02) {
             this.fontIndex = -1;
-            this.fullFontName = UTF16BE.decode(ByteBuffer.wrap(in.readRemainingBytes())).toString();
+            this.fullFontName = UTF16BE.decode(ByteBuffer.wrap(ipds.readRemainingBytes())).toString();
         }
     }
 
@@ -134,11 +129,12 @@ public final class LinkedFontTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "LinkedFont{length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+        return "LinkedFont{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", haid=" + Integer.toHexString(this.hostAssignedId) +
                 ", fontIdType=" + Integer.toHexString(this.fontIdType) +
                 ", fontIndex=" + this.fontIndex +
-                ", fullFontName=" + this.fullFontName +"}";
+                ", fullFontName=" + this.fullFontName +
+                "}";
     }
 }

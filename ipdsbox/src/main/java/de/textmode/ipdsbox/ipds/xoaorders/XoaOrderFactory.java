@@ -19,16 +19,12 @@ public final class XoaOrderFactory {
     }
 
     /**
-     * Creates a {@link XoaOrder} from the given byte array.
-     * @param ipds the raw IPDS data of the {@link XoaOrder}.
-     * @return a concrete {@link XoaOrder} implementation
-     * @throws UnknownXoaOrderCode if the given IPDS data describes an unknown {@link XoaOrder}.
-     * @throws UnknownTripletException if the given IPDS data describes an unknown {@link Triplet}.
-     * @throws InvalidIpdsCommandException if the given IPDS data is broken.
-     * @throws IOException if the given IPDS data is incomplete.
+     * Creates a {@link XoaOrder} from the given {@link IpdsByteArrayInputStream}.
      */
     public static XoaOrder create(final IpdsByteArrayInputStream ipds)
         throws UnknownXoaOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
+
+        // TODO do not throw an exception.... create a "RawXoaOrder" instead
 
         final XoaOrderCode code = XoaOrderCode.getFor(ipds.readUnsignedInteger16());
         ipds.rewind(2); // Go back so the Order-Implementations will read the complete order...

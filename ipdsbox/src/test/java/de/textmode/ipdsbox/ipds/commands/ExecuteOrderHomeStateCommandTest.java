@@ -6,7 +6,6 @@ import java.util.HexFormat;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.ipds.triplets.*;
-import de.textmode.ipdsbox.ipds.triplets.group.GroupIdFormat;
 import de.textmode.ipdsbox.ipds.xohorders.*;
 import junit.framework.TestCase;
 

@@ -15,22 +15,16 @@ public final class MetricAdjustmentTriplet extends Triplet {
     private int hBaselineAdjustment;
     private int vBaselineAdjustment;
 
-    public MetricAdjustmentTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.MetricAdjustment);
-        this.readFrom(this.getStream());
-    }
+    public MetricAdjustmentTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.MetricAdjustment);
 
-    /**
-     * Reads all fields from the given stream in triplet order.
-     */
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        this.unitBase = in.readUnsignedByte();
-        this.xupub = in.readUnsignedInteger16();
-        this.yupub = in.readUnsignedInteger16();
-        this.hUniformIncrement = in.readInteger16();
-        this.vUniformIncrement = in.readInteger16();
-        this.hBaselineAdjustment = in.readInteger16();
-        this.vBaselineAdjustment = in.readInteger16();
+        this.unitBase = ipds.readUnsignedByte();
+        this.xupub = ipds.readUnsignedInteger16();
+        this.yupub = ipds.readUnsignedInteger16();
+        this.hUniformIncrement = ipds.readInteger16();
+        this.vUniformIncrement = ipds.readInteger16();
+        this.hBaselineAdjustment = ipds.readInteger16();
+        this.vBaselineAdjustment = ipds.readInteger16();
     }
 
     @Override
@@ -147,8 +141,7 @@ public final class MetricAdjustmentTriplet extends Triplet {
     @Override
     public String toString() {
         return "MetricAdjustment{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", unitBase=0x" + Integer.toHexString(this.unitBase) +
                 ", xupub=" + this.xupub +
                 ", yupub=" + this.yupub +

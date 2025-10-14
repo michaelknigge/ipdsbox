@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 public final class GroupInformationTripletTest extends TestCase {
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX01}.
+     * Tests the {@link GroupInformationTriplet} with {@link MicrofilmSaveRestoreFormat}.
      */
     public void testFormatX01() throws Exception {
         this.testFormatX01(0x80, "Save microfilm information");
@@ -20,7 +20,7 @@ public final class GroupInformationTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX01}.
+     * Tests the {@link GroupInformationTriplet} with {@link MicrofilmSaveRestoreFormat}.
      */
     private void testFormatX01(final int value, final String expected) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -35,7 +35,7 @@ public final class GroupInformationTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX02}.
+     * Tests the {@link GroupInformationTriplet} with {@link CopySetNumberFormat}.
      */
     public void testFormatX02() throws Exception {
         this.testFormatX02(0x00, "No copy set number provided");
@@ -44,7 +44,7 @@ public final class GroupInformationTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX02}.
+     * Tests the {@link GroupInformationTriplet} with {@link CopySetNumberFormat}.
      */
     public void testFormatX02(final int value, final String expected) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -60,7 +60,7 @@ public final class GroupInformationTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX03}.
+     * Tests the {@link GroupInformationTriplet} with {@link GroupNameFormat}.
      */
     public void testFormatX03() throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -76,7 +76,7 @@ public final class GroupInformationTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX04}.
+     * Tests the {@link GroupInformationTriplet} with {@link AdditionalInformationFormat}.
      */
     public void testFormatX04() throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -92,7 +92,7 @@ public final class GroupInformationTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX05}.
+     * Tests the {@link GroupInformationTriplet} with {@link PageCountFormat}.
      */
     public void testFormatX05() throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -107,7 +107,7 @@ public final class GroupInformationTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX02}.
+     * Tests the {@link GroupInformationTriplet} with {@link CopySetNumberFormat}.
      */
     public void testFormatX82() throws Exception {
         this.testFormatX82(0x00, 0x00, "No copy set number provided, no number of copies provided");
@@ -124,7 +124,7 @@ public final class GroupInformationTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupInformationTriplet} with {@link GroupInformationDataFormatX02}.
+     * Tests the {@link GroupInformationTriplet} with {@link CopySetNumberFormat}.
      */
     public void testFormatX82(final long copySet, final long total, final String expected) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();

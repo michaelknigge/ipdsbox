@@ -20,17 +20,12 @@ public final class XohOrderFactory {
     }
 
     /**
-     * Creates a {@link XohOrder} from the given byte array.
-     * @param ipds the raw IPDS data of the {@link XohOrder}.
-     * @return a concrete {@link XohOrder} implementation
-     * @throws UnknownXohOrderCode if the given IPDS data describes an unknown {@link XohOrder}.
-     * @throws UnknownTripletException if the given IPDS data describes an unknown {@link Triplet}.
-     * @throws InvalidIpdsCommandException if the given IPDS data is broken.
-     * @throws IOException if the given IPDS data is incomplete.
+     * Creates a {@link XohOrder} from the given {@link IpdsByteArrayInputStream}.
      */
     public static XohOrder create(final IpdsByteArrayInputStream ipds)
         throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
 
+        // TODO do not throw an exception.... create a "RawXohOrder" instead
         final XohOrderCode code = XohOrderCode.getFor(ipds.readUnsignedInteger16());
         ipds.rewind(2); // Go back so the Order-Implementations will read the complete order...
 

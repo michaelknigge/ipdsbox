@@ -2,13 +2,14 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
 
 /**
  * MVS and VSE print-data format.
  */
-public final class GroupIdDataFormatX01 extends GroupIdData {
+public final class MvsAndVsePrintDataFormat extends GroupIdData {
 
     private final String jobClass;
     private final String jobName;
@@ -16,17 +17,13 @@ public final class GroupIdDataFormatX01 extends GroupIdData {
     private final String forms;
 
     /**
-     * Constructs the {@link GroupIdDataFormatX01}.
-     * @param raw the raw IPDS data of the {@link GroupIdTriplet}.
-     * @throws IOException if the {@link GroupIdTriplet} is broken.
+     * Constructs the {@link MvsAndVsePrintDataFormat}.
      */
-    public GroupIdDataFormatX01(final byte[] raw) throws IOException {
-        super(raw, GroupIdFormat.MVS_AND_VSE);
-
-        this.jobClass = this.getStream().readEbcdicString(1).trim();
-        this.jobName = this.getStream().readEbcdicString(8).trim();
-        this.jobId = this.getStream().readEbcdicString(8).trim();
-        this.forms = this.getStream().readEbcdicString(8).trim();
+    public MvsAndVsePrintDataFormat(final IpdsByteArrayInputStream ipds) throws IOException {
+        this.jobClass = ipds.readEbcdicString(1).trim();
+        this.jobName = ipds.readEbcdicString(8).trim();
+        this.jobId = ipds.readEbcdicString(8).trim();
+        this.forms = ipds.readEbcdicString(8).trim();
     }
 
     @Override

@@ -16,7 +16,7 @@ public final class AcknowledgeDataFactory {
     }
 
     /**
-     * Creates a {@link AcknowledgeData} from the given byte array.
+     * Creates a {@link AcknowledgeData} from the given {@link IpdsByteArrayInputStream}.
      */
     public static AcknowledgeData create(final int ackType, final IpdsByteArrayInputStream ipds) throws IOException {
 

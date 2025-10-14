@@ -2,13 +2,14 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
 
 /**
  * VM print-data format.
  */
-public final class GroupIdDataFormatX02 extends GroupIdData {
+public final class VmPrintDataFormat extends GroupIdData {
 
     private final String spoolClass;
     private final String fileName;
@@ -17,18 +18,14 @@ public final class GroupIdDataFormatX02 extends GroupIdData {
     private final String spoolId;
 
     /**
-     * Constructs the {@link GroupIdDataFormatX02}.
-     * @param raw the raw IPDS data of the {@link GroupIdTriplet}.
-     * @throws IOException if the {@link GroupIdTriplet} is broken.
+     * Constructs the {@link VmPrintDataFormat}.
      */
-    public GroupIdDataFormatX02(final byte[] raw) throws IOException {
-        super(raw, GroupIdFormat.VM);
-
-        this.spoolClass = this.getStream().readEbcdicString(1).trim();
-        this.fileName = this.getStream().readEbcdicString(8).trim();
-        this.userId = this.getStream().readEbcdicString(8).trim();
-        this.formName = this.getStream().readEbcdicString(8).trim();
-        this.spoolId = this.getStream().readEbcdicString(4).trim();
+    public VmPrintDataFormat(final IpdsByteArrayInputStream ipds) throws IOException {
+        this.spoolClass = ipds.readEbcdicString(1).trim();
+        this.fileName = ipds.readEbcdicString(8).trim();
+        this.userId = ipds.readEbcdicString(8).trim();
+        this.formName = ipds.readEbcdicString(8).trim();
+        this.spoolId = ipds.readEbcdicString(4).trim();
     }
 
     @Override

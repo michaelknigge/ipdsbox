@@ -2,27 +2,23 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.triplets.GroupInformationTriplet;
 
 /**
  * Extended copy set number format.
  */
-public final class GroupInformationDataFormatX82 extends GroupInformationData {
+public final class ExtendedCopySetNumberFormat extends GroupInformationData {
 
     private final long copySetNumber;
     private final long totalCopies;
 
     /**
-     * Constructs the {@link GroupInformationDataFormatX02}.
-     * @param raw the raw IPDS data of the {@link GroupInformationTriplet}.
-     * @throws IOException if the {@link GroupInformationTriplet} is broken.
+     * Constructs the {@link ExtendedCopySetNumberFormat}.
      */
-    public GroupInformationDataFormatX82(final byte[] raw) throws IOException {
-        super(raw, GroupInformationFormat.EXTENDED_COPY_SET_NUMBER);
-
-        this.copySetNumber = this.getStream().readUnsignedInteger32();
-        this.totalCopies = this.getStream().readUnsignedInteger32();
+    public ExtendedCopySetNumberFormat(final IpdsByteArrayInputStream ipds) throws IOException {
+        this.copySetNumber = ipds.readUnsignedInteger32();
+        this.totalCopies = ipds.readUnsignedInteger32();
     }
 
     @Override

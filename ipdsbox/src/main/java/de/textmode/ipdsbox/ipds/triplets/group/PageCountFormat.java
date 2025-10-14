@@ -2,25 +2,20 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.*;
 
-import de.textmode.ipdsbox.ipds.triplets.GroupInformationTriplet;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 
 /**
  * Page count format.
  */
-public final class GroupInformationDataFormatX05 extends GroupInformationData {
+public final class PageCountFormat extends GroupInformationData {
 
     private final long pageCount;
 
     /**
-     * Constructs the {@link GroupInformationDataFormatX05}.
-     * @param raw the raw IPDS data of the {@link GroupInformationTriplet}.
-     * @throws IOException if the {@link GroupInformationTriplet} is broken.
+     * Constructs the {@link PageCountFormat}.
      */
-    public GroupInformationDataFormatX05(final byte[] raw) throws IOException {
-        super(raw, GroupInformationFormat.PAGE_COUNT);
-
-
-        final byte[] longBigEndian = this.getStream().readBytes(8);
+    public PageCountFormat(final IpdsByteArrayInputStream ipds) throws IOException {
+        final byte[] longBigEndian = ipds.readBytes(8);
         final DataInputStream dis = new DataInputStream(new ByteArrayInputStream(longBigEndian));
 
         this.pageCount = dis.readLong();

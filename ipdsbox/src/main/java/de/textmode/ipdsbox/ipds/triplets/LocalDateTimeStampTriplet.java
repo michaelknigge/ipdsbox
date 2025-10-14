@@ -16,20 +16,17 @@ public final class LocalDateTimeStampTriplet extends Triplet {
     private String second;
     private String hundredth;
 
-    public LocalDateTimeStampTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.LocalDateandTimeStamp);
-        this.readFrom(new IpdsByteArrayInputStream(raw));
-    }
+    public LocalDateTimeStampTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.LocalDateandTimeStamp);
 
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        this.stampType = in.readUnsignedByte();
-        this.yearPart1 = in.readEbcdicString(1);
-        this.yearPart2 = in.readEbcdicString(2);
-        this.day = in.readEbcdicString(3);
-        this.hour = in.readEbcdicString(2);
-        this.minute = in.readEbcdicString(2);
-        this.second = in.readEbcdicString(2);
-        this.hundredth = in.readEbcdicString(2);
+        this.stampType = ipds.readUnsignedByte();
+        this.yearPart1 = ipds.readEbcdicString(1);
+        this.yearPart2 = ipds.readEbcdicString(2);
+        this.day = ipds.readEbcdicString(3);
+        this.hour = ipds.readEbcdicString(2);
+        this.minute = ipds.readEbcdicString(2);
+        this.second = ipds.readEbcdicString(2);
+        this.hundredth = ipds.readEbcdicString(2);
     }
 
     @Override
@@ -160,8 +157,8 @@ public final class LocalDateTimeStampTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "LocalDateTimeStamp{len=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+        return "LocalDateTimeStamp{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", stampType=0x" + Integer.toHexString(this.stampType) +
                 ", yearPart1=" + this.yearPart1 +
                 ", yearPart2=" + this.yearPart2 +
@@ -169,6 +166,7 @@ public final class LocalDateTimeStampTriplet extends Triplet {
                 ", hour=" + this.hour +
                 ", minute=" + this.minute +
                 ", second=" + this.second +
-                ", hundredth=" + this.hundredth + "}";
+                ", hundredth=" + this.hundredth +
+                "}";
     }
 }

@@ -2,13 +2,14 @@ package de.textmode.ipdsbox.ipds.triplets.group;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
 
 /**
- * Extended OS/400 print-data format.
+ * OS/400 print-data format.
  */
-public final class GroupIdDataFormatX13 extends GroupIdData {
+public final class Os400PrintDataFormat extends GroupIdData {
 
     private final String libraryName;
     private final String queueName;
@@ -20,21 +21,17 @@ public final class GroupIdDataFormatX13 extends GroupIdData {
     private final String formsName;
 
     /**
-     * Constructs the {@link GroupIdDataFormatX13}.
-     * @param raw the raw IPDS data of the {@link GroupIdTriplet}.
-     * @throws IOException if the {@link GroupIdTriplet} is broken.
+     * Constructs the {@link Os400PrintDataFormat}.
      */
-    public GroupIdDataFormatX13(final byte[] raw) throws IOException {
-        super(raw, GroupIdFormat.EXTENDED_OS400);
-
-        this.libraryName = this.getStream().readEbcdicString(10).trim();
-        this.queueName = this.getStream().readEbcdicString(10).trim();
-        this.fileName = this.getStream().readEbcdicString(10).trim();
-        this.fileNumber = this.getStream().readEbcdicString(6).trim();
-        this.jobName = this.getStream().readEbcdicString(10).trim();
-        this.userName = this.getStream().readEbcdicString(10).trim();
-        this.jobNumber = this.getStream().readEbcdicString(6).trim();
-        this.formsName = this.getStream().readEbcdicString(10).trim();
+    public Os400PrintDataFormat(final IpdsByteArrayInputStream ipds) throws IOException {
+        this.libraryName = ipds.readEbcdicString(10).trim();
+        this.queueName = ipds.readEbcdicString(10).trim();
+        this.fileName = ipds.readEbcdicString(10).trim();
+        this.fileNumber = ipds.readEbcdicString(4).trim();
+        this.jobName = ipds.readEbcdicString(10).trim();
+        this.userName = ipds.readEbcdicString(10).trim();
+        this.jobNumber = ipds.readEbcdicString(6).trim();
+        this.formsName = ipds.readEbcdicString(10).trim();
     }
 
     @Override
@@ -44,7 +41,7 @@ public final class GroupIdDataFormatX13 extends GroupIdData {
         os.writeEbcdicString(this.libraryName, 10);
         os.writeEbcdicString(this.queueName, 10);
         os.writeEbcdicString(this.fileName, 10);
-        os.writeEbcdicString(this.fileNumber, 6);
+        os.writeEbcdicString(this.fileNumber, 4);
         os.writeEbcdicString(this.jobName, 10);
         os.writeEbcdicString(this.userName, 10);
         os.writeEbcdicString(this.jobNumber, 6);

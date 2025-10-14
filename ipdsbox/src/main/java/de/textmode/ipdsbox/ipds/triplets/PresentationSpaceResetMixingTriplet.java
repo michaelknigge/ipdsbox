@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class PresentationSpaceResetMixingTriplet extends Triplet {
@@ -9,10 +10,10 @@ public final class PresentationSpaceResetMixingTriplet extends Triplet {
     private int mixingFlags;
 
 
-    public PresentationSpaceResetMixingTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.PresentationSpaceResetMixing);
+    public PresentationSpaceResetMixingTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.PresentationSpaceResetMixing);
 
-        this.mixingFlags = this.getStream().readUnsignedByte();
+        this.mixingFlags = ipds.readUnsignedByte();
     }
 
     @Override
@@ -38,9 +39,11 @@ public final class PresentationSpaceResetMixingTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "ResetMixing{len=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
-                ", flags=B'" + String.format(
-                "%8s", Integer.toBinaryString(this.mixingFlags)).replace(' ', '0') + "'}";
+        return "ResetMixing{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                ", flags=" + String
+                    .format("B'%8s'", Integer.toBinaryString(this.mixingFlags))
+                    .replace(' ', '0') +
+                "}";
     }
 }

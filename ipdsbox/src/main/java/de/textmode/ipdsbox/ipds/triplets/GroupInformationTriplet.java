@@ -2,7 +2,7 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.group.*;
 
@@ -11,32 +11,35 @@ import de.textmode.ipdsbox.ipds.triplets.group.*;
  */
 public final class GroupInformationTriplet extends Triplet {
 
-    private final GroupInformationFormat format;
-    private final GroupInformationData data;
+    private int format;
+    private GroupInformationData data;
 
     /**
-     * Constructs a {@link GroupInformationTriplet} from the given byte array.
-     * @param raw raw IPDS data of the {@link Triplet}.
-     * @throws IOException if the given IPDS data is incomplete
+     * Constructs a {@link GroupInformationTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public GroupInformationTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.GroupInformation);
+    public GroupInformationTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.GroupInformation);
 
-        this.format = raw.length > 2 ? GroupInformationFormat.getForIfExists(raw[2] & 0xFF) : null;
-        this.data = this.format != null && raw.length > 3 ? this.parseFormatData(raw) : null;
+        if (ipds.bytesAvailable() >= 1) {
+            this.format = ipds.readUnsignedByte();
+            this.data = ipds.bytesAvailable() >= 1 ? parseFormatData(ipds) : null;
+        } else {
+            this.format = -1;
+            this.data = null;
+        }
     }
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         final byte[] dataBytes = this.data == null ? null : this.data.toByteArray();
 
-        final int len = 2 + (this.format == null ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
+        final int len = 2 + (this.format == -1 ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
 
         out.writeUnsignedByte(len);
         out.writeUnsignedByte(this.getTripletId().getId());
 
-        if (this.format != null) {
-            out.writeUnsignedByte(this.format.getId());
+        if (this.format != -1) {
+            out.writeUnsignedByte(this.format);
         }
 
         if (dataBytes != null) {
@@ -45,13 +48,17 @@ public final class GroupInformationTriplet extends Triplet {
     }
 
     /**
-     * Returns the {@link GroupInformationFormat} of the {@link GroupInformationTriplet} or <code>null</code> if the
-     * {@link GroupInformationTriplet} does not contain grouping information.
-     * @return the {@link GroupInformationFormat} of the {@link GroupInformationTriplet} or <code>null</code> if the
-     * {@link GroupInformationTriplet} does not contain grouping information.
+     * Returns the format or -1 if no format is set in this triplet.
      */
-    public GroupInformationFormat getGroupInformationFormatIfExist() {
+    public int getFormat() {
         return this.format;
+    }
+
+    /**
+     * Sets the format or -1 if no format shoule be set in this triplet.
+     */
+    public void setFormat(final int format) {
+        this.format = format;
     }
 
     /**
@@ -64,31 +71,32 @@ public final class GroupInformationTriplet extends Triplet {
         return this.data;
     }
 
-    private GroupInformationData parseFormatData(final byte[] raw) throws IOException {
-        switch (this.format) {
-        case MICROFILM_SAVE_RESTORE:
-            return new GroupInformationDataFormatX01(raw);
-        case COPY_SET_NUMBER:
-            return new GroupInformationDataFormatX02(raw);
-        case GROUP_NAME:
-            return new GroupInformationDataFormatX03(raw);
-        case ADDITIONAL_INFORMATION:
-            return new GroupInformationDataFormatX04(raw);
-        case PAGE_COUNT:
-            return new GroupInformationDataFormatX05(raw);
-        case EXTENDED_COPY_SET_NUMBER:
-            return new GroupInformationDataFormatX82(raw);
-        default:
-            throw new IpdsboxRuntimeException("No case for " + this.format); // TEST is RuntimeException too much?!
-        }
+    /**
+     * Sets the {@link GroupInformationData} of the {@link GroupInformationTriplet} or <code>null</code> if the
+     * {@link GroupInformationTriplet} does not contain grouping information.
+     */
+    public void setGroupInformationDataIfExist(final GroupInformationData data) {
+        this.data = data;
+    }
+
+    private GroupInformationData parseFormatData(final IpdsByteArrayInputStream ipds) throws IOException {
+        return switch (this.format) {
+            case 0x01 -> new MicrofilmSaveRestoreFormat(ipds);
+            case 0x02 -> new CopySetNumberFormat(ipds);
+            case 0x03 -> new GroupNameFormat(ipds);
+            case 0x04 -> new AdditionalInformationFormat(ipds);
+            case 0x05 -> new PageCountFormat(ipds);
+            case 0x82 -> new ExtendedCopySetNumberFormat(ipds);
+            default -> new UnknownGroupInformationDataFormat(ipds);
+        };
     }
 
     @Override
     public String toString() {
         return "GroupInformationTriplet{" +
-                "length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
-                ", format=" + this.format == null ? "no format" : this.format.getMeaning() +
-                ", data=" + this.data == null ? "no data" : this.data.toString();
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                ", format=" + (this.format == -1 ? "no format" : this.format) +
+                ", data=" + (this.data == null ? "no data" : this.data) +
+                "}";
     }
 }

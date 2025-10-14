@@ -11,19 +11,16 @@ public final class FullyQualifiedNameTriplet extends Triplet {
     private int fqnFormat;
     private byte[] fqn;
 
-    public FullyQualifiedNameTriplet(final byte[] raw) throws IOException {
-        super(raw, TripletId.FullyQualifiedName);
-        this.readFrom(this.getStream());
-    }
+    public FullyQualifiedNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
+        super(ipds, TripletId.FullyQualifiedName);
 
-    private void readFrom(final IpdsByteArrayInputStream in) throws IOException {
-        this.fqnType = in.readUnsignedByte();
-        this.fqnFormat = in.readUnsignedByte();
+        this.fqnType = ipds.readUnsignedByte();
+        this.fqnFormat = ipds.readUnsignedByte();
 
         // In a future release we could parse it to a OID byte[] or a String. But be carefull... The
         // encoding might NOT be UTF16-BE if in the IPDS command a Coded Graphic Character Set Global Identifier
         // Triplet preceeded...
-        this.fqn = in.readBytes(this.getLength() - 4);
+        this.fqn = ipds.readRemainingBytes();
     }
 
     @Override
@@ -79,10 +76,11 @@ public final class FullyQualifiedNameTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "FQN{length=" + this.getLength() +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+        return "FQN{" +
+                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
                 ", type=0x" + Integer.toHexString(this.fqnType) +
                 ", format=0x" + Integer.toHexString(this.fqnFormat) +
-                ", fqnBytes=" + (this.fqn == null ? 0 : this.fqn.length) + "}";
+                ", fqnBytes=" + (this.fqn == null ? 0 : this.fqn.length) +
+                "}";
     }
 }
