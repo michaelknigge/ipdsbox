@@ -18,20 +18,18 @@ public class PrinterSetupSelfDefiningField extends SelfDefiningField{
      * Constructs the {@link PrinterSetupSelfDefiningField}.
      */
     public PrinterSetupSelfDefiningField() throws IOException {
-        super (SelfDefiningFieldId.PrinterSetup);
+        super(SelfDefiningFieldId.PrinterSetup);
     }
 
     /**
      * Constructs the {@link PrinterSetupSelfDefiningField}.
      */
-    public PrinterSetupSelfDefiningField(
-            final IpdsByteArrayInputStream ipds,
-            final SelfDefiningFieldId expectedId) throws IOException, UnknownSelfDefinedFieldException {
+    public PrinterSetupSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
-        super(ipds, expectedId);
+        super(SelfDefiningFieldId.PrinterSetup);
 
         while (ipds.bytesAvailable() > 0) {
-            this.setupIds.add(ipds.readUnsignedByte());
+            this.setupIds.add(ipds.readUnsignedInteger16());
         }
     }
 
@@ -41,7 +39,7 @@ public class PrinterSetupSelfDefiningField extends SelfDefiningField{
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedInteger16(4 + (this.setupIds.size() * 2));
-        out.writeUnsignedInteger16(super.getSelfDefiningFieldId().getId());
+        out.writeUnsignedInteger16(this.getSelfDefiningFieldId());
 
         for (final Integer operationType : this.setupIds) {
             out.writeUnsignedInteger16(operationType);

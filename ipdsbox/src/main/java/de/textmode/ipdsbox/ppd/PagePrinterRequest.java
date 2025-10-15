@@ -96,10 +96,10 @@ public final class PagePrinterRequest {
     private static byte[] intToByteArray(final int value) {
         final byte[] result = new byte[4];
 
-        result[0] = (byte) ((value & 0xFF000000) >> 24);
-        result[1] = (byte) ((value & 0x00FF0000) >> 16);
-        result[2] = (byte) ((value & 0x0000FF00) >> 8);
-        result[3] = (byte) ((value & 0x000000FF) >> 0);
+        result[0] = (byte) ((value & 0xFF000000) >>> 24);
+        result[1] = (byte) ((value & 0x00FF0000) >>> 16);
+        result[2] = (byte) ((value & 0x0000FF00) >>> 8);
+        result[3] = (byte) ((value & 0x000000FF) >>> 0);
 
         return result;
     }

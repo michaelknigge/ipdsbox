@@ -8,23 +8,21 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 /**
  * A self-defining field that is not parsed.
  */
-public class RawSelfDefiningField extends SelfDefiningField{
+public class UnknownSelfDefiningField extends SelfDefiningField{
 
     private byte[] rawData;
 
     /**
-     * Constructs the {@link RawSelfDefiningField}.
+     * Constructs the {@link UnknownSelfDefiningField}.
      */
-    public RawSelfDefiningField(final SelfDefiningFieldId id) throws IOException {
+    public UnknownSelfDefiningField(final SelfDefiningFieldId id) throws IOException {
         super (id);
     }
 
     /**
-     * Constructs the {@link RawSelfDefiningField}.
+     * Constructs the {@link UnknownSelfDefiningField}.
      */
-    public RawSelfDefiningField(
-            final IpdsByteArrayInputStream ipds,
-            final SelfDefiningFieldId expectedId) throws IOException, UnknownSelfDefinedFieldException {
+    public UnknownSelfDefiningField(final IpdsByteArrayInputStream ipds, final int sdfId) throws IOException {
 
         super (ipds, expectedId);
 
@@ -32,7 +30,7 @@ public class RawSelfDefiningField extends SelfDefiningField{
     }
 
     /**
-     * Writes this {@link RawSelfDefiningField} to the given {@link IpdsByteArrayOutputStream}.
+     * Writes this {@link UnknownSelfDefiningField} to the given {@link IpdsByteArrayOutputStream}.
      */
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {

@@ -18,22 +18,30 @@ public final class SelfDefiningFieldFactory {
     /**
      * Creates a {@link SelfDefiningField} from the given byte array.
      */
-    public static SelfDefiningField create(final byte[] data) throws IOException, UnknownSelfDefinedFieldException {
+    public static SelfDefiningField create(final byte[] data) throws IOException {
 
         final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(data);
 
         ipds.skip(2); // Skip the 2 byte length field...
-        final SelfDefiningFieldId sdf = SelfDefiningFieldId.getFor(ipds.readUnsignedInteger16());
+
+        final int sdfId = ipds.readUnsignedInteger16();
+        final SelfDefiningFieldId sdf = SelfDefiningFieldId.getIfKnown(sdfId);
+        if (sdf == null) {
+            return new UnknownSelfDefiningField(ipds, sdfId);
+        }
         ipds.rewind(4); // Rewind so the SelfDefiningField implementation reads the whole SelfDefiningField
 
+        // TODO if only created by this factory, make the constructors package scoped and
+        //  then there is no need to rewind...
+
         return switch (sdf) {
-           //case PrintableArea -> new PrintableAreaSelfDefiningField(ipds);
+           case PrintableArea -> new PrintableAreaSelfDefiningField(ipds);
            //case SymbolSetSupport -> new SymbolSetSupportSelfDefiningField(ipds);
            //case ImageAndCodedFontResolution -> new ImageAndCodedFontResolutionSelfDefiningField(ipds);
            //case StoragePools -> new StoragePoolsSelfDefiningField(ipds);
            //case StandardOcaColorValueSupport -> new StandardOcaColorValueSupportSelfDefiningField(ipds);
-           //case InstalledFeatures -> new InstalledFeaturesSelfDefiningField(ipds);
-           //case AvailableFeatures -> new AvailableFeaturesSelfDefiningField(ipds);
+           case InstalledFeatures -> new InstalledFeaturesSelfDefiningField(ipds);
+           case AvailableFeatures -> new AvailableFeaturesSelfDefiningField(ipds);
            //case ResidentSymbolSetSupport -> new ResidentSymbolSetSupportSelfDefiningField(ipds);
            //case PrintQualitySupport -> new PrintQualitySupportSelfDefiningField(ipds);
            //case ExecuteOrderAnystateRequestResidentResourceListSupport -> new ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField(ipds);
@@ -47,7 +55,7 @@ public final class SelfDefiningFieldFactory {
            //case ObjectContainerTypeSupport -> new ObjectContainerTypeSupportSelfDefiningField(ipds);
            //case DeactiveteFontDeactivationTypesSupported -> new DeactiveteFontDeactivationTypesSupportedSelfDefiningField(ipds);
            //case PfcTripletsSupported -> new PfcTripletsSupportedSelfDefiningField(ipds);
-           case PrinterSetup -> new PrinterSetupSelfDefiningField(ipds, SelfDefiningFieldId.PrinterSetup);
+           case PrinterSetup -> new PrinterSetupSelfDefiningField(ipds);
            //case FinishingOperations -> new FinishingOperationsSelfDefiningField(ipds);
            //case Up3iTupel -> new Up3iTupelSelfDefiningField(ipds);
            //case Up3iPaperInputMedia -> new Up3iPaperInputMediaSelfDefiningField(ipds);
@@ -57,11 +65,11 @@ public final class SelfDefiningFieldFactory {
            //case RecognizedGroupIdFormats -> new RecognizedGroupIdFormatsSelfDefiningField(ipds);
            //case SupportedDeviceResolutions -> new SupportedDeviceResolutionsSelfDefiningField(ipds);
            //case ObjectContainerVersionSupport -> new ObjectContainerVersionSupportSelfDefiningField(ipds);
-           case FinishingOptions -> new FinishingOptionsSelfDefiningField(ipds, SelfDefiningFieldId.FinishingOptions);
+           case FinishingOptions -> new FinishingOptionsSelfDefiningField(ipds);
            //case PrinterSpeed -> new PrinterSpeedSelfDefiningField(ipds);
            //case ActiveSetupName -> new ActiveSetupNameSelfDefiningField(ipds);
 
-            default -> new RawSelfDefiningField(ipds, sdf);
+            default -> new UnknownSelfDefiningField(ipds, sdfId);
         };
     }
 }

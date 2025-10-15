@@ -19,17 +19,15 @@ public class FinishingOptionsSelfDefiningField extends SelfDefiningField{
      * Constructs the {@link FinishingOptionsSelfDefiningField}.
      */
     public FinishingOptionsSelfDefiningField() throws IOException {
-        super (SelfDefiningFieldId.FinishingOperations);
+        super(SelfDefiningFieldId.FinishingOperations);
     }
 
     /**
      * Constructs the {@link FinishingOptionsSelfDefiningField}.
      */
-    public FinishingOptionsSelfDefiningField(
-            final IpdsByteArrayInputStream ipds,
-            final SelfDefiningFieldId expectedId) throws IOException, UnknownSelfDefinedFieldException {
+    public FinishingOptionsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
-        super(ipds, expectedId);
+        super(SelfDefiningFieldId.FinishingOperations);
 
         while (ipds.bytesAvailable() > 0) {
             this.operationTypes.add(ipds.readUnsignedByte());
@@ -42,7 +40,7 @@ public class FinishingOptionsSelfDefiningField extends SelfDefiningField{
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedInteger16(4 + this.operationTypes.size());
-        out.writeUnsignedInteger16(super.getSelfDefiningFieldId().getId());
+        out.writeUnsignedInteger16(this.getSelfDefiningFieldId());
 
         for (final Integer operationType : this.operationTypes) {
             out.writeUnsignedByte(operationType);

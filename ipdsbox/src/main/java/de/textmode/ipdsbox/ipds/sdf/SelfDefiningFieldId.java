@@ -22,7 +22,7 @@ public enum SelfDefiningFieldId {
      * The IM-Image and Coded-Font Resolution self-defining field specifies the supported resolutions in pels per unit
      * base for IM Image and downloaded LF1-type and LF2-type coded-font pattern data.
      */
-    ImageAndCodedFontResolution(0x0003, "IM-Image and Coded-Font Resolution"),
+    ImImageAndCodedFontResolution(0x0003, "IM-Image and Coded-Font Resolution"),
 
     /**
      * The Storage Pools self-defining field specifies storage pools within the printer.
@@ -213,23 +213,14 @@ public enum SelfDefiningFieldId {
     }
 
     /**
-     * Gets the enum value for the given integer.
-     *
-     * @return the enum value for the given integer.
+     * Gets the enum value for the given integer. Returns <code>null</code> if unknown.
      */
-    public static SelfDefiningFieldId getFor(final int value) throws UnknownSelfDefinedFieldException {
-        final SelfDefiningFieldId result = REVERSE_MAP.get(value);
-        if (result == null) {
-            throw new UnknownSelfDefinedFieldException(
-                    String.format("The self-defining field with ID X'%1$s' is unknown.", Integer.toHexString(value)));
-        }
-        return result;
+    public static SelfDefiningFieldId getIfKnown(final int value) {
+        return REVERSE_MAP.get(value);
     }
 
     /**
      * Gets the integer value of the self-defining field.
-     *
-     * @return the integer value of the self-defining field.
      */
     public int getId() {
         return this.id;
@@ -237,8 +228,6 @@ public enum SelfDefiningFieldId {
 
     /**
      * Returns the name of the self-defining field.
-     *
-     * @return The name of the self-defining field (i. e. "Printer Setup").
      */
     public String getName() {
         return this.name;

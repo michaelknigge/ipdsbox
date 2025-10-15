@@ -130,12 +130,12 @@ The following table shows the self-defining fields and the current status of the
 
 ID      | Name                                                                     | Supported
 --------|--------------------------------------------------------------------------|-------------------
-X'0001' | Printable-Area Self-Defining Field                                       | :x:
+X'0001' | Printable-Area Self-Defining Field                                       | :white_check_mark:
 X'0002' | Symbol-Set Support Self-Defining Field                                   | :x:
-X'0003' | IM-Image and Coded-Font Resolution Self-Defining Field                   | :x:
+X'0003' | IM-Image and Coded-Font Resolution Self-Defining Field                   | :white_check_mark:
 X'0004' | Storage Pools Self-Defining Field                                        | :x:
 X'0005' | Retired Item 130 (Standard OCA Color Value Support Self-Defining Field)  | :x:
-X'0006' | Installed Features Self-Defining Field                                   | :x:
+X'0006' | Installed Features Self-Defining Field                                   | :white_check_mark:
 X'0007' | Available Features Self-Defining Field                                   | :x:
 X'0008' | Resident Symbol-Set Support Self-Defining Field                          | :x:
 X'0009' | Print-Quality Support Self-Defining Field                                | :x:
