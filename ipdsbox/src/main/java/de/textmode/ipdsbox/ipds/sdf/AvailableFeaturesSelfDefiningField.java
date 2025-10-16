@@ -58,4 +58,11 @@ public final class AvailableFeaturesSelfDefiningField extends SelfDefiningField 
     public void setFeatureIds(final List<Integer> featureIds) {
         this.featureIds = featureIds;
     }
+
+    @Override
+    public String toString() {
+        return "AvailableFeaturesSelfDefiningField{" +
+                "featureIds=" + this.featureIds +
+                '}';
+    }
 }

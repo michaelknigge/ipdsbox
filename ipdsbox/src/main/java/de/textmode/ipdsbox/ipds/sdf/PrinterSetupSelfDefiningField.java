@@ -59,4 +59,11 @@ public class PrinterSetupSelfDefiningField extends SelfDefiningField{
     public void setSetupIds(final List<Integer> setupIds) {
         this.setupIds = setupIds;
     }
+
+    @Override
+    public String toString() {
+        return "PrinterSetupSelfDefiningField{" +
+                "setupIds=" + this.setupIds +
+                '}';
+    }
 }

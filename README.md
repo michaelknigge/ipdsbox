@@ -2,15 +2,15 @@
 
 **Java library for parsing and creating [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data streams. The library is currently in an early design phase and may not be useful for anything. I'm currently not woking on this project. The project is not dead, but I'm currently involved in so many other projects that I don't have any time for ipdsbox.**
 
-This project provides a framework that allows you to implement a virtual [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printer. Each received [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream and than sent back to the server. The library can also be used to build a IPDS spooling system.
+This project provides a framework that allows you to implement a virtual [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printer. Each received [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) command is transformed into a Java object. Acknowledge replies can be constructed using Java objects, transformed into [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream and then sent back to the server. The library can also be used to build a IPDS spooling system.
 
 # License
-The source code is publicy available, but using the source code in commercial products requires a commercial license. See the file [LICENSE](./LICENSE) for the full license details.
+The source code is publicly available, but using the source code in commercial products requires a commercial license. See the file [LICENSE](./LICENSE) for the full license details.
 
 # PPD/PPR protocol
-LAN attached [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printers are using an special protocol named *"PPD/PPR"* (Page Printer Daemon / Page Printer Requester). This protocol encapsulates the native [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream for printers that are attached by [TCP/IP](https://en.wikipedia.org/wiki/Internet_protocol_suite) (and not by [SNA](https://en.wikipedia.org/wiki/IBM_Systems_Network_Architecture)).
+LAN attached [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) printers are using a special protocol named *"PPD/PPR"* (Page Printer Daemon / Page Printer Requester). This protocol encapsulates the native [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) data stream for printers that are attached by [TCP/IP](https://en.wikipedia.org/wiki/Internet_protocol_suite) (and not by [SNA](https://en.wikipedia.org/wiki/IBM_Systems_Network_Architecture)).
 
-The specification of this protocol is (sadly) not publicy available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the developer of ipdsbox is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a [z/OS](https://en.wikipedia.org/wiki/Z/OS) [Mainframe](https://en.wikipedia.org/wiki/Mainframe_computer) and an [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) enabled printer).
+The specification of this protocol is (sadly) not publicly available. The specification is licenced by [Ricoh](https://www.ricoh-usa.com/) to all members of the [AFP Consortium](http://afpcinc.org/). As the developer of ipdsbox is no member, the implementation of the PPD/PPR protocol in ipdsbox is based on tracing and inspecting the data stream (between a [z/OS](https://en.wikipedia.org/wiki/Z/OS) [Mainframe](https://en.wikipedia.org/wiki/Mainframe_computer) and an [IPDS](https://en.wikipedia.org/wiki/IBM_Intelligent_Printer_Data_Stream_(IPDS)) enabled printer).
 
 **Beware: Because of that it is likely that the behaviour of ipdsbox is not correct in all cases.**
 
@@ -20,63 +20,63 @@ The IPDS architecture contains several command sets. The following table shows t
 current status of the corresponding support of the IPDS command (*"supported"* means that ipdsbox can parse
 the IPDS command and create a specific Java object for it).
 
-IPDS Command | Hex Value | Command Description                    | Command Set      | Supported
--------------|-----------|----------------------------------------|------------------|----------
-ACK          | X'D6FF'   | Acknowledge Reply                      | Device Control   | :white_check_mark:
-AR           | X'D62E'   | Activate Resource                      | Device Control   | :white_check_mark:
-AFO          | X'D602'   | Apply Finishing Operations             | Device Control   | :white_check_mark:
-BP           | X'D6AF'   | Begin Page                             | Device Control   | :white_check_mark:
-DF           | X'D64F'   | Deactivate Font                        | Device Control   | :white_check_mark:
-DUA          | X'D6CE'   | Define User Area                       | Device Control   | :white_check_mark:
-END          | X'D65D'   | End                                    | Device Control   | :white_check_mark:
-EP           | X'D6BF'   | End Page                               | Device Control   | :white_check_mark:
-ISP          | X'D67E'   | Include Saved Page                     | Device Control   | :white_check_mark:
-ICMR         | X'D66B'   | Invoke CMR                             | Device Control   | :white_check_mark:
-LCC          | X'D69F'   | Load Copy Control                      | Device Control   | :white_check_mark:
-LFE          | X'D63F'   | Load Font Equivalence                  | Device Control   | :white_check_mark:
-LPD          | X'D6CF'   | Logical Page Descriptor                | Device Control   | :white_check_mark:
-LPP          | X'D66D'   | Logical Page Position                  | Device Control   | :white_check_mark:
-MID          | X'D601'   | Manage IPDS Dialog                     | Device Control   | :white_check_mark:
-NOP          | X'D603'   | No Operation                           | Device Control   | :white_check_mark:
-PFC          | X'D634'   | Presentation Fidelity Control          | Device Control   | :white_check_mark:
-RPO          | X'D67B'   | Rasterize Presentation Object          | Device Control   | :x: 
-STM          | X'D6E4'   | Sense Type and Model                   | Device Control   | :white_check_mark:
-SHS          | X'D697'   | Set Home State                         | Device Control   | :white_check_mark:
-SPE          | X'D608'   | Set Presentation Environment           | Device Control   | :white_check_mark:
-XOA          | X'D633'   | Execute Order Anystate                 | Device Control   | :white_check_mark:
-XOH          | X'D68F'   | Execute Order Home State               | Device Control   | :white_check_mark:
-LE           | X'D61D'   | Load Equivalence                       | Text             | :x:
-WTC          | X'D688'   | Write Text Control                     | Text             | :x:
-WT           | X'D62D'   | Write Text                             | Text             | :white_check_mark:
-WIC          | X'D63D'   | Write Image Control                    | IM-Image         | :x:
-WI           | X'D64D'   | Write Image                            | IM-Image         | :x:
-WIC2         | X'D63E'   | Write Image Control 2                  | IO-Image         | :x:
-WI2          | X'D64E'   | Write Image 2                          | IO-Image         | :x:
-WGC          | X'D684'   | Write Graphics Control                 | Graphics         | :x:
-WG           | X'D685'   | Write Graphics                         | Graphics         | :x:
-WBCC         | X'D680'   | Write Bar Code Control                 | Bar Code         | :x:
-WBC          | X'D681'   | Write Bar Code                         | Bar Code         | :x:
-DORE         | X'D66C'   | Data Object Resource Equivalence       | Object Container | :x:
-DDOFC        | X'D65B'   | Deactivate Data-Object-Font Component  | Object Container | :x:
-DDOR         | X'D65C'   | Deactivate Data Object Resource        | Object Container | :x:
-IDO          | X'D67C'   | Include Data Object                    | Object Container | :x:
-RRR          | X'D65A'   | Remove Resident Resource               | Object Container | :x:
-RRRL         | X'D659'   | Request Resident Resource List         | Object Container | :x:
-WOCC         | X'D63C'   | Write Object Container Control         | Object Container | :x:
-WOC          | X'D64C'   | Write Object Container                 | Object Container | :x:
-BPS          | X'D65F'   | Begin Page Segment                     | Page Segment     | :x:
-DPS          | X'D66F'   | Deactivate Page Segment                | Page Segment     | :x:
-IPS          | X'D67F'   | Include Page Segment                   | Page Segment     | :x:
-BO           | X'D6DF'   | Begin Overlay                          | Overlay          | :x:
-DO           | X'D6EF'   | Deactivate Overlay                     | Overlay          | :x:
-IO           | X'D67D'   | Include Overlay                        | Overlay          | :x:
-LCP          | X'D61B'   | Load Code Page                         | Loaded Font      | :x:
-LCPC         | X'D61A'   | Load Code Page Control                 | Loaded Font      | :x:
-LF           | X'D62F'   | Load Font                              | Loaded Font      | :x:
-LFCSC        | X'D619'   | Load Font Character Set Control        | Loaded Font      | :x:
-LFC          | X'D61F'   | Load Font Control                      | Loaded Font      | :x:
-LFI          | X'D60F'   | Load Font Index                        | Loaded Font      | :x:
-LSS          | X'D61E'   | Load Symbol Set                        | Loaded Font      | :x:
+| IPDS Command | Hex Value | Command Description                    | Command Set      | Supported           |
+|--------------|-----------|----------------------------------------|------------------|---------------------|
+| ACK          | X'D6FF'   | Acknowledge Reply                      | Device Control   | :white_check_mark:  |
+| AR           | X'D62E'   | Activate Resource                      | Device Control   | :white_check_mark:  |
+| AFO          | X'D602'   | Apply Finishing Operations             | Device Control   | :white_check_mark:  |
+| BP           | X'D6AF'   | Begin Page                             | Device Control   | :white_check_mark:  |
+| DF           | X'D64F'   | Deactivate Font                        | Device Control   | :white_check_mark:  |
+| DUA          | X'D6CE'   | Define User Area                       | Device Control   | :white_check_mark:  |
+| END          | X'D65D'   | End                                    | Device Control   | :white_check_mark:  |
+| EP           | X'D6BF'   | End Page                               | Device Control   | :white_check_mark:  |
+| ISP          | X'D67E'   | Include Saved Page                     | Device Control   | :white_check_mark:  |
+| ICMR         | X'D66B'   | Invoke CMR                             | Device Control   | :white_check_mark:  |
+| LCC          | X'D69F'   | Load Copy Control                      | Device Control   | :white_check_mark:  |
+| LFE          | X'D63F'   | Load Font Equivalence                  | Device Control   | :white_check_mark:  |
+| LPD          | X'D6CF'   | Logical Page Descriptor                | Device Control   | :white_check_mark:  |
+| LPP          | X'D66D'   | Logical Page Position                  | Device Control   | :white_check_mark:  |
+| MID          | X'D601'   | Manage IPDS Dialog                     | Device Control   | :white_check_mark:  |
+| NOP          | X'D603'   | No Operation                           | Device Control   | :white_check_mark:  |
+| PFC          | X'D634'   | Presentation Fidelity Control          | Device Control   | :white_check_mark:  |
+| RPO          | X'D67B'   | Rasterize Presentation Object          | Device Control   | :x:                 |
+| STM          | X'D6E4'   | Sense Type and Model                   | Device Control   | :white_check_mark:  |
+| SHS          | X'D697'   | Set Home State                         | Device Control   | :white_check_mark:  |
+| SPE          | X'D608'   | Set Presentation Environment           | Device Control   | :white_check_mark:  |
+| XOA          | X'D633'   | Execute Order Anystate                 | Device Control   | :white_check_mark:  |
+| XOH          | X'D68F'   | Execute Order Home State               | Device Control   | :white_check_mark:  |
+| LE           | X'D61D'   | Load Equivalence                       | Text             | :x:                 |
+| WTC          | X'D688'   | Write Text Control                     | Text             | :x:                 |
+| WT           | X'D62D'   | Write Text                             | Text             | :white_check_mark:  |
+| WIC          | X'D63D'   | Write Image Control                    | IM-Image         | :x:                 |
+| WI           | X'D64D'   | Write Image                            | IM-Image         | :x:                 |
+| WIC2         | X'D63E'   | Write Image Control 2                  | IO-Image         | :x:                 |
+| WI2          | X'D64E'   | Write Image 2                          | IO-Image         | :x:                 |
+| WGC          | X'D684'   | Write Graphics Control                 | Graphics         | :x:                 |
+| WG           | X'D685'   | Write Graphics                         | Graphics         | :x:                 |
+| WBCC         | X'D680'   | Write Bar Code Control                 | Bar Code         | :x:                 |
+| WBC          | X'D681'   | Write Bar Code                         | Bar Code         | :x:                 |
+| DORE         | X'D66C'   | Data Object Resource Equivalence       | Object Container | :x:                 |
+| DDOFC        | X'D65B'   | Deactivate Data-Object-Font Component  | Object Container | :x:                 |
+| DDOR         | X'D65C'   | Deactivate Data Object Resource        | Object Container | :x:                 |
+| IDO          | X'D67C'   | Include Data Object                    | Object Container | :x:                 |
+| RRR          | X'D65A'   | Remove Resident Resource               | Object Container | :x:                 |
+| RRRL         | X'D659'   | Request Resident Resource List         | Object Container | :x:                 |
+| WOCC         | X'D63C'   | Write Object Container Control         | Object Container | :x:                 |
+| WOC          | X'D64C'   | Write Object Container                 | Object Container | :x:                 |
+| BPS          | X'D65F'   | Begin Page Segment                     | Page Segment     | :x:                 |
+| DPS          | X'D66F'   | Deactivate Page Segment                | Page Segment     | :x:                 |
+| IPS          | X'D67F'   | Include Page Segment                   | Page Segment     | :x:                 |
+| BO           | X'D6DF'   | Begin Overlay                          | Overlay          | :x:                 |
+| DO           | X'D6EF'   | Deactivate Overlay                     | Overlay          | :x:                 |
+| IO           | X'D67D'   | Include Overlay                        | Overlay          | :x:                 |
+| LCP          | X'D61B'   | Load Code Page                         | Loaded Font      | :x:                 |
+| LCPC         | X'D61A'   | Load Code Page Control                 | Loaded Font      | :x:                 |
+| LF           | X'D62F'   | Load Font                              | Loaded Font      | :x:                 |
+| LFCSC        | X'D619'   | Load Font Character Set Control        | Loaded Font      | :x:                 |
+| LFC          | X'D61F'   | Load Font Control                      | Loaded Font      | :x:                 |
+| LFI          | X'D60F'   | Load Font Index                        | Loaded Font      | :x:                 |
+| LSS          | X'D61E'   | Load Symbol Set                        | Loaded Font      | :x:                 |
 
 # XOH Orders
 The IPDS command "Execute Order Home State" (XOH) ist a rather complex command that is used to
@@ -84,25 +84,25 @@ execute orders when the printer is in *Home State*. The following table shows th
 current status of the corresponding support of the order (*"supported"* means that ipdsbox can 
 parse the order and create a specific Java object for it).
 
-Code    | Order                          | Supported
---------|--------------------------------|----------
-X'0200' | Deactivate Saved Page Group    | :white_check_mark:
-X'0400' | Define Group Boundary          | :white_check_mark:
-X'1300' | Eject to Front Facing          | :white_check_mark:
-X'0700' | Erase Residual Font Data       | :white_check_mark:
-X'0500' | Erase Residual Print Data      | :white_check_mark:
-X'F300' | Obtain Printer Characteristics | :white_check_mark:
-X'F500' | Page Counters Control          | :white_check_mark:
-X'0100' | Print Buffered Data            | :white_check_mark:
-X'0A00' | Remove Saved Page Group        | :white_check_mark:
-X'1500' | Select Input Media Source      | :white_check_mark:
-X'0E00' | Select Medium Modifications    | :white_check_mark:
-X'0900' | Separate Continuous Forms      | :white_check_mark:
-X'1600' | Set Media Origin               | :white_check_mark:
-X'1700' | Set Media Size                 | :white_check_mark:
-X'0300' | Specify Group Operation        | :white_check_mark:
-X'0D00' | Stack Received Pages           | :white_check_mark:
-X'F200' | Trace                          | :white_check_mark:
+| Code    | Order                          | Supported          |
+|---------|--------------------------------|--------------------|
+| X'0200' | Deactivate Saved Page Group    | :white_check_mark: |
+| X'0400' | Define Group Boundary          | :white_check_mark: |
+| X'1300' | Eject to Front Facing          | :white_check_mark: |
+| X'0700' | Erase Residual Font Data       | :white_check_mark: |
+| X'0500' | Erase Residual Print Data      | :white_check_mark: |
+| X'F300' | Obtain Printer Characteristics | :white_check_mark: |
+| X'F500' | Page Counters Control          | :white_check_mark: |
+| X'0100' | Print Buffered Data            | :white_check_mark: |
+| X'0A00' | Remove Saved Page Group        | :white_check_mark: |
+| X'1500' | Select Input Media Source      | :white_check_mark: |
+| X'0E00' | Select Medium Modifications    | :white_check_mark: |
+| X'0900' | Separate Continuous Forms      | :white_check_mark: |
+| X'1600' | Set Media Origin               | :white_check_mark: |
+| X'1700' | Set Media Size                 | :white_check_mark: |
+| X'0300' | Specify Group Operation        | :white_check_mark: |
+| X'0D00' | Stack Received Pages           | :white_check_mark: |
+| X'F200' | Trace                          | :white_check_mark: |
 
 # XOA Orders
 The IPDS command "Execute Order Anystate" (XOA) ist a rather complex command, too.
@@ -110,92 +110,91 @@ The following table shows the orders and the
 current status of the corresponding support of the order (*"supported"* means that ipdsbox can 
 parse the order and create a specific Java object for it).
 
-Code    | Order                                   | Supported
---------|-----------------------------------------|----------
-X'1000' | Activate Printer Alarm                  | :white_check_mark:
-X'0A00' | Alternate Offset Stacker                | :white_check_mark:
-X'0C00' | Control Edge Marks                      | :white_check_mark:
-X'F200' | Discard Buffered Data                   | :white_check_mark:
-X'F500' | Discard Unstacked Pages                 | :white_check_mark:
-X'F600' | Exception-Handling Control              | :white_check_mark:
-X'0800' | Mark Form                               | :white_check_mark:
-X'F900' | Obtain Additional Exception Information | :white_check_mark:
-X'F800' | Print-Quality Control                   | :white_check_mark:
-X'F400' | Request Resource List                   | :white_check_mark:
-X'FA00' | Request Setup Name List                 | :white_check_mark:
+| Code    | Order                                   | Supported          |
+|---------|-----------------------------------------|--------------------|
+| X'1000' | Activate Printer Alarm                  | :white_check_mark: |
+| X'0A00' | Alternate Offset Stacker                | :white_check_mark: |
+| X'0C00' | Control Edge Marks                      | :white_check_mark: |
+| X'F200' | Discard Buffered Data                   | :white_check_mark: |
+| X'F500' | Discard Unstacked Pages                 | :white_check_mark: |
+| X'F600' | Exception-Handling Control              | :white_check_mark: |
+| X'0800' | Mark Form                               | :white_check_mark: |
+| X'F900' | Obtain Additional Exception Information | :white_check_mark: |
+| X'F800' | Print-Quality Control                   | :white_check_mark: |
+| X'F400' | Request Resource List                   | :white_check_mark: |
+| X'FA00' | Request Setup Name List                 | :white_check_mark: |
 
 # Self-defining fields
-The following table shows the self-defining fields and the current status of the corresponding support of the Self-defining field
-(*"supported"* means that ipdsbox can parse the Self-defining field and create a specific Java object for it).
+The following table shows the self-defining fields and the current status of the corresponding support of the self-defining field
+(*"supported"* means that ipdsbox can parse the self-defining field and create a specific Java object for it).
 
-ID      | Name                                                                     | Supported
---------|--------------------------------------------------------------------------|-------------------
-X'0001' | Printable-Area Self-Defining Field                                       | :white_check_mark:
-X'0002' | Symbol-Set Support Self-Defining Field                                   | :x:
-X'0003' | IM-Image and Coded-Font Resolution Self-Defining Field                   | :white_check_mark:
-X'0004' | Storage Pools Self-Defining Field                                        | :x:
-X'0005' | Retired Item 130 (Standard OCA Color Value Support Self-Defining Field)  | :x:
-X'0006' | Installed Features Self-Defining Field                                   | :white_check_mark:
-X'0007' | Available Features Self-Defining Field                                   | :x:
-X'0008' | Resident Symbol-Set Support Self-Defining Field                          | :x:
-X'0009' | Print-Quality Support Self-Defining Field                                | :x:
-X'000A' | XOA-RRL RT & RIDF Support Self-Defining Field                            | :x:
-X'000B' | Activate Resource RT & RIDF Support Self-Defining Field                  | :x:
-X'000C' | Retired item 134                                                         | :x:
-X'000D' | Medium Modification IDs Supported Self-Defining Field                    | :x:
-X'000E' | Deprecated (Common Bar Code Type/Modifier Self-Defining Field)           | :x:
-X'000F' | Bar Code Type/Modifier Self-Defining Field                               | :x:
-X'0010' | Media-Destinations Self-Defining Field                                   | :x:
-X'0012' | Supported Group Operations Self-Defining Field                           | :x:
-X'0013' | Product Identifier Self-Defining Field                                   | :x:
-X'0014' | Object-Container Type Support Self-Defining Field                        | :x:
-X'0015' | DF Deactivation Types Supported Self-Defining Field                      | :x:
-X'0016' | PFC Triplets Supported Self-Defining Field                               | :x:
-X'0017' | Printer Setup Self-Defining Field                                        | :white_check_mark:
-X'0018' | Finishing Operations Self-Defining Field                                 | :x:
-X'0019' | UP3I Tupel Self-Defining Field                                           | :x:
-X'001A' | UP3I Paper Input Media Self-Defining Field                               | :x:
-X'0021' | Colorant-Identification Self-Defining Field                              | :x:
-X'0022' | Device-Appearance Self-Defining Field                                    | :x:
-X'0024' | Keep-Group-Together-as-a-Recovery-Unit Self-Defining Field               | :x:
-X'0025' | Recognized Group ID Formats Self-Defining Field                          | :x:
-X'0026' | Supported Device Resolutions Self-Defining Field                         | :x:
-X'0027' | Object-Container Version Support Self-Defining Field                     | :x:
-X'0028' | Finishing Options Self-Defining Field                                    | :white_check_mark:
-X'0029' | Printer Speed Self-Defining Field                                        | :x:
-X'002A' | Active Setup Name Self-Defining Field                                    | :x:
+| ID      | Name                                                           | Supported          |
+|---------|----------------------------------------------------------------|--------------------|
+| X'0001' | Printable-Area Self-Defining Field                             | :white_check_mark: |
+| X'0002' | Symbol-Set Support Self-Defining Field                         | :white_check_mark: |
+| X'0003' | IM-Image and Coded-Font Resolution Self-Defining Field         | :white_check_mark: |
+| X'0004' | Storage Pools Self-Defining Field                              | :white_check_mark: |
+| X'0005' | Standard OCA Color Value Support Self-Defining Field           | :white_check_mark: |
+| X'0006' | Installed Features Self-Defining Field                         | :white_check_mark: |
+| X'0007' | Available Features Self-Defining Field                         | :white_check_mark: |
+| X'0008' | Resident Symbol-Set Support Self-Defining Field                | :white_check_mark: |
+| X'0009' | Print-Quality Support Self-Defining Field                      | :white_check_mark: |
+| X'000A' | XOA-RRL RT & RIDF Support Self-Defining Field                  | :white_check_mark: |
+| X'000B' | Activate Resource RT & RIDF Support Self-Defining Field        | :white_check_mark: |
+| X'000D' | Medium Modification IDs Supported Self-Defining Field          | :white_check_mark: |
+| X'000E' | Deprecated (Common Bar Code Type/Modifier Self-Defining Field) | :white_check_mark: |
+| X'000F' | Bar Code Type/Modifier Self-Defining Field                     | :white_check_mark: |
+| X'0010' | Media-Destinations Self-Defining Field                         | :white_check_mark: |
+| X'0012' | Supported Group Operations Self-Defining Field                 | :white_check_mark: |
+| X'0013' | Product Identifier Self-Defining Field                         | :white_check_mark: |
+| X'0014' | Object-Container Type Support Self-Defining Field              | :white_check_mark: |
+| X'0015' | DF Deactivation Types Supported Self-Defining Field            | :white_check_mark: |
+| X'0016' | PFC Triplets Supported Self-Defining Field                     | :white_check_mark: |
+| X'0017' | Printer Setup Self-Defining Field                              | :white_check_mark: |
+| X'0018' | Finishing Operations Self-Defining Field                       | :white_check_mark: |
+| X'0019' | UP3I Tupel Self-Defining Field                                 | :x:                |
+| X'001A' | UP3I Paper Input Media Self-Defining Field                     | :x:                |
+| X'0021' | Colorant-Identification Self-Defining Field                    | :x:                |
+| X'0022' | Device-Appearance Self-Defining Field                          | :white_check_mark: |
+| X'0024' | Keep-Group-Together-as-a-Recovery-Unit Self-Defining Field     | :x:                |
+| X'0025' | Recognized Group ID Formats Self-Defining Field                | :white_check_mark: |
+| X'0026' | Supported Device Resolutions Self-Defining Field               | :x:                |
+| X'0027' | Object-Container Version Support Self-Defining Field           | :white_check_mark: |
+| X'0028' | Finishing Options Self-Defining Field                          | :white_check_mark: |
+| X'0029' | Printer Speed Self-Defining Field                              | :white_check_mark: |
+| X'002A' | Active Setup Name Self-Defining Field                          | :white_check_mark: |
 
 # Triplets
 The following table shows the Triplets and the current status of the corresponding support of the Triplet 
 (*"supported"* means that ipdsbox can parse the Triplet and create a specific Java object for it).
 
-ID    | Name                                          | Supported
-------|-----------------------------------------------|-------------------
-X'00' | Group ID                                      | :white_check_mark:
-X'01' | Coded Graphic Character Set Global Identifier | :white_check_mark:
-X'02' | Fully Qualified Name                          | :white_check_mark:
-X'4E' | Color Specification                           | :white_check_mark:
-X'50' | Encoding Scheme ID                            | :white_check_mark:
-X'5A' | Object Offset                                 | :white_check_mark:
-X'62' | Local Date and Time Stamp                     | :white_check_mark:
-X'6E' | Group Information                             | :white_check_mark:
-X'70' | Presentation Space Reset Mixing               | :white_check_mark:
-X'74' | Toner Saver                                   | :white_check_mark:
-X'75' | Color Fidelity                                | :white_check_mark:
-X'79' | Metric Adjustment                             | :white_check_mark:
-X'84' | Font Resolution and Metric Technology         | :white_check_mark:
-X'85' | Finishing Operation                           | :white_check_mark:
-X'86' | Text Fidelity                                 | :white_check_mark:
-X'88' | Finishing Fidelity                            | :white_check_mark:
-X'8B' | Data Object Font Descriptor                   | :white_check_mark:
-X'8D' | Linked Font                                   | :white_check_mark:
-X'8E' | UP3I Finishing Operation                      | :white_check_mark:
-X'91' | Color Management Resource Descriptor          | :white_check_mark:
-X'92' | Invoke CMR                                    | :white_check_mark:
-X'95' | Rendering Intent                              | :white_check_mark:
-X'96' | CMR Tag Fidelity                              | :white_check_mark:
-X'97' | Device Appearance                             | :white_check_mark:
-X'9A' | Image Resolution                              | :white_check_mark:
-X'9C' | Object Container Presentation Space Size      | :white_check_mark:
-X'9E' | Setup Name                                    | :white_check_mark:
-X'A2' | Invoke Tertiary Resource                      | :white_check_mark:
+| ID    | Name                                          | Supported          |
+|-------|-----------------------------------------------|--------------------|
+| X'00' | Group ID                                      | :white_check_mark: |
+| X'01' | Coded Graphic Character Set Global Identifier | :white_check_mark: |
+| X'02' | Fully Qualified Name                          | :white_check_mark: |
+| X'4E' | Color Specification                           | :white_check_mark: |
+| X'50' | Encoding Scheme ID                            | :white_check_mark: |
+| X'5A' | Object Offset                                 | :white_check_mark: |
+| X'62' | Local Date and Time Stamp                     | :white_check_mark: |
+| X'6E' | Group Information                             | :white_check_mark: |
+| X'70' | Presentation Space Reset Mixing               | :white_check_mark: |
+| X'74' | Toner Saver                                   | :white_check_mark: |
+| X'75' | Color Fidelity                                | :white_check_mark: |
+| X'79' | Metric Adjustment                             | :white_check_mark: |
+| X'84' | Font Resolution and Metric Technology         | :white_check_mark: |
+| X'85' | Finishing Operation                           | :white_check_mark: |
+| X'86' | Text Fidelity                                 | :white_check_mark: |
+| X'88' | Finishing Fidelity                            | :white_check_mark: |
+| X'8B' | Data Object Font Descriptor                   | :white_check_mark: |
+| X'8D' | Linked Font                                   | :white_check_mark: |
+| X'8E' | UP3I Finishing Operation                      | :white_check_mark: |
+| X'91' | Color Management Resource Descriptor          | :white_check_mark: |
+| X'92' | Invoke CMR                                    | :white_check_mark: |
+| X'95' | Rendering Intent                              | :white_check_mark: |
+| X'96' | CMR Tag Fidelity                              | :white_check_mark: |
+| X'97' | Device Appearance                             | :white_check_mark: |
+| X'9A' | Image Resolution                              | :white_check_mark: |
+| X'9C' | Object Container Presentation Space Size      | :white_check_mark: |
+| X'9E' | Setup Name                                    | :white_check_mark: |
+| X'A2' | Invoke Tertiary Resource                      | :white_check_mark: |

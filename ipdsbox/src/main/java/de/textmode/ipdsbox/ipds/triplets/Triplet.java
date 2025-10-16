@@ -2,10 +2,8 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.sdf.SelfDefiningFieldId;
 
 /**
  * Triplets are variable-length substructures that can be used within one or more IPDS commands to provide
@@ -34,17 +32,17 @@ public abstract class Triplet {
         final int available = ipds.bytesAvailable();
         if (length - 1 != available) {
             throw new IOException(String.format(
-                    "A tripket to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
+                    "A triplet to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
                     length, available));
         }
 
         // TODO maybee better to create a "RawTriplet" instead of throwing an exception...
         this.tripletId = TripletId.getFor(ipds.readUnsignedByte());
-        if (!tripletId.equals(expectedTripletId.getId())) {
+        if (!this.tripletId.equals(expectedTripletId.getId())) {
             throw new IOException(String.format(
                     "Expected triplet 0x%1$s but got 0x%2$s",
                     Integer.toHexString(expectedTripletId.getId()),
-                    Integer.toHexString(tripletId.getId())));
+                    Integer.toHexString(this.tripletId.getId())));
         }
     }
 

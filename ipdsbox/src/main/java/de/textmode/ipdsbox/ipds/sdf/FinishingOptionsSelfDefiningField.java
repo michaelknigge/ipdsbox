@@ -8,18 +8,18 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
- * The Finishing Operations self-defining field lists all the different types of finishing operations that the printer
- * supports with the Finishing Operation (X'85') triplet.
+ * The Finishing Options self-defining field lists all the finishing options that the printer supports with the Finishing
+ * Operation (X'85') triplet.
  */
 public class FinishingOptionsSelfDefiningField extends SelfDefiningField{
 
-    private List<Integer> operationTypes = new ArrayList<>();
+    private List<Integer> optionTypes = new ArrayList<>();
 
     /**
      * Constructs the {@link FinishingOptionsSelfDefiningField}.
      */
     public FinishingOptionsSelfDefiningField() throws IOException {
-        super(SelfDefiningFieldId.FinishingOperations);
+        super(SelfDefiningFieldId.FinishingOptions);
     }
 
     /**
@@ -27,10 +27,10 @@ public class FinishingOptionsSelfDefiningField extends SelfDefiningField{
      */
     public FinishingOptionsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
-        super(SelfDefiningFieldId.FinishingOperations);
+        super(SelfDefiningFieldId.FinishingOptions);
 
         while (ipds.bytesAvailable() > 0) {
-            this.operationTypes.add(ipds.readUnsignedByte());
+            this.optionTypes.add(ipds.readUnsignedByte());
         }
     }
 
@@ -39,25 +39,32 @@ public class FinishingOptionsSelfDefiningField extends SelfDefiningField{
      */
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(4 + this.operationTypes.size());
+        out.writeUnsignedInteger16(4 + this.optionTypes.size());
         out.writeUnsignedInteger16(this.getSelfDefiningFieldId());
 
-        for (final Integer operationType : this.operationTypes) {
-            out.writeUnsignedByte(operationType);
+        for (final Integer optionType : this.optionTypes) {
+            out.writeUnsignedByte(optionType);
         }
     }
 
     /**
-     * Returns a list with all operation types.
+     * Returns a list with all option types.
      */
-    public List<Integer> getOperationTypes() {
-        return this.operationTypes;
+    public List<Integer> getOptionTypes() {
+        return this.optionTypes;
     }
 
     /**
-     * Sets a list with all operation types. Can be used to add and remove operation types.
+     * Sets a list with all option types. Can be used to add and remove option types.
      */
-    public void setOperationTypes(final List<Integer> operationTypes) {
-        this.operationTypes = operationTypes;
+    public void setOptionTypes(final List<Integer> optionTypes) {
+        this.optionTypes = optionTypes;
+    }
+
+    @Override
+    public String toString() {
+        return "FinishingOptionsSelfDefiningField{" +
+                "optionTypes=" + this.optionTypes +
+                '}';
     }
 }
