@@ -125,7 +125,7 @@ public final class ObjectContainerVersionSupportSelfDefiningField extends SelfDe
 
     private static final Charset UTF16BE = Charset.forName("utf-16be");
 
-    private final List<VersionRecord> versionRecords = new ArrayList<>();
+    private List<VersionRecord> versionRecords = new ArrayList<>();
 
     /**
      * Creates a new {@link ObjectContainerVersionSupportSelfDefiningField}.

@@ -152,13 +152,13 @@ The following table shows the self-defining fields and the current status of the
 | X'0016' | PFC Triplets Supported Self-Defining Field                     | :white_check_mark: |
 | X'0017' | Printer Setup Self-Defining Field                              | :white_check_mark: |
 | X'0018' | Finishing Operations Self-Defining Field                       | :white_check_mark: |
-| X'0019' | UP3I Tupel Self-Defining Field                                 | :x:                |
-| X'001A' | UP3I Paper Input Media Self-Defining Field                     | :x:                |
-| X'0021' | Colorant-Identification Self-Defining Field                    | :x:                |
+| X'0019' | UP3I Tupel Self-Defining Field                                 | :white_check_mark: |
+| X'001A' | UP3I Paper Input Media Self-Defining Field                     | :white_check_mark: |
+| X'0021' | Colorant-Identification Self-Defining Field                    | :white_check_mark: |
 | X'0022' | Device-Appearance Self-Defining Field                          | :white_check_mark: |
-| X'0024' | Keep-Group-Together-as-a-Recovery-Unit Self-Defining Field     | :x:                |
+| X'0024' | Keep-Group-Together-as-a-Recovery-Unit Self-Defining Field     | :white_check_mark: |
 | X'0025' | Recognized Group ID Formats Self-Defining Field                | :white_check_mark: |
-| X'0026' | Supported Device Resolutions Self-Defining Field               | :x:                |
+| X'0026' | Supported Device Resolutions Self-Defining Field               | :white_check_mark: |
 | X'0027' | Object-Container Version Support Self-Defining Field           | :white_check_mark: |
 | X'0028' | Finishing Options Self-Defining Field                          | :white_check_mark: |
 | X'0029' | Printer Speed Self-Defining Field                              | :white_check_mark: |
