@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * This class carries all parameters of the Activate Printer Alarm order.
@@ -28,7 +27,7 @@ public final class RequestSetupNameListOrder extends XoaOrder {
      *
      * @throws UnknownXoaOrderCode if the the IPDS data contains an unknown {@link XoaOrderCode}.
      */
-    public RequestSetupNameListOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
+    public RequestSetupNameListOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException, InvalidIpdsCommandException {
         super(ipds, XoaOrderCode.RequestSetupNameList);
 
         this.queryType = ipds.readUnsignedByte();

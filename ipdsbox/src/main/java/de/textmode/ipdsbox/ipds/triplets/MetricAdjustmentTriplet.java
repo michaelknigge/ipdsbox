@@ -15,8 +15,8 @@ public final class MetricAdjustmentTriplet extends Triplet {
     private int hBaselineAdjustment;
     private int vBaselineAdjustment;
 
-    public MetricAdjustmentTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.MetricAdjustment);
+    public MetricAdjustmentTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.MetricAdjustment);
 
         this.unitBase = ipds.readUnsignedByte();
         this.xupub = ipds.readUnsignedInteger16();
@@ -30,7 +30,7 @@ public final class MetricAdjustmentTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x0F);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.unitBase);
         out.writeUnsignedInteger16(this.xupub);
         out.writeUnsignedInteger16(this.yupub);
@@ -141,7 +141,7 @@ public final class MetricAdjustmentTriplet extends Triplet {
     @Override
     public String toString() {
         return "MetricAdjustment{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", unitBase=0x" + Integer.toHexString(this.unitBase) +
                 ", xupub=" + this.xupub +
                 ", yupub=" + this.yupub +

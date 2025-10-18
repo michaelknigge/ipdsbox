@@ -10,8 +10,8 @@ public final class TextFidelityTriplet extends Triplet {
     private int continuationRule;
     private int reportingRule;
 
-    public TextFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.TextFidelity);
+    public TextFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.TextFidelity);
 
         this.continuationRule = ipds.readUnsignedByte();
         ipds.skip(1);
@@ -21,7 +21,7 @@ public final class TextFidelityTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(7);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.continuationRule);
         out.writeUnsignedByte(0);
         out.writeUnsignedByte(this.reportingRule);
@@ -59,7 +59,7 @@ public final class TextFidelityTriplet extends Triplet {
     @Override
     public String toString() {
         return "TextFidelity{" +
-                ", tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                ", tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", continueRule=0x" + Integer.toHexString(this.continuationRule) +
                 ", report=0x" + Integer.toHexString(this.reportingRule) +
                 "}";

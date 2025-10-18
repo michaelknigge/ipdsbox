@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 public final class LogicalPageDescriptorCommand extends IpdsCommand {
 
@@ -58,7 +57,7 @@ public final class LogicalPageDescriptorCommand extends IpdsCommand {
         this.color = 0xFFFF;
     }
 
-    public LogicalPageDescriptorCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException, UnknownTripletException {
+    public LogicalPageDescriptorCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
         super(ipds, IpdsCommandId.LPD);
 
         this.unitBase = ipds.readUnsignedByte();

@@ -16,8 +16,8 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
     private int xUnitsPerUnitBase;
     private int yUnitsPerUnitBase;
 
-    public FontResolutionAndMetricTechnologyTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.FontResolutionandMetricTechnology);
+    public FontResolutionAndMetricTechnologyTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.FontResolutionandMetricTechnology);
 
         this.metricTechnology = ipds.readUnsignedByte();
         this.unitBase = ipds.readUnsignedByte();
@@ -38,7 +38,7 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(8);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.metricTechnology);
         out.writeUnsignedByte(this.unitBase);
         out.writeUnsignedInteger16(this.xUnitsPerUnitBase);
@@ -125,7 +125,7 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
     @Override
     public String toString() {
         return "FontResolutionAndMetricTechnologyTriplet{" +
-                "tid=0x" + String.format("%02X", this.getTripletId().getId()) +
+                "tid=0x" + String.format("%02X", this.getTripletId()) +
                 ", metricTechnology=0x" + String.format("%02X", this.metricTechnology) +
                 ", unitBase=0x" + String.format("%02X", this.unitBase) +
                 ", xUnitsPerUnitBase=" + this.xUnitsPerUnitBase +

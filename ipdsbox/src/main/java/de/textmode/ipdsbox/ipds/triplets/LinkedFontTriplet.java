@@ -20,8 +20,8 @@ public final class LinkedFontTriplet extends Triplet {
     /**
      * Constructs a {@link LinkedFontTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public LinkedFontTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.LinkedFont);
+    public LinkedFontTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.LinkedFont);
 
         this.hostAssignedId = ipds.readUnsignedInteger16();
         this.fontIdType = ipds.readUnsignedByte();
@@ -57,7 +57,7 @@ public final class LinkedFontTriplet extends Triplet {
             out.writeUnsignedByte(4 + encodedFontNameLen);
         }
 
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedInteger16(this.hostAssignedId);
 
         if (this.fontIdType == 0x01) {
@@ -130,7 +130,7 @@ public final class LinkedFontTriplet extends Triplet {
     @Override
     public String toString() {
         return "LinkedFont{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", haid=" + Integer.toHexString(this.hostAssignedId) +
                 ", fontIdType=" + Integer.toHexString(this.fontIdType) +
                 ", fontIndex=" + this.fontIndex +

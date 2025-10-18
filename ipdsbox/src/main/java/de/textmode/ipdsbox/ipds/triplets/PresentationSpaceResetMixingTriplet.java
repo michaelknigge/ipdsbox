@@ -10,8 +10,8 @@ public final class PresentationSpaceResetMixingTriplet extends Triplet {
     private int mixingFlags;
 
 
-    public PresentationSpaceResetMixingTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.PresentationSpaceResetMixing);
+    public PresentationSpaceResetMixingTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.PresentationSpaceResetMixing);
 
         this.mixingFlags = ipds.readUnsignedByte();
     }
@@ -19,7 +19,7 @@ public final class PresentationSpaceResetMixingTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(3);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.mixingFlags);
     }
 
@@ -40,7 +40,7 @@ public final class PresentationSpaceResetMixingTriplet extends Triplet {
     @Override
     public String toString() {
         return "ResetMixing{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", flags=" + String
                     .format("B'%8s'", Integer.toBinaryString(this.mixingFlags))
                     .replace(' ', '0') +

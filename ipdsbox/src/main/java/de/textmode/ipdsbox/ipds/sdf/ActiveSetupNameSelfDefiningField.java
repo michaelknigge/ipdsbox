@@ -35,7 +35,7 @@ public final class ActiveSetupNameSelfDefiningField extends SelfDefiningField {
             final Triplet triplet = TripletFactory.create(ipds.readTripletIfExists());
 
             // Should be a Setup Name Triplet. If not, ignore...
-            if (triplet.getTripletId() == TripletId.SetupName) {
+            if (triplet.getTripletId() == TripletId.SetupName.getId()) {
                 this.activeSetupName = (SetupNameTriplet) triplet;
             }
         }

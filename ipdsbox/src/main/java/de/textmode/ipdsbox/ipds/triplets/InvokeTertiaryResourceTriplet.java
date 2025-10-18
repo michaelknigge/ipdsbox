@@ -15,8 +15,8 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
     /**
      * Constructs a {@link InvokeTertiaryResourceTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public InvokeTertiaryResourceTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.InvokeTertiaryResource);
+    public InvokeTertiaryResourceTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.InvokeTertiaryResource);
 
         this.tertiaryResourceType = ipds.readUnsignedByte();
         this.hostAssignedId = ipds.readUnsignedInteger16();
@@ -32,7 +32,7 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(12);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.tertiaryResourceType);
         out.writeUnsignedInteger16(this.hostAssignedId);
         out.writeUnsignedInteger32(0);
@@ -107,7 +107,7 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
     @Override
     public String toString() {
         return "InvokeTertiaryResource{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", tertiaryResourceType=" + Integer.toHexString(this.tertiaryResourceType) +
                 ", haid=" + Integer.toHexString(this.hostAssignedId) +
                 ", idType=" + this.idType +

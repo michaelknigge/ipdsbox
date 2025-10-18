@@ -1,9 +1,9 @@
 package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HexFormat;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import junit.framework.TestCase;
 
 /**
@@ -17,11 +17,8 @@ public final class TripletTest extends TestCase {
      * @param hex the content of the {@link Triplet} in hex.
      * @return a build {@link Triplet}.
      * @throws IOException if the content of the {@link Triplet} is invalid
-     * @throws UnknownTripletException if the {@link TripletId} is unknown.
-     * @throws InvalidIpdsCommandException if the IPDS data of the {@link Triplet} is invalid.
      */
-    public static Triplet buildTriplet(final TripletId id, final String hex)
-        throws UnknownTripletException, IOException, InvalidIpdsCommandException {
+    public static Triplet buildTriplet(final TripletId id, final String hex) throws IOException {
         final int len = (hex.length() / 2) + 2;
         final String withLen = String.format("%02X%02X", len, id.getId()) + hex;
 
@@ -34,11 +31,8 @@ public final class TripletTest extends TestCase {
      * @param raw the content of the {@link Triplet}.
      * @return a build {@link Triplet}.
      * @throws IOException if the content of the {@link Triplet} is invalid
-     * @throws UnknownTripletException if the {@link TripletId} is unknown.
-     * @throws InvalidIpdsCommandException ths the {@link Triplet} data is invalid.
      */
-    public static Triplet buildTriplet(final TripletId id, final byte[] raw)
-        throws UnknownTripletException, IOException, InvalidIpdsCommandException {
+    public static Triplet buildTriplet(final TripletId id, final byte[] raw) throws IOException {
         final byte[] result = new byte[raw.length + 2];
         result[0] = (byte) (raw.length + 2);
         result[1] = (byte) (id.getId() & 0xFF);
@@ -53,11 +47,12 @@ public final class TripletTest extends TestCase {
      */
     public void testWithNoData() throws Exception {
 
-        final Triplet testTriplet = TripletFactory.create(HexFormat.of().parseHex("0200"));
+        final GroupIdTriplet testTriplet = (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("0200"));
 
-        assertEquals(2, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());
-        assertEquals(0, testTriplet.getStream().bytesAvailable());
+        assertEquals(0x00, testTriplet.getFormat());
+        assertEquals(null, testTriplet.getGroupIdData());
+
     }
 
     /**
@@ -65,45 +60,13 @@ public final class TripletTest extends TestCase {
      */
     public void testWithSomeBytesOfData() throws Exception {
 
-        final Triplet testTriplet = TripletFactory.create(HexFormat.of().parseHex("060006007807"));
+        final GroupIdTriplet testTriplet = (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("060006007807"));
 
-        assertEquals(6, testTriplet.getLength());
         assertEquals(TripletId.GroupID, testTriplet.getTripletId());
-        assertEquals(4, testTriplet.getStream().bytesAvailable());
+        assertEquals(0x00, testTriplet.getFormat());
 
-        assertEquals(0x06, testTriplet.getStream().readByte());
-        assertEquals(0x00, testTriplet.getStream().readByte());
-        assertEquals(0x78, testTriplet.getStream().readByte());
-        assertEquals(0x07, testTriplet.getStream().readByte());
-    }
-
-    /**
-     * Handle a Triplet that has 253 bytes of data.
-     */
-    public void testWithMaxBytesOfData() throws Exception {
-
-        final byte[] raw = new byte[255];
-        raw[0] = (byte) 0xFF;
-        raw[1] = (byte) 0x00;
-        raw[2] = (byte) 0x06;
-
-        for (int i = 3; i < 255; ++i) {
-            raw[i] = (byte) i;
-        }
-
-        final Triplet testTriplet = TripletFactory.create(raw);
-
-        assertEquals(255, testTriplet.getLength());
-        assertEquals(TripletId.GroupID, testTriplet.getTripletId());
-        assertEquals(253, testTriplet.getStream().bytesAvailable());
-
-        assertEquals(0x06, testTriplet.getStream().readByte());
-        assertEquals(0x03, testTriplet.getStream().readByte());
-
-        // .... 0x04, 0x05, 0x06, .....
-        testTriplet.getStream().skip(250);
-        assertEquals(1, testTriplet.getStream().bytesAvailable());
-
-        assertEquals(254, testTriplet.getStream().readByte() & 0xFF);
+        assertTrue(Arrays.equals(
+                HexFormat.of().parseHex("06007807"),
+                testTriplet.getGroupIdData().toByteArray()));
     }
 }

@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * This class carries all parameters of the Remove Saved Page Group order.
@@ -24,7 +23,7 @@ public final class RemoveSavedPageGroupOrder extends XohOrder {
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
     public RemoveSavedPageGroupOrder(final IpdsByteArrayInputStream ipds)
-            throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
+            throws UnknownXohOrderCode, IOException, InvalidIpdsCommandException {
 
         super(ipds, XohOrderCode.RemoveSavedGroup);
 

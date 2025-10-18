@@ -15,8 +15,8 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
     private int xocExtent;
     private int yocExtent;
 
-    public ObjectContainerPresentationSpaceSizeTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.ObjectContainerPresentationSpaceSize);
+    public ObjectContainerPresentationSpaceSizeTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.ObjectContainerPresentationSpaceSize);
 
         ipds.skip(2);
         this.pdfPresentationSpaceSize = ipds.readUnsignedByte();
@@ -42,7 +42,7 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         if (this.xupub != 0 && this.yupub != 0 && this.xocExtent != 0 && this.yocExtent != 0) {
             out.writeUnsignedByte(0x11);
-            out.writeUnsignedByte(this.getTripletId().getId());
+            out.writeUnsignedByte(this.getTripletId());
             out.writeUnsignedInteger16(0x0000);
             out.writeUnsignedByte(this.pdfPresentationSpaceSize);
             out.writeUnsignedByte(this.xUnitBase);
@@ -53,7 +53,7 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
             out.writeUnsignedInteger24(this.yocExtent);
         } else {
             out.writeUnsignedByte(0x05);
-            out.writeUnsignedByte(this.getTripletId().getId());
+            out.writeUnsignedByte(this.getTripletId());
             out.writeUnsignedInteger16(0x0000);
             out.writeUnsignedByte(this.pdfPresentationSpaceSize);
         }
@@ -161,7 +161,7 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
     public String toString() {
         if (this.xupub != 0 && this.yupub != 0 && this.xocExtent != 0 && this.yocExtent != 0) {
             return "ObjectContainerPresentationSpaceSize{" +
-                    "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                    "tid=0x" + Integer.toHexString(this.getTripletId()) +
                     ", pdfPresentationSpaceSize=0x" + Integer.toHexString(this.pdfPresentationSpaceSize) +
                     ", xUnitBase=" + Integer.toHexString(this.xUnitBase) +
                     ", yUnitBase=" + Integer.toHexString(this.yUnitBase) +
@@ -173,7 +173,7 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
         }
 
         return "ObjectContainerPresentationSpaceSize{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", pdfPresentationSpaceSize=0x" + Integer.toHexString(this.pdfPresentationSpaceSize) +
                 '}';
     }

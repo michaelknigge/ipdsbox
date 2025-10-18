@@ -28,8 +28,8 @@ public final class GroupInformationTripletTest extends TestCase {
         baos.write(value);
 
         final GroupInformationTriplet triplet =
-            (GroupInformationTriplet) TripletTest.buildTriplet(TripletId.GroupInformation, baos.toByteArray());
-        assertEquals(GroupInformationFormat.MICROFILM_SAVE_RESTORE, triplet.getGroupInformationFormatIfExist());
+                (GroupInformationTriplet) TripletTest.buildTriplet(TripletId.GroupInformation, baos.toByteArray());
+        assertEquals(0x01, triplet.getFormat());
 
         assertEquals(expected, triplet.getGroupInformationDataIfExist().toString());
     }
@@ -46,7 +46,7 @@ public final class GroupInformationTripletTest extends TestCase {
     /**
      * Tests the {@link GroupInformationTriplet} with {@link CopySetNumberFormat}.
      */
-    public void testFormatX02(final int value, final String expected) throws Exception {
+    private void testFormatX02(final int value, final String expected) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.write(0x02);
         baos.write((value & 0xFF00) >> 8);
@@ -54,7 +54,7 @@ public final class GroupInformationTripletTest extends TestCase {
 
         final GroupInformationTriplet triplet =
             (GroupInformationTriplet) TripletTest.buildTriplet(TripletId.GroupInformation, baos.toByteArray());
-        assertEquals(GroupInformationFormat.COPY_SET_NUMBER, triplet.getGroupInformationFormatIfExist());
+        assertEquals(0x02, triplet.getFormat());
 
         assertEquals(expected, triplet.getGroupInformationDataIfExist().toString());
     }
@@ -135,7 +135,7 @@ public final class GroupInformationTripletTest extends TestCase {
 
         final GroupInformationTriplet triplet =
             (GroupInformationTriplet) TripletTest.buildTriplet(TripletId.GroupInformation, baos.toByteArray());
-        assertEquals(GroupInformationFormat.EXTENDED_COPY_SET_NUMBER, triplet.getGroupInformationFormatIfExist());
+        assertEquals(0x82, triplet.getFormat());
 
         assertEquals(expected, triplet.getGroupInformationDataIfExist().toString());
     }

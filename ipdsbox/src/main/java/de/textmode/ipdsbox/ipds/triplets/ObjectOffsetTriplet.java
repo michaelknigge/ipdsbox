@@ -11,8 +11,8 @@ public final class ObjectOffsetTriplet extends Triplet {
     private long objectOffset;
 
 
-    public ObjectOffsetTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.ObjectOffset);
+    public ObjectOffsetTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.ObjectOffset);
 
         this.objectType = ipds.readUnsignedByte();
         ipds.skip(1);
@@ -22,7 +22,7 @@ public final class ObjectOffsetTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(8);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.objectType);
         out.writeUnsignedByte(0x00);
         out.writeUnsignedInteger32(this.objectOffset);
@@ -59,7 +59,7 @@ public final class ObjectOffsetTriplet extends Triplet {
     @Override
     public String toString() {
         return "ObjectOffset{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", type=0x" + Integer.toHexString(this.objectType) +
                 ", offset=" + this.objectOffset +
                 "}";

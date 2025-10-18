@@ -16,8 +16,8 @@ public final class ColorSpecificationTriplet extends Triplet {
     private int colSize4;
     private byte[] colorValue;
 
-    public ColorSpecificationTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.ColorSpecification);
+    public ColorSpecificationTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.ColorSpecification);
 
         ipds.skip(1);
         this.colorSpace = ipds.readUnsignedByte();
@@ -34,7 +34,7 @@ public final class ColorSpecificationTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(12 + this.colorValue.length);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
 
         out.writeUnsignedByte(0x00);
         out.writeUnsignedByte(this.colorSpace);
@@ -135,7 +135,7 @@ public final class ColorSpecificationTriplet extends Triplet {
     @Override
     public String toString() {
         return "ColorSpec{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", cs=0x" + Integer.toHexString(this.colorSpace) +
                 ", sizes=[" + this.colSize1 + "," + this.colSize2 + "," + this.colSize3 + "," + this.colSize4 + "]" +
                 ", valueBytes=" + StringUtils.toHexString(this.getColorValue()) +

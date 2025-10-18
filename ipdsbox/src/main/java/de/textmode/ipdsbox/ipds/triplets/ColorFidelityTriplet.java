@@ -25,8 +25,8 @@ public final class ColorFidelityTriplet extends Triplet {
     /**
      * Creates a {@link ColorFidelityTriplet} from the given data.
      */
-    public ColorFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.ColorFidelity);
+    public ColorFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.ColorFidelity);
 
         this.continuationRule = ipds.readUnsignedByte();
         ipds.skip(1);
@@ -38,7 +38,7 @@ public final class ColorFidelityTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(8);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.continuationRule);
         out.writeUnsignedByte(0);
         out.writeUnsignedByte(this.reportingRule);
@@ -94,7 +94,7 @@ public final class ColorFidelityTriplet extends Triplet {
     @Override
     public String toString() {
         return "ColorFidelity{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", continueRule=0x" + Integer.toHexString(this.continuationRule) +
                 ", report=0x" + Integer.toHexString(this.reportingRule) +
                 ", substitute=0x" + Integer.toHexString(this.substitutionRule) +

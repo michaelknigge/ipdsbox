@@ -15,8 +15,8 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
     private int encodingEnvironment;
     private int encodingID;
 
-    public DataObjectFontDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.DataObjectFontDescriptor);
+    public DataObjectFontDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.DataObjectFontDescriptor);
 
         this.fontFlags = ipds.readUnsignedByte();
         this.fontTechnology = ipds.readUnsignedByte();
@@ -30,7 +30,7 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x10);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.fontFlags);
         out.writeUnsignedByte(this.fontTechnology);
         out.writeUnsignedInteger16(this.verticalFontSize);
@@ -142,7 +142,7 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
     @Override
     public String toString() {
         return "DataObjectFontDescriptor{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", fontFlags=0x" + Integer.toHexString(this.fontFlags) +
                 ", fontTechnology=0x" + Integer.toHexString(this.fontTechnology) +
                 ", specifiedVerticalFontSize=" + this.verticalFontSize +

@@ -28,7 +28,7 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
 
     }
 
-    public CodedGraphicCharacterSetGlobalIdentifierTriplet(final int codedCharacterSetIdentifier) {
+    public CodedGraphicCharacterSetGlobalIdentifierTriplet(final int codedCharacterSetIdentifier) throws IOException {
         super(TripletId.CodedGraphicCharacterSetGlobalIdentifier);
 
         this.codedCharacterSetIdentifier = codedCharacterSetIdentifier;
@@ -39,8 +39,8 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     /**
      * Constructs a {@link CodedGraphicCharacterSetGlobalIdentifierTriplet}.
      */
-    public CodedGraphicCharacterSetGlobalIdentifierTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.CodedGraphicCharacterSetGlobalIdentifier);
+    public CodedGraphicCharacterSetGlobalIdentifierTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.CodedGraphicCharacterSetGlobalIdentifier);
 
         this.graphicCharacterSetGlobalIdentifier = ipds.readUnsignedInteger16();
 
@@ -91,7 +91,7 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(6);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedInteger16(this.graphicCharacterSetGlobalIdentifier);
 
         if (this.graphicCharacterSetGlobalIdentifier == 0) {
@@ -104,7 +104,7 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     @Override
     public String toString() {
         return "CGCSGID{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", gcsgid=" + Integer.toHexString(this.graphicCharacterSetGlobalIdentifier) +
                 ", cpgid=" + Integer.toHexString(this.codePageGlobalIdentifier) +
                 ", ccsid=" + Integer.toHexString(this.codedCharacterSetIdentifier) +

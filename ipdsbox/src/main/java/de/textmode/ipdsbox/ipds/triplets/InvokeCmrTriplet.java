@@ -12,15 +12,15 @@ public final class InvokeCmrTriplet extends Triplet {
     /**
      * Constructs a {@link InvokeCmrTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public InvokeCmrTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.LinkedFont);
+    public InvokeCmrTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.LinkedFont);
         this.hostAssignedId = ipds.readUnsignedInteger16();
     }
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(4);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedInteger16(this.hostAssignedId);
     }
 
@@ -41,7 +41,7 @@ public final class InvokeCmrTriplet extends Triplet {
     @Override
     public String toString() {
         return "InvokeCmr{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", haid=" + Integer.toHexString(this.hostAssignedId) +
                 "}";
     }

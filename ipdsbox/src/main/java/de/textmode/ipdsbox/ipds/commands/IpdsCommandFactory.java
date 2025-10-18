@@ -5,7 +5,6 @@ import java.io.IOException;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.ipds.acknowledge.AcknowledgeReply;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 
@@ -20,14 +19,14 @@ public final class IpdsCommandFactory {
     /**
      * Creates a {@link IpdsCommand} from the given byte array.
      */
-    public static IpdsCommand create(final byte[] data) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode, UnknownTripletException, UnknownXohOrderCode {
+    public static IpdsCommand create(final byte[] data) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode,UnknownXohOrderCode {
         return create(new IpdsByteArrayInputStream(data));
     }
 
     /**
      * Creates a {@link IpdsCommand} from the given {@link IpdsByteArrayInputStream}.
      */
-    public static IpdsCommand create(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException, UnknownTripletException, UnknownXoaOrderCode, UnknownXohOrderCode {
+    public static IpdsCommand create(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException,UnknownXoaOrderCode, UnknownXohOrderCode {
 
         // TODO:
         // get rid of all the "UnknownFooExceptions"... create "RawFoo" objects instead so a implemented IPDS server (printer)

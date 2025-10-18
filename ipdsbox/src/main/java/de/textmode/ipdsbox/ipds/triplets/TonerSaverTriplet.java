@@ -9,8 +9,8 @@ public final class TonerSaverTriplet extends Triplet {
 
     private int control;
 
-    public TonerSaverTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.TonerSaver);
+    public TonerSaverTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.TonerSaver);
 
         ipds.skip(1);
         this.control = ipds.readUnsignedByte();
@@ -19,7 +19,7 @@ public final class TonerSaverTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(6);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(0);
         out.writeUnsignedByte(this.control);
         out.writeUnsignedInteger16(0);
@@ -42,7 +42,7 @@ public final class TonerSaverTriplet extends Triplet {
     @Override
     public String toString() {
         return "TonerSaver{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", control=0x" + Integer.toHexString(this.control) +
                 "}";
     }

@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.group.*;
@@ -29,12 +28,12 @@ public final class GroupIdTriplet extends Triplet {
     /**
      * Constructs a {@link GroupIdTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public GroupIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.GroupID);
+    public GroupIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.GroupID);
 
         if (ipds.bytesAvailable() >= 1) {
             this.format = ipds.readUnsignedByte();
-            this.data = ipds.bytesAvailable() >= 1 ? parseFormatData(ipds) : null;
+            this.data = ipds.bytesAvailable() >= 1 ? this.parseFormatData(ipds) : null;
         } else {
             this.format = -1;
             this.data = null;
@@ -94,7 +93,7 @@ public final class GroupIdTriplet extends Triplet {
         final int len = 2 + (this.format == -1 ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
 
         out.writeUnsignedByte(len);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
 
         if (this.format != -1) {
             out.writeUnsignedByte(this.format);
@@ -108,7 +107,7 @@ public final class GroupIdTriplet extends Triplet {
     @Override
     public String toString() {
         return "GroupIDTriplet{" +
-                "tid=0x" + String.format("%02X", this.getTripletId().getId()) +
+                "tid=0x" + String.format("%02X", this.getTripletId()) +
                 ", format=" + (this.format == -1 ? "no format" : this.format) +
                 ", data=" + (this.data == null ? "no data" : this.data) +
                 "}";

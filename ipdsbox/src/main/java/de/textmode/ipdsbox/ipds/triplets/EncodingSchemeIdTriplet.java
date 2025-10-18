@@ -9,8 +9,8 @@ public final class EncodingSchemeIdTriplet extends Triplet {
 
     private int dataEsId;
 
-    public EncodingSchemeIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.EncodingSchemeID);
+    public EncodingSchemeIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.EncodingSchemeID);
 
         ipds.skip(2);
         this.dataEsId = ipds.readUnsignedInteger16();
@@ -19,7 +19,7 @@ public final class EncodingSchemeIdTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(6);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedInteger16(0);
         out.writeUnsignedInteger16(this.dataEsId);
     }
@@ -41,7 +41,7 @@ public final class EncodingSchemeIdTriplet extends Triplet {
     @Override
     public String toString() {
         return "EncodingSchemeId{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", esid=" + Integer.toHexString(this.dataEsId) +
                 "}";
     }

@@ -32,7 +32,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, forms, 8);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.MVS_AND_VSE, triplet.getGroupIdFormat());
+        assertEquals(0x01, triplet.getFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("JOBCLASS=");
@@ -69,7 +69,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, spoolId, 4);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.VM, triplet.getGroupIdFormat());
+        assertEquals(0x02, triplet.getFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("SPOOL CLASS=");
@@ -89,22 +89,22 @@ public final class GroupIdTripletTest extends TestCase {
      * Tests the {@link GroupIdTriplet} with {@link Os400PrintDataFormat}.
      */
     public void testFormatX03() throws Exception {
-        testFormatOS400(GroupIdFormat.OS400);
+        testFormatOS400(0x03);
     }
 
     /**
      * Tests the {@link GroupIdTriplet} with {@link ExtendedOs400PrintDataFormat}.
      */
     public void testFormatX13() throws Exception {
-        testFormatOS400(GroupIdFormat.EXTENDED_OS400);
+        testFormatOS400(0x13);
     }
 
     /**
      * Tests the {@link GroupIdTriplet} with {@link Os400PrintDataFormat} or {@link ExtendedOs400PrintDataFormat}.
      */
-    private static void testFormatOS400(final GroupIdFormat format) throws Exception {
+    private static void testFormatOS400(final int format) throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        baos.write(format.getId() & 0xFF);
+        baos.write(format & 0xFF);
 
         final String libraryName = "LIB10";
         TestHelper.writeEbcdicString(baos, libraryName, 10);
@@ -116,7 +116,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, fileName, 10);
 
         final String fileNumber = "01";
-        TestHelper.writeEbcdicString(baos, fileNumber, format == GroupIdFormat.OS400 ? 4 : 6);
+        TestHelper.writeEbcdicString(baos, fileNumber, format == 0x03 ? 4 : 6);
 
         final String jobName = "PRNJOB1";
         TestHelper.writeEbcdicString(baos, jobName, 10);
@@ -131,7 +131,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, formsName, 10);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(format, triplet.getGroupIdFormat());
+        assertEquals(format, triplet.getFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("LIBRARY NAME=");
@@ -199,7 +199,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeEbcdicString(baos, submissionTime, 11);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.MVS_AND_VSE_COM, triplet.getGroupIdFormat());
+        assertEquals(0x04, triplet.getFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("FILE TYPE=");
@@ -249,7 +249,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeAsciiString(baos, fileName);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.AIX_AND_OS2, triplet.getGroupIdFormat());
+        assertEquals(0x05, triplet.getFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("FILE TYPE=");
@@ -271,7 +271,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeAsciiString(baos, fileName);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.AIX_AND_WINDOWS, triplet.getGroupIdFormat());
+        assertEquals(0x06, triplet.getFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("FILE NAME=");
@@ -290,7 +290,7 @@ public final class GroupIdTripletTest extends TestCase {
         TestHelper.writeAsciiString(baos, data);
 
         final GroupIdTriplet triplet = (GroupIdTriplet) TripletTest.buildTriplet(TripletId.GroupID, baos.toByteArray());
-        assertEquals(GroupIdFormat.VARIABLE_LENGTH_GROUP_ID, triplet.getGroupIdFormat());
+        assertEquals(0x08, triplet.getFormat());
 
         final StringBuilder sb = new StringBuilder();
         sb.append("DATA=");

@@ -5,7 +5,6 @@ import java.io.IOException;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 public final class LogicalPagePositionCommand extends IpdsCommand {
 
@@ -24,7 +23,7 @@ public final class LogicalPagePositionCommand extends IpdsCommand {
         this.orientation = 0x00;
     }
 
-    public LogicalPagePositionCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException, UnknownTripletException {
+    public LogicalPagePositionCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
         super(ipds, IpdsCommandId.LPP);
 
         ipds.skip(1);

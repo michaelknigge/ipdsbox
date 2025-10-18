@@ -17,12 +17,12 @@ public final class GroupInformationTriplet extends Triplet {
     /**
      * Constructs a {@link GroupInformationTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public GroupInformationTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.GroupInformation);
+    public GroupInformationTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.GroupInformation);
 
         if (ipds.bytesAvailable() >= 1) {
             this.format = ipds.readUnsignedByte();
-            this.data = ipds.bytesAvailable() >= 1 ? parseFormatData(ipds) : null;
+            this.data = ipds.bytesAvailable() >= 1 ? this.parseFormatData(ipds) : null;
         } else {
             this.format = -1;
             this.data = null;
@@ -36,7 +36,7 @@ public final class GroupInformationTriplet extends Triplet {
         final int len = 2 + (this.format == -1 ? 0 : 1) + (dataBytes == null ? 0 : dataBytes.length);
 
         out.writeUnsignedByte(len);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
 
         if (this.format != -1) {
             out.writeUnsignedByte(this.format);
@@ -94,7 +94,7 @@ public final class GroupInformationTriplet extends Triplet {
     @Override
     public String toString() {
         return "GroupInformationTriplet{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", format=" + (this.format == -1 ? "no format" : this.format) +
                 ", data=" + (this.data == null ? "no data" : this.data) +
                 "}";

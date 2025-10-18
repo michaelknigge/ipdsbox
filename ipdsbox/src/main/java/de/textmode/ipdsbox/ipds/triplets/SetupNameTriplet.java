@@ -17,8 +17,8 @@ public final class SetupNameTriplet extends Triplet {
     /**
      * Constructs a {@link SetupNameTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public SetupNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.SetupName);
+    public SetupNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.SetupName);
 
         ipds.skip(2);
         this.setupName = UTF16BE.decode(ByteBuffer.wrap(ipds.readRemainingBytes())).toString();
@@ -30,7 +30,7 @@ public final class SetupNameTriplet extends Triplet {
         final int encodedFontNameLen = encodedName.length;
 
         out.writeUnsignedByte(4+ encodedFontNameLen);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedInteger16(0x0000);
         out.writeBytes(encodedName);
     }
@@ -53,7 +53,7 @@ public final class SetupNameTriplet extends Triplet {
     @Override
     public String toString() {
         return "SetupName{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", setupName=" + this.setupName +
                 "}";
     }

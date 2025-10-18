@@ -12,8 +12,8 @@ public final class ImageResolutionTriplet extends Triplet {
     private int xupub;
     private int yupub;
 
-    public ImageResolutionTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.ImageResolution);
+    public ImageResolutionTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.ImageResolution);
 
         ipds.skip(2);
         this.xUnitBase = ipds.readUnsignedByte();
@@ -25,7 +25,7 @@ public final class ImageResolutionTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x0A);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
 
         out.writeUnsignedInteger16(0x0000);
         out.writeUnsignedByte(this.xUnitBase);
@@ -93,7 +93,7 @@ public final class ImageResolutionTriplet extends Triplet {
     @Override
     public String toString() {
         return "ImageResolution{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", xUnitBase=0x" + Integer.toHexString(this.xUnitBase) +
                 ", yUnitBase=0x" + Integer.toHexString(this.yUnitBase) +
                 ", xupub=" + this.xupub +

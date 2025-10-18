@@ -15,8 +15,8 @@ public final class RenderingIntentTriplet extends Triplet {
     /**
      * Constructs a {@link RenderingIntentTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public RenderingIntentTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.RenderingIntent);
+    public RenderingIntentTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.RenderingIntent);
 
         ipds.skip(2);
         this.ioca = ipds.readUnsignedByte();
@@ -28,7 +28,7 @@ public final class RenderingIntentTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x0A);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedInteger16(0x0000);
         out.writeUnsignedByte(this.ioca);
         out.writeUnsignedByte(this.objectContainer);
@@ -96,7 +96,7 @@ public final class RenderingIntentTriplet extends Triplet {
     @Override
     public String toString() {
         return "RenderingIntent{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", ioca=0x" + Integer.toHexString(this.ioca) +
                 ", objectContainer=0x" + Integer.toHexString(this.objectContainer) +
                 ", ptoca=0x" + Integer.toHexString(this.ptoca) +

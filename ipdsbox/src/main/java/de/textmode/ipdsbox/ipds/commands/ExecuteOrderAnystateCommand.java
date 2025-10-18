@@ -5,8 +5,6 @@ import java.io.IOException;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.triplets.Triplet;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xoaorders.XoaOrder;
 import de.textmode.ipdsbox.ipds.xoaorders.XoaOrderFactory;
@@ -31,11 +29,10 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
      * @param ipds the raw IPDS data stream, not including the part of the PPD/PPR protocol.
      * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      * @throws UnknownXohOrderCode if the given IPDS data describes an unknown {@link XohOrder}.
-     * @throws UnknownTripletException if the given IPDS data describes an unknown {@link Triplet}.
      * @throws IOException if the given IPDS data is broken.
      */
     public ExecuteOrderAnystateCommand(final IpdsByteArrayInputStream ipds)
-            throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException, UnknownTripletException, UnknownXoaOrderCode {
+            throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException, UnknownXoaOrderCode {
         super(ipds, IpdsCommandId.XOA);
 
         this.order = XoaOrderFactory.create(ipds);

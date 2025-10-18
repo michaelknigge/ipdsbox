@@ -5,8 +5,6 @@ import java.io.IOException;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
-import de.textmode.ipdsbox.ipds.triplets.Triplet;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * A factory for all supported {@link XohOrder}s.
@@ -23,7 +21,7 @@ public final class XohOrderFactory {
      * Creates a {@link XohOrder} from the given {@link IpdsByteArrayInputStream}.
      */
     public static XohOrder create(final IpdsByteArrayInputStream ipds)
-        throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
+        throws UnknownXohOrderCode, IOException,InvalidIpdsCommandException {
 
         // TODO do not throw an exception.... create a "RawXohOrder" instead
         final XohOrderCode code = XohOrderCode.getFor(ipds.readUnsignedInteger16());

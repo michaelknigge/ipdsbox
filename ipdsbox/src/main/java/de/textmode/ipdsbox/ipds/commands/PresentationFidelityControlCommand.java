@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * The Presentation Fidelity Control (PFC) command is valid only in home state and specifies the fidelity
@@ -43,7 +42,7 @@ public final class PresentationFidelityControlCommand extends IpdsCommand {
     /**
      * Constructs the {@link PresentationFidelityControlCommand}.
      */
-    public PresentationFidelityControlCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException, UnknownTripletException {
+    public PresentationFidelityControlCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
         super(ipds, IpdsCommandId.PFC);
 
         ipds.skip(1);

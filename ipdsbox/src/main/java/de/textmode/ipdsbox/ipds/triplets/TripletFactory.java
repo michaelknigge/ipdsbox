@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 
 /**
@@ -19,16 +18,26 @@ public final class TripletFactory {
     /**
      * Creates a {@link Triplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public static Triplet create(final byte[] data)
-        throws UnknownTripletException, IOException, InvalidIpdsCommandException {
+    public static Triplet create(final byte[] data) throws IOException {
 
         final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(data);
 
-        ipds.skip(1);
-        final TripletId triplet = TripletId.getFor(ipds.readUnsignedByte());
-        ipds.rewind(2);
+        // The implementation requires that the byte array is exactly as large
+        // as specified in the length field.
+        final int length = ipds.readUnsignedInteger16();
+        if (length != data.length) {
+            throw new IOException(String.format(
+                    "A triplet to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
+                    length,
+                    data.length));
+        }
 
-        // TODO maybee better to create a "RawTriplet" instead of throwing an exception...
+        final int tripletId = ipds.readUnsignedInteger16();
+        final TripletId triplet = TripletId.getIfKnown(tripletId);
+        if (triplet == null) {
+            return new UnknownTriplet(ipds, tripletId);
+        }
+
         return switch (triplet) {
             case CMRTagFidelity -> new CmrTagFidelityTriplet(ipds);
             case CodedGraphicCharacterSetGlobalIdentifier -> new CodedGraphicCharacterSetGlobalIdentifierTriplet(ipds);
@@ -58,7 +67,8 @@ public final class TripletFactory {
             case TextFidelity -> new TextFidelityTriplet(ipds);
             case TonerSaver -> new TonerSaverTriplet(ipds);
             case UP3IFinishingOperation -> new UP3IFinishingOperationTriplet(ipds);
-            default -> throw new UnknownTripletException("Unhandled Triplet 0x" + Integer.toHexString(triplet.getId()));
+
+            default -> new UnknownTriplet(ipds, tripletId);
         };
     }
 }

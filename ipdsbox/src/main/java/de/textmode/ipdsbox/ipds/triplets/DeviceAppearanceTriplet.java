@@ -12,8 +12,8 @@ public final class DeviceAppearanceTriplet extends Triplet {
     /**
      * Constructs a {@link DeviceAppearanceTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public DeviceAppearanceTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.DeviceAppearance);
+    public DeviceAppearanceTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.DeviceAppearance);
 
         ipds.skip(1);
         this.appearance = ipds.readUnsignedInteger16();
@@ -22,7 +22,7 @@ public final class DeviceAppearanceTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(7);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(0);
         out.writeUnsignedInteger16(this.appearance);
         out.writeUnsignedInteger16(0x0000);
@@ -45,7 +45,7 @@ public final class DeviceAppearanceTriplet extends Triplet {
     @Override
     public String toString() {
         return "DeviceAppearance{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", appearance=" + Integer.toHexString(this.appearance) +
                 "}";
     }

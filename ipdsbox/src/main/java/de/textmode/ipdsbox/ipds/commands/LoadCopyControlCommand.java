@@ -7,7 +7,6 @@ import java.util.List;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 public final class LoadCopyControlCommand extends IpdsCommand {
 
@@ -17,7 +16,7 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         super(IpdsCommandId.LCC);
     }
 
-    public LoadCopyControlCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException, UnknownTripletException {
+    public LoadCopyControlCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
         super(ipds, IpdsCommandId.LCC);
 
         while (ipds.bytesAvailable() > 0) {

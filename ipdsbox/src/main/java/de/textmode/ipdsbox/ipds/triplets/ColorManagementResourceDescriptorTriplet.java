@@ -9,8 +9,8 @@ public final class ColorManagementResourceDescriptorTriplet extends Triplet {
 
     private int mode;
 
-    public ColorManagementResourceDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.ColorManagementResourceDescriptor);
+    public ColorManagementResourceDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.ColorManagementResourceDescriptor);
 
         ipds.skip(1);
         this.mode = ipds.readUnsignedByte();
@@ -19,7 +19,7 @@ public final class ColorManagementResourceDescriptorTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x05);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(0x00);
         out.writeUnsignedByte(this.mode);
         out.writeUnsignedByte(0x00);
@@ -42,7 +42,7 @@ public final class ColorManagementResourceDescriptorTriplet extends Triplet {
     @Override
     public String toString() {
         return "ColorManagementResourceDescriptor{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", mode=0x" + Integer.toHexString(this.mode) +
                 "}";
     }

@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * This class carries all parameters of the Define Group Boundary order.
@@ -41,7 +40,7 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
      * @throws InvalidIpdsCommandException if the order contains invalid data.
      */
     public DefineGroupBoundaryOrder(final IpdsByteArrayInputStream ipds)
-        throws UnknownXohOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
+        throws UnknownXohOrderCode, IOException,InvalidIpdsCommandException {
 
         super(ipds, XohOrderCode.DefineGroupBoundary);
 

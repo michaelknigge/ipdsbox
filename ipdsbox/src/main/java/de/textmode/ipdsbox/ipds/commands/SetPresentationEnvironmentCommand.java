@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * Set Presentation Environment (SPE) is a home state command used to set specific presentation attributes for
@@ -31,7 +30,7 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
     /**
      * Constructs the {@link SetPresentationEnvironmentCommand}.
      */
-    public SetPresentationEnvironmentCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException, UnknownTripletException {
+    public SetPresentationEnvironmentCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
         super(ipds, IpdsCommandId.SPE);
 
         ipds.skip(2);

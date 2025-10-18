@@ -16,8 +16,8 @@ public final class LocalDateTimeStampTriplet extends Triplet {
     private String second;
     private String hundredth;
 
-    public LocalDateTimeStampTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.LocalDateandTimeStamp);
+    public LocalDateTimeStampTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.LocalDateandTimeStamp);
 
         this.stampType = ipds.readUnsignedByte();
         this.yearPart1 = ipds.readEbcdicString(1);
@@ -32,7 +32,7 @@ public final class LocalDateTimeStampTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(0x11);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.stampType);
         out.writeEbcdicString(this.yearPart1, 1);
         out.writeEbcdicString(this.yearPart2, 2);
@@ -158,7 +158,7 @@ public final class LocalDateTimeStampTriplet extends Triplet {
     @Override
     public String toString() {
         return "LocalDateTimeStamp{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", stampType=0x" + Integer.toHexString(this.stampType) +
                 ", yearPart1=" + this.yearPart1 +
                 ", yearPart2=" + this.yearPart2 +

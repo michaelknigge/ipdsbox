@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
-import de.textmode.ipdsbox.ipds.triplets.Triplet;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * A factory for all supported {@link XoaOrder}s.
@@ -22,7 +20,7 @@ public final class XoaOrderFactory {
      * Creates a {@link XoaOrder} from the given {@link IpdsByteArrayInputStream}.
      */
     public static XoaOrder create(final IpdsByteArrayInputStream ipds)
-        throws UnknownXoaOrderCode, IOException, UnknownTripletException, InvalidIpdsCommandException {
+        throws UnknownXoaOrderCode, IOException,InvalidIpdsCommandException {
 
         // TODO do not throw an exception.... create a "RawXoaOrder" instead
 

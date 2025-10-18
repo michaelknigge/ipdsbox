@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * The Apply Finishing Operations (AFO) command is valid only in home state and directs the printer to apply
@@ -31,7 +30,7 @@ public final class ApplyFinishingOperationsCommand extends IpdsCommand {
     /**
      * Constructs the {@link ApplyFinishingOperationsCommand}.
      */
-    public ApplyFinishingOperationsCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException, UnknownTripletException {
+    public ApplyFinishingOperationsCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
         super(ipds, IpdsCommandId.AFO);
 
         byte[] buffer;

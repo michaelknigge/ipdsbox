@@ -7,7 +7,6 @@ import java.util.List;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * The Apply Finishing Operations (AFO) command is valid only in home state and directs the printer to apply
@@ -30,7 +29,7 @@ public final class InvokeCmrCommand extends IpdsCommand {
     /**
      * Constructs the {@link InvokeCmrCommand}.
      */
-    public InvokeCmrCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException, UnknownTripletException {
+    public InvokeCmrCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
         super(ipds, IpdsCommandId.ICMR);
 
         this.invocationFlags = ipds.readUnsignedByte();

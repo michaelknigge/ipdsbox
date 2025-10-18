@@ -11,8 +11,8 @@ public final class FullyQualifiedNameTriplet extends Triplet {
     private int fqnFormat;
     private byte[] fqn;
 
-    public FullyQualifiedNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException, UnknownTripletException {
-        super(ipds, TripletId.FullyQualifiedName);
+    public FullyQualifiedNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(TripletId.FullyQualifiedName);
 
         this.fqnType = ipds.readUnsignedByte();
         this.fqnFormat = ipds.readUnsignedByte();
@@ -26,7 +26,7 @@ public final class FullyQualifiedNameTriplet extends Triplet {
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(4 + this.fqn.length);
-        out.writeUnsignedByte(this.getTripletId().getId());
+        out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedByte(this.fqnType);
         out.writeUnsignedByte(this.fqnFormat);
         out.writeBytes(this.fqn);
@@ -77,7 +77,7 @@ public final class FullyQualifiedNameTriplet extends Triplet {
     @Override
     public String toString() {
         return "FQN{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId().getId()) +
+                "tid=0x" + Integer.toHexString(this.getTripletId()) +
                 ", type=0x" + Integer.toHexString(this.fqnType) +
                 ", format=0x" + Integer.toHexString(this.fqnFormat) +
                 ", fqnBytes=" + (this.fqn == null ? 0 : this.fqn.length) +

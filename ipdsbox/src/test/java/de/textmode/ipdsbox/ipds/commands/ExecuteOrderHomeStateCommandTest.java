@@ -5,7 +5,10 @@ import java.util.HexFormat;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
-import de.textmode.ipdsbox.ipds.triplets.*;
+import de.textmode.ipdsbox.ipds.triplets.CodedGraphicCharacterSetGlobalIdentifierTriplet;
+import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
+import de.textmode.ipdsbox.ipds.triplets.Triplet;
+import de.textmode.ipdsbox.ipds.triplets.UP3IFinishingOperationTriplet;
 import de.textmode.ipdsbox.ipds.xohorders.*;
 import junit.framework.TestCase;
 
@@ -15,7 +18,7 @@ import junit.framework.TestCase;
 public final class ExecuteOrderHomeStateCommandTest extends TestCase {
 
     private static XohOrder getOrder(final String hex)
-        throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException, UnknownTripletException {
+        throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException {
 
         final String withoutLen = "D68F00" + hex;
         final int len = (withoutLen.length() / 2) + 2;
@@ -38,7 +41,7 @@ public final class ExecuteOrderHomeStateCommandTest extends TestCase {
         assertEquals(1, order.getTriplets().size());
 
         final GroupIdTriplet triplet = (GroupIdTriplet) order.getTriplets().get(0);
-        assertEquals(null, triplet.getGroupIdFormat());
+        assertEquals(0x00, triplet.getFormat());
         assertEquals(null, triplet.getGroupIdData());
     }
 
@@ -52,7 +55,7 @@ public final class ExecuteOrderHomeStateCommandTest extends TestCase {
         assertEquals(1, order.getTriplets().size());
 
         final GroupIdTriplet triplet = (GroupIdTriplet) order.getTriplets().get(0);
-        assertEquals(GroupIdFormat.AIX_AND_WINDOWS, triplet.getGroupIdFormat());
+        assertEquals(0x06, triplet.getFormat());
         assertEquals("FILE NAME=123", triplet.getGroupIdData().toString());
     }
 
@@ -68,11 +71,11 @@ public final class ExecuteOrderHomeStateCommandTest extends TestCase {
         assertEquals(2, order.getTriplets().size());
 
         final GroupIdTriplet triplet1 = (GroupIdTriplet) order.getTriplets().get(0);
-        assertEquals(GroupIdFormat.AIX_AND_WINDOWS, triplet1.getGroupIdFormat());
+        assertEquals(0x06, triplet1.getFormat());
         assertEquals("FILE NAME=123", triplet1.getGroupIdData().toString());
 
         final GroupIdTriplet triplet2 = (GroupIdTriplet) order.getTriplets().get(1);
-        assertEquals(GroupIdFormat.AIX_AND_WINDOWS, triplet2.getGroupIdFormat());
+        assertEquals(0x06, triplet2.getFormat());
         assertEquals("FILE NAME=678", triplet2.getGroupIdData().toString());
     }
 

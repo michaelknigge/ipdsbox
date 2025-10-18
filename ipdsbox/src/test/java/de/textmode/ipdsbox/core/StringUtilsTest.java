@@ -55,14 +55,14 @@ public final class StringUtilsTest extends TestCase {
     /**
      * Tests the method StringUtils.ToPrettyString with a complex IPDS command.
      */
-    public void testToPrettyStringCommand() {
+    public void testToPrettyStringCommand() throws Exception {
 
         final DefineGroupBoundaryOrder order =
                 new DefineGroupBoundaryOrder(0x00, 0x00);
                 //new DefineGroupBoundaryOrder(DefineGroupBoundaryOrder.INITIATE_GROUP, 0x00);
 
         order.getTriplets().add(new CodedGraphicCharacterSetGlobalIdentifierTriplet(0x500));
-        order.getTriplets().add(new FinishingOperationTriplet(FinishingOperationTriplet.OperationType.CornerStaple));
+        order.getTriplets().add(new FinishingOperationTriplet(0x01));
 
         final ExecuteOrderHomeStateCommand cmd = new ExecuteOrderHomeStateCommand(order);
 
@@ -80,7 +80,7 @@ public final class StringUtilsTest extends TestCase {
                 .append("        codedCharacterSetIdentifier: 0x500 (1280)\n")
                 .append("      }\n")
                 .append("      FinishingOperationTriplet {\n")
-                .append("        operationType: CornerStaple,\n")
+                .append("        operationType: 1,\n")
                 .append("        finishingOption: 0x0 (0),\n")
                 .append("        reference: DefaultCorner,\n")
                 .append("        count: 0x0 (0),\n")

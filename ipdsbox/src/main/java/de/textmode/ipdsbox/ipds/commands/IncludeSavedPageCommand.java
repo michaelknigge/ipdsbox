@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
-import de.textmode.ipdsbox.ipds.triplets.UnknownTripletException;
 
 /**
  * The Include Saved Page (ISP) command is a page state command that causes a previously saved page to be
@@ -41,7 +40,7 @@ public final class IncludeSavedPageCommand extends IpdsCommand {
     /**
      * Constructs the {@link IncludeSavedPageCommand}.
      */
-    public IncludeSavedPageCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException, UnknownTripletException {
+    public IncludeSavedPageCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
         super(ipds, IpdsCommandId.ISP);
 
         this.pageSequenceNumber = ipds.readUnsignedInteger32();
