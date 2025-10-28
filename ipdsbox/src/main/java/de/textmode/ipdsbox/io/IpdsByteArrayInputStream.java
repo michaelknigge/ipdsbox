@@ -37,6 +37,16 @@ public final class IpdsByteArrayInputStream {
      *
      * @param data the underlying byte array
      * @param startOffset the start offset (usually the first byte after the Structured field introducer)
+     */
+    public IpdsByteArrayInputStream(final byte[] data, final int startOffset) {
+        this(data, startOffset, 0);
+    }
+
+    /**
+     * Constructs an {@link IpdsByteArrayInputStream}.
+     *
+     * @param data the underlying byte array
+     * @param startOffset the start offset (usually the first byte after the Structured field introducer)
      * @param paddingBytesToIgnore Padding bytes that shall be ignored
      */
     public IpdsByteArrayInputStream(final byte[] data, final int startOffset, final int paddingBytesToIgnore) {

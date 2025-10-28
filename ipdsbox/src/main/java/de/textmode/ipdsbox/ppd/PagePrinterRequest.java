@@ -46,7 +46,6 @@ public final class PagePrinterRequest {
     public PagePrinterRequest(final int request, final byte[] buffer) {
         this.request = request;
         this.buffer = buffer;
-        System.out.println("PPR=" + StringUtils.toHexString(buffer));
     }
 
     private static byte[] commandToByteArray(final IpdsCommand ipdsCommand)

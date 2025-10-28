@@ -7,6 +7,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.ipds.acknowledge.AcknowledgeReply;
 import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
+import de.textmode.ipdsbox.ppd.PagePrinterRequest;
 
 /**
  * A factory for all supported {@link IpdsCommand}s.
@@ -14,6 +15,18 @@ import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 public final class IpdsCommandFactory {
 
     private IpdsCommandFactory() {
+    }
+
+    /**
+     * Creates a {@link IpdsCommand} from the given {@link PagePrinterRequest}.
+     */
+    public static IpdsCommand create(final PagePrinterRequest request) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode,UnknownXohOrderCode {
+
+        if (request.getRequest() == 0x0E) {
+            return create(new IpdsByteArrayInputStream(request.getData(), 8));
+        }
+
+        throw new IOException("Can not handle request type " + Integer.toHexString(request.getRequest()));
     }
 
     /**

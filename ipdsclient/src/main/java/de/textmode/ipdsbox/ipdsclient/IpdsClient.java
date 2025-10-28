@@ -13,7 +13,9 @@ import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.ipds.acknowledge.AcknowledgeReply;
+import de.textmode.ipdsbox.ipds.acknowledge.SenseDataAcknowledgeData;
 import de.textmode.ipdsbox.ipds.commands.*;
+import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.SetMediaOriginOrder;
 import de.textmode.ipdsbox.ipds.xohorders.SetMediaSizeOrder;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
@@ -166,6 +168,9 @@ public final class IpdsClient {
         } catch (final UnknownXohOrderCode e) {
             System.err.println(e.getMessage());
             return 1;
+        } catch (final UnknownXoaOrderCode e) {
+            System.err.println(e.getMessage());
+            return 1;
         }
 
         return 0;
@@ -174,7 +179,7 @@ public final class IpdsClient {
     /**
      * Obtain printer information using the STM (Sense and type model) command.
      */
-    private void obtainPrinterInfo(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException {
+    private void obtainPrinterInfo(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode, UnknownXohOrderCode {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
@@ -182,20 +187,20 @@ public final class IpdsClient {
         // that this is the first block of data that is sent to the printer...
         PagePrinterRequest requestOut = new PagePrinterRequest(0x01, HexFormat.of().parseHex("0000000100000002"));
         requestOut.writeTo(streamToPrinter, isDebugMode);
-        System.out.println("Step 1: Send X'00000010 00000001 00000001 00000002'");
+        System.out.println("Send X'00000010 00000001 00000001 00000002'");
 
         // The printer responses with "00000010 00000002 00000001 00000002"
-        System.out.println("Step 2: Wait for X'00000010 00000002 00000001 00000002'");
+        System.out.println("Wait for X'00000010 00000002 00000001 00000002'");
         PagePrinterRequest requestIn = this.waitForServer();
 
         // "00000008 00000005"  --> Don't know what this means. a packet trace showed
         // that this is the second block of data that is sent to the printer...
         requestOut = new PagePrinterRequest(0x05);
         requestOut.writeTo(streamToPrinter, isDebugMode);
-        System.out.println("Step 3: Send X'00000008 00000005'");
+        System.out.println("Send X'00000008 00000005'");
 
         // The printer responses with "00000008 00000006"
-        System.out.println("Step 4: Wait for X'00000008 00000006'");
+        System.out.println("Wait for X'00000008 00000006'");
         requestIn = this.waitForServer();
 
         // Now finally send the STM...
@@ -209,17 +214,38 @@ public final class IpdsClient {
         //     +-- Complete length (incl. itself)
         requestOut = new PagePrinterRequest(new SenseTypeAndModelCommand());
         requestOut.writeTo(streamToPrinter, isDebugMode);
-        System.out.println("Step 5: Send STM command");
+        System.out.println("Send STM command");
 
-        System.out.println("Step 6: Wait for Ackknowledge Reply");
+        System.out.println("Wait for Ackknowledge Reply");
         requestIn = this.waitForServer();
-        System.out.println("Step 7: Done!");
 
-        final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(requestIn.getData());
-        ipds.skip(8);
-        final AcknowledgeReply acknowledgeReply = new AcknowledgeReply(ipds);
+        AcknowledgeReply ackReply = (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
+        if (ackReply.getAcknowledgeType() == 0xC0 || ackReply.getAcknowledgeType() == 0x80) {
+            final SenseDataAcknowledgeData ackData = (SenseDataAcknowledgeData) ackReply.getAcknowledgeData();
 
-        System.out.println(StringUtils.toPrettyString(acknowledgeReply));
+            // Exception X'1000..00' (printer reset) is okay / expected...
+            System.out.println("Received NACK with exception " + Integer.toHexString(ackData.getExceptionId()));
+
+            // Don't know what theat means... Maybe a "continue session" command...
+            requestOut = new PagePrinterRequest(0x0D);
+            requestOut.writeTo(streamToPrinter, isDebugMode);
+
+            // PSF on z/OS sends a NOP with ARQ... The printer then sends a ACK with Type 0x40 (no Data)..
+
+            requestOut = new PagePrinterRequest(new SenseTypeAndModelCommand());
+            requestOut.writeTo(streamToPrinter, isDebugMode);
+            System.out.println("Send STM command (again)");
+
+            System.out.println(" Wait for Ackknowledge Reply (again)");
+            requestIn = this.waitForServer();
+
+            ackReply = (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
+        }
+
+        System.out.println(StringUtils.toPrettyString(ackReply));
+
+        System.out.println(" ");
+        System.out.println("Done!");
     }
 
     /**
