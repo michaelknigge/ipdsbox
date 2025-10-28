@@ -10,4 +10,9 @@ public final class NoAcknowledgeData implements AcknowledgeData {
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         // Nothing to do...
     }
+
+    @Override
+    public String toString() {
+        return "NoAcknowledgeData{}";
+    }
 }
