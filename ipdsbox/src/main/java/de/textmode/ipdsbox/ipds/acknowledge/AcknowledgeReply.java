@@ -290,4 +290,21 @@ public final class AcknowledgeReply extends IpdsCommand {
     public void setAcknowledgeData(final AcknowledgeData acknowledgeData) {
         this.acknowledgeData = acknowledgeData;
     }
+
+    @Override
+    public String toString() {
+        return "AcknowledgeReply{" +
+                "acktype=0x" + Integer.toHexString(this.acktype) +
+                ", stackedPageCounter=" + this.stackedPageCounter +
+                ", stackedCopyCounter=" + this.stackedCopyCounter +
+                ", receivedPageCounter=" + this.receivedPageCounter +
+                ", committedPageCounter=" + this.committedPageCounter +
+                ", committedCopyCounter=" + this.committedCopyCounter +
+                ", operatorViewingPageCounter=" + this.operatorViewingPageCounter +
+                ", operatorViewingCopyCounter=" + this.operatorViewingCopyCounter +
+                ", jamRecoveryPageCounter=" + this.jamRecoveryPageCounter +
+                ", jamRecoveryCopyCounter=" + this.jamRecoveryCopyCounter +
+                ", acknowledgeData=" + this.acknowledgeData +
+                '}';
+    }
 }

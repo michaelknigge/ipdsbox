@@ -27,6 +27,9 @@ public final class AcknowledgeDataFactory {
             case 0x80 -> new SenseDataAcknowledgeData(ipds);
             case 0xC0 -> new SenseDataAcknowledgeData(ipds);
 
+            case 0x01 -> new SenseTypeAndModelAcknowledgeData(ipds);
+            case 0x41 -> new SenseTypeAndModelAcknowledgeData(ipds);
+
             default -> new RawAcknowledgeData(ipds);
         };
     }

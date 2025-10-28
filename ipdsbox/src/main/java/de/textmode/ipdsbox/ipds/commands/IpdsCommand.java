@@ -139,8 +139,7 @@ public abstract class IpdsCommand {
      * Returns a string representation of the {@link IpdsCommand}.
      * @return a string starting with the acronym of the IPDS Command followed by a description.
      */
-    @Override
-    public final String toString() {
+    public final String getDescription() {
         return this.commandCode.toString() + " - " + this.commandCode.getDescription();
     }
 }

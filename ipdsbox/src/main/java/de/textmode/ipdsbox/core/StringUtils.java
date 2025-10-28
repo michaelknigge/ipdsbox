@@ -11,6 +11,7 @@ public final class StringUtils {
 
     private static final String INDENTION = "  ";
     private static final String HEXES = "0123456789ABCDEF";
+    private static final String EMPTY = "";
 
     /**
      * Private constructor to make checkstyle happy.
@@ -34,6 +35,10 @@ public final class StringUtils {
      * @return a Hex-String of the contents of the supplied byte array.
      */
     public static String toHexString(final byte[] bytes) {
+        if (bytes == null) {
+            return EMPTY;
+        }
+
         final StringBuilder sb = new StringBuilder();
         for (final byte b : bytes) {
             sb.append(HEXES.charAt((b & 0xF0) >> 4));
@@ -48,6 +53,9 @@ public final class StringUtils {
      * @return a nicely formatted String from a Java object.
      */
     public static String toPrettyString(final Object obj) {
+        // TODO... Do NOT use reflection!
+        // make sure that every object has a proper toString Method.
+        // get rid of this thing...
         return toPrettyString(INDENTION, obj);
     }
 
@@ -115,7 +123,9 @@ public final class StringUtils {
     private static boolean isIpdsboxType(final Class<?> type) {
         return type.getName().startsWith("de.textmode.ipdsbox.ipds.triplets.") ||
                 type.getName().startsWith("de.textmode.ipdsbox.ipds.acknowledge.") ||
+                type.getName().startsWith("de.textmode.ipdsbox.ipds.xoaorders.") ||
                 type.getName().startsWith("de.textmode.ipdsbox.ipds.xohorders.") ||
+                type.getName().startsWith("de.textmode.ipdsbox.ipds.sdf.") ||
                 type.getName().startsWith("de.textmode.ipdsbox.ipds.commands");
     }
 

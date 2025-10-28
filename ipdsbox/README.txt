@@ -1,58 +1,19 @@
 
-- ggf. neue Klasse IpdsCommand
-- statische create Methode, die IpdsCommand aus PagePrinterRequest baut 
--- Alternativ eine IpdsCommandBuilder Klasse (ggf. nicht statisch, ggf. mit "Executor-Map wie bei AFP")
-- neues Interface IpdsCommandHandler (hat nur handle Methode)
-- neue Methode ipdsCommandHandler im PagePrinterDaemonBuilder
+TODO:
 
-
-
-weiter:
-IpdsPrinter implementiert später beide Interfaces, da ggf. aufgrund eines PagePrinterRequest
-der IpdsPrinter resettet werden muss o. ä. (und muss dann zurück in HomeState).
-
-
-
-Struktur:
-
-mk.ipdsbox.ipds
-
-mk.ipdsbox.ipds.printer
---> IpdsPrinter, States, ...
-
-mk.ipdsbox.ipds.exceptions
---> Exceptions - aber nur wenn es mehrere gibt, sonst in common
-
-mk.ipdsbox.ipds.common
---> Allgemeines Zeuchs - gilt es aber so weit es geht zu vermeiden....
-
-mk.ipdsbox.ipds.commandset.devicecontrol
---> Device Control Set
-
-mk.ipdsbox.ipds.commandset.text
---> Text Control Set
-
-mk.ipdsbox.ipds.commandset.imimage
---> IM-Image Control Set
-
-mk.ipdsbox.ipds.commandset.ioimage
---> IO-Image Control Set
-
-mk.ipdsbox.ipds.commandset.graphics
---> Graphics Control Set
-
-mk.ipdsbox.ipds.commandset.barcode
---> Bar Code Control Set
-
-mk.ipdsbox.ipds.commandset.objectcontainer
---> Object Container Control Set
-
-mk.ipdsbox.ipds.commandset.overlay
---> Overlay Control Set
-
-mk.ipdsbox.ipds.commandset.pagesegment
---> Page Segment Control Set
-
-mk.ipdsbox.ipds.commandset.loadedfont
---> Loaded Font Control Set
-
+- Implement factories
+- make sure every class has a proper toString method
+- update javadoc
+-- simplfy (just a comment, no parameter or returns
+-- take the documentation from the IPDS manual
+-- make sure every funktion / constructor / class has a proper java doc
+- implement unit tests for every class / method
+- use GitHub for CI
+- make sure that every IPDS command can be parsed
+-- use "RawXxxxx" classes if some data area is unknown
+---> so every IPDS command can be parsed and re-built
+- implement a "write text" demo (print "Hello world")
+- implement a "print pdf" demo (convert the PDF to an object container and print it)
+- impement a "ipdsproxy"
+-- intercepts communication between spooler and printer
+-- decodes and print every IPDS command an ACKs

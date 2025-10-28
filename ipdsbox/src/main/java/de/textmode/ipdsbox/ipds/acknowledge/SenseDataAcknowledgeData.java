@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.acknowledge;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -476,5 +477,31 @@ public final class SenseDataAcknowledgeData implements AcknowledgeData {
      */
     public void setRawData(final byte[] rawData) {
         this.rawData = rawData;
+    }
+
+    @Override
+    public String toString() {
+        return "SenseDataAcknowledgeData{" +
+                "exceptionId=" + this.exceptionId +
+                ", actionCode=" + this.actionCode +
+                ", formatId=" + this.formatId +
+                ", senseDetail=" + this.senseDetail +
+                ", count=" + this.count +
+                ", overlayId=" + this.overlayId +
+                ", pageSegmentId=" + this.pageSegmentId +
+                ", commandInProcess=" + this.commandInProcess +
+                ", objectId=" + this.objectId +
+                ", exceptionSpecificInformation=" + this.exceptionSpecificInformation +
+                ", objectType=" + this.objectType +
+                ", pageIdentifier=" + this.pageIdentifier +
+                ", textPositionExceptionCount=" + this.textPositionExceptionCount +
+                ", imagePositionExceptionCount=" + this.imagePositionExceptionCount +
+                ", rulePositionExceptionCount=" + this.rulePositionExceptionCount +
+                ", graphicsPositionExceptionCount=" + this.graphicsPositionExceptionCount +
+                ", up3iErrorCode=" + this.up3iErrorCode +
+                ", up3iPaperSequenceId=" + this.up3iPaperSequenceId +
+                ", up3iErrorInformation=" + StringUtils.toHexString(this.up3iErrorInformation) +
+                ", rawData=" + StringUtils.toHexString(this.rawData) +
+                '}';
     }
 }
