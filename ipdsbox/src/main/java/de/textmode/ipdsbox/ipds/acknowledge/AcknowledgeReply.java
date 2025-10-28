@@ -81,7 +81,9 @@ public final class AcknowledgeReply extends IpdsCommand {
     }
 
     @Override
-    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {        ipds.writeUnsignedByte(this.acktype);
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {
+
+        ipds.writeUnsignedByte(this.acktype);
 
         if (this.acktype == 0xFF) {
             // no counters..
