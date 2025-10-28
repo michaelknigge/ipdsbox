@@ -78,6 +78,26 @@ the IPDS command and create a specific Java object for it).
 | LFI          | X'D60F'   | Load Font Index                        | Loaded Font      | :x:                 |
 | LSS          | X'D61E'   | Load Symbol Set                        | Loaded Font      | :x:                 |
 
+# Acknowledge Types
+The following table shows the acknowledge reply types and the
+current status of the corresponding support of the acknowledge type (*"supported"* means that ipdsbox can 
+parse the acknowledge type and create a specific Java object for it).
+
+| Code            | Meaning                                         | Supported          |
+|-----------------|-------------------------------------------------|--------------------|
+| X'00' and X'40' | None                                            | :white_check_mark: |
+| X'01' and X'41' | Sense Type and Model reply                      | :white_check_mark: |
+| X'02' and X'42' | Trace reply                                     | :x:                |
+| X'03' and X'43' | Request Resident Resource List reply            | :x:                |
+| X'04' and X'44' | Request Resource List reply                     | :x:                |
+| X'05' and X'45' | Obtain Additional Exception Information reply   | :x:                |
+| X'06' and X'46' | Obtain Printer Characteristics reply            | :x:                |
+| X'07' and X'47' | Activate Setup Name reply                       | :x:                |
+| X'08' and X'48' | Request Setup Name List reply                   | :x:                |
+| X'80' and X'C0' | Sense bytes                                     | :white_check_mark: |
+| X'FF'           | Null ACK                                        | :x:                |
+
+
 # XOH Orders
 The IPDS command "Execute Order Home State" (XOH) ist a rather complex command that is used to
 execute orders when the printer is in *Home State*. The following table shows the orders and the
