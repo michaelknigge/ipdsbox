@@ -3,8 +3,11 @@ package de.textmode.ipdsbox.ppd;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
+import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.commands.IpdsCommand;
+import de.textmode.ipdsbox.ipds.commands.IpdsCommandId;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -21,7 +24,7 @@ public final class PagePrinterRequest {
     /**
      * Constructs a {@link PagePrinterRequest}.
      */
-    public PagePrinterRequest(final IpdsCommand ipdsCommand) throws IOException {
+    public PagePrinterRequest(final IpdsCommand ipdsCommand) throws IOException, InvalidIpdsCommandException {
         this(0x0E, commandToByteArray(ipdsCommand));
     }
 
@@ -43,13 +46,38 @@ public final class PagePrinterRequest {
     public PagePrinterRequest(final int request, final byte[] buffer) {
         this.request = request;
         this.buffer = buffer;
+        System.out.println("PPR=" + StringUtils.toHexString(buffer));
     }
 
-    private static byte[] commandToByteArray(final IpdsCommand ipdsCommand) throws IOException {
-        final IpdsByteArrayOutputStream os = new IpdsByteArrayOutputStream();
-        ipdsCommand.writeTo(os);
+    private static byte[] commandToByteArray(final IpdsCommand ipdsCommand)
+            throws IOException, InvalidIpdsCommandException {
 
-        return os.toByteArray();
+        // The format (example from a STM command):
+        //
+        // "00000001 00000005 0005D6E480"
+        //     ^        ^        ^
+        //     |        |        |
+        //     |        |        +-- 0005 = length, D6E4 = IPDS command code, 80 = Flag (ACK requested)
+        //     |        +-- Length of the following IPDS command. Maybe more than one can be sent at once?!?
+        //     +-- Some kind of flags?
+        final IpdsByteArrayOutputStream commandOnly = new IpdsByteArrayOutputStream();
+        ipdsCommand.writeTo(commandOnly);
+
+        final IpdsByteArrayOutputStream out = new IpdsByteArrayOutputStream();
+        final byte[] ipdsCommandBytes = commandOnly.toByteArray();
+
+        // Traces showed that the first four bytes contain 0x00000001 if the command is sent *TO* a
+        // printer and 0x00000000 if a ACK is sent *FROM* a printer.
+        if (ipdsCommand.getCommandCode().equals(IpdsCommandId.ACK)) {
+            out.writeUnsignedInteger32(0x00000000);
+        } else {
+            out.writeUnsignedInteger32(0x00000001);
+        }
+
+        out.writeUnsignedInteger32(ipdsCommandBytes.length);
+        out.writeBytes(ipdsCommandBytes);
+
+        return out.toByteArray();
     }
 
     /**
@@ -75,13 +103,39 @@ public final class PagePrinterRequest {
      * @throws IOException  if an I/O error occurs.
      */
     public void writeTo(final OutputStream out) throws IOException {
-        if (this.getData().length == 0) {
-            out.write(intToByteArray(8));
-            out.write(intToByteArray(this.getRequest()));
-        } else {
-            out.write(intToByteArray(this.getData().length + 8));
-            out.write(intToByteArray(this.getRequest()));
-            out.write(this.getData());
+        writeTo(out, false);
+    }
+
+    /**
+     * Writes the {@link PagePrinterRequest} to the given {@link OutputStream}.
+     * @param out The {@link OutputStream} to write to.
+     * @throws IOException  if an I/O error occurs.
+     */
+    public void writeTo(final OutputStream out, final boolean isDebugMode) throws IOException {
+        // The format (example from a STM command):
+        //
+        // "00000015 0000000E 00000001 00000005 0005D6E480"
+        //     ^        ^        ^        ^         ^
+        //     |        |        |        |         |
+        //     |        |        |        |         +-- 0005 = length, D6E4 = IPDS command code, 80 = Flag (ACK requested)
+        //     |        |        |        +-- Length of the following IPDS command. Maybe more than one can be sent at once?!?
+        //     |        |        +-- Some kind of flags?
+        //     |        +-- Maybe an "operation code", 0x0E is "IPDS data"?
+        //     +-- Complete length (incl. itself)
+
+        final byte[] overallLength = intToByteArray(this.getData().length + 8);
+        final byte[] requestCode = intToByteArray(this.request);
+
+        out.write(overallLength);
+        out.write(requestCode);
+        out.write(this.getData());
+
+        if (isDebugMode) {
+            System.err.println(
+                    "SEND: " +
+                            StringUtils.toHexString(overallLength) +
+                            StringUtils.toHexString(requestCode) +
+                            StringUtils.toHexString(this.getData()));
         }
 
         // Make sure to send it as fast as possible...

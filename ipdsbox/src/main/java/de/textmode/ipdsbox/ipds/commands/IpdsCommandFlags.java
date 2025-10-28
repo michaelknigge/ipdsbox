@@ -21,7 +21,7 @@ public final class IpdsCommandFlags {
      * @param flags raw flags byte from an IPDS command.
      */
     public IpdsCommandFlags(final byte flags) {
-        this.flags = flags;
+        this.flags = (byte) (flags & 0xFF);
     }
 
     /**
@@ -151,13 +151,13 @@ public final class IpdsCommandFlags {
      * Returns the flag byte.
      */
     public byte getFlags() {
-        return this.flags;
+        return (byte) (this.flags & 0xFF);
     }
 
     /**
      * Sets the flag byte.
      */
     public void setFlags(final byte flags) {
-        this.flags = flags;
+        this.flags = (byte) (flags & 0xFF);
     }
 }

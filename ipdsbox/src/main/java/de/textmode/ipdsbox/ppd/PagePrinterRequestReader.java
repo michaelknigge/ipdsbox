@@ -3,6 +3,9 @@ package de.textmode.ipdsbox.ppd;
 import java.io.IOException;
 import java.io.InputStream;
 
+import de.textmode.ipdsbox.core.StringUtils;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+
 /**
  * Reads data from an {@link InputStream} and constructs {@link PagePrinterRequest}
  * objects from the read data.
@@ -36,6 +39,18 @@ public final class PagePrinterRequestReader {
      * the {@link InputStream} ends unexpectedly.
      */
     public static PagePrinterRequest read(final InputStream in) throws IOException {
+        return read(in, false);
+    }
+
+    /**
+     * Reads bytes from an {@link InputStream} and construct a new {@link PagePrinterRequest} from the read bytes.
+     * @param in {@link InputStream} to be read from
+     * @return If EOF occurred on reading the first byte <code>null</code> will be returned, otherwise
+     * a newly constructed {@link PagePrinterRequest}.
+     * @throws IOException If an error occurred while reading from the {@link InputStream} or when
+     * the {@link InputStream} ends unexpectedly.
+     */
+    public static PagePrinterRequest read(final InputStream in, final boolean printReadBytes) throws IOException {
 
         // The first four byte contain the overall length of the request, including
         // the length of the four bytes itself.
@@ -70,6 +85,14 @@ public final class PagePrinterRequestReader {
             }
             offset += filled;
             dataLength -= filled;
+        }
+
+        if (printReadBytes) {
+            final IpdsByteArrayOutputStream os = new IpdsByteArrayOutputStream();
+            os.writeUnsignedInteger32(length);
+            os.writeUnsignedInteger32(request);
+
+            System.err.println("RECV: " + StringUtils.toHexString(os.toByteArray()) + StringUtils.toHexString(buffer));
         }
 
         return new PagePrinterRequest(request, buffer);

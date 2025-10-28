@@ -74,8 +74,10 @@ public abstract class IpdsCommand {
     /**
      * Writes this {@link IpdsCommandId} to the given {@link IpdsByteArrayOutputStream}.
      */
-    public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {
         final IpdsByteArrayOutputStream dataStream = new IpdsByteArrayOutputStream();
+        this.writeDataTo(dataStream);
+
         final byte[] data = dataStream.toByteArray();
 
         // Length = 2 Bytes    \
