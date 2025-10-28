@@ -40,9 +40,13 @@ public final class IpdsClient {
     private static final String OPTION_WRITE_LONG = "write";
     private static final String OPTION_WRITE_TEXT = "Write text";
 
-    private static final String OPTION_PRINTER_SHORT = "t";
-    private static final String OPTION_PRINTER_LONG = "to";
+    private static final String OPTION_PRINTER_SHORT = "p";
+    private static final String OPTION_PRINTER_LONG = "printer";
     private static final String OPTION_PRINTER_TEXT = "printer to forward to (portnumer may be specified if not 5001)";
+
+    private static final String OPTION_DEBUG_SHORT = "d";
+    private static final String OPTION_DEBUG_LONG = "debug";
+    private static final String OPTION_DEBUG_TEXT = "debug mode (print ipds data on stderr)";
 
     private static final int DEFAULT_PORT_NUMBER = 5001;
 
@@ -69,31 +73,38 @@ public final class IpdsClient {
     int realMain(final String[] args) {
         final Options options = new Options();
         options.addOption(Option.builder(OPTION_HELP_SHORT)
-                                .longOpt(OPTION_HELP_LONG)
-                                .desc(OPTION_HELP_TEXT)
-                                .build());
+                .longOpt(OPTION_HELP_LONG)
+                .desc(OPTION_HELP_TEXT)
+                .build());
+
+        options.addOption(Option.builder(OPTION_DEBUG_SHORT)
+                .longOpt(OPTION_DEBUG_LONG)
+                .desc(OPTION_DEBUG_TEXT)
+                .argName(OPTION_DEBUG_LONG)
+                .build());
 
         options.addOption(Option.builder(OPTION_INFO_SHORT)
-                                .longOpt(OPTION_INFO_LONG)
-                                .desc(OPTION_INFO_TEXT)
-                                .argName("info")
-                                .build());
+                .longOpt(OPTION_INFO_LONG)
+                .desc(OPTION_INFO_TEXT)
+                .argName(OPTION_INFO_LONG)
+                .build());
 
         options.addOption(Option.builder(OPTION_WRITE_SHORT)
                 .longOpt(OPTION_WRITE_LONG)
                 .desc(OPTION_WRITE_TEXT)
                 .hasArg(true)
-                .argName("write")
+                .argName(OPTION_WRITE_LONG)
                 .build());
 
         options.addOption(Option.builder(OPTION_PRINTER_SHORT)
-                                .longOpt(OPTION_PRINTER_LONG)
-                                .desc(OPTION_PRINTER_TEXT)
-                                .required()
-                                .hasArg(true)
-                                .argName("printer:port")
-                                .build());
+                .longOpt(OPTION_PRINTER_LONG)
+                .desc(OPTION_PRINTER_TEXT)
+                .required()
+                .hasArg(true)
+                .argName("printer:port")
+                .build());
 
+        final boolean isDeugMode;
         final boolean obtainPrinterInfo;
         final String writeText;
         final int remotePortNumber;
@@ -107,6 +118,7 @@ public final class IpdsClient {
                 return showHelp(options);
             }
 
+            isDeugMode = line.hasOption(OPTION_DEBUG_SHORT);
             obtainPrinterInfo = line.hasOption(OPTION_INFO_LONG);
 
             writeText = line.hasOption(OPTION_WRITE_LONG)
@@ -136,12 +148,12 @@ public final class IpdsClient {
         System.out.println("Conecting printer..."); //$NON-NLS-1$
         try (final Socket toPrinterSocket = new Socket(remotePrinterHost, remotePortNumber)) {
             System.out.println("Conection to printer established."); //$NON-NLS-1$
-            this.handleConnection(toPrinterSocket);
+            this.handleConnection(toPrinterSocket, isDeugMode);
 
             if (obtainPrinterInfo) {
-                this.obtainPrinterInfo(toPrinterSocket);
+                this.obtainPrinterInfo(toPrinterSocket, isDeugMode);
             } else if (writeText != null) {
-                this.writeText(toPrinterSocket, writeText);
+                this.writeText(toPrinterSocket, writeText, isDeugMode);
             }
 
             System.out.println("Done."); //$NON-NLS-1$
@@ -162,14 +174,14 @@ public final class IpdsClient {
     /**
      * Obtain printer information using the STM (Sense and type model) command.
      */
-    private void obtainPrinterInfo(final Socket printer) throws IOException, InvalidIpdsCommandException {
+    private void obtainPrinterInfo(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
         // "00000010 00000001 00000001 00000002"  --> Don't know what this means. a packet trace showed
         // that this is the first block of data that is sent to the printer...
         PagePrinterRequest requestOut = new PagePrinterRequest(0x01, HexFormat.of().parseHex("0000000100000002"));
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 1: Send X'00000010 00000001 00000001 00000002'");
 
         // The printer responses with "00000010 00000002 00000001 00000002"
@@ -179,7 +191,7 @@ public final class IpdsClient {
         // "00000008 00000005"  --> Don't know what this means. a packet trace showed
         // that this is the second block of data that is sent to the printer...
         requestOut = new PagePrinterRequest(0x05);
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 3: Send X'00000008 00000005'");
 
         // The printer responses with "00000008 00000006"
@@ -196,7 +208,7 @@ public final class IpdsClient {
         //     |        +-- Maybe an "operation code", 0x0E is "IPDS data"?
         //     +-- Complete length (incl. itself)
         requestOut = new PagePrinterRequest(new SenseTypeAndModelCommand());
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 5: Send STM command");
 
         System.out.println("Step 6: Wait for Ackknowledge Reply");
@@ -213,14 +225,14 @@ public final class IpdsClient {
     /**
      * Obtain printer information using the STM (Sense and type model) command.
      */
-    private void writeText(final Socket printer, final String text) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
+    private void writeText(final Socket printer, final String text, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
         // "00000010 00000001 00000001 00000002"  --> Don't know what this means. a packet trace showed
         // that this is the first block of data that is sent to the printer...
         PagePrinterRequest requestOut = new PagePrinterRequest(0x01, HexFormat.of().parseHex("0000000100000002"));
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 1: Send X'00000010 00000001 00000001 00000002'");
 
         // The printer responses with "00000010 00000002 00000001 00000002"
@@ -230,7 +242,7 @@ public final class IpdsClient {
         // "00000008 00000005"  --> Don't know what this means. a packet trace showed
         // that this is the second block of data that is sent to the printer...
         requestOut = new PagePrinterRequest(0x05);
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 3: Send X'00000008 00000005'");
 
         // The printer responses with "00000008 00000006"
@@ -238,19 +250,19 @@ public final class IpdsClient {
         requestIn = this.waitForServer();
 
         requestOut = new PagePrinterRequest(new SetHomeStateCommand());
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 5: Send SHS command");
 
         requestOut = new PagePrinterRequest(new ExecuteOrderHomeStateCommand(new SetMediaOriginOrder()));
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 6: Send XOH command (Media Origin)");
 
         requestOut = new PagePrinterRequest(new ExecuteOrderHomeStateCommand(new SetMediaSizeOrder()));
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 7: Send XOH command (Media Size)");
 
         requestOut = new PagePrinterRequest(new LogicalPageDescriptorCommand());
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 8: Send LPD command");
 
         /*********************
@@ -264,11 +276,11 @@ public final class IpdsClient {
          */
 
         requestOut = new PagePrinterRequest(new LogicalPagePositionCommand());
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 8: Send LPP command");
 
         requestOut = new PagePrinterRequest(new BeginPageCommand());
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 8: Send CP command");
 
         final String ami = "2BD304C600FF";
@@ -276,20 +288,20 @@ public final class IpdsClient {
         final String trn = "2BD307F1F2F3F4F5";
 
         requestOut = new PagePrinterRequest(new WriteTextCommand(HexFormat.of().parseHex(ami + amb + trn)));
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 8: Send WT command");
 
         final EndPageCommand endPageCommand = new EndPageCommand();
         endPageCommand.getCommandFlags().isAcknowledgmentRequired(true);
         requestOut = new PagePrinterRequest(endPageCommand);
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 8: Send EP command");
 
         System.out.println("Step 8b: Wait for Ackknowledge Reply");
         requestIn = this.waitForServer();
 
         requestOut = new PagePrinterRequest(new SetHomeStateCommand());
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 8: Send SHS command");
 
 
@@ -301,12 +313,12 @@ public final class IpdsClient {
         //     ^        ^        ^        ^         ^
         //     |        |        |        |         |
         //     |        |        |        |         +-- 0005 = length, D6E4 = IPDS command code, 80 = Flag (ACK requested)
-        //     |        |        |        +-- Length of the following IPDS command. Guess more than one can be sent at once
-        //     |        |        +-- Count of IPDS Commands? Or some flags?
+        //     |        |        |        +-- Length of the following IPDS command. Maybe more than one can be sent at once?!?
+        //     |        |        +-- Some kind of flags?
         //     |        +-- Maybe an "operation code", 0x0E is "IPDS data"?
         //     +-- Complete length (incl. itself)
         requestOut = new PagePrinterRequest(new SenseTypeAndModelCommand());
-        requestOut.writeTo(streamToPrinter);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Step 5: Send STM command");
 
         System.out.println("Step 6: Wait for Ackknowledge Reply");
@@ -394,7 +406,7 @@ public final class IpdsClient {
      *
      * @param printer the socket of the connection to the printer
      */
-    private void handleConnection(final Socket printer) throws IOException {
+    private void handleConnection(final Socket printer, final boolean isDebugMode) throws IOException {
 
         System.out.println("Handling connection to " + printer.getInetAddress());
 
@@ -404,7 +416,7 @@ public final class IpdsClient {
         final Thread t = new Thread() {
             @Override
             public void run() {
-                IpdsClient.this.readFromPrinter(streamFromPrinter);
+                IpdsClient.this.readFromPrinter(streamFromPrinter, isDebugMode);
             }
         };
 
@@ -412,11 +424,11 @@ public final class IpdsClient {
     }
 
 
-    private void readFromPrinter(final InputStream in) {
+    private void readFromPrinter(final InputStream in, final boolean isDebugMode) {
 
         try {
             PagePrinterRequest req;
-            while ((req = PagePrinterRequestReader.read(in)) != null) {
+            while ((req = PagePrinterRequestReader.read(in, isDebugMode)) != null) {
                 this.addToFiFo(req);
             }
         } catch (final IOException e) {
