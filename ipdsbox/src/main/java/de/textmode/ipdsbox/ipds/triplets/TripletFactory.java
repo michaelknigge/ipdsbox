@@ -38,6 +38,7 @@ public final class TripletFactory {
             return new UnknownTriplet(ipds, tripletId);
         }
 
+        // TODO: Check if we can make the triplet constructors package scoped!
         return switch (triplet) {
             case CMRTagFidelity -> new CmrTagFidelityTriplet(ipds);
             case CodedGraphicCharacterSetGlobalIdentifier -> new CodedGraphicCharacterSetGlobalIdentifierTriplet(ipds);

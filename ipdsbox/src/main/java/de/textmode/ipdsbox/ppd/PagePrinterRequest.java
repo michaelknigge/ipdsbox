@@ -66,7 +66,7 @@ public final class PagePrinterRequest {
         final byte[] ipdsCommandBytes = commandOnly.toByteArray();
 
         // Traces showed that the first four bytes contain 0x00000001 if the command is sent *TO* a
-        // printer and 0x00000000 if a ACK is sent *FROM* a printer.
+        // printer and 0x00000000 if a ACK reply is sent *FROM* a printer.
         if (ipdsCommand.getCommandCode().equals(IpdsCommandId.ACK)) {
             out.writeUnsignedInteger32(0x00000000);
         } else {

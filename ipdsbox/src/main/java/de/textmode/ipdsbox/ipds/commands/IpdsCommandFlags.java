@@ -160,4 +160,11 @@ public final class IpdsCommandFlags {
     public void setFlags(final byte flags) {
         this.flags = (byte) (flags & 0xFF);
     }
+
+    @Override
+    public String toString() {
+        return "IpdsCommandFlags{" +
+                "flags=" + Integer.toHexString(this.flags) +
+                '}';
+    }
 }

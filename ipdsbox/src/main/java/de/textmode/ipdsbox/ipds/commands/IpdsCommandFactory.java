@@ -1,9 +1,11 @@
 package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
+import java.util.List;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.acknowledge.AcknowledgeReply;
 import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
@@ -30,6 +32,64 @@ public final class IpdsCommandFactory {
     }
 
     /**
+     * Creates a {@link IpdsCommand} from the given List of {@link PagePrinterRequest}s. This method allows combining
+     * multiple "Acknowledge Reply" commands to be combined to one Acknowledge Reply. The caller is responsible to
+     * provide {@link PagePrinterRequest}s that "fit together" (i. e. that all {@link PagePrinterRequest}s have the
+     * same correlation ID (if present).
+     */
+    public static IpdsCommand create(final List<PagePrinterRequest> requests) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode,UnknownXohOrderCode {
+
+        final IpdsByteArrayOutputStream ipdsOutputStream = new IpdsByteArrayOutputStream();
+
+        for (final PagePrinterRequest request : requests) {
+            if (request.getRequest() != 0x0E) {
+                throw new IOException("Can not handle request type " + Integer.toHexString(request.getRequest()));
+            }
+
+            final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(request.getData(), 8);
+            ipds.skip(2); // Skip the 2 byte length field...
+
+            final IpdsCommandId commandId = IpdsCommandId.getForIfExists(ipds.readUnsignedInteger16());
+
+            if (commandId != IpdsCommandId.ACK) {
+                throw new InvalidIpdsCommandException("Only `Acknowledge Replies` may be combined");
+            }
+
+            // TODO test cases..
+            //   different commands (one no ACK)
+            //   with and without correlation IDs
+
+            if (ipdsOutputStream.getSize() == 0) {
+                ipdsOutputStream.writeUnsignedInteger16(0x0000); // Dummy length...
+                ipdsOutputStream.writeUnsignedInteger16(commandId.getValue());
+            } else {
+                // Read the Flag byte...
+                final IpdsCommandFlags flags = new IpdsCommandFlags((byte) ipds.readUnsignedByte());
+
+                // Skip the correlation ID if present...
+                if (flags.hasCorrelationID()) {
+                    ipds.skip(2);
+                }
+
+                AcknowledgeReply.skipCounters(ipds);
+            }
+
+            ipdsOutputStream.writeBytes(ipds.readRemainingBytes());
+        }
+
+        final byte[] ipdsData = ipdsOutputStream.toByteArray();
+        final int len = ipdsData.length;
+
+        ipdsData[0] = (byte) ((len >>> 8) & 0xFF);
+        ipdsData[1] = (byte) (len & 0xFF);
+
+        final IpdsCommand ipdsCommand = create(ipdsData);
+        ipdsCommand.getCommandFlags().isAcknowledgmentContinuationRequested(false);
+
+        return ipdsCommand;
+    }
+
+    /**
      * Creates a {@link IpdsCommand} from the given byte array.
      */
     public static IpdsCommand create(final byte[] data) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode,UnknownXohOrderCode {
@@ -45,21 +105,28 @@ public final class IpdsCommandFactory {
         // get rid of all the "UnknownFooExceptions"... create "RawFoo" objects instead so a implemented IPDS server (printer)
         // or IPDS client (spooler) don't abort due to a faulty IPDS command...
 
-        // TODO: if we create the concreete IpdsCommand objects *ONLY* with this factoty, we could:
-        //   make constructores package scoped
-        //   pass the lengthe
+        // TODO: if we create the concrete IpdsCommand objects *ONLY* with this factoty, we could:
+        //   make constructors package scoped
+        //   pass the length
         //   pass the commandID
         //   do not "rewind"
         //
         //   make things a little bit easier....
         //
          //   then do the same for all other objects we create with a factory (triplets, xoa, etc etc etc)
+
+        // implement like SelfDefiningFieldFactory ... implement the same "style"....
+        // i. e. use "modern switch"...
+
+
+
+
         ipds.skip(2); // Skip the 2 byte length field...
 
-        // TODO really "inExists"??
-        // TODO handle null...
         final IpdsCommandId commandId = IpdsCommandId.getForIfExists(ipds.readUnsignedInteger16());
-        ipds.rewind(4); // Rewind so the SelfDefiningField implementation reads the whole SelfDefiningField
+
+        // TODO handle commandId == null ...
+        ipds.rewind(4); // Rewind so the IpdsCommand implementation reads the whole IpdsCommand
 
         return switch (commandId) {
             case ACK -> new AcknowledgeReply(ipds);

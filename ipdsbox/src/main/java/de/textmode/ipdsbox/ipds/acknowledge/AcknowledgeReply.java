@@ -80,6 +80,21 @@ public final class AcknowledgeReply extends IpdsCommand {
         this.acknowledgeData = AcknowledgeDataFactory.create(this.acktype, ipds);
     }
 
+    /**
+     * Skips ("over-reads") the counters of the Acknowledge Reply command.
+     */
+    public static void skipCounters(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
+        final int acktype = ipds.readUnsignedByte();
+
+        if (acktype == 0xFF) {
+            return; // no counters
+        } else if (getCounterLen(acktype) == 4) {
+            ipds.skip(2 * 2); // two 16 bit counters
+        } else {
+            ipds.skip(9 * 2); // nine 16 bit counters
+        }
+    }
+
     @Override
     protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {
 

@@ -6,25 +6,28 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HexFormat;
 import java.util.LinkedList;
+import java.util.List;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.ipds.acknowledge.AcknowledgeReply;
+import de.textmode.ipdsbox.ipds.acknowledge.ObtainPrinterCharacteristicsAcknowledgeData;
 import de.textmode.ipdsbox.ipds.acknowledge.SenseDataAcknowledgeData;
 import de.textmode.ipdsbox.ipds.acknowledge.SenseTypeAndModelAcknowledgeData;
-import de.textmode.ipdsbox.ipds.commands.BeginPageCommand;
-import de.textmode.ipdsbox.ipds.commands.EndPageCommand;
 import de.textmode.ipdsbox.ipds.commands.ExecuteOrderHomeStateCommand;
 import de.textmode.ipdsbox.ipds.commands.IpdsCommandFactory;
+import de.textmode.ipdsbox.ipds.commands.IpdsCommandFlags;
+import de.textmode.ipdsbox.ipds.commands.LoadCopyControlCommand;
 import de.textmode.ipdsbox.ipds.commands.LogicalPageDescriptorCommand;
 import de.textmode.ipdsbox.ipds.commands.LogicalPagePositionCommand;
+import de.textmode.ipdsbox.ipds.commands.NoOperationCommand;
 import de.textmode.ipdsbox.ipds.commands.SenseTypeAndModelCommand;
 import de.textmode.ipdsbox.ipds.commands.SetHomeStateCommand;
-import de.textmode.ipdsbox.ipds.commands.WriteTextCommand;
 import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
-import de.textmode.ipdsbox.ipds.xohorders.SetMediaOriginOrder;
-import de.textmode.ipdsbox.ipds.xohorders.SetMediaSizeOrder;
+import de.textmode.ipdsbox.ipds.xohorders.ObtainPrinterCharacteristicsOrder;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 import de.textmode.ipdsbox.ppd.PagePrinterRequest;
 import de.textmode.ipdsbox.ppd.PagePrinterRequestReader;
@@ -116,7 +119,7 @@ public final class IpdsClient {
                 .argName("printer:port")
                 .build());
 
-        final boolean isDeugMode;
+        final boolean isDebugMode;
         final boolean obtainPrinterInfo;
         final String writeText;
         final int remotePortNumber;
@@ -130,7 +133,7 @@ public final class IpdsClient {
                 return showHelp(options);
             }
 
-            isDeugMode = line.hasOption(OPTION_DEBUG_SHORT);
+            isDebugMode = line.hasOption(OPTION_DEBUG_SHORT);
             obtainPrinterInfo = line.hasOption(OPTION_INFO_LONG);
 
             writeText = line.hasOption(OPTION_WRITE_LONG)
@@ -160,11 +163,11 @@ public final class IpdsClient {
         System.out.println("Conecting printer...");
         try (final Socket toPrinterSocket = new Socket(remotePrinterHost, remotePortNumber)) {
             System.out.println("Conection to printer established");
-            this.handleConnection(toPrinterSocket, isDeugMode);
+            this.handleConnection(toPrinterSocket, isDebugMode);
 
             // No matter what we want to do - we at least need to initiate a "good connection" with
             // the printer... This is done by STM (Sense Type and Model).
-            final AcknowledgeReply ackReply = this.obtainPrinterInfo(toPrinterSocket, isDeugMode);
+            final AcknowledgeReply ackReply = this.obtainPrinterInfo(toPrinterSocket, isDebugMode);
 
             if (obtainPrinterInfo) {
                 if (ackReply.getAcknowledgeType() == 0x01 || ackReply.getAcknowledgeType() == 0x41) {
@@ -179,7 +182,7 @@ public final class IpdsClient {
             }
 
             if (writeText != null) {
-                this.writeText(toPrinterSocket, writeText, isDeugMode);
+                this.writeText(toPrinterSocket, writeText, isDebugMode);
             }
 
             System.out.println("Done.");
@@ -240,7 +243,7 @@ public final class IpdsClient {
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send STM command");
 
-        System.out.println("Wait for Ackknowledge Reply");
+        System.out.println("Wait for Acknowledge Reply");
         requestIn = this.waitForServer();
 
         AcknowledgeReply ackReply = (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
@@ -258,7 +261,7 @@ public final class IpdsClient {
             requestOut.writeTo(streamToPrinter, isDebugMode);
             System.out.println("Send STM command (again after NACK)");
 
-            System.out.println(" Wait for Ackknowledge Reply (again after NACK)");
+            System.out.println(" Wait for Acknowledge Reply (again after NACK)");
             requestIn = this.waitForServer();
 
             ackReply = (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
@@ -272,15 +275,105 @@ public final class IpdsClient {
     }
 
     /**
-     * Print text on a page.
+     * Obtain printer characteristics using the XOH-OPC command.
      */
-    private void writeText(final Socket printer, final String text, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
+    private AcknowledgeReply obtainPrinterCharacteristics(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode, UnknownXohOrderCode {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
         PagePrinterRequest requestOut = new PagePrinterRequest(new SetHomeStateCommand());
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send SHS command");
+
+        final ExecuteOrderHomeStateCommand xoh = new ExecuteOrderHomeStateCommand(new ObtainPrinterCharacteristicsOrder());
+        xoh.getCommandFlags().isAcknowledgmentRequired(true);
+        xoh.getCommandFlags().isLongAcknowledgeReplyAccepted(true);
+        requestOut = new PagePrinterRequest(xoh);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
+        System.out.println("Send XOH command (Obtain Printer Characteristic)");
+
+        System.out.println("Wait for Acknowledge Reply");
+        final PagePrinterRequest requestIn = this.waitForServer();
+
+        return (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
+    }
+
+    /**
+     * Print text on a page.
+     */
+    private void writeText(final Socket printer, final String text, final boolean isDebugMode)
+            throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode, UnknownXoaOrderCode {
+
+        final OutputStream streamToPrinter = printer.getOutputStream();
+
+        AcknowledgeReply ackReply = this.obtainPrinterCharacteristics(printer, isDebugMode);
+
+        if (ackReply.getAcknowledgeType() != 0x06 && ackReply.getAcknowledgeType() != 0x46) {
+            System.out.println(String.format(
+                    "Expected acknowledge type 0x06 or 0x46 but received acknowledge type %02X",
+                    ackReply.getAcknowledgeType()));
+
+            return;
+        }
+
+        final ObtainPrinterCharacteristicsAcknowledgeData printerCharacteristics =
+                (ObtainPrinterCharacteristicsAcknowledgeData) ackReply.getAcknowledgeData();
+
+        if (isDebugMode) {
+            this.printObtainPrinterCharacteristicsAcknowledgeData(printerCharacteristics);
+            System.out.println(" ");
+        }
+
+        PagePrinterRequest requestOut = new PagePrinterRequest(new SetHomeStateCommand());
+        requestOut.writeTo(streamToPrinter, isDebugMode);
+        System.out.println("Send SHS command");
+
+        // Logical Page Descriptor (LPD)
+        final LogicalPageDescriptorCommand logicalPageDescriptorCommand = new LogicalPageDescriptorCommand();
+        // TODO: set parameters with values from printerCharacteristics... Needed?
+        requestOut = new PagePrinterRequest(logicalPageDescriptorCommand);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
+        System.out.println("Send LPD command");
+
+        // Logical Page Position (LPP)
+        requestOut = new PagePrinterRequest(new LogicalPagePositionCommand());
+        requestOut.writeTo(streamToPrinter, isDebugMode);
+        System.out.println("Send LPP command");
+
+        // Load Copy Control (LCC)
+        final LoadCopyControlCommand.CopySubgroup copySubgroup = new LoadCopyControlCommand.CopySubgroup();
+        // TODO... Is setting the media source required?
+        final LoadCopyControlCommand loadCopyControlCommand = new LoadCopyControlCommand();
+        loadCopyControlCommand.getCopySubgroups().add(copySubgroup);
+
+        requestOut = new PagePrinterRequest(new LoadCopyControlCommand());
+        requestOut.writeTo(streamToPrinter, isDebugMode);
+        System.out.println("Send LCC command");
+
+        // Load Font Equivalence (LFE) with ARQ
+        // --> Wait for ACK
+
+        final NoOperationCommand nop = new NoOperationCommand();
+        nop.getCommandFlags().isAcknowledgmentRequired(true);
+        nop.getCommandFlags().isLongAcknowledgeReplyAccepted(true);
+        requestOut = new PagePrinterRequest(nop);
+        requestOut.writeTo(streamToPrinter, isDebugMode);
+        System.out.println("Send NOP+ARQ");
+
+        System.out.println("Wait for Acknowledge Reply");
+        final PagePrinterRequest requestIn = this.waitForServer();
+
+        ackReply = (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
+        System.out.println("Received acknowledge type " + Integer.toHexString(ackReply.getAcknowledgeType()));
+
+        // Begin Page (BP)
+        // Write Text (WT) Send
+        // End Page (EP) with ARQ
+
+
+
+
+        /*
 
         requestOut = new PagePrinterRequest(new ExecuteOrderHomeStateCommand(new SetMediaOriginOrder()));
         requestOut.writeTo(streamToPrinter, isDebugMode);
@@ -293,7 +386,7 @@ public final class IpdsClient {
         requestOut = new PagePrinterRequest(new LogicalPageDescriptorCommand());
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send LPD command");
-
+*/
         /*********************
         final LoadCopyControlCommand.Keyword kw = new LoadCopyControlCommand.Keyword(0xE1, 0x01);
 
@@ -304,6 +397,7 @@ public final class IpdsClient {
         System.out.println("Step 8: Send LCC command");
          */
 
+        /*
         requestOut = new PagePrinterRequest(new LogicalPagePositionCommand());
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send LPP command");
@@ -326,12 +420,13 @@ public final class IpdsClient {
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send EP command");
 
-        System.out.println("Wait for Ackknowledge Reply");
+        System.out.println("Wait for Acknowledge Reply");
         final PagePrinterRequest requestIn = this.waitForServer();
 
         requestOut = new PagePrinterRequest(new SetHomeStateCommand());
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send SHS command");
+        */
     }
 
     /**
@@ -397,31 +492,67 @@ public final class IpdsClient {
         System.out.println("Handling connection to " + printer.getInetAddress());
 
         final InputStream streamFromPrinter = printer.getInputStream();
+        final OutputStream streamToPrinter = printer.getOutputStream();
 
         // This thread will read data from the printer and pass it to the print server...
         final Thread t = new Thread() {
             @Override
             public void run() {
-                IpdsClient.this.readFromPrinter(streamFromPrinter, isDebugMode);
+                IpdsClient.this.readFromPrinter(streamFromPrinter, streamToPrinter, isDebugMode);
             }
         };
 
         t.start();
     }
 
-
     /**
      * Reads the next {@link PagePrinterRequest} from the printer. This should be only Acknowledge replies.
      */
-    private void readFromPrinter(final InputStream in, final boolean isDebugMode) {
+    private void readFromPrinter(final InputStream in, final OutputStream out, final boolean isDebugMode) {
 
         try {
             PagePrinterRequest req;
+            final List<PagePrinterRequest> requests = new ArrayList<PagePrinterRequest>();
+
+            // We could implement a "low level" PagePrinterRequestReader (like the current implementation)
+            // and a "high level" PagePrinterRequestReader, that automatically handles the PPD/PPR low-level
+            // requests/stuff automatically (i. e. send 0x0D on exception X'1000..00' automatically) and that
+            // collects/concats ack-replies if the "AcknowledgmentContinuationRequested"....
             while ((req = PagePrinterRequestReader.read(in, isDebugMode)) != null) {
-                this.addToFiFo(req);
+                if (req.getRequest() != 0x0E) {
+                    this.addToFiFo(req);
+                } else {
+                    final IpdsByteArrayInputStream is = new IpdsByteArrayInputStream(req.getData());
+                    is.skip(8);
+                    is.skip(4);
+                    final IpdsCommandFlags flags = new IpdsCommandFlags((byte) is.readUnsignedByte());
+
+                    if (!flags.isAcknowledgmentContinuationRequested()) {
+                        if (requests.size() == 0) {
+                            this.addToFiFo(req);
+                        } else {
+                            requests.add(req);
+                            this.addToFiFo(new PagePrinterRequest(IpdsCommandFactory.create(requests)));
+                        }
+                        requests.clear();
+                    } else {
+                        // buffer the printer request...
+                        requests.add(req);
+
+                        final NoOperationCommand nop = new NoOperationCommand();
+                        nop.getCommandFlags().isAcknowledgmentRequired(true);
+                        nop.getCommandFlags().isLongAcknowledgeReplyAccepted(true);
+                        nop.getCommandFlags().isAcknowledgmentContinuationRequested(true);
+                        final PagePrinterRequest requestOut = new PagePrinterRequest(nop);
+                        requestOut.writeTo(out, isDebugMode);
+                        System.out.println("Send NOP+ARQ (for ACK-Continue)");
+                    }
+                }
             }
         } catch (final IOException e) {
             System.err.println(e.getMessage());
+        } catch (final InvalidIpdsCommandException | UnknownXoaOrderCode | UnknownXohOrderCode e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -435,18 +566,11 @@ public final class IpdsClient {
     }
 
     /**
-     * Gets the topmost {@link PagePrinterRequest} from the internal FIFO-Queue.
-     */
-    synchronized PagePrinterRequest popFromFiFo() {
-        synchronized (this.fifo) {
-            return this.fifo.isEmpty() ? null : this.fifo.removeFirst();
-        }
-    }
-
-    /**
      * Waits until the server has sent a {@link PagePrinterRequest}.
      */
-    synchronized PagePrinterRequest waitForServer() {
+    synchronized PagePrinterRequest waitForServer()
+            throws UnknownXoaOrderCode, InvalidIpdsCommandException, IOException, UnknownXohOrderCode {
+
         while (true) {
             synchronized (this.fifo) {
                 if (!this.fifo.isEmpty()) {
@@ -494,6 +618,15 @@ public final class IpdsClient {
 
             System.out.println(" ");
         }
+    }
+
+    private void printObtainPrinterCharacteristicsAcknowledgeData(final ObtainPrinterCharacteristicsAcknowledgeData data) {
+        System.out.println(" ");
+        System.out.println("Printer Characteristics from XOH-OPC command");
+        System.out.println("--------------------------------------------------------------------------------");
+
+        System.out.println(data.toString());
+
     }
 
     /**
@@ -610,7 +743,7 @@ public final class IpdsClient {
                 case 0x6003 -> "Media-destination-selection support in LCC";
                 case 0x6004 -> "Full-length LCC commands supported";
                 case 0x6005 -> "Full range of font local IDs supported in LFE and LPD commands";
-                case 0x6006 -> "Font-modification flags supported in LFE commands (byte 14, bits 3–7)";
+                case 0x6006 -> "Font-modification flags supported in LFE commands (byte 14, bits 3-7)";
                 case 0x6007 -> "Short LPD commands supported";
                 case 0x6008 -> "Full range of logical-page-offset values supported in LPP commands";
                 case 0x6009 -> "Empty LFE commands supported";
@@ -774,7 +907,7 @@ public final class IpdsClient {
             }
 
             if (propertyPair >= 0xA000 && propertyPair <= 0xA0FF) {
-                return "WIC2–IAP object area orientation support";
+                return "WIC2-IAP object area orientation support";
             }
 
             return switch(propertyPair) {
@@ -816,7 +949,7 @@ public final class IpdsClient {
             }
 
             if (propertyPair >= 0xA000 && propertyPair <= 0xA0FF) {
-                return "WGC–GAP object area orientation support";
+                return "WGC-GAP object area orientation support";
             }
 
             return switch(propertyPair) {
@@ -853,7 +986,7 @@ public final class IpdsClient {
             }
 
             if (propertyPair >= 0xA000 && propertyPair <= 0xA0FF) {
-                return "WBCC–BCAP object area orientation support";
+                return "WBCC-BCAP object area orientation support";
             }
 
             return switch(propertyPair) {

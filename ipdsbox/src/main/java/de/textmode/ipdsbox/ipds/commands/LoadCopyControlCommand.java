@@ -38,11 +38,11 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         }
     }
 
-    public class CopySubgroup {
+    public static class CopySubgroup {
         private final int copies;
         private final List<Keyword> keywords = new ArrayList<>();
 
-        CopySubgroup() {
+        public CopySubgroup() {
             this.copies = 1;
         }
 

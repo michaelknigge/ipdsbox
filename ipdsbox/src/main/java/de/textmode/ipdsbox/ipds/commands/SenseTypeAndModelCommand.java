@@ -22,6 +22,7 @@ public final class SenseTypeAndModelCommand extends IpdsCommand {
 
         // We should not send STM's without a ARQ (which will be a NOP)...
         this.getCommandFlags().isAcknowledgmentRequired(true);
+        this.getCommandFlags().isLongAcknowledgeReplyAccepted(true);
     }
 
     /**

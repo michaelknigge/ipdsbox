@@ -33,6 +33,13 @@ public final class IpdsByteArrayOutputStream {
     }
 
     /**
+     * Returns the current size (written bytes).
+     */
+    public int getSize() {
+        return this.baos.size();
+    }
+
+    /**
      * Returns the underlying byte array.
      */
     public byte[] toByteArray() {
