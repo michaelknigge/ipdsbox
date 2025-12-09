@@ -23,6 +23,7 @@ public final class SenseTypeAndModelAcknowledgeData implements AcknowledgeData {
          * Note that the length has alreay been consumed from the {@link IpdsByteArrayInputStream}.
          */
         CommandSetVector(final IpdsByteArrayInputStream ipds) throws IOException {
+
             this.subsetIdOrCommandSetId = ipds.readUnsignedInteger16();
             this.levelOrSubsetId = ipds.readUnsignedInteger16();
 

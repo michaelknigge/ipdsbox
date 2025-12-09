@@ -91,7 +91,7 @@ parse the acknowledge type and create a specific Java object for it).
 | X'03' and X'43' | Request Resident Resource List reply            | :x:                |
 | X'04' and X'44' | Request Resource List reply                     | :x:                |
 | X'05' and X'45' | Obtain Additional Exception Information reply   | :x:                |
-| X'06' and X'46' | Obtain Printer Characteristics reply            | :x:                |
+| X'06' and X'46' | Obtain Printer Characteristics reply            | :white_check_mark: |
 | X'07' and X'47' | Activate Setup Name reply                       | :x:                |
 | X'08' and X'48' | Request Setup Name List reply                   | :x:                |
 | X'80' and X'C0' | Sense bytes                                     | :white_check_mark: |

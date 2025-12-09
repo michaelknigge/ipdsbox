@@ -30,6 +30,9 @@ public final class AcknowledgeDataFactory {
             case 0x01 -> new SenseTypeAndModelAcknowledgeData(ipds);
             case 0x41 -> new SenseTypeAndModelAcknowledgeData(ipds);
 
+            case 0x06 -> new ObtainPrinterCharacteristicsAcknowledgeData(ipds);
+            case 0x46 -> new ObtainPrinterCharacteristicsAcknowledgeData(ipds);
+
             default -> new RawAcknowledgeData(ipds);
         };
     }

@@ -12,6 +12,13 @@ public final class ObtainPrinterCharacteristicsOrder extends XohOrder {
 
     /**
      * Constructs the {@link ObtainPrinterCharacteristicsOrder}.
+     */
+    public ObtainPrinterCharacteristicsOrder() throws UnknownXohOrderCode, IOException {
+        super(XohOrderCode.ObtainPrinterCharacteristics);
+    }
+
+    /**
+     * Constructs the {@link ObtainPrinterCharacteristicsOrder}.
      * @param ipds the raw IPDS data of the order.
      * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
      */
