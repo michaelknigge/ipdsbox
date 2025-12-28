@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
@@ -27,7 +26,7 @@ public final class ActivateResourceCommand extends IpdsCommand {
     /**
      * Constructs the {@link ActivateResourceCommand}.
      */
-    public ActivateResourceCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    ActivateResourceCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.AR);
 
         while (ipds.bytesAvailable() > 0) {
@@ -58,7 +57,7 @@ public final class ActivateResourceCommand extends IpdsCommand {
         private int resourceClassFlags;
         private byte[] resourceId;
 
-        ActivateResourceEntry(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+        ActivateResourceEntry(final IpdsByteArrayInputStream ipds) throws IOException {
             final int length = ipds.readUnsignedInteger16();
 
             this.resourceType = ipds.readUnsignedByte();

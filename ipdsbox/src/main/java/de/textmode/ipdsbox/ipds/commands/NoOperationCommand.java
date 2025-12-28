@@ -3,7 +3,6 @@ package de.textmode.ipdsbox.ipds.commands;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.ByteUtils;
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -30,10 +29,11 @@ public final class NoOperationCommand extends IpdsCommand {
 
         this.dataBytes = dataBytes;
     }
+
     /**
      * Constructs the {@link NoOperationCommand}.
      */
-    public NoOperationCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    NoOperationCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.NOP);
 
         this.dataBytes = ipds.readRemainingBytes();

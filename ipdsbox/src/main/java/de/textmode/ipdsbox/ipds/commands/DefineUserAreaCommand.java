@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -30,7 +29,7 @@ public final class DefineUserAreaCommand extends IpdsCommand {
         this.ymExtent = 0x7FFF;
     }
 
-    public DefineUserAreaCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
+    DefineUserAreaCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.DUA);
 
         this.reset = ipds.readUnsignedByte();

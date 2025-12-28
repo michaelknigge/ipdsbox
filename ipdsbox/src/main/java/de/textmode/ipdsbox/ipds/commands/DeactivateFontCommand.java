@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -27,7 +26,7 @@ public final class DeactivateFontCommand extends IpdsCommand {
     /**
      * Constructs the {@link DeactivateFontCommand}.
      */
-    public DeactivateFontCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    DeactivateFontCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.DF);
 
         this.deactivationType = ipds.readUnsignedByte();

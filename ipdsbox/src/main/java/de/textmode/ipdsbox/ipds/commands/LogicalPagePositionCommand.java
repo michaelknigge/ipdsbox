@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -23,7 +22,7 @@ public final class LogicalPagePositionCommand extends IpdsCommand {
         this.orientation = 0x00;
     }
 
-    public LogicalPagePositionCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
+    LogicalPagePositionCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.LPP);
 
         ipds.skip(1);

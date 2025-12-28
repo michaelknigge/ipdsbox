@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
@@ -40,7 +39,7 @@ public final class IncludeSavedPageCommand extends IpdsCommand {
     /**
      * Constructs the {@link IncludeSavedPageCommand}.
      */
-    public IncludeSavedPageCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    IncludeSavedPageCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.ISP);
 
         this.pageSequenceNumber = ipds.readUnsignedInteger32();

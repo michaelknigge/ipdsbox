@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -28,7 +27,7 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
     /**
      * Constructs the {@link LoadFontEquivalenceCommand}.
      */
-    public LoadFontEquivalenceCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    LoadFontEquivalenceCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.LFE);
 
         while (ipds.bytesAvailable() > 0) {

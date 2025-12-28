@@ -24,12 +24,8 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link ExecuteOrderHomeStateCommand}.
-     * @param ipds the raw IPDS data stream, not including the part of the PPD/PPR protocol.
-     * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
-     * @throws UnknownXohOrderCode if the given IPDS data describes an unknown {@link XohOrder}.
-     * @throws IOException if the given IPDS data is broken.
      */
-    public ExecuteOrderHomeStateCommand(final IpdsByteArrayInputStream ipds)
+    ExecuteOrderHomeStateCommand(final IpdsByteArrayInputStream ipds)
         throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException {
         super(ipds, IpdsCommandId.XOH);
 
@@ -39,8 +35,6 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
     /**
      * Returns the {@link XohOrder} that carries all parameters and
      * information of this {@link ExecuteOrderHomeStateCommand}.
-     *
-     * @return a concrete {@link XohOrder} object.
      */
     public XohOrder getOrder() {
         return this.order;

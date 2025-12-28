@@ -3,7 +3,6 @@ package de.textmode.ipdsbox.ipds.commands;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
-import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -13,53 +12,36 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public abstract class IpdsCommand {
 
-    private final IpdsCommandId commandCode;
+    private final int commandCode;
     private final IpdsCommandFlags commandFlags;
     private int correlationId;
 
-    protected IpdsCommand(final IpdsCommandId commandCode) {
-        this.commandCode = commandCode;
+    /**
+     * Constructor for building up new IPDS commands.
+     */
+    public IpdsCommand(final IpdsCommandId commandId) {
+        this.commandCode = commandId.getValue();
         this.commandFlags = new IpdsCommandFlags();
         this.correlationId = 0;
     }
 
     /**
-     * Constructor.
-     * @param ipds the raw IPDS data stream, not including the part of the PPD/PPR protocol.
-     * @param expectedCommandId the expected command id in bytes 2+3 of the IDPS command.
-     * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
-     * @throws IpdsboxRuntimeException if the passed data is invalid for the concrete
-     * implementation of the {@link IpdsCommand}.
+     * Constructor for known IPDS commands. The Constructor assumes that the total lengths of the IPDS command
+     * as well as the IPDS command ID have already been read from the {@link IpdsByteArrayInputStream}.
      */
     protected IpdsCommand(
             final IpdsByteArrayInputStream ipds,
-            final IpdsCommandId expectedCommandId) throws InvalidIpdsCommandException, IOException {
+            final IpdsCommandId commandId) throws IOException {
 
-        final int availableLength = ipds.bytesAvailable();
-        final int commandLength = ipds.readUnsignedInteger16();
+        this(ipds, commandId.getValue());
+    }
 
-        if (availableLength != commandLength) {
-            throw new InvalidIpdsCommandException(String.format(
-                "The length of the IPDS command (%1$d) does not match the length specified in the length field (%2$d).",
-                availableLength,
-                commandLength));
-        }
-
-        final int commandCodeValue = ipds.readUnsignedInteger16();
-        this.commandCode = IpdsCommandId.getForIfExists(commandCodeValue);
-
-        if (this.commandCode == null) {
-            throw new InvalidIpdsCommandException(String.format(
-                "The IPDS command has the command id X'%1$s' which is unknown", Integer.toHexString(commandCodeValue)));
-        }
-
-        if (this.commandCode != expectedCommandId) {
-            throw new IpdsboxRuntimeException(String.format(
-                "An IpdsCommand with command id X'%1$s' was constructed but command id X'%2$s' was expected.",
-                Integer.toHexString(this.commandCode.getValue()),
-                Integer.toHexString(expectedCommandId.getValue())));
-        }
-
+    /**
+     * Constructor for unknown IPDS commands. The Constructor assumes that the total lengths of the IPDS command
+     * as well as the IPDS command ID have already been read from the {@link IpdsByteArrayInputStream}.
+     */
+    protected IpdsCommand(final IpdsByteArrayInputStream ipds, final int commandCode) throws IOException {
+        this.commandCode = commandCode;
         this.commandFlags = new IpdsCommandFlags((byte) ipds.readUnsignedByte());
 
         this.correlationId = this.commandFlags.hasCorrelationID()
@@ -88,7 +70,7 @@ public abstract class IpdsCommand {
         final int len = 5 + data.length + (this.commandFlags.hasCorrelationID() ? 2 : 0);
 
         ipds.writeUnsignedInteger16(len);
-        ipds.writeUnsignedInteger16(this.commandCode.getValue());
+        ipds.writeUnsignedInteger16(this.commandCode);
         ipds.writeUnsignedByte(this.commandFlags.getFlags());
 
         if (this.commandFlags.hasCorrelationID()) {
@@ -105,16 +87,21 @@ public abstract class IpdsCommand {
     protected abstract void writeDataTo(IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException;
 
     /**
-     * Determines the {@link IpdsCommandId} of the {@link IpdsCommand}.
-     * @return the {@link IpdsCommandId}.
+     * Returns the IPDS Command ID.
      */
-    public final IpdsCommandId getCommandCode() {
+    public final int getCommandCodeId() {
         return this.commandCode;
     }
 
     /**
+     * Returns the IPDS Command. Might return <code>null</code> if the IPDS command is unknown.
+     */
+    public final IpdsCommandId getCommandCode() {
+        return IpdsCommandId.getIfKnown(this.commandCode);
+    }
+
+    /**
      * Determines the {@link IpdsCommandFlags} of the {@link IpdsCommand}.
-     * @return the {@link IpdsCommandFlags}.
      */
     public final IpdsCommandFlags getCommandFlags() {
         return this.commandFlags;
@@ -122,7 +109,6 @@ public abstract class IpdsCommand {
 
     /**
      * Returns the correlation ID.
-     * @return the correlation ID.
      */
     public int getCorrelationId() {
         return this.correlationId;
@@ -137,9 +123,12 @@ public abstract class IpdsCommand {
 
     /**
      * Returns a string representation of the {@link IpdsCommand}.
-     * @return a string starting with the acronym of the IPDS Command followed by a description.
      */
     public final String getDescription() {
-        return this.commandCode.toString() + " - " + this.commandCode.getDescription();
+        final IpdsCommandId commandId = IpdsCommandId.getIfKnown(this.commandCode);
+
+        return commandId != null
+                ? commandId + " - " + commandId.getDescription()
+                : "??? - Unknown IPDS command with ID=" + this.commandCode;
     }
 }

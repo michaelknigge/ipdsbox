@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -33,7 +32,7 @@ public final class ManageIpdsDialogCommand extends IpdsCommand {
     /**
      * Constructs the {@link ManageIpdsDialogCommand}.
      */
-    public ManageIpdsDialogCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    ManageIpdsDialogCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.MID);
 
         this.type = ipds.readUnsignedByte();

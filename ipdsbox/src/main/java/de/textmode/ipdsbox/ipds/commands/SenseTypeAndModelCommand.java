@@ -27,10 +27,8 @@ public final class SenseTypeAndModelCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link SenseTypeAndModelCommand}.
-     * @param ipds the raw IPDS data stream, not including the part of the PPD/PPR protocol.
-     * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
      */
-    public SenseTypeAndModelCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    SenseTypeAndModelCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.STM);
     }
 

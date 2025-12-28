@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
@@ -30,7 +29,7 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
     /**
      * Constructs the {@link SetPresentationEnvironmentCommand}.
      */
-    public SetPresentationEnvironmentCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    SetPresentationEnvironmentCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.SPE);
 
         ipds.skip(2);

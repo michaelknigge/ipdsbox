@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
@@ -57,7 +56,7 @@ public final class LogicalPageDescriptorCommand extends IpdsCommand {
         this.color = 0xFFFF;
     }
 
-    public LogicalPageDescriptorCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
+    LogicalPageDescriptorCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.LPD);
 
         this.unitBase = ipds.readUnsignedByte();

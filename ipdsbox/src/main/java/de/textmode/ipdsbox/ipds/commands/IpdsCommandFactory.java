@@ -49,7 +49,7 @@ public final class IpdsCommandFactory {
             final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(request.getData(), 8);
             ipds.skip(2); // Skip the 2 byte length field...
 
-            final IpdsCommandId commandId = IpdsCommandId.getForIfExists(ipds.readUnsignedInteger16());
+            final IpdsCommandId commandId = IpdsCommandId.getIfKnown(ipds.readUnsignedInteger16());
 
             if (commandId != IpdsCommandId.ACK) {
                 throw new InvalidIpdsCommandException("Only `Acknowledge Replies` may be combined");
@@ -101,35 +101,26 @@ public final class IpdsCommandFactory {
      */
     public static IpdsCommand create(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException,UnknownXoaOrderCode, UnknownXohOrderCode {
 
-        // TODO:
-        // get rid of all the "UnknownFooExceptions"... create "RawFoo" objects instead so a implemented IPDS server (printer)
-        // or IPDS client (spooler) don't abort due to a faulty IPDS command...
+        // The implementation requires that the IpdsByteArrayInputStream contains exactly as many
+        // bytes as specified in the length field.
+        final int availableLength = ipds.bytesAvailable();
+        final int commandLength = ipds.readUnsignedInteger16();
 
-        // TODO: if we create the concrete IpdsCommand objects *ONLY* with this factoty, we could:
-        //   make constructors package scoped
-        //   pass the length
-        //   pass the commandID
-        //   do not "rewind"
-        //
-        //   make things a little bit easier....
-        //
-         //   then do the same for all other objects we create with a factory (triplets, xoa, etc etc etc)
-
-        // implement like SelfDefiningFieldFactory ... implement the same "style"....
-        // i. e. use "modern switch"...
-
-
-
-
-        ipds.skip(2); // Skip the 2 byte length field...
-
-        final IpdsCommandId commandId = IpdsCommandId.getForIfExists(ipds.readUnsignedInteger16());
-        if (commandId == null) {
-            return new InvalidIpdsCommandException(ipds, sdfId);
+        if (commandLength != availableLength) {
+            throw new InvalidIpdsCommandException(String.format(
+                "An IPDS command to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes.",
+                commandLength,
+                availableLength));
         }
 
-        // TODO handle commandId == null ...
-        ipds.rewind(4); // Rewind so the IpdsCommand implementation reads the whole IpdsCommand
+        final int commandIdValue = ipds.readUnsignedInteger16();
+        final IpdsCommandId commandId = IpdsCommandId.getIfKnown(commandIdValue);
+
+        if (commandId == null) {
+            return new UnknownIpdsCommand(ipds, commandIdValue);
+        }
+
+        // TODO: Implement "toString()" in all IpdsCommands...
 
         return switch (commandId) {
             case ACK -> new AcknowledgeReply(ipds);
@@ -188,7 +179,7 @@ public final class IpdsCommandFactory {
             case XOA -> new ExecuteOrderAnystateCommand(ipds);
             case XOH -> new ExecuteOrderHomeStateCommand(ipds);
 
-            default -> new RawIpdsCommand(ipds, commandId);
+            default -> new UnknownIpdsCommand(ipds, commandIdValue);
         };
     }
 }

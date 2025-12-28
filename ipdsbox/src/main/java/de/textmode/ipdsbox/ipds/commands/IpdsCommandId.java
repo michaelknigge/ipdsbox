@@ -305,7 +305,7 @@ public enum IpdsCommandId {
      * Gets the enum value for the given integer.
      * @return the enum value for the given integer or <code>null</code> if the IPDS command code is unknown.
      */
-    public static IpdsCommandId getForIfExists(final int value) {
+    public static IpdsCommandId getIfKnown(final int value) {
         return REVERSE_MAP.get(value);
     }
 

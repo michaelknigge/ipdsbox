@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -33,7 +32,7 @@ public final class BeginPageCommand extends IpdsCommand {
     /**
      * Constructs the {@link BeginPageCommand}.
      */
-    public BeginPageCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    BeginPageCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.BP);
 
         this.pageId = ipds.readUnsignedInteger32();

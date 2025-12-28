@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -16,7 +15,7 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         super(IpdsCommandId.LCC);
     }
 
-    public LoadCopyControlCommand(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
+    LoadCopyControlCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.LCC);
 
         while (ipds.bytesAvailable() > 0) {

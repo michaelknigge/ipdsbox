@@ -11,7 +11,6 @@ public final class InvalidIpdsCommandException extends Exception {
 
     /**
      * Constructs a new exception with the specified detail message.
-     * @param msg the detail message.
      */
     public InvalidIpdsCommandException(final String msg) {
         super(msg);

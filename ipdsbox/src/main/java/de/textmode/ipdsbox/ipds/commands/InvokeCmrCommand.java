@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -29,7 +28,7 @@ public final class InvokeCmrCommand extends IpdsCommand {
     /**
      * Constructs the {@link InvokeCmrCommand}.
      */
-    public InvokeCmrCommand(final IpdsByteArrayInputStream ipds) throws InvalidIpdsCommandException, IOException {
+    InvokeCmrCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.ICMR);
 
         this.invocationFlags = ipds.readUnsignedByte();

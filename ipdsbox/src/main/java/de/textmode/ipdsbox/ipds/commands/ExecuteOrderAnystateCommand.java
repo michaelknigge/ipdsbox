@@ -8,8 +8,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xoaorders.XoaOrder;
 import de.textmode.ipdsbox.ipds.xoaorders.XoaOrderFactory;
-import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
-import de.textmode.ipdsbox.ipds.xohorders.XohOrder;
 
 /**
  * The Execute Order Anystate (XOA) command identifies a set of orders that take effect immediately, regardless
@@ -26,13 +24,9 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
 
     /**
      * Constructs the {@link ExecuteOrderAnystateCommand}.
-     * @param ipds the raw IPDS data stream, not including the part of the PPD/PPR protocol.
-     * @throws InvalidIpdsCommandException if there is something wrong with the supplied IPDS data stream.
-     * @throws UnknownXohOrderCode if the given IPDS data describes an unknown {@link XohOrder}.
-     * @throws IOException if the given IPDS data is broken.
      */
-    public ExecuteOrderAnystateCommand(final IpdsByteArrayInputStream ipds)
-            throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException, UnknownXoaOrderCode {
+    ExecuteOrderAnystateCommand(final IpdsByteArrayInputStream ipds)
+            throws InvalidIpdsCommandException, IOException, UnknownXoaOrderCode {
         super(ipds, IpdsCommandId.XOA);
 
         this.order = XoaOrderFactory.create(ipds);
@@ -41,8 +35,6 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
     /**
      * Returns the {@link XoaOrder} that carries all parameters and
      * information of this {@link ExecuteOrderAnystateCommand}.
-     *
-     * @return a concrete {@link XoaOrder} object.
      */
     public XoaOrder getOrder() {
         return this.order;
