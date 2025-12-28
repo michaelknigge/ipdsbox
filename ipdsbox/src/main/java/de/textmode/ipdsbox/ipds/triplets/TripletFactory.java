@@ -24,7 +24,7 @@ public final class TripletFactory {
 
         // The implementation requires that the byte array is exactly as large
         // as specified in the length field.
-        final int length = ipds.readUnsignedInteger16();
+        final int length = ipds.readUnsignedByte();
         if (length != data.length) {
             throw new IOException(String.format(
                     "A triplet to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
@@ -32,7 +32,7 @@ public final class TripletFactory {
                     data.length));
         }
 
-        final int tripletId = ipds.readUnsignedInteger16();
+        final int tripletId = ipds.readUnsignedByte();
         final TripletId triplet = TripletId.getIfKnown(tripletId);
         if (triplet == null) {
             return new UnknownTriplet(ipds, tripletId);
