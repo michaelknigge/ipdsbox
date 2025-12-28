@@ -39,9 +39,6 @@ public final class PagePrinterRequest {
 
     /**
      * Constructs a {@link PagePrinterRequest}.
-     *
-     * @param request The integer value of the request.
-     * @param buffer The raw data of the whole request.
      */
     public PagePrinterRequest(final int request, final byte[] buffer) {
         this.request = request;
@@ -67,7 +64,7 @@ public final class PagePrinterRequest {
 
         // Traces showed that the first four bytes contain 0x00000001 if the command is sent *TO* a
         // printer and 0x00000000 if a ACK reply is sent *FROM* a printer.
-        if (ipdsCommand.getCommandCode().equals(IpdsCommandId.ACK)) {
+        if (ipdsCommand.getCommandCodeId() == IpdsCommandId.ACK.getValue()) {
             out.writeUnsignedInteger32(0x00000000);
         } else {
             out.writeUnsignedInteger32(0x00000001);
@@ -81,7 +78,6 @@ public final class PagePrinterRequest {
 
     /**
      * Returns the integer value of the request.
-     * @return Integer value of the request
      */
     public int getRequest() {
         return this.request;
@@ -89,7 +85,6 @@ public final class PagePrinterRequest {
 
     /**
      * Returns the data of the request (i. e. the IPDS data).
-     * @return Data of the request (i. e. the IPDS data)
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is intended that the buffer may be modified")
     public byte[] getData() {
@@ -98,17 +93,13 @@ public final class PagePrinterRequest {
 
     /**
      * Writes the {@link PagePrinterRequest} to the given {@link OutputStream}.
-     * @param out The {@link OutputStream} to write to.
-     * @throws IOException  if an I/O error occurs.
      */
     public void writeTo(final OutputStream out) throws IOException {
-        writeTo(out, false);
+        this.writeTo(out, false);
     }
 
     /**
      * Writes the {@link PagePrinterRequest} to the given {@link OutputStream}.
-     * @param out The {@link OutputStream} to write to.
-     * @throws IOException  if an I/O error occurs.
      */
     public void writeTo(final OutputStream out, final boolean isDebugMode) throws IOException {
         // The format (example from a STM command):
@@ -143,8 +134,6 @@ public final class PagePrinterRequest {
 
     /**
      * Converts the given integer value into a byte array.
-     * @param value The integer value to convert
-     * @return A four byte long byte array containing the integer value.
      */
     private static byte[] intToByteArray(final int value) {
         final byte[] result = new byte[4];
