@@ -22,7 +22,7 @@ public final class IpdsByteArrayOutputStream {
 
     // TODO: maybe we should implement static "createForXxxx" and "buildXxxx" Methods (like
     //    "createForTriplet" and "buildTriplet" that perform specific tasks (i. e. for
-    //    Triplets the craete-method sets length to 0, sets the given TripletID and the
+    //    Triplets the create-method sets length to 0, sets the given TripletID and the
     //    "build"-Method then calculates and sets the lengths in the first byte...
 
     /**

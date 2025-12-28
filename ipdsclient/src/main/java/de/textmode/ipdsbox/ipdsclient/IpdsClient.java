@@ -253,7 +253,7 @@ public final class IpdsClient {
             // Exception X'1000..00' (normal printer reset) is okay / expected...
             System.out.println("Received NACK with exception " + formatExceptionId(ackData.getExceptionId()));
 
-            // Don't know what theat means... Maybe a "continue session" command...
+            // Don't know what this means... Maybe a "continue session" command...
             requestOut = new PagePrinterRequest(0x0D);
             requestOut.writeTo(streamToPrinter, isDebugMode);
 
@@ -261,7 +261,7 @@ public final class IpdsClient {
             requestOut.writeTo(streamToPrinter, isDebugMode);
             System.out.println("Send STM command (again after NACK)");
 
-            System.out.println(" Wait for Acknowledge Reply (again after NACK)");
+            System.out.println("Wait for Acknowledge Reply (again after NACK)");
             requestIn = this.waitForServer();
 
             ackReply = (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
