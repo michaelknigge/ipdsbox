@@ -12,7 +12,7 @@ public final class IpdsCommandIdTest extends TestCase {
      */
     public void testAllCommandIds() {
         for (final IpdsCommandId code : IpdsCommandId.values()) {
-            final IpdsCommandId toCheck = IpdsCommandId.getForIfExists(code.getValue());
+            final IpdsCommandId toCheck = IpdsCommandId.getIfKnown(code.getValue());
 
             assertEquals(code, toCheck);
             assertEquals(code.getValue(), toCheck.getValue());
@@ -24,6 +24,6 @@ public final class IpdsCommandIdTest extends TestCase {
      * Checks if the reverse mapping of all {@link IpdsCommandId}s works.
      */
     public void testUnknownCommandId() {
-        assertNull(IpdsCommandId.getForIfExists(0xD611));
+        assertNull(IpdsCommandId.getIfKnown(0xD611));
     }
 }

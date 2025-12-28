@@ -3,7 +3,11 @@ package de.textmode.ipdsbox.ipds.triplets;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
-import de.textmode.ipdsbox.ipds.triplets.group.*;
+import de.textmode.ipdsbox.ipds.triplets.group.AdditionalInformationFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.CopySetNumberFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.GroupNameFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.MicrofilmSaveRestoreFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.PageCountFormat;
 import junit.framework.TestCase;
 
 /**
@@ -40,7 +44,7 @@ public final class GroupInformationTripletTest extends TestCase {
     public void testFormatX02() throws Exception {
         this.testFormatX02(0x00, "No copy set number provided");
         this.testFormatX02(0x1234, "Copy set number 4660");
-        this.testFormatX02(0xFFFF, "Copy set number is larger than 65,534");
+        this.testFormatX02(0xFFFF, "Copy set number is larger than 65534");
     }
 
     /**

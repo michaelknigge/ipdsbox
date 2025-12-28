@@ -1,9 +1,9 @@
 package de.textmode.ipdsbox.ipds.triplets;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HexFormat;
 
+import de.textmode.ipdsbox.core.StringUtils;
 import junit.framework.TestCase;
 
 /**
@@ -13,10 +13,6 @@ public final class TripletTest extends TestCase {
 
     /**
      * Builds a {@link Triplet} of the given type with the supplied content.
-     * @param id Id of the {@link Triplet} to be built.
-     * @param hex the content of the {@link Triplet} in hex.
-     * @return a build {@link Triplet}.
-     * @throws IOException if the content of the {@link Triplet} is invalid
      */
     public static Triplet buildTriplet(final TripletId id, final String hex) throws IOException {
         final int len = (hex.length() / 2) + 2;
@@ -27,10 +23,6 @@ public final class TripletTest extends TestCase {
 
     /**
      * Builds a {@link Triplet} of the given type with the supplied content.
-     * @param id Id of the {@link Triplet} to be built.
-     * @param raw the content of the {@link Triplet}.
-     * @return a build {@link Triplet}.
-     * @throws IOException if the content of the {@link Triplet} is invalid
      */
     public static Triplet buildTriplet(final TripletId id, final byte[] raw) throws IOException {
         final byte[] result = new byte[raw.length + 2];
@@ -49,10 +41,9 @@ public final class TripletTest extends TestCase {
 
         final GroupIdTriplet testTriplet = (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("0200"));
 
-        assertEquals(TripletId.GroupID, testTriplet.getTripletId());
-        assertEquals(0x00, testTriplet.getFormat());
+        assertEquals(TripletId.GroupID.getId(), testTriplet.getTripletId());
+        assertEquals(-1, testTriplet.getFormat());
         assertEquals(null, testTriplet.getGroupIdData());
-
     }
 
     /**
@@ -60,13 +51,12 @@ public final class TripletTest extends TestCase {
      */
     public void testWithSomeBytesOfData() throws Exception {
 
-        final GroupIdTriplet testTriplet = (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("060006007807"));
+        final GroupIdTriplet testTriplet = (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("060006313233"));
 
-        assertEquals(TripletId.GroupID, testTriplet.getTripletId());
-        assertEquals(0x00, testTriplet.getFormat());
+        assertEquals(TripletId.GroupID.getId(), testTriplet.getTripletId());
+        assertEquals(0x06, testTriplet.getFormat());
 
-        assertTrue(Arrays.equals(
-                HexFormat.of().parseHex("06007807"),
-                testTriplet.getGroupIdData().toByteArray()));
+        assertEquals("FILE NAME=123", testTriplet.getGroupIdData().toString());
+        assertEquals("313233", StringUtils.toHexString(testTriplet.getGroupIdData().toByteArray()));
     }
 }

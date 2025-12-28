@@ -9,7 +9,12 @@ import de.textmode.ipdsbox.ipds.triplets.CodedGraphicCharacterSetGlobalIdentifie
 import de.textmode.ipdsbox.ipds.triplets.GroupIdTriplet;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.UP3IFinishingOperationTriplet;
-import de.textmode.ipdsbox.ipds.xohorders.*;
+import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
+import de.textmode.ipdsbox.ipds.xohorders.DeactivateSavedPageGroupOrder;
+import de.textmode.ipdsbox.ipds.xohorders.DefineGroupBoundaryOrder;
+import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
+import de.textmode.ipdsbox.ipds.xohorders.XohOrder;
+import de.textmode.ipdsbox.ipds.xohorders.XohOrderCode;
 import junit.framework.TestCase;
 
 /**
@@ -18,7 +23,7 @@ import junit.framework.TestCase;
 public final class ExecuteOrderHomeStateCommandTest extends TestCase {
 
     private static XohOrder getOrder(final String hex)
-        throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException {
+            throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException, UnknownXoaOrderCode {
 
         final String withoutLen = "D68F00" + hex;
         final int len = (withoutLen.length() / 2) + 2;
@@ -27,7 +32,7 @@ public final class ExecuteOrderHomeStateCommandTest extends TestCase {
         final byte[] rawData = HexFormat.of().parseHex(withLen);
         final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(rawData);
 
-        return new ExecuteOrderHomeStateCommand(ipds).getOrder();
+        return ((ExecuteOrderHomeStateCommand) IpdsCommandFactory.create(ipds)).getOrder();
     }
 
     /**
@@ -41,7 +46,7 @@ public final class ExecuteOrderHomeStateCommandTest extends TestCase {
         assertEquals(1, order.getTriplets().size());
 
         final GroupIdTriplet triplet = (GroupIdTriplet) order.getTriplets().get(0);
-        assertEquals(0x00, triplet.getFormat());
+        assertEquals(-1, triplet.getFormat());
         assertEquals(null, triplet.getGroupIdData());
     }
 

@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HexFormat;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
-import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import junit.framework.TestCase;
 
@@ -24,9 +23,9 @@ public final class IpdsCommandTest extends TestCase {
      * Just test a valid IPDS command.
      */
     public void testValidIpdsCommand() throws Exception {
-        final IpdsCommand command = new SenseTypeAndModelCommand(streamFromHex("0005D6E480"));
+        final IpdsCommand command = IpdsCommandFactory.create(streamFromHex("0005D6E480"));
 
-        assertEquals("STM - Sense Type and Model", command.toString());
+        assertEquals("STM - Sense Type and Model", command.getDescription());
 
         //assertEquals(5, command.getCommandLength());
         assertEquals(IpdsCommandId.STM, command.getCommandCode());
@@ -42,20 +41,20 @@ public final class IpdsCommandTest extends TestCase {
      */
     public void testIpdsCommandWithInvalidLengthInLengthBytes() throws Exception {
         try {
-            new SenseTypeAndModelCommand(streamFromHex("0004D6E480"));
+            IpdsCommandFactory.create(streamFromHex("0004D6E480"));
             fail("Should fail because the length in the length field is too short.");
         } catch (final InvalidIpdsCommandException e) {
             assertEquals(
-                "The length of the IPDS command (5) does not match the length specified in the length field (4).",
+                "An IPDS command to be read seems to be 4 bytes long but the IPDS data stream ends after 5 bytes.",
                 e.getMessage());
         }
 
         try {
-            new SenseTypeAndModelCommand(streamFromHex("0006D6E480"));
+            IpdsCommandFactory.create(streamFromHex("0006D6E480"));
             fail("Should fail because the length in the length field is too big.");
         } catch (final InvalidIpdsCommandException e) {
             assertEquals(
-                "The length of the IPDS command (5) does not match the length specified in the length field (6).",
+                "An IPDS command to be read seems to be 6 bytes long but the IPDS data stream ends after 5 bytes.",
                 e.getMessage());
         }
     }
@@ -64,34 +63,17 @@ public final class IpdsCommandTest extends TestCase {
      * An IPDS command with an unknown IPDS command code.
      */
     public void testIpdsCommandWithUnknownIpdsCommandCode() throws Exception{
-        try {
-            new SenseTypeAndModelCommand(streamFromHex("0005D61180"));
-            fail("Should fail because the IPDS command code is unknown.");
-        } catch (final InvalidIpdsCommandException e) {
-            assertEquals("The IPDS command has the command id X'd611' which is unknown", e.getMessage());
-        }
-    }
-
-    /**
-     * Construction of a concrete {@link IpdsCommand} with an wrong (but valid!) IPDS command id.
-     */
-    public void testIpdsCommandWithInvalidIpdsCommandCode() throws Exception {
-        try {
-            // This (D6EE) is !NOT! the command id of the STM command!
-            new SenseTypeAndModelCommand(streamFromHex("0005D68F80"));
-        } catch (final IpdsboxRuntimeException e) {
-            assertEquals(
-                "An IpdsCommand with command id X'd68f' was constructed but command id X'd6e4' was expected.",
-                e.getMessage());
-        }
+        final UnknownIpdsCommand command = (UnknownIpdsCommand) IpdsCommandFactory.create(streamFromHex("0005D61180"));
+        assertEquals(null, command.getCommandCode());
+        assertEquals(0xD611, command.getCommandCodeId());
     }
 
     /**
      * Getting the data portion of an IPDS command that has no correlation id.
      */
     public void testGetDataWithoutCorrelationId() throws Exception {
-        final NoOperationCommand command = new NoOperationCommand(streamFromHex("0008D60300F1F2F3"));
-        assertEquals("NOP - No Operation", command.toString());
+        final NoOperationCommand command = (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("0008D60300F1F2F3"));
+        assertEquals("NOP - No Operation", command.getDescription());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
         assertFalse(command.getCommandFlags().hasCorrelationID());
@@ -102,8 +84,8 @@ public final class IpdsCommandTest extends TestCase {
      * Getting the data portion of an IPDS command that has a correlation id.
      */
     public void testNoOperationWithCorrelationId() throws Exception {
-        final NoOperationCommand command = new NoOperationCommand(streamFromHex("000AD603401234F1F2F3"));
-        assertEquals("NOP - No Operation", command.toString());
+        final NoOperationCommand command = (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("000AD603401234F1F2F3"));
+        assertEquals("NOP - No Operation", command.getDescription());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
         assertTrue(command.getCommandFlags().hasCorrelationID());
@@ -115,8 +97,8 @@ public final class IpdsCommandTest extends TestCase {
      * Getting the data portion of an IPDS command that has no correlation id when there is no data portion.
      */
     public void testGetDataWithoutCorrelationIdWhenThereIsNoData() throws Exception {
-        final NoOperationCommand command = new NoOperationCommand(streamFromHex("0005D60300"));
-        assertEquals("NOP - No Operation", command.toString());
+        final NoOperationCommand command = (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("0005D60300"));
+        assertEquals("NOP - No Operation", command.getDescription());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
         assertFalse(command.getCommandFlags().hasCorrelationID());
@@ -127,8 +109,8 @@ public final class IpdsCommandTest extends TestCase {
      * Getting the data portion of an IPDS command that has a correlation id when there is no data portion.
      */
     public void testGetDataWithCorrelationIdWhenThereIsNoData() throws Exception {
-        final NoOperationCommand command = new NoOperationCommand(streamFromHex("0007D603401234"));
-        assertEquals("NOP - No Operation", command.toString());
+        final NoOperationCommand command = (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("0007D603401234"));
+        assertEquals("NOP - No Operation", command.getDescription());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
         assertTrue(command.getCommandFlags().hasCorrelationID());
