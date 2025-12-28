@@ -18,14 +18,9 @@ public final class DeactivateSavedPageGroupOrder extends XohOrder {
     private final List<Triplet> triplets = new ArrayList<>();
 
     /**
-     * Constructs the {@link DeactivateSavedPageGroupOrder}.
-     * @param ipds the raw IPDS data of the order.
-     * @throws UnknownTripletException if the the IPDS data contains an unknown {@link Triplet}.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
-     * @throws IOException if the IPDS data is broken.
-     * @throws InvalidIpdsCommandException if the IPDS data is invalid.
+     * Constructs the {@link DeactivateSavedPageGroupOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public DeactivateSavedPageGroupOrder(final IpdsByteArrayInputStream ipds)
+    DeactivateSavedPageGroupOrder(final IpdsByteArrayInputStream ipds)
         throws IOException,UnknownXohOrderCode, InvalidIpdsCommandException {
         super(ipds, XohOrderCode.DeactivateSavedPageGroup);
 
@@ -46,7 +41,6 @@ public final class DeactivateSavedPageGroupOrder extends XohOrder {
 
     /**
      * Returns a {@link List} of all {@link Triplet}s contained in the {@link DeactivateSavedPageGroupOrder}.
-     * @return {@link List} of all {@link Triplet}s contained in the {@link DeactivateSavedPageGroupOrder}.
      */
     public List<Triplet> getTriplets() {
         return this.triplets;
@@ -54,7 +48,6 @@ public final class DeactivateSavedPageGroupOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

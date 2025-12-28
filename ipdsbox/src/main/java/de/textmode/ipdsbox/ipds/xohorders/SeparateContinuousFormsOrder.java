@@ -11,11 +11,9 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class SeparateContinuousFormsOrder extends XohOrder {
 
     /**
-     * Constructs the {@link SeparateContinuousFormsOrder}.
-     * @param ipds the raw IPDS data of the order.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link SeparateContinuousFormsOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public SeparateContinuousFormsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+    SeparateContinuousFormsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
         super(ipds, XohOrderCode.SeparateContinuousForms);
     }
 
@@ -26,7 +24,6 @@ public final class SeparateContinuousFormsOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

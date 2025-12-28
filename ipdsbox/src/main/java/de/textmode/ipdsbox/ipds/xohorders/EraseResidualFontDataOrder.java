@@ -11,13 +11,9 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class EraseResidualFontDataOrder extends XohOrder {
 
     /**
-     * Constructs the {@link EraseResidualFontDataOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link EraseResidualFontDataOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public EraseResidualFontDataOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+    EraseResidualFontDataOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
         super(ipds, XohOrderCode.EraseResidualFontData);
     }
 
@@ -28,7 +24,6 @@ public final class EraseResidualFontDataOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

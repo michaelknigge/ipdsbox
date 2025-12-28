@@ -11,13 +11,9 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class EjectToFrontFacingOrder extends XohOrder {
 
     /**
-     * Constructs the {@link EjectToFrontFacingOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link EjectToFrontFacingOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public EjectToFrontFacingOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+    EjectToFrontFacingOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
         super(ipds, XohOrderCode.EjectToFrontFacing);
     }
 
@@ -28,7 +24,6 @@ public final class EjectToFrontFacingOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

@@ -28,11 +28,9 @@ public final class SetMediaSizeOrder extends XohOrder {
     }
 
     /**
-     * Constructs the {@link SetMediaSizeOrder}.
-     * @param ipds the raw IPDS data of the order.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link SetMediaSizeOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public SetMediaSizeOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+    SetMediaSizeOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
         super(ipds, XohOrderCode.SetMediaSize);
 
         this.unitBase = ipds.readUnsignedByte();
@@ -108,7 +106,6 @@ public final class SetMediaSizeOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

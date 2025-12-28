@@ -21,12 +21,6 @@ public abstract class XohOrder {
 
     /**
      * Constructs the {@link XohOrder} object from IPDS data read with an {@link IpdsByteArrayInputStream}.
-     *
-     * @param ipds the raw IPDS data of the {@link XohOrder}.
-     * @param code the expected {@link XohOrderCode}.
-     *
-     * @throws IOException if the the IPDS data is invalid / truncated.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown XOH order code.
      */
     public XohOrder(final IpdsByteArrayInputStream ipds, final XohOrderCode code) throws UnknownXohOrderCode, IOException {
         if (ipds.readUnsignedInteger16() != code.getValue()) {
@@ -38,7 +32,6 @@ public abstract class XohOrder {
 
     /**
      * Returns the {@link XohOrderCode} of this {@link XohOrder}.
-     * @return the {@link XohOrderCode} of this {@link XohOrder}.
      */
     public final XohOrderCode getOrderCode() {
         return this.orderCode;
@@ -51,7 +44,6 @@ public abstract class XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     public abstract void accept(final XohOrderVisitor visitor);
 }

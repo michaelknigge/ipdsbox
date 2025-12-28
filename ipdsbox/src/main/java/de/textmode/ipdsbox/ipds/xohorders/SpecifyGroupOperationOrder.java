@@ -14,11 +14,9 @@ public final class SpecifyGroupOperationOrder extends XohOrder {
     private int groupLevel;
 
     /**
-     * Constructs the {@link SpecifyGroupOperationOrder}.
-     * @param ipds the raw IPDS data of the order.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link SpecifyGroupOperationOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public SpecifyGroupOperationOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+    SpecifyGroupOperationOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
         super(ipds, XohOrderCode.SpecifyGroupOperation);
 
         this.operation = ipds.readUnsignedByte();
@@ -49,7 +47,6 @@ public final class SpecifyGroupOperationOrder extends XohOrder {
 
     /**
      * Returns the group level.
-     * @return the group level.
      */
     public int getGroupLevel() {
         return this.groupLevel;
@@ -64,7 +61,6 @@ public final class SpecifyGroupOperationOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

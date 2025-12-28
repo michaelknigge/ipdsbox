@@ -13,11 +13,9 @@ public final class PageCountersControlOrder extends XohOrder {
     private int counterUpdate;
 
     /**
-     * Constructs the {@link PageCountersControlOrder}.
-     * @param ipds the raw IPDS data of the order.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link PageCountersControlOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public PageCountersControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+    PageCountersControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
         super(ipds, XohOrderCode.PageCountersControl);
 
         this.counterUpdate = ipds.readUnsignedByte();
@@ -31,7 +29,6 @@ public final class PageCountersControlOrder extends XohOrder {
 
     /**
      * Returns the counter update.
-     * @return the counter update.
      */
     public int getCounterUpdate() {
         return this.counterUpdate;
@@ -46,7 +43,6 @@ public final class PageCountersControlOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

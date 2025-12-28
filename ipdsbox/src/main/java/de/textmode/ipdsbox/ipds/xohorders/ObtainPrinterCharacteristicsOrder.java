@@ -18,11 +18,9 @@ public final class ObtainPrinterCharacteristicsOrder extends XohOrder {
     }
 
     /**
-     * Constructs the {@link ObtainPrinterCharacteristicsOrder}.
-     * @param ipds the raw IPDS data of the order.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link ObtainPrinterCharacteristicsOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public ObtainPrinterCharacteristicsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+    ObtainPrinterCharacteristicsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
         super(ipds, XohOrderCode.ObtainPrinterCharacteristics);
     }
 
@@ -33,7 +31,6 @@ public final class ObtainPrinterCharacteristicsOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

@@ -17,11 +17,9 @@ public final class SelectMediumModificationsOrder extends XohOrder {
     private final List<MediumModification> modifications = new ArrayList<>();
 
     /**
-     * Constructs the {@link SelectMediumModificationsOrder}.
-     * @param ipds the raw IPDS data of the order.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link SelectMediumModificationsOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public SelectMediumModificationsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
+    SelectMediumModificationsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
         super(ipds, XohOrderCode.SelectMediumModifications);
 
         ipds.skip(8);
@@ -45,7 +43,6 @@ public final class SelectMediumModificationsOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {
@@ -73,7 +70,6 @@ public final class SelectMediumModificationsOrder extends XohOrder {
 
         /**
          * Returns the type.
-         * @return the type.
          */
         public int getType() {
             return this.type;
@@ -88,7 +84,6 @@ public final class SelectMediumModificationsOrder extends XohOrder {
 
         /**
          * Returns the modification ID.
-         * @return the modification ID.
          */
         public int getModificationId() {
             return this.modificationId;
@@ -103,7 +98,6 @@ public final class SelectMediumModificationsOrder extends XohOrder {
 
         /**
          * Returns the modification parameters.
-         * @return the modification parameters.
          */
         public byte[] getModificationParameters() {
             return this.modificationParameters;

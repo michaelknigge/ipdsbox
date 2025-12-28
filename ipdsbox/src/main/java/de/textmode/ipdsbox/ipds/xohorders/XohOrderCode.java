@@ -136,7 +136,6 @@ public enum XohOrderCode {
 
     /**
      * Gets the enum value for the given integer.
-     * @return the enum value for the given integer.
      */
     public static XohOrderCode getFor(final int value) throws UnknownXohOrderCode {
         final XohOrderCode result = REVERSE_MAP.get(value);
@@ -149,7 +148,6 @@ public enum XohOrderCode {
 
     /**
      * Gets the integer value of the XOH Order Code.
-     * @return the integer value of the order code.
      */
     public int getValue() {
         return this.code;
@@ -157,7 +155,6 @@ public enum XohOrderCode {
 
     /**
      * Gets a textual description of the XOH Order Code.
-     * @return A textual description of the XOH Order Code (i. e. "XOH Set Media Size").
      */
     public String getDescription() {
         return this.description;

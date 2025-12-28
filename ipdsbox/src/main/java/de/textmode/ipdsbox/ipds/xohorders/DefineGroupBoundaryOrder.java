@@ -30,16 +30,9 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
     }
 
     /**
-     * Constructs the {@link DefineGroupBoundaryOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownTripletException if the the IPDS data contains an unknown {@link Triplet}.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
-     * @throws IOException if the IPDS data is broken.
-     * @throws InvalidIpdsCommandException if the order contains invalid data.
+     * Constructs the {@link DefineGroupBoundaryOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public DefineGroupBoundaryOrder(final IpdsByteArrayInputStream ipds)
+    DefineGroupBoundaryOrder(final IpdsByteArrayInputStream ipds)
         throws UnknownXohOrderCode, IOException,InvalidIpdsCommandException {
 
         super(ipds, XohOrderCode.DefineGroupBoundary);
@@ -66,7 +59,6 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
 
     /**
      * Returns the order type.
-     * @return the order type.
      */
     public int getOrderType() {
         return this.orderType;
@@ -81,7 +73,6 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
 
     /**
      * Returns the group level.
-     * @return the group level.
      */
     public int getGroupLevel() {
         return this.groupLevel;
@@ -96,7 +87,6 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
 
     /**
      * Returns a {@link List} of all {@link Triplet}s contained in the {@link DefineGroupBoundaryOrder}.
-     * @return {@link List} of all {@link Triplet}s contained in the {@link DefineGroupBoundaryOrder}.
      */
     public List<Triplet> getTriplets() {
         return this.triplets;
@@ -104,7 +94,6 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {

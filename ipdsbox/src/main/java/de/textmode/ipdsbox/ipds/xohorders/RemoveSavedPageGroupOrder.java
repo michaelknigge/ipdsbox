@@ -18,11 +18,9 @@ public final class RemoveSavedPageGroupOrder extends XohOrder {
     private final List<Triplet> triplets = new ArrayList<>();
 
     /**
-     * Constructs the {@link RemoveSavedPageGroupOrder}.
-     * @param ipds the raw IPDS data of the order.
-     * @throws UnknownXohOrderCode if the the IPDS data contains an unknown {@link XohOrderCode}.
+     * Constructs the {@link RemoveSavedPageGroupOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public RemoveSavedPageGroupOrder(final IpdsByteArrayInputStream ipds)
+    RemoveSavedPageGroupOrder(final IpdsByteArrayInputStream ipds)
             throws UnknownXohOrderCode, IOException, InvalidIpdsCommandException {
 
         super(ipds, XohOrderCode.RemoveSavedGroup);
@@ -44,7 +42,6 @@ public final class RemoveSavedPageGroupOrder extends XohOrder {
 
     /**
      * Returns a {@link List} of all {@link Triplet}s contained in the {@link RemoveSavedPageGroupOrder}.
-     * @return {@link List} of all {@link Triplet}s contained in the {@link RemoveSavedPageGroupOrder}.
      */
     public List<Triplet> getTriplets() {
         return this.triplets;
@@ -52,7 +49,6 @@ public final class RemoveSavedPageGroupOrder extends XohOrder {
 
     /**
      * Accept method for the {@link XohOrderVisitor}.
-     * @param visitor the {@link XohOrderVisitor}.
      */
     @Override
     public void accept(final XohOrderVisitor visitor) {
