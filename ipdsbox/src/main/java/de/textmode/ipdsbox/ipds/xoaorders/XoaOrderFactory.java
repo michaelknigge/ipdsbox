@@ -22,7 +22,7 @@ public final class XoaOrderFactory {
     public static XoaOrder create(final IpdsByteArrayInputStream ipds)
         throws UnknownXoaOrderCode, IOException,InvalidIpdsCommandException {
 
-        // TODO do not throw an exception.... create a "RawXoaOrder" instead
+        // TODO do not throw an exception.... create a "UnknownXoaOrder" instead
 
         // TODO
         //  1. do not rewind...
@@ -32,6 +32,7 @@ public final class XoaOrderFactory {
         // i. e. use "modern switch"...
 
 
+        // getIfKnown !!!
         final XoaOrderCode code = XoaOrderCode.getFor(ipds.readUnsignedInteger16());
         ipds.rewind(2); // Go back so the Order-Implementations will read the complete order...
 
@@ -48,6 +49,7 @@ public final class XoaOrderFactory {
             case RequestResourceList -> new RequestResourceListOrder(ipds);
             case RequestSetupNameList -> new RequestSetupNameListOrder(ipds);
 
+            // TODO do not throw an exception.... create a "UnknownXoaOrder" instead
             default -> throw new UnknownXoaOrderCode("No case for XoaOrderCode " + code);
         };
     }

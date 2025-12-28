@@ -23,7 +23,8 @@ public final class XohOrderFactory {
     public static XohOrder create(final IpdsByteArrayInputStream ipds)
         throws UnknownXohOrderCode, IOException,InvalidIpdsCommandException {
 
-        // TODO do not throw an exception.... create a "RawXohOrder" instead
+        // TODO do not throw an exception.... create a "UnknownXohOrder" instead
+        // getIfKnown !!!
         final XohOrderCode code = XohOrderCode.getFor(ipds.readUnsignedInteger16());
         ipds.rewind(2); // Go back so the Order-Implementations will read the complete order...
 
@@ -34,43 +35,27 @@ public final class XohOrderFactory {
         // i. e. use "modern switch"...
 
 
-        switch (code) {
-        case DeactivateSavedPageGroup:
-            return new DeactivateSavedPageGroupOrder(ipds);
-        case DefineGroupBoundary:
-            return new DefineGroupBoundaryOrder(ipds);
-        case EjectToFrontFacing:
-            return new EjectToFrontFacingOrder(ipds);
-        case EraseResidualFontData:
-            return new EraseResidualFontDataOrder(ipds);
-        case EraseResidualPrintData:
-            return new EraseResidualPrintDataOrder(ipds);
-        case ObtainPrinterCharacteristics:
-            return new ObtainPrinterCharacteristicsOrder(ipds);
-        case PageCountersControl:
-            return new PageCountersControlOrder(ipds);
-        case PrintBufferedData:
-            return new PrintBufferedDataOrder(ipds);
-        case RemoveSavedGroup:
-            return new RemoveSavedPageGroupOrder(ipds);
-        case SelectInputMediaSource:
-            return new SelectInputMediaSourceOrder(ipds);
-        case SelectMediumModifications:
-            return new SelectMediumModificationsOrder(ipds);
-        case SeparateContinuousForms:
-            return new SeparateContinuousFormsOrder(ipds);
-        case SetMediaOrigin:
-            return new SetMediaOriginOrder(ipds);
-        case SetMediaSize:
-            return new SetMediaSizeOrder(ipds);
-        case SpecifyGroupOperation:
-            return new SpecifyGroupOperationOrder(ipds);
-        case StackReceivedPages:
-            return new StackReceivedPagesOrder(ipds);
-        case Trace:
-            return new TraceOrder(ipds);
-        default:
-            throw new IpdsboxRuntimeException("No case for XohOrderCode " + code.toString());
-        }
+        return switch (code) {
+            case DeactivateSavedPageGroup -> new DeactivateSavedPageGroupOrder(ipds);
+            case DefineGroupBoundary -> new DefineGroupBoundaryOrder(ipds);
+            case EjectToFrontFacing -> new EjectToFrontFacingOrder(ipds);
+            case EraseResidualFontData -> new EraseResidualFontDataOrder(ipds);
+            case EraseResidualPrintData -> new EraseResidualPrintDataOrder(ipds);
+            case ObtainPrinterCharacteristics -> new ObtainPrinterCharacteristicsOrder(ipds);
+            case PageCountersControl -> new PageCountersControlOrder(ipds);
+            case PrintBufferedData -> new PrintBufferedDataOrder(ipds);
+            case RemoveSavedGroup -> new RemoveSavedPageGroupOrder(ipds);
+            case SelectInputMediaSource -> new SelectInputMediaSourceOrder(ipds);
+            case SelectMediumModifications -> new SelectMediumModificationsOrder(ipds);
+            case SeparateContinuousForms -> new SeparateContinuousFormsOrder(ipds);
+            case SetMediaOrigin -> new SetMediaOriginOrder(ipds);
+            case SetMediaSize -> new SetMediaSizeOrder(ipds);
+            case SpecifyGroupOperation -> new SpecifyGroupOperationOrder(ipds);
+            case StackReceivedPages -> new StackReceivedPagesOrder(ipds);
+            case Trace -> new TraceOrder(ipds);
+
+            // TODO do not throw an exception.... create a "UnknownXohOrder" instead
+            default -> throw new IpdsboxRuntimeException("No case for XohOrderCode " + code.toString());
+        };
     }
 }
