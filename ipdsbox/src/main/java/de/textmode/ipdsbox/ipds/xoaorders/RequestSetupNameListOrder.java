@@ -21,13 +21,9 @@ public final class RequestSetupNameListOrder extends XoaOrder {
     private final List<Triplet> triplets = new ArrayList<Triplet>();
 
     /**
-     * Constructs the {@link RequestSetupNameListOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXoaOrderCode if the the IPDS data contains an unknown {@link XoaOrderCode}.
+     * Constructs the {@link RequestSetupNameListOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public RequestSetupNameListOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException, InvalidIpdsCommandException {
+    RequestSetupNameListOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException, InvalidIpdsCommandException {
         super(ipds, XoaOrderCode.RequestSetupNameList);
 
         this.queryType = ipds.readUnsignedByte();
@@ -91,7 +87,6 @@ public final class RequestSetupNameListOrder extends XoaOrder {
 
     /**
      * Accept method for the {@link XoaOrderVisitor}.
-     * @param visitor the {@link XoaOrderVisitor}.
      */
     @Override
     public void accept(final XoaOrderVisitor visitor) {

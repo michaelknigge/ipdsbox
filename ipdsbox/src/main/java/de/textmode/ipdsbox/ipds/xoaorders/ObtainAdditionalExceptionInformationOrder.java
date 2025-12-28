@@ -11,13 +11,9 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class ObtainAdditionalExceptionInformationOrder extends XoaOrder {
 
     /**
-     * Constructs the {@link ObtainAdditionalExceptionInformationOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXoaOrderCode if the the IPDS data contains an unknown {@link XoaOrderCode}.
+     * Constructs the {@link ObtainAdditionalExceptionInformationOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public ObtainAdditionalExceptionInformationOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
+    ObtainAdditionalExceptionInformationOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
         super(ipds, XoaOrderCode.ObtainAdditionalExceptionInformation);
     }
 
@@ -28,7 +24,6 @@ public final class ObtainAdditionalExceptionInformationOrder extends XoaOrder {
 
     /**
      * Accept method for the {@link XoaOrderVisitor}.
-     * @param visitor the {@link XoaOrderVisitor}.
      */
     @Override
     public void accept(final XoaOrderVisitor visitor) {

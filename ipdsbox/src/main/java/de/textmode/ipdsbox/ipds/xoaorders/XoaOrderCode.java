@@ -118,7 +118,6 @@ public enum XoaOrderCode {
 
     /**
      * Gets the enum value for the given integer.
-     * @return the enum value for the given integer.
      */
     public static XoaOrderCode getFor(final int value) throws UnknownXoaOrderCode {
         final XoaOrderCode result = REVERSE_MAP.get(value);
@@ -131,7 +130,6 @@ public enum XoaOrderCode {
 
     /**
      * Gets the integer value of the XOA Order Code.
-     * @return the integer value of the order code.
      */
     public int getValue() {
         return this.code;
@@ -139,7 +137,6 @@ public enum XoaOrderCode {
 
     /**
      * Gets a textual description of the XOA Order Code.
-     * @return A textual description of the XOA Order Code (i. e. "XOA Set Media Size").
      */
     public String getDescription() {
         return this.description;

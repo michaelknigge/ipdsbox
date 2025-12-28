@@ -11,13 +11,9 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class AlternateOffsetStackerOrder extends XoaOrder {
 
     /**
-     * Constructs the {@link AlternateOffsetStackerOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXoaOrderCode if the the IPDS data contains an unknown {@link XoaOrderCode}.
+     * Constructs the {@link AlternateOffsetStackerOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public AlternateOffsetStackerOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
+    AlternateOffsetStackerOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
         super(ipds, XoaOrderCode.AlternateOffsetStacker);
     }
 
@@ -28,7 +24,6 @@ public final class AlternateOffsetStackerOrder extends XoaOrder {
 
     /**
      * Accept method for the {@link XoaOrderVisitor}.
-     * @param visitor the {@link XoaOrderVisitor}.
      */
     @Override
     public void accept(final XoaOrderVisitor visitor) {

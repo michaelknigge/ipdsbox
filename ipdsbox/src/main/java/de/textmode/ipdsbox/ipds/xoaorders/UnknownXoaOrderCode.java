@@ -9,7 +9,6 @@ public final class UnknownXoaOrderCode extends Exception {
 
     /**
      * Constructs a new exception with the specified detail message.
-     * @param msg the detail message.
      */
     public UnknownXoaOrderCode(final String msg) {
         super(msg);

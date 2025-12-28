@@ -13,13 +13,9 @@ public final class ControlEdgeMarksOrder extends XoaOrder {
     private int edgeMark;
 
     /**
-     * Constructs the {@link ControlEdgeMarksOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXoaOrderCode if the the IPDS data contains an unknown {@link XoaOrderCode}.
+     * Constructs the {@link ControlEdgeMarksOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public ControlEdgeMarksOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
+    ControlEdgeMarksOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
         super(ipds, XoaOrderCode.ControlEdgeMarks);
 
         this.edgeMark = ipds.readUnsignedByte();
@@ -47,7 +43,6 @@ public final class ControlEdgeMarksOrder extends XoaOrder {
 
     /**
      * Accept method for the {@link XoaOrderVisitor}.
-     * @param visitor the {@link XoaOrderVisitor}.
      */
     @Override
     public void accept(final XoaOrderVisitor visitor) {

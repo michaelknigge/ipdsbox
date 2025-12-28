@@ -33,7 +33,6 @@ public final class ExtendedCopySetNumberFormat extends GroupInformationData {
 
     /**
      * Returns <code>true</code> if a copy set number is provided/available.
-     * @return <code>true</code> if a copy set number is provided/available.
      */
     public boolean isCopySetNumberProvided() {
         return this.copySetNumber != 0;
@@ -41,7 +40,6 @@ public final class ExtendedCopySetNumberFormat extends GroupInformationData {
 
     /**
      * Returns <code>true</code> if the total number of copies is provided/available.
-     * @return <code>true</code> if the total number of copies is provided/available.
      */
     public boolean isTotalNumberOfCopiesProvided() {
         return this.totalCopies != 0;
@@ -49,7 +47,6 @@ public final class ExtendedCopySetNumberFormat extends GroupInformationData {
 
     /**
      * Returns <code>true</code> if the copy set number is larger than 4,294,967,294.
-     * @return <code>true</code> if the copy set number is larger than 4,294,967,294.
      */
     public boolean isHighCopySetNumber() {
         return this.copySetNumber == 0xFFFFFFFF;
@@ -57,7 +54,6 @@ public final class ExtendedCopySetNumberFormat extends GroupInformationData {
 
     /**
      * Returns <code>true</code> if the total number of copies is larger than 4,294,967,294.
-     * @return <code>true</code> if the total number of copies is larger than 4,294,967,294.
      */
     public boolean isHighNumberOfCopies() {
         return this.totalCopies == 0xFFFFFFFF;

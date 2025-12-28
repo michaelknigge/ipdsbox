@@ -15,13 +15,9 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
     private int exceptionPresentationProcessingFlagsFlags;
 
     /**
-     * Constructs the {@link ExceptionHandlingControlOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXoaOrderCode if the the IPDS data contains an unknown {@link XoaOrderCode}.
+     * Constructs the {@link ExceptionHandlingControlOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public ExceptionHandlingControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
+    ExceptionHandlingControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
         super(ipds, XoaOrderCode.ExceptionHandlingControl);
 
         this.exceptionReportingFlags = ipds.readUnsignedByte();
@@ -81,7 +77,6 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
 
     /**
      * Accept method for the {@link XoaOrderVisitor}.
-     * @param visitor the {@link XoaOrderVisitor}.
      */
     @Override
     public void accept(final XoaOrderVisitor visitor) {

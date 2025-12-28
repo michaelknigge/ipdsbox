@@ -11,13 +11,9 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class ActivatePrinterAlarmOrder extends XoaOrder {
 
     /**
-     * Constructs the {@link ActivatePrinterAlarmOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXoaOrderCode if the the IPDS data contains an unknown {@link XoaOrderCode}.
+     * Constructs the {@link ActivatePrinterAlarmOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public ActivatePrinterAlarmOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
+    ActivatePrinterAlarmOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
         super(ipds, XoaOrderCode.ActivatePrinterAlarm);
     }
 
@@ -28,7 +24,6 @@ public final class ActivatePrinterAlarmOrder extends XoaOrder {
 
     /**
      * Accept method for the {@link XoaOrderVisitor}.
-     * @param visitor the {@link XoaOrderVisitor}.
      */
     @Override
     public void accept(final XoaOrderVisitor visitor) {

@@ -13,13 +13,9 @@ public final class PrintQualityControlOrder extends XoaOrder {
     private int qualityLevel;
 
     /**
-     * Constructs the {@link PrintQualityControlOrder}.
-     *
-     * @param ipds the raw IPDS data of the order.
-     *
-     * @throws UnknownXoaOrderCode if the the IPDS data contains an unknown {@link XoaOrderCode}.
+     * Constructs the {@link PrintQualityControlOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public PrintQualityControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
+    PrintQualityControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
         super(ipds, XoaOrderCode.PrintQualityControl);
 
         this.qualityLevel = ipds.readUnsignedByte();
@@ -47,7 +43,6 @@ public final class PrintQualityControlOrder extends XoaOrder {
 
     /**
      * Accept method for the {@link XoaOrderVisitor}.
-     * @param visitor the {@link XoaOrderVisitor}.
      */
     @Override
     public void accept(final XoaOrderVisitor visitor) {

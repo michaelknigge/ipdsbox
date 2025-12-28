@@ -28,7 +28,6 @@ public final class CopySetNumberFormat extends GroupInformationData {
 
     /**
      * Returns <code>true</code> if a copy set number is provided/available.
-     * @return <code>true</code> if a copy set number is provided/available.
      */
     public boolean isCopySetNumberProvided() {
         return this.copySetNumber != 0;
@@ -36,7 +35,6 @@ public final class CopySetNumberFormat extends GroupInformationData {
 
     /**
      * Returns <code>true</code> if the copy set number is larger than 65,534.
-     * @return <code>true</code> if the copy set number is larger than 65,534.
      */
     public boolean isHighCopySetNumber() {
         return this.copySetNumber == 0xFFFF;
@@ -49,7 +47,7 @@ public final class CopySetNumberFormat extends GroupInformationData {
         }
 
         if (this.isHighCopySetNumber()) {
-            return "Copy set number is larger than 65,534";
+            return "Copy set number is larger than 65534";
         }
 
         return "Copy set number " + this.copySetNumber;
