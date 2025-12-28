@@ -15,7 +15,7 @@ public final class RenderingIntentTriplet extends Triplet {
     /**
      * Constructs a {@link RenderingIntentTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public RenderingIntentTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    RenderingIntentTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.RenderingIntent);
 
         ipds.skip(2);

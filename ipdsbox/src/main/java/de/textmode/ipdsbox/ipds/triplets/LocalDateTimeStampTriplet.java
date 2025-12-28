@@ -16,7 +16,10 @@ public final class LocalDateTimeStampTriplet extends Triplet {
     private String second;
     private String hundredth;
 
-    public LocalDateTimeStampTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link LocalDateTimeStampTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    LocalDateTimeStampTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.LocalDateandTimeStamp);
 
         this.stampType = ipds.readUnsignedByte();

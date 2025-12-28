@@ -20,7 +20,7 @@ public final class LinkedFontTriplet extends Triplet {
     /**
      * Constructs a {@link LinkedFontTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public LinkedFontTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    LinkedFontTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.LinkedFont);
 
         this.hostAssignedId = ipds.readUnsignedInteger16();
@@ -69,7 +69,6 @@ public final class LinkedFontTriplet extends Triplet {
 
     /**
      * Returns the host assigned ID.
-     * @return the host assigned ID.
      */
     public int getHostAssignedId() {
         return this.hostAssignedId;
@@ -84,7 +83,6 @@ public final class LinkedFontTriplet extends Triplet {
 
     /**
      * Returns the font ID type.
-     * @return the font ID type.
      */
     public int getFontIdType() {
         return this.fontIdType;
@@ -99,7 +97,6 @@ public final class LinkedFontTriplet extends Triplet {
 
     /**
      * Returns the font index (if font ID type is 0x01).
-     * @return the font index.
      */
     public int getFontIndex() {
         return this.fontIndex;
@@ -114,7 +111,6 @@ public final class LinkedFontTriplet extends Triplet {
 
     /**
      * Returns the full font name (if font ID type is 0x02).
-     * @return the full font name.
      */
     public String getFullFontName() {
         return this.fullFontName;

@@ -9,7 +9,10 @@ public final class TonerSaverTriplet extends Triplet {
 
     private int control;
 
-    public TonerSaverTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link TonerSaverTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    TonerSaverTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.TonerSaver);
 
         ipds.skip(1);

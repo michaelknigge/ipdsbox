@@ -17,7 +17,7 @@ public final class SetupNameTriplet extends Triplet {
     /**
      * Constructs a {@link SetupNameTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public SetupNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    SetupNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.SetupName);
 
         ipds.skip(2);
@@ -37,7 +37,6 @@ public final class SetupNameTriplet extends Triplet {
 
     /**
      * Returns the setup name.
-     * @return the setup name.
      */
     public String getSetupName() {
         return this.setupName;

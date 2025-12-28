@@ -11,7 +11,10 @@ public final class ObjectOffsetTriplet extends Triplet {
     private long objectOffset;
 
 
-    public ObjectOffsetTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link ObjectOffsetTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    ObjectOffsetTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.ObjectOffset);
 
         this.objectType = ipds.readUnsignedByte();

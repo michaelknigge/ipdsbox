@@ -12,7 +12,7 @@ public final class DeviceAppearanceTriplet extends Triplet {
     /**
      * Constructs a {@link DeviceAppearanceTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public DeviceAppearanceTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    DeviceAppearanceTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.DeviceAppearance);
 
         ipds.skip(1);
@@ -36,7 +36,7 @@ public final class DeviceAppearanceTriplet extends Triplet {
     }
 
     /**
-     * Sets the host assigned ID.
+     * Sets the appearance.
      */
     public void setAppearance(final int appearance) {
         this.appearance = appearance;

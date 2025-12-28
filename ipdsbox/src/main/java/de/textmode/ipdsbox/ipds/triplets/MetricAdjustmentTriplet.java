@@ -15,7 +15,10 @@ public final class MetricAdjustmentTriplet extends Triplet {
     private int hBaselineAdjustment;
     private int vBaselineAdjustment;
 
-    public MetricAdjustmentTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link MetricAdjustmentTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    MetricAdjustmentTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.MetricAdjustment);
 
         this.unitBase = ipds.readUnsignedByte();

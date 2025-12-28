@@ -9,8 +9,10 @@ public final class PresentationSpaceResetMixingTriplet extends Triplet {
 
     private int mixingFlags;
 
-
-    public PresentationSpaceResetMixingTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link PresentationSpaceResetMixingTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    PresentationSpaceResetMixingTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.PresentationSpaceResetMixing);
 
         this.mixingFlags = ipds.readUnsignedByte();

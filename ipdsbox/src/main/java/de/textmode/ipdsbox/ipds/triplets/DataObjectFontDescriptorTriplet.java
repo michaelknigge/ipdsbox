@@ -15,7 +15,10 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
     private int encodingEnvironment;
     private int encodingID;
 
-    public DataObjectFontDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link DataObjectFontDescriptorTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    DataObjectFontDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.DataObjectFontDescriptor);
 
         this.fontFlags = ipds.readUnsignedByte();

@@ -9,7 +9,10 @@ public final class ColorManagementResourceDescriptorTriplet extends Triplet {
 
     private int mode;
 
-    public ColorManagementResourceDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link ColorManagementResourceDescriptorTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    ColorManagementResourceDescriptorTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.ColorManagementResourceDescriptor);
 
         ipds.skip(1);

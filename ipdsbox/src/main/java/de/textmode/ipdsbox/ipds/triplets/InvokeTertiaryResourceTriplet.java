@@ -15,7 +15,7 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
     /**
      * Constructs a {@link InvokeTertiaryResourceTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public InvokeTertiaryResourceTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    InvokeTertiaryResourceTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.InvokeTertiaryResource);
 
         this.tertiaryResourceType = ipds.readUnsignedByte();
@@ -42,8 +42,6 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
 
     /**
      * Returns the host assigned ID.
-     *
-     * @return the host assigned ID.
      */
     public int getHostAssignedId() {
         return this.hostAssignedId;
@@ -58,8 +56,6 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
 
     /**
      * Returns the tertiary resource type.
-     *
-     * @return the tertiary resource type.
      */
     public int getTertiaryResourceType() {
         return this.tertiaryResourceType;
@@ -74,8 +70,6 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
 
     /**
      * Returns the ID type.
-     *
-     * @return the ID Type.
      */
     public int getIdType() {
         return this.idType;
@@ -90,8 +84,6 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
 
     /**
      * Returns the internal resource ID.
-     *
-     * @return the internal resource ID.
      */
     public int getInternalResourceId() {
         return this.internalResourceId;

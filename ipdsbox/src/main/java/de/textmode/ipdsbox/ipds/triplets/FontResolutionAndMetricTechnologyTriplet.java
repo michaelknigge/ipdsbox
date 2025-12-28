@@ -16,7 +16,10 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
     private int xUnitsPerUnitBase;
     private int yUnitsPerUnitBase;
 
-    public FontResolutionAndMetricTechnologyTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link FontResolutionAndMetricTechnologyTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    FontResolutionAndMetricTechnologyTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.FontResolutionandMetricTechnology);
 
         this.metricTechnology = ipds.readUnsignedByte();
@@ -30,11 +33,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
         }
     }
 
-    /**
-     * Converts the triplet fields into a byte array in the correct structure.
-     *
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
         out.writeUnsignedByte(8);
@@ -47,8 +45,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Returns the Metric technology.
-     *
-     * @return the metric technology
      */
     public int getMetricTechnology() {
         return this.metricTechnology;
@@ -56,8 +52,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Sets the Metric technology.
-     *
-     * @param metricTechnology the metric technology
      */
     public void setMetricTechnology(final int metricTechnology) {
         this.metricTechnology = metricTechnology;
@@ -65,8 +59,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Returns the Unit base.
-     *
-     * @return the unit base
      */
     public int getUnitBase() {
         return this.unitBase;
@@ -74,8 +66,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Sets the Unit base.
-     *
-     * @param unitBase the unit base
      */
     public void setUnitBase(final int unitBase) {
         this.unitBase = unitBase;
@@ -83,8 +73,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Returns the X units per unit base.
-     *
-     * @return the X units per unit base
      */
     public int getXUnitsPerUnitBase() {
         return this.xUnitsPerUnitBase;
@@ -92,8 +80,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Sets the X units per unit base.
-     *
-     * @param xUnitsPerUnitBase the X units per unit base
      */
     public void setXUnitsPerUnitBase(final int xUnitsPerUnitBase) {
         this.xUnitsPerUnitBase = xUnitsPerUnitBase;
@@ -101,8 +87,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Returns the Y units per unit base.
-     *
-     * @return the Y units per unit base
      */
     public int getYUnitsPerUnitBase() {
         return this.yUnitsPerUnitBase;
@@ -110,8 +94,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Sets the Y units per unit base.
-     *
-     * @param yUnitsPerUnitBase the Y units per unit base
      */
     public void setYUnitsPerUnitBase(final int yUnitsPerUnitBase) {
         this.yUnitsPerUnitBase = yUnitsPerUnitBase;
@@ -119,8 +101,6 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     /**
      * Returns a string representation of the triplet, including all field values.
-     *
-     * @return a string with all field values
      */
     @Override
     public String toString() {

@@ -16,7 +16,10 @@ public final class ColorSpecificationTriplet extends Triplet {
     private int colSize4;
     private byte[] colorValue;
 
-    public ColorSpecificationTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link ColorSpecificationTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    ColorSpecificationTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.ColorSpecification);
 
         ipds.skip(1);

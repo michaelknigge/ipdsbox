@@ -4,7 +4,16 @@ import java.io.IOException;
 
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.triplets.group.*;
+import de.textmode.ipdsbox.ipds.triplets.group.AixAndOs2ComDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.AixAndWindowsPrintDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.ExtendedOs400PrintDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.GroupIdData;
+import de.textmode.ipdsbox.ipds.triplets.group.MvsAndVseComDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.MvsAndVsePrintDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.Os400PrintDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.UnknownGroupIdDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.VariableLengthGroupIdFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.VmPrintDataFormat;
 
 /**
  * The Group ID triplet (X'00') is used to keep things together as a print unit.
@@ -24,11 +33,10 @@ public final class GroupIdTriplet extends Triplet {
         this.data = null;
     }
 
-
     /**
      * Constructs a {@link GroupIdTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public GroupIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    GroupIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.GroupID);
 
         if (ipds.bytesAvailable() >= 1) {

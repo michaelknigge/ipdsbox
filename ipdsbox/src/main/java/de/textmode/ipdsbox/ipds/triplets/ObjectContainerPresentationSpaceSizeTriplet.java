@@ -15,7 +15,10 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
     private int xocExtent;
     private int yocExtent;
 
-    public ObjectContainerPresentationSpaceSizeTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link ObjectContainerPresentationSpaceSizeTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    ObjectContainerPresentationSpaceSizeTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.ObjectContainerPresentationSpaceSize);
 
         ipds.skip(2);

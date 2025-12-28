@@ -23,9 +23,9 @@ public final class ColorFidelityTriplet extends Triplet {
     }
 
     /**
-     * Creates a {@link ColorFidelityTriplet} from the given data.
+     * Constructs a {@link ColorFidelityTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public ColorFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    ColorFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.ColorFidelity);
 
         this.continuationRule = ipds.readUnsignedByte();
@@ -60,7 +60,6 @@ public final class ColorFidelityTriplet extends Triplet {
     public void setContinuationRule(final int continuationRule) {
         this.continuationRule = continuationRule;
     }
-
 
     /**
      * Returns the Reporting Rule.

@@ -20,6 +20,10 @@ public final class FinishingOperationTriplet extends Triplet {
     private final int axisOffset;
     private final List<Integer> positions;
 
+
+    /**
+     * Constructs a {@link FinishingOperationTriplet}.
+     */
     public FinishingOperationTriplet(final int operationType) {
         super(TripletId.FinishingOperation);
 
@@ -68,7 +72,6 @@ public final class FinishingOperationTriplet extends Triplet {
 
     /**
      * Returns the type of the finishing operation.
-     * @return the type of the finishing operation.
      */
     public int getOperationType() {
         return this.operationType;
@@ -76,7 +79,6 @@ public final class FinishingOperationTriplet extends Triplet {
 
     /**
      * Returns the finishing option.
-     * @return the finishing option.
      */
     public int getFinishingOption() {
         return this.finishingOption;
@@ -84,7 +86,6 @@ public final class FinishingOperationTriplet extends Triplet {
 
     /**
      * Returns the reference corner and edge.
-     * @return the reference corner and edge.
      */
     public int getReference() {
         return this.reference;
@@ -93,7 +94,6 @@ public final class FinishingOperationTriplet extends Triplet {
     /**
      * Returns the finishing operation count (note that for a corner-staple operation,
      * this field is ignored; a single staple is used).
-     * @return the finishing operation count.
      */
     public int getCount() {
         return this.count;
@@ -101,7 +101,6 @@ public final class FinishingOperationTriplet extends Triplet {
 
     /**
      * Returns the finishing operation axis offset.
-     * @return the finishing operation axis offset.
      */
     public int getAxisOffset() {
         return this.axisOffset;
@@ -109,7 +108,6 @@ public final class FinishingOperationTriplet extends Triplet {
 
     /**
      * Returns a list of finishing operation positions (the list may be empty).
-     * @return a list of finishing operation positions (the list may be empty).
      */
     public List<Integer> getPositions() {
         return this.positions;

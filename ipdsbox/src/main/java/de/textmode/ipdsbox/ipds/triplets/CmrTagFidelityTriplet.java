@@ -10,7 +10,10 @@ public final class CmrTagFidelityTriplet extends Triplet {
     private int continuationRule;
     private int reportingRule;
 
-    public CmrTagFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link CmrTagFidelityTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    CmrTagFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.CMRTagFidelity);
 
         this.continuationRule = ipds.readUnsignedByte();

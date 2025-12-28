@@ -18,7 +18,7 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
     /**
      * Constructs a {@link UP3IFinishingOperationTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public UP3IFinishingOperationTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    UP3IFinishingOperationTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.UP3IFinishingOperation);
 
         this.sequenceNumber = ipds.readUnsignedByte();

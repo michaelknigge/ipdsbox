@@ -4,7 +4,14 @@ import java.io.IOException;
 
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.triplets.group.*;
+import de.textmode.ipdsbox.ipds.triplets.group.AdditionalInformationFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.CopySetNumberFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.ExtendedCopySetNumberFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.GroupInformationData;
+import de.textmode.ipdsbox.ipds.triplets.group.GroupNameFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.MicrofilmSaveRestoreFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.PageCountFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.UnknownGroupInformationDataFormat;
 
 /**
  * The Group Information (X'6E') triplet is used to provide information about a group of pages.
@@ -17,7 +24,7 @@ public final class GroupInformationTriplet extends Triplet {
     /**
      * Constructs a {@link GroupInformationTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public GroupInformationTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    GroupInformationTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.GroupInformation);
 
         if (ipds.bytesAvailable() >= 1) {

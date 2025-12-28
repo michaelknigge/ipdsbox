@@ -10,7 +10,10 @@ public final class TextFidelityTriplet extends Triplet {
     private int continuationRule;
     private int reportingRule;
 
-    public TextFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link TextFidelityTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    TextFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.TextFidelity);
 
         this.continuationRule = ipds.readUnsignedByte();

@@ -12,7 +12,10 @@ public final class ImageResolutionTriplet extends Triplet {
     private int xupub;
     private int yupub;
 
-    public ImageResolutionTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link ImageResolutionTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    ImageResolutionTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.ImageResolution);
 
         ipds.skip(2);

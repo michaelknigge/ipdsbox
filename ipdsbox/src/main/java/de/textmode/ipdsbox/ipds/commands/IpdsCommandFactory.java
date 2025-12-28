@@ -124,6 +124,9 @@ public final class IpdsCommandFactory {
         ipds.skip(2); // Skip the 2 byte length field...
 
         final IpdsCommandId commandId = IpdsCommandId.getForIfExists(ipds.readUnsignedInteger16());
+        if (commandId == null) {
+            return new InvalidIpdsCommandException(ipds, sdfId);
+        }
 
         // TODO handle commandId == null ...
         ipds.rewind(4); // Rewind so the IpdsCommand implementation reads the whole IpdsCommand

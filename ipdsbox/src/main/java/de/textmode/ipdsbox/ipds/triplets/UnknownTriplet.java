@@ -16,7 +16,7 @@ public final class UnknownTriplet extends Triplet {
     /**
      * Constructs a {@link UnknownTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public UnknownTriplet(final IpdsByteArrayInputStream ipds, final int tripletId) throws IOException {
+    UnknownTriplet(final IpdsByteArrayInputStream ipds, final int tripletId) throws IOException {
         super(tripletId);
         this.rawData = ipds.readRemainingBytes();
     }

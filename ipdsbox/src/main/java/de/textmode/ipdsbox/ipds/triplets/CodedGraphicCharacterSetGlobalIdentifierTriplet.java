@@ -16,6 +16,9 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     private final int codedCharacterSetIdentifier;
 
 
+    /**
+     * Constructs a {@link CodedGraphicCharacterSetGlobalIdentifierTriplet}.
+     */
     public CodedGraphicCharacterSetGlobalIdentifierTriplet(
             final int graphicCharacterSetGlobalIdentifier,
             final int codePageGlobalIdentifier) {
@@ -28,6 +31,9 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
 
     }
 
+    /**
+     * Constructs a {@link CodedGraphicCharacterSetGlobalIdentifierTriplet}.
+     */
     public CodedGraphicCharacterSetGlobalIdentifierTriplet(final int codedCharacterSetIdentifier) throws IOException {
         super(TripletId.CodedGraphicCharacterSetGlobalIdentifier);
 
@@ -37,9 +43,10 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
     }
 
     /**
-     * Constructs a {@link CodedGraphicCharacterSetGlobalIdentifierTriplet}.
+     * Constructs a {@link CodedGraphicCharacterSetGlobalIdentifierTriplet} from
+     * the given {@link IpdsByteArrayInputStream}.
      */
-    public CodedGraphicCharacterSetGlobalIdentifierTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    CodedGraphicCharacterSetGlobalIdentifierTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.CodedGraphicCharacterSetGlobalIdentifier);
 
         this.graphicCharacterSetGlobalIdentifier = ipds.readUnsignedInteger16();
@@ -55,7 +62,6 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
 
     /**
      * Returns <code>true</code> if and only this {@link Triplet} is in CCSID form rather than GCSGID/CPGID form.
-     * @return <code>true</code> if and only this {@link Triplet} carries an CCSID.
      */
     public boolean hasCodedCharacterSetIdentifier() {
         return this.graphicCharacterSetGlobalIdentifier == 0;
@@ -63,8 +69,6 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
 
     /**
      * Returns the CCSID (Coded Character Set Identifier) that is specified in this {@link Triplet}.
-     * @return The CCSID. Note that the returned value is valid only if {@link #hasCodedCharacterSetIdentifier()}
-     * returns <code>true</code>.
      */
     public int getCodedCharacterSetIdentifier() {
         return this.codedCharacterSetIdentifier;
@@ -72,8 +76,6 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
 
     /**
      * Returns the CPGID (Code Page Global Identifier) that is specified in this {@link Triplet}.
-     * @return The CPGID. Note that the returned value is valid only if {@link #hasCodedCharacterSetIdentifier()}
-     * returns <code>false</code>.
      */
     public int getCodePageGlobalIdentifier() {
         return this.codePageGlobalIdentifier;
@@ -81,8 +83,6 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
 
     /**
      * Returns the GCSGID (Graphic Character Set Global Identifier) that is specified in this {@link Triplet}.
-     * @return The GCSGID. Note that the returned value is valid only if {@link #hasCodedCharacterSetIdentifier()}
-     * returns <code>false</code>.
      */
     public int getGraphicCharacterSetGlobalIdentifier() {
         return this.graphicCharacterSetGlobalIdentifier;

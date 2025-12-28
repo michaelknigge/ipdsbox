@@ -11,7 +11,11 @@ public final class FullyQualifiedNameTriplet extends Triplet {
     private int fqnFormat;
     private byte[] fqn;
 
-    public FullyQualifiedNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+
+    /**
+     * Constructs a {@link FullyQualifiedNameTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    FullyQualifiedNameTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.FullyQualifiedName);
 
         this.fqnType = ipds.readUnsignedByte();

@@ -10,7 +10,10 @@ public final class FinishingFidelityTriplet extends Triplet {
     private int continuationRule;
     private int reportingRule;
 
-    public FinishingFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link FinishingFidelityTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    FinishingFidelityTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.FinishingFidelity);
 
         this.continuationRule = ipds.readUnsignedByte();

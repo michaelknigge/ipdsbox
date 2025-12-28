@@ -12,7 +12,7 @@ public final class InvokeCmrTriplet extends Triplet {
     /**
      * Constructs a {@link InvokeCmrTriplet} from the given {@link IpdsByteArrayInputStream}.
      */
-    public InvokeCmrTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    InvokeCmrTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.LinkedFont);
         this.hostAssignedId = ipds.readUnsignedInteger16();
     }

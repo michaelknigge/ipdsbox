@@ -9,7 +9,10 @@ public final class EncodingSchemeIdTriplet extends Triplet {
 
     private int dataEsId;
 
-    public EncodingSchemeIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
+    /**
+     * Constructs a {@link EncodingSchemeIdTriplet} from the given {@link IpdsByteArrayInputStream}.
+     */
+    EncodingSchemeIdTriplet(final IpdsByteArrayInputStream ipds) throws IOException {
         super(TripletId.EncodingSchemeID);
 
         ipds.skip(2);
