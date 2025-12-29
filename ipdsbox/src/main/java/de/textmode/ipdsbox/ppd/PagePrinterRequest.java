@@ -144,4 +144,12 @@ public final class PagePrinterRequest {
 
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "PagePrinterRequest{"
+                + "requestCode=" + StringUtils.toHexString(intToByteArray(this.request))
+                + ", data=" + StringUtils.toHexString(this.getData())
+                + '}';
+    }
 }

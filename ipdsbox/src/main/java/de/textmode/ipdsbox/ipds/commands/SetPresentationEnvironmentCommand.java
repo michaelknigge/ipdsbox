@@ -20,14 +20,14 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
     private List<Triplet> triplets = new ArrayList<>();
 
     /**
-     * Constructs the {@link SetPresentationEnvironmentCommand}.
+     * Constructs a {@link SetPresentationEnvironmentCommand} with default values.
      */
     public SetPresentationEnvironmentCommand() {
         super(IpdsCommandId.SPE);
     }
 
     /**
-     * Constructs the {@link SetPresentationEnvironmentCommand}.
+     * Constructs the {@link SetPresentationEnvironmentCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     SetPresentationEnvironmentCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.SPE);

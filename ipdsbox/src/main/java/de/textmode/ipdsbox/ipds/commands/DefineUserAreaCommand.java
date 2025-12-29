@@ -15,7 +15,9 @@ public final class DefineUserAreaCommand extends IpdsCommand {
     private int xmExtent;
     private int ymExtent;
 
-
+    /**
+     * Constructs a {@link DefineUserAreaCommand} with default values.
+     */
     public DefineUserAreaCommand() {
 
         super(IpdsCommandId.DUA);
@@ -29,6 +31,9 @@ public final class DefineUserAreaCommand extends IpdsCommand {
         this.ymExtent = 0x7FFF;
     }
 
+    /**
+     * Constructs the {@link DefineUserAreaCommand} from the given {@link IpdsByteArrayInputStream}.
+     */
     DefineUserAreaCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.DUA);
 

@@ -18,14 +18,14 @@ public final class WriteTextCommand extends IpdsCommand {
     private byte[] ptocaData;
 
     /**
-     * Constructs the {@link WriteTextCommand}.
+     * Constructs the {@link WriteTextCommand} with no data.
      */
     public WriteTextCommand() {
         this(ByteUtils.EMPTY_BYTE_ARRAY);
     }
 
     /**
-     * Constructs the {@link WriteTextCommand}.
+     * Constructs the {@link WriteTextCommand} with the given PTOCA data.
      */
     public WriteTextCommand(final byte[] ptocaData) {
         super(IpdsCommandId.WT);
@@ -33,7 +33,7 @@ public final class WriteTextCommand extends IpdsCommand {
         this.ptocaData = ptocaData;
     }
     /**
-     * Constructs the {@link WriteTextCommand}.
+     * Constructs the {@link WriteTextCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     WriteTextCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.WT);

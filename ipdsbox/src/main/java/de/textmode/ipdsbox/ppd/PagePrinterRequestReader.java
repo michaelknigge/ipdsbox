@@ -9,8 +9,8 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 /**
  * Reads data from an {@link InputStream} and constructs {@link PagePrinterRequest}
  * objects from the read data.
- * <p>
- * The specification of the PPD/PPR protocol is available in the IBM manual
+ *
+ * <p>The specification of the PPD/PPR protocol is available in the IBM manual
  * <i>PSF-AFP TCP/IP Attachment Functional Specification</i>, but this manual
  * not publicly available. Everything which is coded here is based on packet
  * sniffing and some assumptions.

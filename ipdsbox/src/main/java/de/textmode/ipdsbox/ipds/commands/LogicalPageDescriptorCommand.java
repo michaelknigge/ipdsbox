@@ -30,7 +30,9 @@ public final class LogicalPageDescriptorCommand extends IpdsCommand {
 
     private final List<Triplet> triplets = new ArrayList<Triplet>();
 
-
+    /**
+     * Constructs a {@link LogicalPageDescriptorCommand} with default values.
+     */
     public LogicalPageDescriptorCommand() {
 
         super(IpdsCommandId.LPD);
@@ -56,6 +58,9 @@ public final class LogicalPageDescriptorCommand extends IpdsCommand {
         this.color = 0xFFFF;
     }
 
+    /**
+     * Constructs the {@link LogicalPageDescriptorCommand} from the given {@link IpdsByteArrayInputStream}.
+     */
     LogicalPageDescriptorCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.LPD);
 

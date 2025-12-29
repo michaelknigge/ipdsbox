@@ -83,7 +83,9 @@ public final class AcknowledgeReply extends IpdsCommand {
     /**
      * Skips ("over-reads") the counters of the Acknowledge Reply command.
      */
-    public static void skipCounters(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
+    public static void skipCounters(
+            final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
+
         final int acktype = ipds.readUnsignedByte();
 
         if (acktype == 0xFF) {
@@ -125,7 +127,7 @@ public final class AcknowledgeReply extends IpdsCommand {
     private static int getCounterLen(final int ackType) throws InvalidIpdsCommandException {
         if (ackType >= 0 && ackType <= 8) {
             return 4;
-        } if (ackType == 0x80) {
+        } else if (ackType == 0x80) {
             return 4;
         } else if (ackType == 0xFF) {
             return 0;

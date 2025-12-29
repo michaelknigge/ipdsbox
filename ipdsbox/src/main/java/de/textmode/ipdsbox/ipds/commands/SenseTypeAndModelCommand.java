@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -15,9 +14,9 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class SenseTypeAndModelCommand extends IpdsCommand {
 
     /**
-     * Constructs the {@link SenseTypeAndModelCommand}.
+     * Constructs a {@link SenseTypeAndModelCommand} with default values.
      */
-    public SenseTypeAndModelCommand() throws InvalidIpdsCommandException, IOException {
+    public SenseTypeAndModelCommand() {
         super(IpdsCommandId.STM);
 
         // We should not send STM's without a ARQ (which will be a NOP)...
@@ -26,7 +25,7 @@ public final class SenseTypeAndModelCommand extends IpdsCommand {
     }
 
     /**
-     * Constructs the {@link SenseTypeAndModelCommand}.
+     * Constructs the {@link SenseTypeAndModelCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     SenseTypeAndModelCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.STM);

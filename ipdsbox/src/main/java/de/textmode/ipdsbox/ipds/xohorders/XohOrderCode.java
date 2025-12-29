@@ -21,8 +21,8 @@ public enum XohOrderCode {
     /**
      * For cut-sheet media, this order causes the next received page to be printed as
      * the first page of the next sheet.
-     * <p>
-     * For continuous-forms media, this order causes the next received page to be printed
+     *
+     * <p>For continuous-forms media, this order causes the next received page to be printed
      * as the first page of the next front-facing sheet.
      */
     EjectToFrontFacing(0x1300, "XOH Eject to Front Facing"),

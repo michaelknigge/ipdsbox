@@ -15,7 +15,7 @@ public final class UnknownIpdsCommand extends IpdsCommand {
     private final byte[] rawData;
 
     /**
-     * Constructs the {@link UnknownIpdsCommand}.
+     * Constructs the {@link UnknownIpdsCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     UnknownIpdsCommand(
             final IpdsByteArrayInputStream ipds,

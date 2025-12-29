@@ -18,14 +18,14 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
     private final List<FontEquivalenceEntry> entries = new ArrayList<FontEquivalenceEntry>();
 
     /**
-     * Constructs the {@link LoadFontEquivalenceCommand}.
+     * Constructs the {@link LoadFontEquivalenceCommand} with default values.
      */
     public LoadFontEquivalenceCommand() {
         super(IpdsCommandId.LFE);
     }
 
     /**
-     * Constructs the {@link LoadFontEquivalenceCommand}.
+     * Constructs the {@link LoadFontEquivalenceCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     LoadFontEquivalenceCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.LFE);

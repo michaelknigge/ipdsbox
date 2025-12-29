@@ -20,14 +20,14 @@ public final class RawAcknowledgeData implements AcknowledgeData {
     }
 
     /**
-     * Returns the raw acknowledge data
+     * Returns the raw acknowledge data.
      */
     public byte[] getRawAcknowledgeData() {
         return this.rawAcknowledgeData;
     }
 
     /**
-     * Sets the raw acknowledge data
+     * Sets the raw acknowledge data.
      */
     public void setRawAcknowledgeData(final byte[] rawAcknowledgeData) {
         this.rawAcknowledgeData = rawAcknowledgeData;

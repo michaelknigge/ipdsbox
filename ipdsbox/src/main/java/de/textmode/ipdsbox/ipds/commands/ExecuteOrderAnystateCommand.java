@@ -15,13 +15,16 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
 
     private final XoaOrder order;
 
+    /**
+     * Constructs a {@link ExecuteOrderAnystateCommand} with the given {@link XoaOrder}.
+     */
     public ExecuteOrderAnystateCommand(final XoaOrder order) {
         super(IpdsCommandId.XOA);
         this.order = order;
     }
 
     /**
-     * Constructs the {@link ExecuteOrderAnystateCommand}.
+     * Constructs the {@link ExecuteOrderAnystateCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     ExecuteOrderAnystateCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.XOA);

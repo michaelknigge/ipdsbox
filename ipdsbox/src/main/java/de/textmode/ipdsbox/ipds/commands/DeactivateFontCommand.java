@@ -17,14 +17,14 @@ public final class DeactivateFontCommand extends IpdsCommand {
     private int fontInlineSequence;
 
     /**
-     * Constructs the {@link DeactivateFontCommand}.
+     * Constructs a {@link DeactivateFontCommand} with default values.
      */
     public DeactivateFontCommand() {
         super(IpdsCommandId.DF);
     }
 
     /**
-     * Constructs the {@link DeactivateFontCommand}.
+     * Constructs the {@link DeactivateFontCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     DeactivateFontCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.DF);

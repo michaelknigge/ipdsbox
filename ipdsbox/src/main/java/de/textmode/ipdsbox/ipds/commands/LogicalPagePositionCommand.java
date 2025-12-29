@@ -12,6 +12,9 @@ public final class LogicalPagePositionCommand extends IpdsCommand {
     private int placement;
     private int orientation;
 
+    /**
+     * Constructs a {@link LogicalPagePositionCommand} with default values.
+     */
     public LogicalPagePositionCommand() {
 
         super(IpdsCommandId.LPP);
@@ -22,6 +25,9 @@ public final class LogicalPagePositionCommand extends IpdsCommand {
         this.orientation = 0x00;
     }
 
+    /**
+     * Constructs the {@link LogicalPagePositionCommand} from the given {@link IpdsByteArrayInputStream}.
+     */
     LogicalPagePositionCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.LPP);
 

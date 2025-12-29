@@ -16,13 +16,16 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
 
     private final XohOrder order;
 
+    /**
+     * Constructs a {@link ExecuteOrderHomeStateCommand} with the given {@link XohOrder}.
+     */
     public ExecuteOrderHomeStateCommand(final XohOrder order) {
         super(IpdsCommandId.XOH);
         this.order = order;
     }
 
     /**
-     * Constructs the {@link ExecuteOrderHomeStateCommand}.
+     * Constructs the {@link ExecuteOrderHomeStateCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     ExecuteOrderHomeStateCommand(final IpdsByteArrayInputStream ipds)
         throws InvalidIpdsCommandException, IOException {

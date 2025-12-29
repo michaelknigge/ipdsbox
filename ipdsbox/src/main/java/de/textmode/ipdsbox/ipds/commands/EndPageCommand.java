@@ -18,22 +18,23 @@ public final class EndPageCommand extends IpdsCommand {
     private byte[] dataBytes;
 
     /**
-     * Constructs the {@link EndPageCommand}.
+     * Constructs the {@link EndPageCommand} with no data.
      */
     public EndPageCommand() {
         this(ByteUtils.EMPTY_BYTE_ARRAY);
     }
 
     /**
-     * Constructs the {@link EndPageCommand}.
+     * Constructs the {@link EndPageCommand} with the given data.
      */
     public EndPageCommand(final byte[] dataBytes) {
         super(IpdsCommandId.EP);
 
         this.dataBytes = dataBytes;
     }
+
     /**
-     * Constructs the {@link EndPageCommand}.
+     * Constructs the {@link EndPageCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     EndPageCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.EP);

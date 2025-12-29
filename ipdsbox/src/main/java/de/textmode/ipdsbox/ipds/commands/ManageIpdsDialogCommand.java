@@ -14,14 +14,14 @@ public final class ManageIpdsDialogCommand extends IpdsCommand {
     private int type;
 
     /**
-     * Constructs the {@link ManageIpdsDialogCommand}.
+     * Constructs a {@link ManageIpdsDialogCommand} with default values.
      */
     public ManageIpdsDialogCommand() {
         this(0);
     }
 
     /**
-     * Constructs the {@link ManageIpdsDialogCommand}.
+     * Constructs a {@link ManageIpdsDialogCommand} with the given type.
      */
     public ManageIpdsDialogCommand(final int type) {
         super(IpdsCommandId.MID);
@@ -30,7 +30,7 @@ public final class ManageIpdsDialogCommand extends IpdsCommand {
     }
 
     /**
-     * Constructs the {@link ManageIpdsDialogCommand}.
+     * Constructs the {@link ManageIpdsDialogCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     ManageIpdsDialogCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.MID);

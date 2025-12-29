@@ -14,14 +14,14 @@ public final class BeginPageCommand extends IpdsCommand {
     private long pageId;
 
     /**
-     * Constructs the {@link BeginPageCommand}.
+     * Constructs the {@link BeginPageCommand} with default values.
      */
     public BeginPageCommand() {
         this(0);
     }
 
     /**
-     * Constructs the {@link BeginPageCommand}.
+     * Constructs the {@link BeginPageCommand} with the given page number.
      */
     public BeginPageCommand(final long pageId) {
         super(IpdsCommandId.BP);
@@ -30,7 +30,7 @@ public final class BeginPageCommand extends IpdsCommand {
     }
 
     /**
-     * Constructs the {@link BeginPageCommand}.
+     * Constructs the {@link BeginPageCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     BeginPageCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.BP);

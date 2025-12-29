@@ -20,14 +20,14 @@ public final class IncludeSavedPageCommand extends IpdsCommand {
     private List<Triplet> triplets;
 
     /**
-     * Constructs the {@link IncludeSavedPageCommand}.
+     * Constructs a {@link IncludeSavedPageCommand} with default values.
      */
     public IncludeSavedPageCommand() {
         this(0);
     }
 
     /**
-     * Constructs the {@link IncludeSavedPageCommand}.
+     * Constructs the {@link IncludeSavedPageCommand} with the given page number.
      */
     public IncludeSavedPageCommand(final long pageSequenceNumber) {
         super(IpdsCommandId.ISP);
@@ -37,7 +37,7 @@ public final class IncludeSavedPageCommand extends IpdsCommand {
     }
 
     /**
-     * Constructs the {@link IncludeSavedPageCommand}.
+     * Constructs the {@link IncludeSavedPageCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     IncludeSavedPageCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.ISP);

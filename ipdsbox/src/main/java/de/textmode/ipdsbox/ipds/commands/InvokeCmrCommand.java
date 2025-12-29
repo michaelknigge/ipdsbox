@@ -19,14 +19,14 @@ public final class InvokeCmrCommand extends IpdsCommand {
     private List<Integer> hostAssignedIds = new ArrayList<>();
 
     /**
-     * Constructs the {@link InvokeCmrCommand}.
+     * Constructs a {@link InvokeCmrCommand} with default values.
      */
     public InvokeCmrCommand() {
         super(IpdsCommandId.ICMR);
     }
 
     /**
-     * Constructs the {@link InvokeCmrCommand}.
+     * Constructs the {@link InvokeCmrCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     InvokeCmrCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.ICMR);

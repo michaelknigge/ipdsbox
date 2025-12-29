@@ -20,14 +20,14 @@ public final class EndCommand extends IpdsCommand {
     private byte[] dataBytes;
 
     /**
-     * Constructs the {@link EndCommand}.
+     * Constructs a {@link EndCommand} with no data.
      */
     public EndCommand() {
         this(ByteUtils.EMPTY_BYTE_ARRAY);
     }
 
     /**
-     * Constructs the {@link EndCommand}.
+     * Constructs a {@link EndCommand} with the given data.
      */
     public EndCommand(final byte[] dataBytes) {
         super(IpdsCommandId.END);
@@ -35,7 +35,7 @@ public final class EndCommand extends IpdsCommand {
         this.dataBytes = dataBytes;
     }
     /**
-     * Constructs the {@link EndCommand}.
+     * Constructs the {@link EndCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     EndCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.END);

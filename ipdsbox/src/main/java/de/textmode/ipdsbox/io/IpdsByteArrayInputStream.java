@@ -104,7 +104,9 @@ public final class IpdsByteArrayInputStream {
 
     /**
      * Rewind count bytes of input from this input stream.
+     *
      * @param count the number of bytes to be walk back.
+     *
      * @throws IOException if there was an error in rewinding (usually tried to rewinding more bytes than available)
      */
     public void rewind(final int count) throws IOException {
@@ -119,8 +121,10 @@ public final class IpdsByteArrayInputStream {
 
     /**
      * Reads a complete {@link Triplet} from the underlying byte array.
+     *
      * @return A byte array containg the raw data of the {@link Triplet} or <code>null</code> if there is
-     * no further {@link Triplet} available.
+     *  no further {@link Triplet} available.
+     *
      * @throws IOException if the {@link Triplet} to be read is broken.
      */
     public byte[] readTripletIfExists() throws IOException {
@@ -149,8 +153,10 @@ public final class IpdsByteArrayInputStream {
 
     /**
      * Reads a complete {@link SelfDefiningField} from the underlying byte array.
+     *
      * @return A byte array containg the raw data of the {@link SelfDefiningField} or <code>null</code> if there is
-     * no further {@link SelfDefiningField} available.
+     *  no further {@link SelfDefiningField} available.
+     *
      * @throws IOException if the {@link SelfDefiningField} to be read is broken.
      */
     public byte[] readSelfDefiningFieldIfExists() throws IOException {
@@ -162,8 +168,10 @@ public final class IpdsByteArrayInputStream {
         final int length = this.readUnsignedInteger16();
         if (available < (length - 2)) {
             throw new IOException(String.format(
-                    "A self-defining field to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
-                    length, available));
+                "A self-defining field to be read seems to be %1$d bytes long "
+                + "but the IPDS data stream ends after %2$d bytes",
+                length,
+                available));
         }
 
         final byte[] buffer = new byte[length];

@@ -16,14 +16,14 @@ public final class NoOperationCommand extends IpdsCommand {
     private byte[] dataBytes;
 
     /**
-     * Constructs the {@link NoOperationCommand}.
+     * Constructs a {@link NoOperationCommand} with no data.
      */
     public NoOperationCommand() {
         this(ByteUtils.EMPTY_BYTE_ARRAY);
     }
 
     /**
-     * Constructs the {@link NoOperationCommand}.
+     * Constructs a {@link NoOperationCommand} with the given data.
      */
     public NoOperationCommand(final byte[] dataBytes) {
         super(IpdsCommandId.NOP);
@@ -32,7 +32,7 @@ public final class NoOperationCommand extends IpdsCommand {
     }
 
     /**
-     * Constructs the {@link NoOperationCommand}.
+     * Constructs the {@link NoOperationCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     NoOperationCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.NOP);

@@ -11,9 +11,16 @@ public final class LoadCopyControlCommand extends IpdsCommand {
 
     private final List<CopySubgroup> subgroups = new ArrayList<>();
 
+    /**
+     * Constructs a {@link LoadCopyControlCommand} with default values.
+     */
     public LoadCopyControlCommand() {
         super(IpdsCommandId.LCC);
     }
+
+    /**
+     * Constructs a {@link LoadCopyControlCommand} from the given {@link IpdsByteArrayInputStream}.
+     */
 
     LoadCopyControlCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.LCC);

@@ -22,14 +22,14 @@ public final class PresentationFidelityControlCommand extends IpdsCommand {
     private List<Triplet> triplets;
 
     /**
-     * Constructs the {@link PresentationFidelityControlCommand}.
+     * Constructs a {@link PresentationFidelityControlCommand} with default values.
      */
     public PresentationFidelityControlCommand() {
         this(0);
     }
 
     /**
-     * Constructs the {@link PresentationFidelityControlCommand}.
+     * Constructs the {@link PresentationFidelityControlCommand} with the given fidelity control flags.
      */
     public PresentationFidelityControlCommand(final int fidelityControlFlags) {
         super(IpdsCommandId.PFC);
@@ -39,7 +39,7 @@ public final class PresentationFidelityControlCommand extends IpdsCommand {
     }
 
     /**
-     * Constructs the {@link PresentationFidelityControlCommand}.
+     * Constructs the {@link PresentationFidelityControlCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     PresentationFidelityControlCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.PFC);

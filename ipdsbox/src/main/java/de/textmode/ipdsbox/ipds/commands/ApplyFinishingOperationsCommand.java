@@ -20,14 +20,14 @@ public final class ApplyFinishingOperationsCommand extends IpdsCommand {
     private List<Triplet> triplets = new ArrayList<>();
 
     /**
-     * Constructs the {@link ApplyFinishingOperationsCommand}.
+     * Constructs a {@link ApplyFinishingOperationsCommand} with default values.
      */
     public ApplyFinishingOperationsCommand() {
         super(IpdsCommandId.AFO);
     }
 
     /**
-     * Constructs the {@link ApplyFinishingOperationsCommand}.
+     * Constructs the {@link ApplyFinishingOperationsCommand} from the given {@link IpdsByteArrayInputStream}.
      */
     ApplyFinishingOperationsCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.AFO);
