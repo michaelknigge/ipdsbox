@@ -62,8 +62,8 @@ public class CommonBarCodeTypeSelfDefiningField extends SelfDefiningField{
 
     @Override
     public String toString() {
-        return "CommonBarCodeTypeSelfDefiningField{"	
-                + "combinations=" + this.combinations	
+        return "CommonBarCodeTypeSelfDefiningField{"
+                + "combinations=" + this.combinations
                 + '}';
     }
 }

@@ -116,11 +116,11 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
 
     @Override
     public String toString() {
-        return "SupportedDeviceResolutionsSelfDefiningField{"	
-                + "ripXpels=0x" + Integer.toHexString(this.ripXpels)	
-                + ", rinYpels=0x" + Integer.toHexString(this.rinYpels)	
-                + ", printHeadXpels=0x" + Integer.toHexString(this.printHeadXpels)	
-                + ", printHeadYpels=0x" + Integer.toHexString(this.printHeadYpels)	
+        return "SupportedDeviceResolutionsSelfDefiningField{"
+                + "ripXpels=0x" + Integer.toHexString(this.ripXpels)
+                + ", rinYpels=0x" + Integer.toHexString(this.rinYpels)
+                + ", printHeadXpels=0x" + Integer.toHexString(this.printHeadXpels)
+                + ", printHeadYpels=0x" + Integer.toHexString(this.printHeadYpels)
                 + '}';
     }
 }

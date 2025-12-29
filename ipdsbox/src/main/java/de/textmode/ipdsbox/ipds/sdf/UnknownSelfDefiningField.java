@@ -47,9 +47,9 @@ public class UnknownSelfDefiningField extends SelfDefiningField{
 
     @Override
     public String toString() {
-        return "UnknownSelfDefiningField{"	
-                + "sdfid=" + Integer.toHexString(this.getSelfDefiningFieldId())	
-                + ", rawData=" + StringUtils.toHexString(this.rawData)	
+        return "UnknownSelfDefiningField{"
+                + "sdfid=" + Integer.toHexString(this.getSelfDefiningFieldId())
+                + ", rawData=" + StringUtils.toHexString(this.rawData)
                 + '}';
     }
 }

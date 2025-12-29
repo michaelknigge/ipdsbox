@@ -63,8 +63,8 @@ public class StandardOcaColorValueSupportSelfDefiningField extends SelfDefiningF
 
     @Override
     public String toString() {
-        return "StandardOcaColorValueSupportSelfDefiningField{"	
-                + "colorValues=" + this.colorValues	
+        return "StandardOcaColorValueSupportSelfDefiningField{"
+                + "colorValues=" + this.colorValues
                 + '}';
     }
 }

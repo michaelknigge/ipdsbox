@@ -74,9 +74,9 @@ public final class PrinterSpeedSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "PrinterSpeedSelfDefiningField{"	
-                + "ppm=" + this.ppm	
-                + ", fpm=" + this.fpm	
+        return "PrinterSpeedSelfDefiningField{"
+                + "ppm=" + this.ppm
+                + ", fpm=" + this.fpm
                 + '}';
     }
 }

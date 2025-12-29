@@ -61,8 +61,8 @@ public final class InstalledFeaturesSelfDefiningField extends SelfDefiningField 
 
     @Override
     public String toString() {
-        return "InstalledFeaturesSelfDefiningField{"	
-                + "featureIds=" + this.featureIds	
+        return "InstalledFeaturesSelfDefiningField{"
+                + "featureIds=" + this.featureIds
                 + '}';
     }
 }

@@ -110,11 +110,11 @@ public final class ImImageAndCodedFontResolutionSelfDefiningField extends SelfDe
 
     @Override
     public String toString() {
-        return "ImImageAndCodedFontResolutionSelfDefiningField{"	
-                + "unitBase=" + this.unitBase	
-                + ", fontResolutions=" + this.fontResolutions	
-                + ", xPels=" + this.xPels	
-                + ", yPels=" + this.yPels	
+        return "ImImageAndCodedFontResolutionSelfDefiningField{"
+                + "unitBase=" + this.unitBase
+                + ", fontResolutions=" + this.fontResolutions
+                + ", xPels=" + this.xPels
+                + ", yPels=" + this.yPels
                 + '}';
     }
 }

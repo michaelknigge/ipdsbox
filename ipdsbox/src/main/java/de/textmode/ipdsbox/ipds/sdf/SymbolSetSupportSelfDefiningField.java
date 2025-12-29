@@ -143,35 +143,35 @@ public final class SymbolSetSupportSelfDefiningField extends SelfDefiningField {
         @Override
         public String toString() {
             if (this.valueEntryId == 0x01) { // fixed-box
-                return "SymbolSetSupportEntry{"	
-                        + "valueEntryId=" + this.valueEntryId	
-                        + ", xBoxSize=" + this.xBoxSize	
-                        + ", yBoxSize=" + this.yBoxSize	
-                        + ", fgids=" + this.fgids	
+                return "SymbolSetSupportEntry{"
+                        + "valueEntryId=" + this.valueEntryId
+                        + ", xBoxSize=" + this.xBoxSize
+                        + ", yBoxSize=" + this.yBoxSize
+                        + ", fgids=" + this.fgids
                         + '}';
             }
 
             if (this.valueEntryId == 0x02) { // variable-box
-                return "SymbolSetSupportEntry{"	
-                        + "valueEntryId=" + this.valueEntryId	
-                        + ", unitBase=" + this.unitBase	
-                        + ", ppub=" + this.ppub	
-                        + ", maximumSize=" + this.maximumSize	
-                        + ", uniformSize=" + this.uniformSize	
-                        + ", fgids=" + this.fgids	
+                return "SymbolSetSupportEntry{"
+                        + "valueEntryId=" + this.valueEntryId
+                        + ", unitBase=" + this.unitBase
+                        + ", ppub=" + this.ppub
+                        + ", maximumSize=" + this.maximumSize
+                        + ", uniformSize=" + this.uniformSize
+                        + ", fgids=" + this.fgids
                         + '}';
             }
 
             // Should not happen... but who knows... toString() with all variables...
-            return "SymbolSetSupportEntry{"	
-                    + "valueEntryId=" + this.valueEntryId	
-                    + ", xBoxSize=" + this.xBoxSize	
-                    + ", yBoxSize=" + this.yBoxSize	
-                    + ", unitBase=" + this.unitBase	
-                    + ", ppub=" + this.ppub	
-                    + ", maximumSize=" + this.maximumSize	
-                    + ", uniformSize=" + this.uniformSize	
-                    + ", fgids=" + this.fgids	
+            return "SymbolSetSupportEntry{"
+                    + "valueEntryId=" + this.valueEntryId
+                    + ", xBoxSize=" + this.xBoxSize
+                    + ", yBoxSize=" + this.yBoxSize
+                    + ", unitBase=" + this.unitBase
+                    + ", ppub=" + this.ppub
+                    + ", maximumSize=" + this.maximumSize
+                    + ", uniformSize=" + this.uniformSize
+                    + ", fgids=" + this.fgids
                     + '}';
         }
     }
@@ -280,8 +280,8 @@ public final class SymbolSetSupportSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "SymbolSetSupportSelfDefiningField{"	
-                + "entries=" + this.entries	
+        return "SymbolSetSupportSelfDefiningField{"
+                + "entries=" + this.entries
                 + '}';
     }
 }

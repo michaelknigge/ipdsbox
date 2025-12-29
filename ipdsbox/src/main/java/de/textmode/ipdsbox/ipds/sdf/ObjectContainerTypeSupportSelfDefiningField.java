@@ -54,9 +54,9 @@ public final class ObjectContainerTypeSupportSelfDefiningField extends SelfDefin
                 sj.add(StringUtils.toHexString(regId));
             }
 
-            return "TypeRecord{"	
-                    + "type=0x" + Integer.toHexString(this.type)	
-                    + ", regIds=" + sj.toString()	
+            return "TypeRecord{"
+                    + "type=0x" + Integer.toHexString(this.type)
+                    + ", regIds=" + sj.toString()
                     + '}';
         }
     }
@@ -129,8 +129,8 @@ public final class ObjectContainerTypeSupportSelfDefiningField extends SelfDefin
 
     @Override
     public String toString() {
-        return "ObjectContainerTypeSupportSelfDefiningField{"	
-                + "typeRecords=" + this.typeRecords	
+        return "ObjectContainerTypeSupportSelfDefiningField{"
+                + "typeRecords=" + this.typeRecords
                 + '}';
     }
 }

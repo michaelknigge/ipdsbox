@@ -49,9 +49,9 @@ public final class ProductIdentifierSelfDefiningField extends SelfDefiningField 
 
         @Override
         public String toString() {
-            return "ProductIdentifierEntry{"	
-                    + "parameterId=0x" + Integer.toHexString(this.parameterId)	
-                    + ", parameterValue=" + StringUtils.toHexString(this.parameterValue)	
+            return "ProductIdentifierEntry{"
+                    + "parameterId=0x" + Integer.toHexString(this.parameterId)
+                    + ", parameterValue=" + StringUtils.toHexString(this.parameterValue)
                     + '}';
         }
     }
@@ -117,8 +117,8 @@ public final class ProductIdentifierSelfDefiningField extends SelfDefiningField 
 
     @Override
     public String toString() {
-        return "ProductIdentifierSelfDefiningField{"	
-                + "entries=" + this.entries	
+        return "ProductIdentifierSelfDefiningField{"
+                + "entries=" + this.entries
                 + '}';
     }
 }

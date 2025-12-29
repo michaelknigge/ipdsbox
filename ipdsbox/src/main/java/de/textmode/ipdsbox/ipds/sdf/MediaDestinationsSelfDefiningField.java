@@ -48,9 +48,9 @@ public final class MediaDestinationsSelfDefiningField extends SelfDefiningField 
 
         @Override
         public String toString() {
-            return "MediaDestinationsEntry{"	
-                    + "first=" + this.first	
-                    + ", last=" + this.last	
+            return "MediaDestinationsEntry{"
+                    + "first=" + this.first
+                    + ", last=" + this.last
                     + '}';
         }
     }
@@ -127,9 +127,9 @@ public final class MediaDestinationsSelfDefiningField extends SelfDefiningField 
 
     @Override
     public String toString() {
-        return "MediaDestinationsSelfDefiningField{"	
-                + "defaultId=" + this.defaultId	
-                + ", entries=" + this.entries	
+        return "MediaDestinationsSelfDefiningField{"
+                + "defaultId=" + this.defaultId
+                + ", entries=" + this.entries
                 + '}';
     }
 }

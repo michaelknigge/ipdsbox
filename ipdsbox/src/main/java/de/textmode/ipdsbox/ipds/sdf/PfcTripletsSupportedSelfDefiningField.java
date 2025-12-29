@@ -64,8 +64,8 @@ public class PfcTripletsSupportedSelfDefiningField extends SelfDefiningField{
 
     @Override
     public String toString() {
-        return "PfcTripletsSupportedSelfDefiningField{"	
-                + "tripletIds=" + this.tripletIds	
+        return "PfcTripletsSupportedSelfDefiningField{"
+                + "tripletIds=" + this.tripletIds
                 + '}';
     }
 }

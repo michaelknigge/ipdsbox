@@ -48,9 +48,9 @@ public final class BarCodeTypeSelfDefiningField extends SelfDefiningField {
 
         @Override
         public String toString() {
-            return "BarCodeEntry{"	
-                    + "type=0x" + Integer.toHexString(this.type)	
-                    + ", modifiers=0x" + Integer.toHexString(this.modifiers)	
+            return "BarCodeEntry{"
+                    + "type=0x" + Integer.toHexString(this.type)
+                    + ", modifiers=0x" + Integer.toHexString(this.modifiers)
                     + '}';
         }
     }
@@ -128,9 +128,9 @@ public final class BarCodeTypeSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "BarCodeTypeSelfDefiningField{"	
-                + "bcocaSubset=0x" + Integer.toHexString(this.bcocaSubset)	
-                + ", entries=" + this.entries	
+        return "BarCodeTypeSelfDefiningField{"
+                + "bcocaSubset=0x" + Integer.toHexString(this.bcocaSubset)
+                + ", entries=" + this.entries
                 + '}';
     }
 }

@@ -78,8 +78,8 @@ public final class ActiveSetupNameSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "ActiveSetupNameSelfDefiningField{"	
-                + "activeSetupName=" + this.activeSetupName	
+        return "ActiveSetupNameSelfDefiningField{"
+                + "activeSetupName=" + this.activeSetupName
                 + '}';
     }
 }

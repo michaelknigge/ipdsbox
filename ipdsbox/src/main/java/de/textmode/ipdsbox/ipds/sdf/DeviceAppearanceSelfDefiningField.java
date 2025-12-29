@@ -65,8 +65,8 @@ public class DeviceAppearanceSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "DeviceAppearanceSelfDefiningField{"	
-                + "appearances=" + this.appearances	
+        return "DeviceAppearanceSelfDefiningField{"
+                + "appearances=" + this.appearances
                 + '}';
     }
 }

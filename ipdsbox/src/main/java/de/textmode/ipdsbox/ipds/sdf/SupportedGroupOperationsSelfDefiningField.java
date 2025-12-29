@@ -65,8 +65,8 @@ public class SupportedGroupOperationsSelfDefiningField extends SelfDefiningField
 
     @Override
     public String toString() {
-        return "SupportedGroupOperationsSelfDefiningField{"	
-                + "operationTypes=" + this.operationTypes	
+        return "SupportedGroupOperationsSelfDefiningField{"
+                + "operationTypes=" + this.operationTypes
                 + '}';
     }
 }
