@@ -54,8 +54,8 @@ public final class DeactivateSavedPageGroupOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "DeactivateSavedPageGroupOrder{" +
-                "triplets=" + this.triplets +
-                '}';
+        return "DeactivateSavedPageGroupOrder{"
+                + "triplets=" + this.triplets
+                + '}';
     }
 }

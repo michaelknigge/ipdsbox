@@ -163,21 +163,21 @@ public final class ObjectContainerPresentationSpaceSizeTriplet extends Triplet {
     @Override
     public String toString() {
         if (this.xupub != 0 && this.yupub != 0 && this.xocExtent != 0 && this.yocExtent != 0) {
-            return "ObjectContainerPresentationSpaceSize{" +
-                    "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                    ", pdfPresentationSpaceSize=0x" + Integer.toHexString(this.pdfPresentationSpaceSize) +
-                    ", xUnitBase=" + Integer.toHexString(this.xUnitBase) +
-                    ", yUnitBase=" + Integer.toHexString(this.yUnitBase) +
-                    ", xupub=" + this.xupub +
-                    ", yupub=" + this.yupub +
-                    ", xocExtent=" + this.xocExtent +
-                    ", yocExtent=" + this.yocExtent +
-                    '}';
+            return "ObjectContainerPresentationSpaceSize{"
+                    + "tid=0x" + Integer.toHexString(this.getTripletId())
+                    + ", pdfPresentationSpaceSize=0x" + Integer.toHexString(this.pdfPresentationSpaceSize)
+                    + ", xUnitBase=" + Integer.toHexString(this.xUnitBase)
+                    + ", yUnitBase=" + Integer.toHexString(this.yUnitBase)
+                    + ", xupub=" + this.xupub
+                    + ", yupub=" + this.yupub
+                    + ", xocExtent=" + this.xocExtent
+                    + ", yocExtent=" + this.yocExtent
+                    + '}';
         }
 
-        return "ObjectContainerPresentationSpaceSize{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", pdfPresentationSpaceSize=0x" + Integer.toHexString(this.pdfPresentationSpaceSize) +
-                '}';
+        return "ObjectContainerPresentationSpaceSize{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", pdfPresentationSpaceSize=0x" + Integer.toHexString(this.pdfPresentationSpaceSize)
+                + '}';
     }
 }

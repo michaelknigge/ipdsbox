@@ -42,9 +42,9 @@ public final class UnknownIpdsCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "UnknownIpdsCommand{" +
-                "commandId=" + Integer.toHexString(this.getCommandCodeId()) +
-                ", rawData=" + Arrays.toString(this.rawData) +
+        return "UnknownIpdsCommand{"
+                + "commandId=" + Integer.toHexString(this.getCommandCodeId())
+                + ", rawData=" + Arrays.toString(this.rawData)
                 + '}';
     }
 }

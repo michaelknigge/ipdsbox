@@ -64,8 +64,8 @@ public final class EndPageCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "EndPageCommand{" +
-                "dataBytes=" + StringUtils.toHexString(this.dataBytes) +
+        return "EndPageCommand{"
+                + "dataBytes=" + StringUtils.toHexString(this.dataBytes)
                 + '}';
     }
 }

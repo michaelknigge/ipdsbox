@@ -51,8 +51,8 @@ public final class SelectInputMediaSourceOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "SelectInputMediaSourceOrder{" +
-                "sourceId=0x" + Integer.toHexString(this.sourceId) +
-                '}';
+        return "SelectInputMediaSourceOrder{"
+                + "sourceId=0x" + Integer.toHexString(this.sourceId)
+                + '}';
     }
 }

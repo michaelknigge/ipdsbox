@@ -121,11 +121,10 @@ public final class PagePrinterRequest {
         out.write(this.getData());
 
         if (isDebugMode) {
-            System.err.println(
-                    "SEND: " +
-                            StringUtils.toHexString(overallLength) +
-                            StringUtils.toHexString(requestCode) +
-                            StringUtils.toHexString(this.getData()));
+            System.err.println("SEND: "
+                    + StringUtils.toHexString(overallLength)
+                    + StringUtils.toHexString(requestCode)
+                    + StringUtils.toHexString(this.getData()));
         }
 
         // Make sure to send it as fast as possible...

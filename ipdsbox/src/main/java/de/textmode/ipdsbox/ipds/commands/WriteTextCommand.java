@@ -64,8 +64,8 @@ public final class WriteTextCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "WriteTextCommand{" +
-                "ptocaData=" + StringUtils.toHexString(this.ptocaData) +
+        return "WriteTextCommand{"
+                + "ptocaData=" + StringUtils.toHexString(this.ptocaData)
                 + '}';
     }
 }

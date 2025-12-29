@@ -98,12 +98,12 @@ public final class InvokeTertiaryResourceTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "InvokeTertiaryResource{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", tertiaryResourceType=" + Integer.toHexString(this.tertiaryResourceType) +
-                ", haid=" + Integer.toHexString(this.hostAssignedId) +
-                ", idType=" + this.idType +
-                ", internalResourceId=" + this.internalResourceId +
-                "}";
+        return "InvokeTertiaryResource{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", tertiaryResourceType=" + Integer.toHexString(this.tertiaryResourceType)
+                + ", haid=" + Integer.toHexString(this.hostAssignedId)
+                + ", idType=" + this.idType
+                + ", internalResourceId=" + this.internalResourceId
+                + '}';
     }
 }

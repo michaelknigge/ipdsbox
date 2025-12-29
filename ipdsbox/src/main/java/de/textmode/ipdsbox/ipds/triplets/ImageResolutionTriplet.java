@@ -95,12 +95,12 @@ public final class ImageResolutionTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "ImageResolution{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", xUnitBase=0x" + Integer.toHexString(this.xUnitBase) +
-                ", yUnitBase=0x" + Integer.toHexString(this.yUnitBase) +
-                ", xupub=" + this.xupub +
-                ", yupub=" + this.yupub +
-                '}';
+        return "ImageResolution{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", xUnitBase=0x" + Integer.toHexString(this.xUnitBase)
+                + ", yUnitBase=0x" + Integer.toHexString(this.yUnitBase)
+                + ", xupub=" + this.xupub
+                + ", yupub=" + this.yupub
+                + '}';
     }
 }

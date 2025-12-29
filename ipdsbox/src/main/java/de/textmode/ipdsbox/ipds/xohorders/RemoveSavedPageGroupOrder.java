@@ -55,8 +55,8 @@ public final class RemoveSavedPageGroupOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "RemoveSavedPageGroupOrder{" +
-                "triplets=" + this.triplets +
-                '}';
+        return "RemoveSavedPageGroupOrder{"
+                + "triplets=" + this.triplets
+                + '}';
     }
 }

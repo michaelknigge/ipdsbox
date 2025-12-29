@@ -182,15 +182,15 @@ public final class ActivateResourceCommand extends IpdsCommand {
 
         @Override
         public String toString() {
-            return "ActivateResourceEntry{" +
-                    "length=" + 12 + this.resourceId.length +
-                    ", resourceType=0x" + Integer.toHexString(this.resourceType) +
-                    ", haid=" + Integer.toHexString(this.haid) +
-                    ", sectionID=0x" + Integer.toHexString(this.sectionID) +
-                    ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat) +
-                    ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence) +
-                    ", resourceClassFlags=0x" + Integer.toHexString(this.resourceClassFlags) +
-                    ", resourceId=" + StringUtils.toHexString(this.resourceId) +
+            return "ActivateResourceEntry{"
+                    + "length=" + 12 + this.resourceId.length
+                    + ", resourceType=0x" + Integer.toHexString(this.resourceType)
+                    + ", haid=" + Integer.toHexString(this.haid)
+                    + ", sectionID=0x" + Integer.toHexString(this.sectionID)
+                    + ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat)
+                    + ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence)
+                    + ", resourceClassFlags=0x" + Integer.toHexString(this.resourceClassFlags)
+                    + ", resourceId=" + StringUtils.toHexString(this.resourceId)
                     + '}';
         }
     }

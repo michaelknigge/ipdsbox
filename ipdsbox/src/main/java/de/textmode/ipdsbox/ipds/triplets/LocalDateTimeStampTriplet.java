@@ -160,16 +160,16 @@ public final class LocalDateTimeStampTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "LocalDateTimeStamp{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", stampType=0x" + Integer.toHexString(this.stampType) +
-                ", yearPart1=" + this.yearPart1 +
-                ", yearPart2=" + this.yearPart2 +
-                ", day=" + this.day +
-                ", hour=" + this.hour +
-                ", minute=" + this.minute +
-                ", second=" + this.second +
-                ", hundredth=" + this.hundredth +
-                "}";
+        return "LocalDateTimeStamp{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", stampType=0x" + Integer.toHexString(this.stampType)
+                + ", yearPart1=" + this.yearPart1
+                + ", yearPart2=" + this.yearPart2
+                + ", day=" + this.day
+                + ", hour=" + this.hour
+                + ", minute=" + this.minute
+                + ", second=" + this.second
+                + ", hundredth=" + this.hundredth
+                + '}';
     }
 }

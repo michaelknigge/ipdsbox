@@ -38,9 +38,9 @@ public final class UnknownXoaOrder extends XoaOrder {
 
     @Override
     public String toString() {
-        return "UnknownXoaOrder{" +
-                "orderCode=0x" + Integer.toHexString(this.getOrderCodeId()) +
-                ", orderCodeData=" + StringUtils.toHexString(this.orderCodeData) +
-                '}';
+        return "UnknownXoaOrder{"
+                + "orderCode=0x" + Integer.toHexString(this.getOrderCodeId())
+                + ", orderCodeData=" + StringUtils.toHexString(this.orderCodeData)
+                + '}';
     }
 }

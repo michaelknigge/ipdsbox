@@ -143,15 +143,15 @@ public final class MetricAdjustmentTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "MetricAdjustment{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", unitBase=0x" + Integer.toHexString(this.unitBase) +
-                ", xupub=" + this.xupub +
-                ", yupub=" + this.yupub +
-                ", hUniformIncrement=" + this.hUniformIncrement +
-                ", vUniformIncrement=" + this.vUniformIncrement +
-                ", hBaselineAdjustment=" + this.hBaselineAdjustment +
-                ", vBaselineAdjustment=" + this.vBaselineAdjustment +
-                '}';
+        return "MetricAdjustment{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", unitBase=0x" + Integer.toHexString(this.unitBase)
+                + ", xupub=" + this.xupub
+                + ", yupub=" + this.yupub
+                + ", hUniformIncrement=" + this.hUniformIncrement
+                + ", vUniformIncrement=" + this.vUniformIncrement
+                + ", hBaselineAdjustment=" + this.hBaselineAdjustment
+                + ", vBaselineAdjustment=" + this.vBaselineAdjustment
+                + '}';
     }
 }

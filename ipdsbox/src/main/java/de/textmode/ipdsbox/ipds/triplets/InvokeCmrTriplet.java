@@ -40,9 +40,9 @@ public final class InvokeCmrTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "InvokeCmr{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", haid=" + Integer.toHexString(this.hostAssignedId) +
-                "}";
+        return "InvokeCmr{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", haid=" + Integer.toHexString(this.hostAssignedId)
+                + '}';
     }
 }

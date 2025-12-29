@@ -43,9 +43,9 @@ public final class EncodingSchemeIdTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "EncodingSchemeId{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", esid=" + Integer.toHexString(this.dataEsId) +
-                "}";
+        return "EncodingSchemeId{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", esid=" + Integer.toHexString(this.dataEsId)
+                + '}';
     }
 }

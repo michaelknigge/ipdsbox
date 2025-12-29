@@ -114,11 +114,11 @@ public final class SetMediaSizeOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "SetMediaSizeOrder{" +
-                "unitBase=0x" + Integer.toHexString(this.unitBase) +
-                ", upub=" + this.upub +
-                ", xmExtent=" + this.xmExtent +
-                ", ymExtent=" + this.ymExtent +
-                '}';
+        return "SetMediaSizeOrder{"
+                + "unitBase=0x" + Integer.toHexString(this.unitBase)
+                + ", upub=" + this.upub
+                + ", xmExtent=" + this.xmExtent
+                + ", ymExtent=" + this.ymExtent
+                + '}';
     }
 }

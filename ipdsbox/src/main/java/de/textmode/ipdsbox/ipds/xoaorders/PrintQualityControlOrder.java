@@ -51,8 +51,8 @@ public final class PrintQualityControlOrder extends XoaOrder {
 
     @Override
     public String toString() {
-        return "PrintQualityControlOrder{" +
-                "qualityLevel=" + this.qualityLevel +
-                '}';
+        return "PrintQualityControlOrder{"
+                + "qualityLevel=" + this.qualityLevel
+                + '}';
     }
 }

@@ -104,12 +104,12 @@ public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
      */
     @Override
     public String toString() {
-        return "FontResolutionAndMetricTechnologyTriplet{" +
-                "tid=0x" + String.format("%02X", this.getTripletId()) +
-                ", metricTechnology=0x" + String.format("%02X", this.metricTechnology) +
-                ", unitBase=0x" + String.format("%02X", this.unitBase) +
-                ", xUnitsPerUnitBase=" + this.xUnitsPerUnitBase +
-                ", yUnitsPerUnitBase=" + this.yUnitsPerUnitBase +
-                "}";
+        return "FontResolutionAndMetricTechnologyTriplet{"
+                + "tid=0x" + String.format("%02X", this.getTripletId())
+                + ", metricTechnology=0x" + String.format("%02X", this.metricTechnology)
+                + ", unitBase=0x" + String.format("%02X", this.unitBase)
+                + ", xUnitsPerUnitBase=" + this.xUnitsPerUnitBase
+                + ", yUnitsPerUnitBase=" + this.yUnitsPerUnitBase
+                + '}';
     }
 }

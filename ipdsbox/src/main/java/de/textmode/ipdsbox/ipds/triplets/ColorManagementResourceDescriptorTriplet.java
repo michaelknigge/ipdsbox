@@ -44,9 +44,9 @@ public final class ColorManagementResourceDescriptorTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "ColorManagementResourceDescriptor{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", mode=0x" + Integer.toHexString(this.mode) +
-                "}";
+        return "ColorManagementResourceDescriptor{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", mode=0x" + Integer.toHexString(this.mode)
+                + '}';
     }
 }

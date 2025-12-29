@@ -61,10 +61,10 @@ public final class TextFidelityTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "TextFidelity{" +
-                ", tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", continueRule=0x" + Integer.toHexString(this.continuationRule) +
-                ", report=0x" + Integer.toHexString(this.reportingRule) +
-                "}";
+        return "TextFidelity{"
+                + ", tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", continueRule=0x" + Integer.toHexString(this.continuationRule)
+                + ", report=0x" + Integer.toHexString(this.reportingRule)
+                + '}';
     }
 }

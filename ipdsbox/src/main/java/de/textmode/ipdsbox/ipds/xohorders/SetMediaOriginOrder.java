@@ -61,8 +61,8 @@ public final class SetMediaOriginOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "SetMediaOriginOrder{" +
-                "origin=0x" + Integer.toHexString(this.origin) +
-                '}';
+        return "SetMediaOriginOrder{"
+                + "origin=0x" + Integer.toHexString(this.origin)
+                + '}';
     }
 }

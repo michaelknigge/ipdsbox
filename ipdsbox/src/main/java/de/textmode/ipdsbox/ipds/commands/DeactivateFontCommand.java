@@ -102,11 +102,11 @@ public final class DeactivateFontCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "DeactivateFontCommand{" +
-                "deactivationType=0x" + Integer.toHexString(this.deactivationType) +
-                ", haid=" + this.haid +
-                ", sectionID=0x" + Integer.toHexString(this.sectionID) +
-                ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence) +
+        return "DeactivateFontCommand{"
+                + "deactivationType=0x" + Integer.toHexString(this.deactivationType)
+                + ", haid=" + this.haid
+                + ", sectionID=0x" + Integer.toHexString(this.sectionID)
+                + ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence)
                 + '}';
     }
 }

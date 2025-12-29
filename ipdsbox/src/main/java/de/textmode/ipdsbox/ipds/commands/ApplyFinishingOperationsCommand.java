@@ -61,8 +61,8 @@ public final class ApplyFinishingOperationsCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "ApplyFinishingOperationsCommand{" +
-                "triplets=" + this.triplets +
+        return "ApplyFinishingOperationsCommand{"
+                + "triplets=" + this.triplets
                 + '}';
     }
 }

@@ -80,11 +80,11 @@ public final class FullyQualifiedNameTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "FQN{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", type=0x" + Integer.toHexString(this.fqnType) +
-                ", format=0x" + Integer.toHexString(this.fqnFormat) +
-                ", fqnBytes=" + (this.fqn == null ? 0 : this.fqn.length) +
-                "}";
+        return "FQN{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", type=0x" + Integer.toHexString(this.fqnType)
+                + ", format=0x" + Integer.toHexString(this.fqnFormat)
+                + ", fqnBytes=" + (this.fqn == null ? 0 : this.fqn.length)
+                + '}';
     }
 }

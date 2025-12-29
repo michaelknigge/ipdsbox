@@ -37,9 +37,9 @@ public final class UnknownTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "UnknownTriplet{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", rawData=" + StringUtils.toHexString(this.rawData) +
-                "}";
+        return "UnknownTriplet{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", rawData=" + StringUtils.toHexString(this.rawData)
+                + '}';
     }
 }

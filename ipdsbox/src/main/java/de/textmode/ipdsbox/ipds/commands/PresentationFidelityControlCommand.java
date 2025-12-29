@@ -95,9 +95,9 @@ public final class PresentationFidelityControlCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "PresentationFidelityControlCommand{" +
-                "fidelityControlFlags=0x" + Integer.toHexString(this.fidelityControlFlags) +
-                ", triplets=" + this.triplets +
+        return "PresentationFidelityControlCommand{"
+                + "fidelityControlFlags=0x" + Integer.toHexString(this.fidelityControlFlags)
+                + ", triplets=" + this.triplets
                 + '}';
     }
 }

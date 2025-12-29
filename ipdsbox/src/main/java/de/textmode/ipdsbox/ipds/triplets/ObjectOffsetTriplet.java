@@ -61,10 +61,10 @@ public final class ObjectOffsetTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "ObjectOffset{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", type=0x" + Integer.toHexString(this.objectType) +
-                ", offset=" + this.objectOffset +
-                "}";
+        return "ObjectOffset{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", type=0x" + Integer.toHexString(this.objectType)
+                + ", offset=" + this.objectOffset
+                + '}';
     }
 }

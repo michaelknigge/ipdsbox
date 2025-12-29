@@ -115,14 +115,14 @@ public final class FinishingOperationTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "FinishingOperationTriplet{" +
-                "tid=0x" + String.format("%02X", this.getTripletId()) +
-                ", operationType=" + this.operationType +
-                ", finishingOption=0x" + Integer.toHexString(this.finishingOption) +
-                ", reference=" + this.reference +
-                ", count=" + this.count +
-                ", axisOffset=" + this.axisOffset +
-                ", positions=" + this.positions +
-                "}";
+        return "FinishingOperationTriplet{"
+                + "tid=0x" + String.format("%02X", this.getTripletId())
+                + ", operationType=" + this.operationType
+                + ", finishingOption=0x" + Integer.toHexString(this.finishingOption)
+                + ", reference=" + this.reference
+                + ", count=" + this.count
+                + ", axisOffset=" + this.axisOffset
+                + ", positions=" + this.positions
+                + '}';
     }
 }

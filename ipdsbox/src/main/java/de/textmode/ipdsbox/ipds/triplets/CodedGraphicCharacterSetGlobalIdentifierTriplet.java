@@ -103,11 +103,11 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTriplet extends Tripl
 
     @Override
     public String toString() {
-        return "CGCSGID{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", gcsgid=" + Integer.toHexString(this.graphicCharacterSetGlobalIdentifier) +
-                ", cpgid=" + Integer.toHexString(this.codePageGlobalIdentifier) +
-                ", ccsid=" + Integer.toHexString(this.codedCharacterSetIdentifier) +
-                "}";
+        return "CGCSGID{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", gcsgid=" + Integer.toHexString(this.graphicCharacterSetGlobalIdentifier)
+                + ", cpgid=" + Integer.toHexString(this.codePageGlobalIdentifier)
+                + ", ccsid=" + Integer.toHexString(this.codedCharacterSetIdentifier)
+                + '}';
     }
 }

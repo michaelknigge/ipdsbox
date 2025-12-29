@@ -51,8 +51,8 @@ public final class ControlEdgeMarksOrder extends XoaOrder {
 
     @Override
     public String toString() {
-        return "ControlEdgeMarksOrder{" +
-                "edgeMark=0x" + Integer.toHexString(this.edgeMark) +
-                '}';
+        return "ControlEdgeMarksOrder{"
+                + "edgeMark=0x" + Integer.toHexString(this.edgeMark)
+                + '}';
     }
 }

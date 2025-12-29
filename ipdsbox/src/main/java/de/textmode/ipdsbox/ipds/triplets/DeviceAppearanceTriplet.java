@@ -44,9 +44,9 @@ public final class DeviceAppearanceTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "DeviceAppearance{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", appearance=" + Integer.toHexString(this.appearance) +
-                "}";
+        return "DeviceAppearance{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", appearance=" + Integer.toHexString(this.appearance)
+                + '}';
     }
 }

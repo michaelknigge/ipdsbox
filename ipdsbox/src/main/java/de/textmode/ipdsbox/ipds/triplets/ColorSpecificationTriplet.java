@@ -137,11 +137,11 @@ public final class ColorSpecificationTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "ColorSpec{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", cs=0x" + Integer.toHexString(this.colorSpace) +
-                ", sizes=[" + this.colSize1 + "," + this.colSize2 + "," + this.colSize3 + "," + this.colSize4 + "]" +
-                ", valueBytes=" + StringUtils.toHexString(this.getColorValue()) +
-                "}";
+        return "ColorSpec{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", cs=0x" + Integer.toHexString(this.colorSpace)
+                + ", sizes=[" + this.colSize1 + "," + this.colSize2 + "," + this.colSize3 + "," + this.colSize4 + "]"
+                + ", valueBytes=" + StringUtils.toHexString(this.getColorValue())
+                + '}';
     }
 }

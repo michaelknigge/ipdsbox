@@ -93,10 +93,10 @@ public final class RequestSetupNameListOrder extends XoaOrder {
 
     @Override
     public String toString() {
-        return "RequestSetupNameListOrder{" +
-                "queryType=0x" + Integer.toHexString(this.queryType) +
-                ", requestFlags=0x" + Integer.toHexString(this.requestFlags) +
-                ", triplets=" + this.triplets +
-                '}';
+        return "RequestSetupNameListOrder{"
+                + "queryType=0x" + Integer.toHexString(this.queryType)
+                + ", requestFlags=0x" + Integer.toHexString(this.requestFlags)
+                + ", triplets=" + this.triplets
+                + '}';
     }
 }

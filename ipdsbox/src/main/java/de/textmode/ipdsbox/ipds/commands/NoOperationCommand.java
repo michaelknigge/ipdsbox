@@ -63,8 +63,8 @@ public final class NoOperationCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "NoOperationCommand{" +
-                "dataBytes=" + StringUtils.toHexString(this.dataBytes) +
+        return "NoOperationCommand{"
+                + "dataBytes=" + StringUtils.toHexString(this.dataBytes)
                 + '}';
     }
 }

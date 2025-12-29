@@ -95,12 +95,12 @@ public final class RenderingIntentTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "RenderingIntent{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", ioca=0x" + Integer.toHexString(this.ioca) +
-                ", objectContainer=0x" + Integer.toHexString(this.objectContainer) +
-                ", ptoca=0x" + Integer.toHexString(this.ptoca) +
-                ", goca=0x" + Integer.toHexString(this.goca) +
-                '}';
+        return "RenderingIntent{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", ioca=0x" + Integer.toHexString(this.ioca)
+                + ", objectContainer=0x" + Integer.toHexString(this.objectContainer)
+                + ", ptoca=0x" + Integer.toHexString(this.ptoca)
+                + ", goca=0x" + Integer.toHexString(this.goca)
+                + '}';
     }
 }

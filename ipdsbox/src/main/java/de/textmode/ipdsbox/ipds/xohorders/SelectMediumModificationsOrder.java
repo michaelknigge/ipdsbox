@@ -129,18 +129,18 @@ public final class SelectMediumModificationsOrder extends XohOrder {
 
         @Override
         public String toString() {
-            return "MediumModification{" +
-                    "type=0x" + Integer.toHexString(this.type) +
-                    ", modificationId=" + this.modificationId +
-                    ", modificationParameters=" + StringUtils.toHexString(this.modificationParameters) +
-                    '}';
+            return "MediumModification{"
+                    + "type=0x" + Integer.toHexString(this.type)
+                    + ", modificationId=" + this.modificationId
+                    + ", modificationParameters=" + StringUtils.toHexString(this.modificationParameters)
+                    + '}';
         }
     }
 
     @Override
     public String toString() {
-        return "SelectMediumModificationsOrder{" +
-                "modifications=" + this.modifications +
-                '}';
+        return "SelectMediumModificationsOrder{"
+                + "modifications=" + this.modifications
+                + '}';
     }
 }

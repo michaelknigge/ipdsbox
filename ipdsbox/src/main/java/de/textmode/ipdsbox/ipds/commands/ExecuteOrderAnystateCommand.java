@@ -44,8 +44,8 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "ExecuteOrderAnystateCommand{" +
-                "order=" + this.order +
+        return "ExecuteOrderAnystateCommand{"
+                + "order=" + this.order
                 + '}';
     }
 }

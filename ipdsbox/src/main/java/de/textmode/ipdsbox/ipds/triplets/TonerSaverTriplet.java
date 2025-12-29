@@ -44,9 +44,9 @@ public final class TonerSaverTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "TonerSaver{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", control=0x" + Integer.toHexString(this.control) +
-                "}";
+        return "TonerSaver{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", control=0x" + Integer.toHexString(this.control)
+                + '}';
     }
 }

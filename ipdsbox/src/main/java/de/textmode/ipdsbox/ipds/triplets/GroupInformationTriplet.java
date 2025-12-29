@@ -100,10 +100,10 @@ public final class GroupInformationTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "GroupInformationTriplet{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", format=" + (this.format == -1 ? "no format" : this.format) +
-                ", data=" + (this.data == null ? "no data" : this.data) +
-                "}";
+        return "GroupInformationTriplet{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", format=" + (this.format == -1 ? "no format" : this.format)
+                + ", data=" + (this.data == null ? "no data" : this.data)
+                + '}';
     }
 }

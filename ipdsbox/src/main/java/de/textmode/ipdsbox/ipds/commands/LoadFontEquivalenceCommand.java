@@ -202,23 +202,23 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
 
         @Override
         public String toString() {
-            return "LoadFontEquivalenceEntry{" +
-                    "fontLocalId=0x" + Integer.toHexString(this.fontLocalId) +
-                    ", haid=0x" + Integer.toHexString(this.haid) +
-                    ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence) +
-                    ", GCSGID=0x" + Integer.toHexString(this.graphicCharacterSetGlobalIdentifier) +
-                    ", CPGID=0x" + Integer.toHexString(this.codePageGlobalIdentifier) +
-                    ", FGID=0x" + Integer.toHexString(this.fontTypefaceGlobalIdentifier) +
-                    ", fontWidth=0x" + Integer.toHexString(this.fontWidth) +
-                    ", flags=0x" + Integer.toHexString(this.flags) +
+            return "LoadFontEquivalenceEntry{"
+                    + "fontLocalId=0x" + Integer.toHexString(this.fontLocalId)
+                    + ", haid=0x" + Integer.toHexString(this.haid)
+                    + ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence)
+                    + ", GCSGID=0x" + Integer.toHexString(this.graphicCharacterSetGlobalIdentifier)
+                    + ", CPGID=0x" + Integer.toHexString(this.codePageGlobalIdentifier)
+                    + ", FGID=0x" + Integer.toHexString(this.fontTypefaceGlobalIdentifier)
+                    + ", fontWidth=0x" + Integer.toHexString(this.fontWidth)
+                    + ", flags=0x" + Integer.toHexString(this.flags)
                     + '}';
         }
     }
 
     @Override
     public String toString() {
-        return "LoadFontEquivalenceCommand{" +
-                "entries=" + this.entries +
+        return "LoadFontEquivalenceCommand{"
+                + "entries=" + this.entries
                 + '}';
     }
 }

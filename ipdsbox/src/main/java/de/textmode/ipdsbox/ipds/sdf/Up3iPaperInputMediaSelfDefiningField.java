@@ -77,9 +77,9 @@ public final class Up3iPaperInputMediaSelfDefiningField extends SelfDefiningFiel
 
     @Override
     public String toString() {
-        return "Up3iTupelSelfDefiningField{" +
-                "mediaSourceId=" + this.mediaSourceId +
-                ", up3iMediaInformation=" + StringUtils.toHexString(this.up3iMediaInformation) +
-                '}';
+        return "Up3iTupelSelfDefiningField{"
+                + "mediaSourceId=" + this.mediaSourceId
+                + ", up3iMediaInformation=" + StringUtils.toHexString(this.up3iMediaInformation)
+                + '}';
     }
 }

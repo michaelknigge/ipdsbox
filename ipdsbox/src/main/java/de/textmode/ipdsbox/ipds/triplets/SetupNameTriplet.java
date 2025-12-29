@@ -51,9 +51,9 @@ public final class SetupNameTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "SetupName{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", setupName=" + this.setupName +
-                "}";
+        return "SetupName{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", setupName=" + this.setupName
+                + '}';
     }
 }

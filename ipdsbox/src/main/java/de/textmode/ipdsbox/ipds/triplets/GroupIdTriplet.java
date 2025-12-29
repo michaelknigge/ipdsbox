@@ -114,10 +114,10 @@ public final class GroupIdTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "GroupIDTriplet{" +
-                "tid=0x" + String.format("%02X", this.getTripletId()) +
-                ", format=" + (this.format == -1 ? "no format" : this.format) +
-                ", data=" + (this.data == null ? "no data" : this.data) +
-                "}";
+        return "GroupIDTriplet{"
+                + "tid=0x" + String.format("%02X", this.getTripletId())
+                + ", format=" + (this.format == -1 ? "no format" : this.format)
+                + ", data=" + (this.data == null ? "no data" : this.data)
+                + '}';
     }
 }

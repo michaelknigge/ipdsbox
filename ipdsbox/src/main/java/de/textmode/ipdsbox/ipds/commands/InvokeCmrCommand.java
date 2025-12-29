@@ -79,9 +79,9 @@ public final class InvokeCmrCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "InvokeCmrCommand{" +
-                "invocationFlags=0x" + Integer.toHexString(this.invocationFlags) +
-                ", hostAssignedIds=" + this.hostAssignedIds +
+        return "InvokeCmrCommand{"
+                + "invocationFlags=0x" + Integer.toHexString(this.invocationFlags)
+                + ", hostAssignedIds=" + this.hostAssignedIds
                 + '}';
     }
 }

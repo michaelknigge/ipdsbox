@@ -69,9 +69,9 @@ public final class SpecifyGroupOperationOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "SpecifyGroupOperationOrder{" +
-                "operation=0x" + Integer.toHexString(this.operation) +
-                ", groupLevel=0x" + Integer.toHexString(this.groupLevel) +
-                '}';
+        return "SpecifyGroupOperationOrder{"
+                + "operation=0x" + Integer.toHexString(this.operation)
+                + ", groupLevel=0x" + Integer.toHexString(this.groupLevel)
+                + '}';
     }
 }

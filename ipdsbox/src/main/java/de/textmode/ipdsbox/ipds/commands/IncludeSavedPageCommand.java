@@ -89,9 +89,9 @@ public final class IncludeSavedPageCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "IncludeSavedPageCommand{" +
-                "pageSequenceNumber=" + this.pageSequenceNumber +
-                ", triplets=" + this.triplets +
+        return "IncludeSavedPageCommand{"
+                + "pageSequenceNumber=" + this.pageSequenceNumber
+                + ", triplets=" + this.triplets
                 + '}';
     }
 }

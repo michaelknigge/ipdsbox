@@ -41,11 +41,11 @@ public final class PresentationSpaceResetMixingTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "ResetMixing{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", flags=" + String
+        return "ResetMixing{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", flags=" + String
                     .format("B'%8s'", Integer.toBinaryString(this.mixingFlags))
-                    .replace(' ', '0') +
-                "}";
+                    .replace(' ', '0')
+                + '}';
     }
 }

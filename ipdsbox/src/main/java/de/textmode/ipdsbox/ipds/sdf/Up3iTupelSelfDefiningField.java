@@ -78,9 +78,9 @@ public final class Up3iTupelSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "Up3iTupelSelfDefiningField{" +
-                "tupelId=" + this.tupelId +
-                ", up3iDeviceInformation=" + StringUtils.toHexString(this.up3iDeviceInformation) +
-                '}';
+        return "Up3iTupelSelfDefiningField{"
+                + "tupelId=" + this.tupelId
+                + ", up3iDeviceInformation=" + StringUtils.toHexString(this.up3iDeviceInformation)
+                + '}';
     }
 }

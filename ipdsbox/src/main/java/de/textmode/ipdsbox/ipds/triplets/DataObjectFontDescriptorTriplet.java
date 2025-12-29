@@ -144,15 +144,15 @@ public final class DataObjectFontDescriptorTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "DataObjectFontDescriptor{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", fontFlags=0x" + Integer.toHexString(this.fontFlags) +
-                ", fontTechnology=0x" + Integer.toHexString(this.fontTechnology) +
-                ", specifiedVerticalFontSize=" + this.verticalFontSize +
-                ", horizontalScaleFactor=" + this.horizontalScaleFactor +
-                ", characterRotation=" + this.characterRotation +
-                ", encodingEnvironment=" + this.encodingEnvironment +
-                ", encodingID=" + this.encodingID +
-                "}";
+        return "DataObjectFontDescriptor{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", fontFlags=0x" + Integer.toHexString(this.fontFlags)
+                + ", fontTechnology=0x" + Integer.toHexString(this.fontTechnology)
+                + ", specifiedVerticalFontSize=" + this.verticalFontSize
+                + ", horizontalScaleFactor=" + this.horizontalScaleFactor
+                + ", characterRotation=" + this.characterRotation
+                + ", encodingEnvironment=" + this.encodingEnvironment
+                + ", encodingID=" + this.encodingID
+                + '}';
     }
 }

@@ -86,10 +86,10 @@ public final class TraceOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "TraceOrder{" +
-                "function=0x" + Integer.toHexString(this.function) +
-                ", controlFlags=0x" + Integer.toHexString(this.controlFlags) +
-                ", options=" + StringUtils.toHexString(this.options) +
-                '}';
+        return "TraceOrder{"
+                + "function=0x" + Integer.toHexString(this.function)
+                + ", controlFlags=0x" + Integer.toHexString(this.controlFlags)
+                + ", options=" + StringUtils.toHexString(this.options)
+                + '}';
     }
 }

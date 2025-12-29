@@ -163,8 +163,8 @@ public final class IpdsCommandFlags {
 
     @Override
     public String toString() {
-        return "IpdsCommandFlags{" +
-                "flags=" + Integer.toHexString(this.flags) +
+        return "IpdsCommandFlags{"
+                + "flags=" + Integer.toHexString(this.flags)
                 + '}';
     }
 }

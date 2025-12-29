@@ -150,20 +150,20 @@ public final class RequestResourceListOrder extends XoaOrder {
 
         @Override
         public String toString() {
-            return "ResourceQuery{" +
-                    "resourceType=0x" + Integer.toHexString(this.resourceType) +
-                    ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat) +
-                    ", resourceId=" + StringUtils.toHexString(this.resourceId) +
-                    '}';
+            return "ResourceQuery{"
+                    + "resourceType=0x" + Integer.toHexString(this.resourceType)
+                    + ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat)
+                    + ", resourceId=" + StringUtils.toHexString(this.resourceId)
+                    + '}';
         }
     }
 
     @Override
     public String toString() {
-        return "RequestResourceListOrder{" +
-                "queryType=" + this.queryType +
-                ", continuationIndicator=" + this.continuationIndicator +
-                ", resourceQueries=" + this.resourceQueries +
-                '}';
+        return "RequestResourceListOrder{"
+                + "queryType=" + this.queryType
+                + ", continuationIndicator=" + this.continuationIndicator
+                + ", resourceQueries=" + this.resourceQueries
+                + '}';
     }
 }

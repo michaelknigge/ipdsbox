@@ -92,11 +92,11 @@ public final class ColorFidelityTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "ColorFidelity{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", continueRule=0x" + Integer.toHexString(this.continuationRule) +
-                ", report=0x" + Integer.toHexString(this.reportingRule) +
-                ", substitute=0x" + Integer.toHexString(this.substitutionRule) +
-                "}";
+        return "ColorFidelity{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", continueRule=0x" + Integer.toHexString(this.continuationRule)
+                + ", report=0x" + Integer.toHexString(this.reportingRule)
+                + ", substitute=0x" + Integer.toHexString(this.substitutionRule)
+                + '}';
     }
 }

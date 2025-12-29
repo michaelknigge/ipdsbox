@@ -65,8 +65,8 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "SetPresentationEnvironmentCommand{" +
-                "triplets=" + this.triplets +
+        return "SetPresentationEnvironmentCommand{"
+                + "triplets=" + this.triplets
                 + '}';
     }
 }

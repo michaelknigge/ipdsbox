@@ -125,12 +125,12 @@ public final class LinkedFontTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "LinkedFont{" +
-                "tid=0x" + Integer.toHexString(this.getTripletId()) +
-                ", haid=" + Integer.toHexString(this.hostAssignedId) +
-                ", fontIdType=" + Integer.toHexString(this.fontIdType) +
-                ", fontIndex=" + this.fontIndex +
-                ", fullFontName=" + this.fullFontName +
-                "}";
+        return "LinkedFont{"
+                + "tid=0x" + Integer.toHexString(this.getTripletId())
+                + ", haid=" + Integer.toHexString(this.hostAssignedId)
+                + ", fontIdType=" + Integer.toHexString(this.fontIdType)
+                + ", fontIndex=" + this.fontIndex
+                + ", fullFontName=" + this.fullFontName
+                + '}';
     }
 }

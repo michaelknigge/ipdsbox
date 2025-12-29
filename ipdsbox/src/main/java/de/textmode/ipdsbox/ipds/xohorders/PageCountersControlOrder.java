@@ -51,8 +51,8 @@ public final class PageCountersControlOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "PageCountersControlOrder{" +
-                "counterUpdate=0x" + Integer.toHexString(this.counterUpdate) +
-                '}';
+        return "PageCountersControlOrder{"
+                + "counterUpdate=0x" + Integer.toHexString(this.counterUpdate)
+                + '}';
     }
 }

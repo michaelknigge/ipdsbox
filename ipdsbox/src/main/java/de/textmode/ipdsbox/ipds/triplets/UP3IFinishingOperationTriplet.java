@@ -49,9 +49,9 @@ public final class UP3IFinishingOperationTriplet extends Triplet {
 
     @Override
     public String toString() {
-        return "UP3IFinishingOperationTriplet{" +
-                "sequenceNumber=" + this.sequenceNumber +
-                ", data=" + StringUtils.toHexString(this.data) +
-                "}";
+        return "UP3IFinishingOperationTriplet{"
+                + "sequenceNumber=" + this.sequenceNumber
+                + ", data=" + StringUtils.toHexString(this.data)
+                + '}';
     }
 }

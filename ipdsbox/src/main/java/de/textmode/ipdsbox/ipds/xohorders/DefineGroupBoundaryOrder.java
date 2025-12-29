@@ -100,10 +100,10 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
 
     @Override
     public String toString() {
-        return "DefineGroupBoundaryOrder{" +
-                "orderType=0x" + Integer.toHexString(this.orderType) +
-                ", groupLevel=" + this.groupLevel +
-                ", triplets=" + this.triplets +
-                '}';
+        return "DefineGroupBoundaryOrder{"
+                + "orderType=0x" + Integer.toHexString(this.orderType)
+                + ", groupLevel=" + this.groupLevel
+                + ", triplets=" + this.triplets
+                + '}';
     }
 }
