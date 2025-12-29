@@ -3,6 +3,7 @@ package de.textmode.ipdsbox.ipds.commands;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.ByteUtils;
+import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -58,5 +59,12 @@ public final class NoOperationCommand extends IpdsCommand {
         if (this.dataBytes != null) {
             ipds.writeBytes(this.dataBytes);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "NoOperationCommand{" +
+                "dataBytes=" + StringUtils.toHexString(this.dataBytes) +
+                '}';
     }
 }

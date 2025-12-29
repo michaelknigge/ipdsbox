@@ -1,6 +1,7 @@
 package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
@@ -37,5 +38,13 @@ public final class UnknownIpdsCommand extends IpdsCommand {
         if (this.rawData != null) {
             ipds.writeBytes(this.rawData);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "UnknownIpdsCommand{" +
+                "commandId=" + Integer.toHexString(this.getCommandCodeId()) +
+                ", rawData=" + Arrays.toString(this.rawData) +
+                '}';
     }
 }

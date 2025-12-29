@@ -62,4 +62,11 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
             triplet.writeTo(ipds);
         }
     }
+
+    @Override
+    public String toString() {
+        return "SetPresentationEnvironmentCommand{" +
+                "triplets=" + this.triplets +
+                '}';
+    }
 }

@@ -350,4 +350,26 @@ public final class LogicalPageDescriptorCommand extends IpdsCommand {
     public List<Triplet> getTriplets() {
         return this.triplets;
     }
+
+    @Override
+    public String toString() {
+        return "LogicalPageDescriptorCommand{" +
+                "unitBase=0x" + Integer.toHexString(this.unitBase) +
+                ", xupub=" + this.xupub +
+                ", yupub=" + this.yupub +
+                ", xpExtent=" + this.xpExtent +
+                ", ypExtent=" + this.ypExtent +
+                ", orderedDataFlags=0x" + Integer.toHexString(this.orderedDataFlags) +
+                ", iAxisOrientation=0x" + Integer.toHexString(this.iAxisOrientation) +
+                ", bAxisOrientation=0x" + Integer.toHexString(this.bAxisOrientation) +
+                ", initialInline=" + this.initialInline +
+                ", initialBaseline=" + this.initialBaseline +
+                ", inlineMargin=" + this.inlineMargin +
+                ", intercharAdjustment=" + this.intercharAdjustment +
+                ", baselineIncrement=" + this.baselineIncrement +
+                ", fontLocalId=" + this.fontLocalId +
+                ", color=" + this.color +
+                ", triplets=" + this.triplets +
+                '}';
+    }
 }

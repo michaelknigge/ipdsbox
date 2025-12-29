@@ -36,4 +36,9 @@ public final class SetHomeStateCommand extends IpdsCommand {
     protected void writeDataTo(final IpdsByteArrayOutputStream ipds) {
         // No data is transmitted with this command.
     }
+
+    @Override
+    public String toString() {
+        return "SetHomeStateCommand{}";
+    }
 }

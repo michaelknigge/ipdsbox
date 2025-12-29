@@ -56,4 +56,11 @@ public final class ManageIpdsDialogCommand extends IpdsCommand {
     protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedByte(this.type);
     }
+
+    @Override
+    public String toString() {
+        return "ManageIpdsDialogCommand{" +
+                "type=0x" + Integer.toHexString(this.type) +
+                '}';
+    }
 }

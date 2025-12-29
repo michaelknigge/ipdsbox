@@ -204,7 +204,7 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
         public String toString() {
             return "LoadFontEquivalenceEntry{" +
                     "fontLocalId=0x" + Integer.toHexString(this.fontLocalId) +
-                    ", hadi=0x" + Integer.toHexString(this.haid) +
+                    ", haid=0x" + Integer.toHexString(this.haid) +
                     ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence) +
                     ", GCSGID=0x" + Integer.toHexString(this.graphicCharacterSetGlobalIdentifier) +
                     ", CPGID=0x" + Integer.toHexString(this.codePageGlobalIdentifier) +
@@ -213,5 +213,12 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
                     ", flags=0x" + Integer.toHexString(this.flags) +
                     '}';
         }
+    }
+
+    @Override
+    public String toString() {
+        return "LoadFontEquivalenceCommand{" +
+                "entries=" + this.entries +
+                '}';
     }
 }

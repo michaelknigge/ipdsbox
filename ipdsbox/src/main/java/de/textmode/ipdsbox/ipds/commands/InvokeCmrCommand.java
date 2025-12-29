@@ -76,4 +76,12 @@ public final class InvokeCmrCommand extends IpdsCommand {
     public void setHostAssignedIds(final List<Integer> hostAssignedIds) {
         this.hostAssignedIds = hostAssignedIds;
     }
+
+    @Override
+    public String toString() {
+        return "InvokeCmrCommand{" +
+                "invocationFlags=0x" + Integer.toHexString(this.invocationFlags) +
+                ", hostAssignedIds=" + this.hostAssignedIds +
+                '}';
+    }
 }

@@ -3,6 +3,7 @@ package de.textmode.ipdsbox.ipds.commands;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.ByteUtils;
+import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -59,5 +60,12 @@ public final class WriteTextCommand extends IpdsCommand {
         if (this.ptocaData != null) {
             ipds.writeBytes(this.ptocaData);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "WriteTextCommand{" +
+                "ptocaData=" + StringUtils.toHexString(this.ptocaData) +
+                '}';
     }
 }

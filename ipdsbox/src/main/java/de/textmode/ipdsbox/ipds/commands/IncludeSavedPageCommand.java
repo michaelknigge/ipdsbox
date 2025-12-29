@@ -86,4 +86,12 @@ public final class IncludeSavedPageCommand extends IpdsCommand {
             triplet.writeTo(ipds);
         }
     }
+
+    @Override
+    public String toString() {
+        return "IncludeSavedPageCommand{" +
+                "pageSequenceNumber=" + this.pageSequenceNumber +
+                ", triplets=" + this.triplets +
+                '}';
+    }
 }

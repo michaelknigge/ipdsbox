@@ -43,4 +43,11 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
     protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         this.order.writeTo(ipds);
     }
+
+    @Override
+    public String toString() {
+        return "ExecuteOrderHomeStateCommand{" +
+                "order=" + this.order +
+                '}';
+    }
 }

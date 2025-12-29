@@ -58,4 +58,11 @@ public final class ApplyFinishingOperationsCommand extends IpdsCommand {
             triplet.writeTo(ipds);
         }
     }
+
+    @Override
+    public String toString() {
+        return "ApplyFinishingOperationsCommand{" +
+                "triplets=" + this.triplets +
+                '}';
+    }
 }

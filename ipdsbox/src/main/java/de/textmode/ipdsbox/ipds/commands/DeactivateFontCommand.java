@@ -99,4 +99,14 @@ public final class DeactivateFontCommand extends IpdsCommand {
     public void setFontInlineSequence(final int fontInlineSequence) {
         this.fontInlineSequence = fontInlineSequence;
     }
+
+    @Override
+    public String toString() {
+        return "DeactivateFontCommand{" +
+                "deactivationType=0x" + Integer.toHexString(this.deactivationType) +
+                ", haid=" + this.haid +
+                ", sectionID=0x" + Integer.toHexString(this.sectionID) +
+                ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence) +
+                '}';
+    }
 }

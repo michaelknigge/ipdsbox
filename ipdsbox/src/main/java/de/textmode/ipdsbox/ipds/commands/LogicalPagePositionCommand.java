@@ -96,4 +96,14 @@ public final class LogicalPagePositionCommand extends IpdsCommand {
     public void setOrientation(final int orientation) {
         this.orientation = orientation;
     }
+
+    @Override
+    public String toString() {
+        return "LogicalPagePositionCommand{" +
+                "xmPageOffset=" + this.xmPageOffset +
+                ", ymPageOffset=" + this.ymPageOffset +
+                ", placement=0x" + Integer.toHexString(this.placement) +
+                ", orientation=0x" + Integer.toHexString(this.orientation) +
+                '}';
+    }
 }

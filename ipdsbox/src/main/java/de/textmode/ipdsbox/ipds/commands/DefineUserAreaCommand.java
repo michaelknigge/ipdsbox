@@ -135,4 +135,17 @@ public final class DefineUserAreaCommand extends IpdsCommand {
     public void setYmExtent(final int ymExtent) {
         this.ymExtent = ymExtent;
     }
+
+    @Override
+    public String toString() {
+        return "DefineUserAreaCommand{" +
+                "reset=0x" + Integer.toHexString(this.reset) +
+                ", unitBase=0x" + Integer.toHexString(this.unitBase) +
+                ", upub=" + this.upub +
+                ", xmOffset=" + this.xmOffset +
+                ", ymOffset=" + this.ymOffset +
+                ", xmExtent=" + this.xmExtent +
+                ", ymExtent=" + this.ymExtent +
+                '}';
+    }
 }

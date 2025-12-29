@@ -73,6 +73,14 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         public List<Keyword> getKeywords() {
             return this.keywords;
         }
+
+        @Override
+        public String toString() {
+            return "CopySubgroup{" +
+                    "copies=" + this.copies +
+                    ", keywords=" + this.keywords +
+                    '}';
+        }
     }
 
     public static class Keyword {
@@ -111,5 +119,20 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         public void setKeywordParameter(final int keywordParameter) {
             this.keywordParameter = keywordParameter;
         }
+
+        @Override
+        public String toString() {
+            return "Keyword{" +
+                    "keywordId=0x" + Integer.toHexString(this.keywordId) +
+                    ", keywordParameter=0x" + Integer.toHexString(this.keywordParameter) +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "LoadCopyControlCommand{" +
+                "subgroups=" + this.subgroups +
+                '}';
     }
 }
