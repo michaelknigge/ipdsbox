@@ -63,8 +63,8 @@ public class FinishingOptionsSelfDefiningField extends SelfDefiningField{
 
     @Override
     public String toString() {
-        return "FinishingOptionsSelfDefiningField{" +
-                "optionTypes=" + this.optionTypes +
-                '}';
+        return "FinishingOptionsSelfDefiningField{"	
+                + "optionTypes=" + this.optionTypes	
+                + '}';
     }
 }

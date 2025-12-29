@@ -45,6 +45,6 @@ public final class UnknownIpdsCommand extends IpdsCommand {
         return "UnknownIpdsCommand{" +
                 "commandId=" + Integer.toHexString(this.getCommandCodeId()) +
                 ", rawData=" + Arrays.toString(this.rawData) +
-                '}';
+                + '}';
     }
 }

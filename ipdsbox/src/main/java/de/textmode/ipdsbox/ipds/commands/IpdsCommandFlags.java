@@ -165,6 +165,6 @@ public final class IpdsCommandFlags {
     public String toString() {
         return "IpdsCommandFlags{" +
                 "flags=" + Integer.toHexString(this.flags) +
-                '}';
+                + '}';
     }
 }

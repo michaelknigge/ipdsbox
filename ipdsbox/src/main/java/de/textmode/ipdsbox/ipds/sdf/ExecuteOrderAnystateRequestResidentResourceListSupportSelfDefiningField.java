@@ -47,10 +47,10 @@ public final class ExecuteOrderAnystateRequestResidentResourceListSupportSelfDef
 
         @Override
         public String toString() {
-            return "ResourceSupportEntry{" +
-                    "resourceType=0x" + Integer.toHexString(this.resourceType) +
-                    ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat) +
-                    '}';
+            return "ResourceSupportEntry{"	
+                    + "resourceType=0x" + Integer.toHexString(this.resourceType)	
+                    + ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat)	
+                    + '}';
         }
     }
 
@@ -108,8 +108,8 @@ public final class ExecuteOrderAnystateRequestResidentResourceListSupportSelfDef
 
     @Override
     public String toString() {
-        return "ResourceSupportEntry{" +
-                "entries=" + this.entries +
-                '}';
+        return "ResourceSupportEntry{"	
+                + "entries=" + this.entries	
+                + '}';
     }
 }

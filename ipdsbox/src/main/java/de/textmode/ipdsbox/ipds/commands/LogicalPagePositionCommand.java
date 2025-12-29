@@ -99,11 +99,11 @@ public final class LogicalPagePositionCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "LogicalPagePositionCommand{" +
-                "xmPageOffset=" + this.xmPageOffset +
-                ", ymPageOffset=" + this.ymPageOffset +
-                ", placement=0x" + Integer.toHexString(this.placement) +
-                ", orientation=0x" + Integer.toHexString(this.orientation) +
-                '}';
+        return "LogicalPagePositionCommand{"	
+                + "xmPageOffset=" + this.xmPageOffset	
+                + ", ymPageOffset=" + this.ymPageOffset	
+                + ", placement=0x" + Integer.toHexString(this.placement)	
+                + ", orientation=0x" + Integer.toHexString(this.orientation)	
+                + '}';
     }
 }

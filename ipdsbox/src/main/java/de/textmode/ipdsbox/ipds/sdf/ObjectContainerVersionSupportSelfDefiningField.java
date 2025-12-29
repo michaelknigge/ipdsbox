@@ -112,14 +112,14 @@ public final class ObjectContainerVersionSupportSelfDefiningField extends SelfDe
 
         @Override
         public String toString() {
-            return "VersionRecord{" +
-                    "regId=" + StringUtils.toHexString(this.regId) +
-                    ", flags=0x" + Integer.toHexString(this.flags) +
-                    ", majorVersion=" + this.majorVersion +
-                    ", minorVersion=" + this.minorVersion +
-                    ", subminorVersion=" + this.subminorVersion +
-                    ", versionName='" + this.versionName + '\'' +
-                    '}';
+            return "VersionRecord{"	
+                    + "regId=" + StringUtils.toHexString(this.regId)	
+                    + ", flags=0x" + Integer.toHexString(this.flags)	
+                    + ", majorVersion=" + this.majorVersion	
+                    + ", minorVersion=" + this.minorVersion	
+                    + ", subminorVersion=" + this.subminorVersion	
+                    + ", versionName='" + this.versionName + '\''	
+                    + '}';
         }
     }
 
@@ -204,8 +204,8 @@ public final class ObjectContainerVersionSupportSelfDefiningField extends SelfDe
 
     @Override
     public String toString() {
-        return "ObjectContainerVersionSupportSelfDefiningField{" +
-                "versionRecords=" + this.versionRecords +
-                '}';
+        return "ObjectContainerVersionSupportSelfDefiningField{"	
+                + "versionRecords=" + this.versionRecords	
+                + '}';
     }
 }

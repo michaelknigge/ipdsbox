@@ -64,8 +64,8 @@ public class MediumModificationIdsSupportedSelfDefiningField extends SelfDefinin
 
     @Override
     public String toString() {
-        return "MediumModificationIdsSupportedSelfDefiningField{" +
-                "mediumModificationIds=" + this.mediumModificationIds +
-                '}';
+        return "MediumModificationIdsSupportedSelfDefiningField{"	
+                + "mediumModificationIds=" + this.mediumModificationIds	
+                + '}';
     }
 }

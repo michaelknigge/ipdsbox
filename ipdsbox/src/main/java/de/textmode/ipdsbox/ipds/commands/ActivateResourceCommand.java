@@ -191,7 +191,7 @@ public final class ActivateResourceCommand extends IpdsCommand {
                     ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence) +
                     ", resourceClassFlags=0x" + Integer.toHexString(this.resourceClassFlags) +
                     ", resourceId=" + StringUtils.toHexString(this.resourceId) +
-                    '}';
+                    + '}';
         }
     }
 }

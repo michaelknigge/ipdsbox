@@ -67,6 +67,6 @@ public final class SetPresentationEnvironmentCommand extends IpdsCommand {
     public String toString() {
         return "SetPresentationEnvironmentCommand{" +
                 "triplets=" + this.triplets +
-                '}';
+                + '}';
     }
 }

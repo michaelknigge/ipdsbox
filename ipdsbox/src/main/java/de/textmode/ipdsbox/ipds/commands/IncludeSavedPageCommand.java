@@ -92,6 +92,6 @@ public final class IncludeSavedPageCommand extends IpdsCommand {
         return "IncludeSavedPageCommand{" +
                 "pageSequenceNumber=" + this.pageSequenceNumber +
                 ", triplets=" + this.triplets +
-                '}';
+                + '}';
     }
 }

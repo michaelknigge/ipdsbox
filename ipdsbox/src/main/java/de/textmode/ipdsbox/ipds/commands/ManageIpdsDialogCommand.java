@@ -61,6 +61,6 @@ public final class ManageIpdsDialogCommand extends IpdsCommand {
     public String toString() {
         return "ManageIpdsDialogCommand{" +
                 "type=0x" + Integer.toHexString(this.type) +
-                '}';
+                + '}';
     }
 }

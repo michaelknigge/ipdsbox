@@ -94,11 +94,11 @@ public final class ColorantIdentificationSelfDefiningField extends SelfDefiningF
 
         @Override
         public String toString() {
-            return "ColorantIdentificationEntry{" +
-                    "entryType=0x" + Integer.toHexString(this.entryType) +
-                    ", colorantAvailabilityFlags=0x" + Integer.toHexString(this.colorantAvailabilityFlags) +
-                    ", colorantName='" + this.colorantName + '\'' +
-                    '}';
+            return "ColorantIdentificationEntry{"	
+                    + "entryType=0x" + Integer.toHexString(this.entryType)	
+                    + ", colorantAvailabilityFlags=0x" + Integer.toHexString(this.colorantAvailabilityFlags)	
+                    + ", colorantName='" + this.colorantName + '\''	
+                    + '}';
         }
     }
 
@@ -157,8 +157,8 @@ public final class ColorantIdentificationSelfDefiningField extends SelfDefiningF
 
     @Override
     public String toString() {
-        return "ColorantIdentificationSelfDefiningField{" +
-                "entries=" + this.entries +
-                '}';
+        return "ColorantIdentificationSelfDefiningField{"	
+                + "entries=" + this.entries	
+                + '}';
     }
 }

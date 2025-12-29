@@ -38,10 +38,10 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
 
         @Override
         public String toString() {
-            return "MediaIdEntry{" +
-                    "mediaIdType=" + this.mediaIdType +
-                    ", mediaId=0x" + StringUtils.toHexString(this.mediaId) +
-                    '}';
+            return "MediaIdEntry{"	
+                    + "mediaIdType=" + this.mediaIdType	
+                    + ", mediaId=0x" + StringUtils.toHexString(this.mediaId)	
+                    + '}';
         }
     }
 
@@ -269,18 +269,18 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "PrintableAreaSelfDefiningField{" +
-                "mediaSourceID=" + this.mediaSourceId +
-                ", unitBase=" + this.unitBase +
-                ", upub=" + this.upub +
-                ", actualMediumPresentationSpaceWidth=" + this.actualMediumPresentationSpaceWidth +
-                ", actualMediumPresentationSpaceLength=" + this.actualMediumPresentationSpaceLength +
-                ", xMPPAOffset=" + this.xMPPAOffset +
-                ", yMPPAOffset=" + this.yMPPAOffset +
-                ", xMPPAExtent=" + this.xMPPAExtent +
-                ", yMPPAExtent=" + this.yMPPAExtent +
-                ", inputMediaSourceCharacteristicFlags=" + this.inputMediaSourceCharacteristicFlags +
-                ", mediaIdEntries=" + this.mediaIdEntries +
-                '}';
+        return "PrintableAreaSelfDefiningField{"	
+                + "mediaSourceID=" + this.mediaSourceId	
+                + ", unitBase=" + this.unitBase	
+                + ", upub=" + this.upub	
+                + ", actualMediumPresentationSpaceWidth=" + this.actualMediumPresentationSpaceWidth	
+                + ", actualMediumPresentationSpaceLength=" + this.actualMediumPresentationSpaceLength	
+                + ", xMPPAOffset=" + this.xMPPAOffset	
+                + ", yMPPAOffset=" + this.yMPPAOffset	
+                + ", xMPPAExtent=" + this.xMPPAExtent	
+                + ", yMPPAExtent=" + this.yMPPAExtent	
+                + ", inputMediaSourceCharacteristicFlags=" + this.inputMediaSourceCharacteristicFlags	
+                + ", mediaIdEntries=" + this.mediaIdEntries	
+                + '}';
     }
 }

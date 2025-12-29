@@ -76,10 +76,10 @@ public final class LoadCopyControlCommand extends IpdsCommand {
 
         @Override
         public String toString() {
-            return "CopySubgroup{" +
-                    "copies=" + this.copies +
-                    ", keywords=" + this.keywords +
-                    '}';
+            return "CopySubgroup{"	
+                    + "copies=" + this.copies	
+                    + ", keywords=" + this.keywords	
+                    + '}';
         }
     }
 
@@ -122,17 +122,17 @@ public final class LoadCopyControlCommand extends IpdsCommand {
 
         @Override
         public String toString() {
-            return "Keyword{" +
-                    "keywordId=0x" + Integer.toHexString(this.keywordId) +
-                    ", keywordParameter=0x" + Integer.toHexString(this.keywordParameter) +
-                    '}';
+            return "Keyword{"	
+                    + "keywordId=0x" + Integer.toHexString(this.keywordId)	
+                    + ", keywordParameter=0x" + Integer.toHexString(this.keywordParameter)	
+                    + '}';
         }
     }
 
     @Override
     public String toString() {
-        return "LoadCopyControlCommand{" +
-                "subgroups=" + this.subgroups +
-                '}';
+        return "LoadCopyControlCommand{"	
+                + "subgroups=" + this.subgroups	
+                + '}';
     }
 }

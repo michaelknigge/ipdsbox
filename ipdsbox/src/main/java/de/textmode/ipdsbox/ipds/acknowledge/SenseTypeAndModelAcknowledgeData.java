@@ -92,11 +92,11 @@ public final class SenseTypeAndModelAcknowledgeData implements AcknowledgeData {
 
         @Override
         public String toString() {
-            return "CommandSetVector{" +
-                    "subsetIdOrCommandSetId=" + this.subsetIdOrCommandSetId +
-                    ", levelOrSubsetId=" + this.levelOrSubsetId +
-                    ", propertyPairs=" + this.propertyPairs +
-                    '}';
+            return "CommandSetVector{"	
+                    + "subsetIdOrCommandSetId=" + this.subsetIdOrCommandSetId	
+                    + ", levelOrSubsetId=" + this.levelOrSubsetId	
+                    + ", propertyPairs=" + this.propertyPairs	
+                    + '}';
         }
     }
 

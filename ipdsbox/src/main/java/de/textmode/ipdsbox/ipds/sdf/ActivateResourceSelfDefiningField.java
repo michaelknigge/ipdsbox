@@ -48,10 +48,10 @@ public final class ActivateResourceSelfDefiningField extends SelfDefiningField {
 
         @Override
         public String toString() {
-            return "ActivateResourceEntry{" +
-                    "resourceType=0x" + Integer.toHexString(this.resourceType) +
-                    ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat) +
-                    '}';
+            return "ActivateResourceEntry{"	
+                    + "resourceType=0x" + Integer.toHexString(this.resourceType)	
+                    + ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat)	
+                    + '}';
         }
     }
 
@@ -109,8 +109,8 @@ public final class ActivateResourceSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "ResourceSupportEntry{" +
-                "entries=" + this.entries +
-                '}';
+        return "ResourceSupportEntry{"	
+                + "entries=" + this.entries	
+                + '}';
     }
 }

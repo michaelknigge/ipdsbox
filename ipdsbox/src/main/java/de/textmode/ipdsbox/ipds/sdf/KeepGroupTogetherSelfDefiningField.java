@@ -112,11 +112,11 @@ public final class KeepGroupTogetherSelfDefiningField extends SelfDefiningField 
 
     @Override
     public String toString() {
-        return "KeepGroupTogetherSelfDefiningField{" +
-                "maximumNumberOfSheets=" + this.maximumNumberOfSheets +
-                ", unitBase=0x" + Integer.toHexString(this.unitBase) +
-                ", upub=0x" + Integer.toHexString(this.upub) +
-                ", maximumTotalGroupLength=" + this.maximumTotalGroupLength +
-                '}';
+        return "KeepGroupTogetherSelfDefiningField{"	
+                + "maximumNumberOfSheets=" + this.maximumNumberOfSheets	
+                + ", unitBase=0x" + Integer.toHexString(this.unitBase)	
+                + ", upub=0x" + Integer.toHexString(this.upub)	
+                + ", maximumTotalGroupLength=" + this.maximumTotalGroupLength	
+                + '}';
     }
 }

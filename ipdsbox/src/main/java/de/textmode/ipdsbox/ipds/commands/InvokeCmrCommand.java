@@ -82,6 +82,6 @@ public final class InvokeCmrCommand extends IpdsCommand {
         return "InvokeCmrCommand{" +
                 "invocationFlags=0x" + Integer.toHexString(this.invocationFlags) +
                 ", hostAssignedIds=" + this.hostAssignedIds +
-                '}';
+                + '}';
     }
 }

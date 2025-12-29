@@ -61,6 +61,6 @@ public final class BeginPageCommand extends IpdsCommand {
     public String toString() {
         return "BeginPageCommand{" +
                 "pageId=" + this.pageId +
-                '}';
+                + '}';
     }
 }

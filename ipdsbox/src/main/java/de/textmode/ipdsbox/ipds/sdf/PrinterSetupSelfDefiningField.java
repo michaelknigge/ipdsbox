@@ -62,8 +62,8 @@ public class PrinterSetupSelfDefiningField extends SelfDefiningField{
 
     @Override
     public String toString() {
-        return "PrinterSetupSelfDefiningField{" +
-                "setupIds=" + this.setupIds +
-                '}';
+        return "PrinterSetupSelfDefiningField{"	
+                + "setupIds=" + this.setupIds	
+                + '}';
     }
 }

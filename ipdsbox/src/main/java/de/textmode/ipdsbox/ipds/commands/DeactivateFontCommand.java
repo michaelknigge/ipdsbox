@@ -107,6 +107,6 @@ public final class DeactivateFontCommand extends IpdsCommand {
                 ", haid=" + this.haid +
                 ", sectionID=0x" + Integer.toHexString(this.sectionID) +
                 ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence) +
-                '}';
+                + '}';
     }
 }

@@ -74,11 +74,11 @@ public class ResidentSymbolSetSupportSelfDefiningField extends SelfDefiningField
                 fgidsJoiner.add("0x" + Integer.toHexString(fgid));
             }
 
-            return "ResidentSymbolSet{" +
-                    "codePageId=" + this.codePageId +
-                    ", cpgids=" + cpgidsJoiner.toString() +
-                    ", fgids=" + fgidsJoiner.toString() +
-                    '}';
+            return "ResidentSymbolSet{"	
+                    + "codePageId=" + this.codePageId	
+                    + ", cpgids=" + cpgidsJoiner.toString()	
+                    + ", fgids=" + fgidsJoiner.toString()	
+                    + '}';
         }
     }
 
@@ -171,8 +171,8 @@ public class ResidentSymbolSetSupportSelfDefiningField extends SelfDefiningField
 
     @Override
     public String toString() {
-        return "ResidentSymbolSetSupportSelfDefiningField{" +
-                "residentSymbolSets=" + this.residentSymbolSets +
-                '}';
+        return "ResidentSymbolSetSupportSelfDefiningField{"	
+                + "residentSymbolSets=" + this.residentSymbolSets	
+                + '}';
     }
 }

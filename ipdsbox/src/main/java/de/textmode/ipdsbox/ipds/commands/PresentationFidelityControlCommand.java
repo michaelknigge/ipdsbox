@@ -98,6 +98,6 @@ public final class PresentationFidelityControlCommand extends IpdsCommand {
         return "PresentationFidelityControlCommand{" +
                 "fidelityControlFlags=0x" + Integer.toHexString(this.fidelityControlFlags) +
                 ", triplets=" + this.triplets +
-                '}';
+                + '}';
     }
 }

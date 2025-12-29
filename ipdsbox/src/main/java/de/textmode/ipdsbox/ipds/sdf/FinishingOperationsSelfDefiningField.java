@@ -63,8 +63,8 @@ public class FinishingOperationsSelfDefiningField extends SelfDefiningField{
 
     @Override
     public String toString() {
-        return "FinishingOperationsSelfDefiningField{" +
-                "operationTypes=" + this.operationTypes +
-                '}';
+        return "FinishingOperationsSelfDefiningField{"	
+                + "operationTypes=" + this.operationTypes	
+                + '}';
     }
 }

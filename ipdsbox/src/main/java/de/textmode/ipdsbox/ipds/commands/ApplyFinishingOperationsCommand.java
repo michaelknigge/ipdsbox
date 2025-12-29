@@ -63,6 +63,6 @@ public final class ApplyFinishingOperationsCommand extends IpdsCommand {
     public String toString() {
         return "ApplyFinishingOperationsCommand{" +
                 "triplets=" + this.triplets +
-                '}';
+                + '}';
     }
 }

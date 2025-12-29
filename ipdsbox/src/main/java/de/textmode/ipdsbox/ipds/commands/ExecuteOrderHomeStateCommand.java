@@ -48,6 +48,6 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
     public String toString() {
         return "ExecuteOrderHomeStateCommand{" +
                 "order=" + this.order +
-                '}';
+                + '}';
     }
 }

@@ -63,8 +63,8 @@ public class DeactiveteFontDeactivationTypesSupportedSelfDefiningField extends S
 
     @Override
     public String toString() {
-        return "DeactiveteFontDeactivationTypesSupportedSelfDefiningField{" +
-                "types=" + this.types +
-                '}';
+        return "DeactiveteFontDeactivationTypesSupportedSelfDefiningField{"	
+                + "types=" + this.types	
+                + '}';
     }
 }

@@ -83,12 +83,12 @@ public final class StoragePoolsSelfDefiningField extends SelfDefiningField {
                 sj.add("0x" + Integer.toHexString(id));
             }
 
-            return "StoragePoolEntry{" +
-                    "entryId=" + this.entryId +
-                    ", storagePoolId=" + this.storagePoolId +
-                    ", emptySize=" + this.emptySize +
-                    ", objectIds=" + sj.toString() +
-                    '}';
+            return "StoragePoolEntry{"	
+                    + "entryId=" + this.entryId	
+                    + ", storagePoolId=" + this.storagePoolId	
+                    + ", emptySize=" + this.emptySize	
+                    + ", objectIds=" + sj.toString()	
+                    + '}';
         }
     }
 
@@ -166,8 +166,8 @@ public final class StoragePoolsSelfDefiningField extends SelfDefiningField {
 
     @Override
     public String toString() {
-        return "StoragePoolsSelfDefiningField{" +
-                "storagePoolEntries=" + this.storagePoolEntries +
-                '}';
+        return "StoragePoolsSelfDefiningField{"	
+                + "storagePoolEntries=" + this.storagePoolEntries	
+                + '}';
     }
 }

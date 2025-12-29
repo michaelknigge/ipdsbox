@@ -64,8 +64,8 @@ public class RecognizedGroupIdFormatsSelfDefiningField extends SelfDefiningField
 
     @Override
     public String toString() {
-        return "RecognizedGroupIdFormatsSelfDefiningField{" +
-                "groupIdFormats=" + this.groupIdFormats +
-                '}';
+        return "RecognizedGroupIdFormatsSelfDefiningField{"	
+                + "groupIdFormats=" + this.groupIdFormats	
+                + '}';
     }
 }

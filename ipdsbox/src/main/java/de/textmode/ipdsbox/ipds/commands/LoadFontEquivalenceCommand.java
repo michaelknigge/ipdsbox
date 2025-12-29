@@ -211,7 +211,7 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
                     ", FGID=0x" + Integer.toHexString(this.fontTypefaceGlobalIdentifier) +
                     ", fontWidth=0x" + Integer.toHexString(this.fontWidth) +
                     ", flags=0x" + Integer.toHexString(this.flags) +
-                    '}';
+                    + '}';
         }
     }
 
@@ -219,6 +219,6 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
     public String toString() {
         return "LoadFontEquivalenceCommand{" +
                 "entries=" + this.entries +
-                '}';
+                + '}';
     }
 }

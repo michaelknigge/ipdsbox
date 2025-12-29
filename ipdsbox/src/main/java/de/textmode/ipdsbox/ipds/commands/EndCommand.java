@@ -68,6 +68,6 @@ public final class EndCommand extends IpdsCommand {
     public String toString() {
         return "EndCommand{" +
                 "dataBytes=" + StringUtils.toHexString(this.dataBytes) +
-                '}';
+                + '}';
     }
 }
