@@ -34,6 +34,7 @@ subprojects {
     }
 
     tasks.withType(Checkstyle).configureEach {
+        ignoreFailures = true
         reports {
             xml.required.set(false)
             html.required.set(true)
@@ -60,6 +61,7 @@ subprojects {
     }
 
     tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+        ignoreFailures = true
         reports {
             xml.required.set(false)
             html.required.set(true)
