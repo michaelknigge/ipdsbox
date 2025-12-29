@@ -15,8 +15,8 @@ public final class PageCountersControlOrder extends XohOrder {
     /**
      * Constructs the {@link PageCountersControlOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    PageCountersControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.PageCountersControl);
+    PageCountersControlOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XohOrderCode.PageCountersControl);
 
         this.counterUpdate = ipds.readUnsignedByte();
     }

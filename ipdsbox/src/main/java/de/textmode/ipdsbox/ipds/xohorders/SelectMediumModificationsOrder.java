@@ -19,8 +19,8 @@ public final class SelectMediumModificationsOrder extends XohOrder {
     /**
      * Constructs the {@link SelectMediumModificationsOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    SelectMediumModificationsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.SelectMediumModifications);
+    SelectMediumModificationsOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XohOrderCode.SelectMediumModifications);
 
         ipds.skip(8);
 

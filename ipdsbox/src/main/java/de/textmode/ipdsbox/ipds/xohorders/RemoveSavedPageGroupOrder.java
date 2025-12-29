@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
@@ -20,10 +19,9 @@ public final class RemoveSavedPageGroupOrder extends XohOrder {
     /**
      * Constructs the {@link RemoveSavedPageGroupOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    RemoveSavedPageGroupOrder(final IpdsByteArrayInputStream ipds)
-            throws UnknownXohOrderCode, IOException, InvalidIpdsCommandException {
+    RemoveSavedPageGroupOrder(final IpdsByteArrayInputStream ipds) throws IOException {
 
-        super(ipds, XohOrderCode.RemoveSavedGroup);
+        super(XohOrderCode.RemoveSavedGroup);
 
         byte[] buffer;
         while ((buffer = ipds.readTripletIfExists()) != null) {

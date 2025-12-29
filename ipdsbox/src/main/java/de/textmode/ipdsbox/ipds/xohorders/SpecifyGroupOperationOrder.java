@@ -16,8 +16,8 @@ public final class SpecifyGroupOperationOrder extends XohOrder {
     /**
      * Constructs the {@link SpecifyGroupOperationOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    SpecifyGroupOperationOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.SpecifyGroupOperation);
+    SpecifyGroupOperationOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XohOrderCode.SpecifyGroupOperation);
 
         this.operation = ipds.readUnsignedByte();
         this.groupLevel = ipds.readUnsignedByte();

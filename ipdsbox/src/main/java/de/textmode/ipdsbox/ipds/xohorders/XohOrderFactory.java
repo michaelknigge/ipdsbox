@@ -3,7 +3,6 @@ package de.textmode.ipdsbox.ipds.xohorders;
 import java.io.IOException;
 
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
-import de.textmode.ipdsbox.core.IpdsboxRuntimeException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 
 /**
@@ -21,21 +20,12 @@ public final class XohOrderFactory {
      * Creates a {@link XohOrder} from the given {@link IpdsByteArrayInputStream}.
      */
     public static XohOrder create(final IpdsByteArrayInputStream ipds)
-        throws UnknownXohOrderCode, IOException,InvalidIpdsCommandException {
+        throws IOException, InvalidIpdsCommandException {
 
-        // TODO do not throw an exception.... create a "UnknownXohOrder" instead
-        // getIfKnown !!!
-        final XohOrderCode code = XohOrderCode.getFor(ipds.readUnsignedInteger16());
-        ipds.rewind(2); // Go back so the Order-Implementations will read the complete order...
+        final int orderCodeId = ipds.readUnsignedInteger16();
+        final XohOrderCode orderCode = XohOrderCode.getIfKnown(orderCodeId);
 
-        // TODO
-        //  1. do not rewind...
-        //  2. the constructors do not need te read the order code...
-        // implement like SelfDefiningFieldFactory ... implement the same "style"....
-        // i. e. use "modern switch"...
-
-
-        return switch (code) {
+        return switch (orderCode) {
             case DeactivateSavedPageGroup -> new DeactivateSavedPageGroupOrder(ipds);
             case DefineGroupBoundary -> new DefineGroupBoundaryOrder(ipds);
             case EjectToFrontFacing -> new EjectToFrontFacingOrder(ipds);
@@ -54,8 +44,8 @@ public final class XohOrderFactory {
             case StackReceivedPages -> new StackReceivedPagesOrder(ipds);
             case Trace -> new TraceOrder(ipds);
 
-            // TODO do not throw an exception.... create a "UnknownXohOrder" instead
-            default -> throw new IpdsboxRuntimeException("No case for XohOrderCode " + code.toString());
+            // Unhandled and/or unknown (orderCode == null)...
+            default -> new UnknownXohOrder(ipds, orderCodeId);
         };
     }
 }

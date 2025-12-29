@@ -13,8 +13,8 @@ public final class SeparateContinuousFormsOrder extends XohOrder {
     /**
      * Constructs the {@link SeparateContinuousFormsOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    SeparateContinuousFormsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.SeparateContinuousForms);
+    SeparateContinuousFormsOrder(final IpdsByteArrayInputStream ipds) {
+        super(XohOrderCode.SeparateContinuousForms);
     }
 
     @Override

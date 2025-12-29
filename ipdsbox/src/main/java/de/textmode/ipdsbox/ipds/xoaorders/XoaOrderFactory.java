@@ -36,6 +36,7 @@ public final class XoaOrderFactory {
             case RequestResourceList -> new RequestResourceListOrder(ipds);
             case RequestSetupNameList -> new RequestSetupNameListOrder(ipds);
 
+            // Unhandled and/or unknown (orderCode == null)...
             default -> new UnknownXoaOrder(ipds, orderCodeId);
         };
     }

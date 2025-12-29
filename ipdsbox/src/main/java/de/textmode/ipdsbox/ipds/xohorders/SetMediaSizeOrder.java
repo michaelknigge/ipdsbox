@@ -18,7 +18,7 @@ public final class SetMediaSizeOrder extends XohOrder {
     /**
      * Constructs the {@link SetMediaSizeOrder}.
      */
-    public SetMediaSizeOrder() throws UnknownXohOrderCode, IOException {
+    public SetMediaSizeOrder() {
         super(XohOrderCode.SetMediaSize);
 
         this.unitBase = 0x00;
@@ -30,8 +30,8 @@ public final class SetMediaSizeOrder extends XohOrder {
     /**
      * Constructs the {@link SetMediaSizeOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    SetMediaSizeOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.SetMediaSize);
+    SetMediaSizeOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XohOrderCode.SetMediaSize);
 
         this.unitBase = ipds.readUnsignedByte();
         this.upub = ipds.readUnsignedInteger16();

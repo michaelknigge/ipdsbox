@@ -13,8 +13,8 @@ public final class EraseResidualPrintDataOrder extends XohOrder {
     /**
      * Constructs the {@link EraseResidualPrintDataOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-     EraseResidualPrintDataOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.EraseResidualPrintData);
+     EraseResidualPrintDataOrder(final IpdsByteArrayInputStream ipds) {
+        super(XohOrderCode.EraseResidualPrintData);
     }
 
     @Override

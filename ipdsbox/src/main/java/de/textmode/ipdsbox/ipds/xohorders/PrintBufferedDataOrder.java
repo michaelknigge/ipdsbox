@@ -13,8 +13,8 @@ public final class PrintBufferedDataOrder extends XohOrder {
     /**
      * Constructs the {@link PrintBufferedDataOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    PrintBufferedDataOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.PrintBufferedData);
+    PrintBufferedDataOrder(final IpdsByteArrayInputStream ipds) {
+        super(XohOrderCode.PrintBufferedData);
     }
 
     @Override

@@ -5,7 +5,6 @@ import java.io.IOException;
 import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.XohOrder;
 import de.textmode.ipdsbox.ipds.xohorders.XohOrderFactory;
 
@@ -26,7 +25,7 @@ public final class ExecuteOrderHomeStateCommand extends IpdsCommand {
      * Constructs the {@link ExecuteOrderHomeStateCommand}.
      */
     ExecuteOrderHomeStateCommand(final IpdsByteArrayInputStream ipds)
-        throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException {
+        throws InvalidIpdsCommandException, IOException {
         super(ipds, IpdsCommandId.XOH);
 
         this.order = XohOrderFactory.create(ipds);

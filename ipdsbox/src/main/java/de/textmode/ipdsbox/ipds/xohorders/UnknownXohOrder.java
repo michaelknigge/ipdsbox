@@ -1,4 +1,4 @@
-package de.textmode.ipdsbox.ipds.xoaorders;
+package de.textmode.ipdsbox.ipds.xohorders;
 
 import java.io.IOException;
 
@@ -6,16 +6,16 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
- * This {@link UnknownXoaOrder} is created for all unknown {@link XoaOrder}.
+ * This {@link UnknownXohOrder} is created for all unknown {@link XohOrder}.
  */
-public final class UnknownXoaOrder extends XoaOrder {
+public final class UnknownXohOrder extends XohOrder {
 
     private final byte[] orderCodeData;
 
     /**
-     * Constructs the {@link UnknownXoaOrder} from the given {@link IpdsByteArrayInputStream}.
+     * Constructs the {@link UnknownXohOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    protected UnknownXoaOrder(final IpdsByteArrayInputStream ipds, final int orderCodeId) {
+    UnknownXohOrder(final IpdsByteArrayInputStream ipds, final int orderCodeId) {
         super(orderCodeId);
 
         this.orderCodeData = ipds.readRemainingBytes();
@@ -28,10 +28,10 @@ public final class UnknownXoaOrder extends XoaOrder {
     }
 
     /**
-     * Accept method for the {@link XoaOrderVisitor}.
+     * Accept method for the {@link XohOrderVisitor}.
      */
     @Override
-    public void accept(final XoaOrderVisitor visitor) {
+    public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
@@ -32,10 +31,9 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
     /**
      * Constructs the {@link DefineGroupBoundaryOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    DefineGroupBoundaryOrder(final IpdsByteArrayInputStream ipds)
-        throws UnknownXohOrderCode, IOException,InvalidIpdsCommandException {
+    DefineGroupBoundaryOrder(final IpdsByteArrayInputStream ipds) throws IOException {
 
-        super(ipds, XohOrderCode.DefineGroupBoundary);
+        super(XohOrderCode.DefineGroupBoundary);
 
         this.orderType = ipds.readByte();
         this.groupLevel = ipds.readByte();

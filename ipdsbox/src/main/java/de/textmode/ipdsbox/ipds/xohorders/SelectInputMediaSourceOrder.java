@@ -15,8 +15,8 @@ public final class SelectInputMediaSourceOrder extends XohOrder {
     /**
      * Constructs the {@link SelectInputMediaSourceOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    SelectInputMediaSourceOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.SelectInputMediaSource);
+    SelectInputMediaSourceOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XohOrderCode.SelectInputMediaSource);
 
         this.sourceId = ipds.readUnsignedByte();
     }

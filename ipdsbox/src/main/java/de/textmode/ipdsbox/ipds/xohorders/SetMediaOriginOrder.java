@@ -25,8 +25,8 @@ public final class SetMediaOriginOrder extends XohOrder {
     /**
      * Constructs the {@link SetMediaOriginOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    SetMediaOriginOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.SetMediaOrigin);
+    SetMediaOriginOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XohOrderCode.SetMediaOrigin);
 
         this.origin = ipds.readUnsignedByte();
     }

@@ -135,15 +135,11 @@ public enum XohOrderCode {
     }
 
     /**
-     * Gets the enum value for the given integer.
+     * Gets the enum value for the given integer. Returns <code>null</code> if the order
+     * code is unknown.
      */
-    public static XohOrderCode getFor(final int value) throws UnknownXohOrderCode {
-        final XohOrderCode result = REVERSE_MAP.get(value);
-        if (result == null) {
-            throw new UnknownXohOrderCode(
-                String.format("The XOH order code X'%1$s' is unknown.", Integer.toHexString(value)));
-        }
-        return result;
+    public static XohOrderCode getIfKnown(final int value) {
+        return REVERSE_MAP.get(value);
     }
 
     /**

@@ -13,8 +13,8 @@ public final class StackReceivedPagesOrder extends XohOrder {
     /**
      * Constructs the {@link StackReceivedPagesOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    StackReceivedPagesOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.StackReceivedPages);
+    StackReceivedPagesOrder(final IpdsByteArrayInputStream ipds) {
+        super(XohOrderCode.StackReceivedPages);
     }
 
     @Override

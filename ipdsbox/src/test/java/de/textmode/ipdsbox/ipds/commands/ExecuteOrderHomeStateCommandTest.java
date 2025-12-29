@@ -11,7 +11,6 @@ import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import de.textmode.ipdsbox.ipds.triplets.UP3IFinishingOperationTriplet;
 import de.textmode.ipdsbox.ipds.xohorders.DeactivateSavedPageGroupOrder;
 import de.textmode.ipdsbox.ipds.xohorders.DefineGroupBoundaryOrder;
-import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.XohOrder;
 import de.textmode.ipdsbox.ipds.xohorders.XohOrderCode;
 import junit.framework.TestCase;
@@ -22,7 +21,7 @@ import junit.framework.TestCase;
 public final class ExecuteOrderHomeStateCommandTest extends TestCase {
 
     private static XohOrder getOrder(final String hex)
-            throws InvalidIpdsCommandException, UnknownXohOrderCode, IOException {
+            throws InvalidIpdsCommandException, IOException {
 
         final String withoutLen = "D68F00" + hex;
         final int len = (withoutLen.length() / 2) + 2;

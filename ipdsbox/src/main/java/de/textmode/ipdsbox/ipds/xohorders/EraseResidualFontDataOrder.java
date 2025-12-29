@@ -13,8 +13,8 @@ public final class EraseResidualFontDataOrder extends XohOrder {
     /**
      * Constructs the {@link EraseResidualFontDataOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    EraseResidualFontDataOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.EraseResidualFontData);
+    EraseResidualFontDataOrder(final IpdsByteArrayInputStream ipds) {
+        super(XohOrderCode.EraseResidualFontData);
     }
 
     @Override

@@ -13,8 +13,8 @@ public final class EjectToFrontFacingOrder extends XohOrder {
     /**
      * Constructs the {@link EjectToFrontFacingOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    EjectToFrontFacingOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.EjectToFrontFacing);
+    EjectToFrontFacingOrder(final IpdsByteArrayInputStream ipds) {
+        super(XohOrderCode.EjectToFrontFacing);
     }
 
     @Override

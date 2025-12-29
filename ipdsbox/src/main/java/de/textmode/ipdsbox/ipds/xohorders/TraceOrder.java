@@ -17,8 +17,8 @@ public final class TraceOrder extends XohOrder {
     /**
      * Constructs the {@link TraceOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    TraceOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.Trace);
+    TraceOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XohOrderCode.Trace);
 
         this.function = ipds.readUnsignedByte();
         this.controlFlags = ipds.readUnsignedByte();

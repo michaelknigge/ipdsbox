@@ -10,31 +10,35 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public abstract class XohOrder {
 
-    private final XohOrderCode orderCode;
+    private final int orderCodeId;
 
     /**
      * Constructs the {@link XohOrder}.
      */
-    public XohOrder(final XohOrderCode orderCode) {
-        this.orderCode = orderCode;
+    public XohOrder(final int orderCodeId) {
+        this.orderCodeId = orderCodeId;
     }
 
     /**
      * Constructs the {@link XohOrder} object from IPDS data read with an {@link IpdsByteArrayInputStream}.
      */
-    public XohOrder(final IpdsByteArrayInputStream ipds, final XohOrderCode code) throws UnknownXohOrderCode, IOException {
-        if (ipds.readUnsignedInteger16() != code.getValue()) {
-            throw new UnknownXohOrderCode("Passed invalid data");
-        }
-
-        this.orderCode = code;
+    protected XohOrder(final XohOrderCode code) {
+        this.orderCodeId = code.getValue();
     }
 
     /**
-     * Returns the {@link XohOrderCode} of this {@link XohOrder}.
+     * Returns the ID of the {@link XohOrderCode} of this {@link XohOrder}.
+     */
+    public final int getOrderCodeId() {
+        return this.orderCodeId;
+    }
+
+    /**
+     * Returns the {@link XohOrderCode} of this {@link XohOrder}. Returns <code>null</code> if the
+     * {@link XohOrderCode} is unknown.
      */
     public final XohOrderCode getOrderCode() {
-        return this.orderCode;
+        return XohOrderCode.getIfKnown(this.orderCodeId);
     }
 
     /**

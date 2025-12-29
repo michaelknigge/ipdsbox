@@ -89,4 +89,9 @@ public interface XohOrderVisitor {
      * Handle method for {@link TraceOrder}.
      */
     void handle(TraceOrder order);
+
+    /**
+     * Handle method for {@link UnknownXohOrder}.
+     */
+    void handle(UnknownXohOrder order);
 }

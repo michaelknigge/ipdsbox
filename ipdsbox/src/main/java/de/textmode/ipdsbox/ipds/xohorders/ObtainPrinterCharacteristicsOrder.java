@@ -13,15 +13,15 @@ public final class ObtainPrinterCharacteristicsOrder extends XohOrder {
     /**
      * Constructs the {@link ObtainPrinterCharacteristicsOrder}.
      */
-    public ObtainPrinterCharacteristicsOrder() throws UnknownXohOrderCode, IOException {
+    public ObtainPrinterCharacteristicsOrder() {
         super(XohOrderCode.ObtainPrinterCharacteristics);
     }
 
     /**
-     * Constructs the {@link ObtainPrinterCharacteristicsOrder} from the given {@link IpdsByteArrayInputStream}.
+     * Constructs the {@link ObtainPrinterCharacteristicsOrder}.
      */
-    ObtainPrinterCharacteristicsOrder(final IpdsByteArrayInputStream ipds) throws UnknownXohOrderCode, IOException {
-        super(ipds, XohOrderCode.ObtainPrinterCharacteristics);
+    ObtainPrinterCharacteristicsOrder(final IpdsByteArrayInputStream ipds) {
+        super(XohOrderCode.ObtainPrinterCharacteristics);
     }
 
     @Override
