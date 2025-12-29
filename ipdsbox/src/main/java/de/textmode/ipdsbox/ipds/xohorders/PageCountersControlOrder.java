@@ -48,4 +48,11 @@ public final class PageCountersControlOrder extends XohOrder {
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "PageCountersControlOrder{" +
+                "counterUpdate=0x" + Integer.toHexString(this.counterUpdate) +
+                '}';
+    }
 }

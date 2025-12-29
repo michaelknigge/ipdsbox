@@ -48,4 +48,11 @@ public final class SelectInputMediaSourceOrder extends XohOrder {
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "SelectInputMediaSourceOrder{" +
+                "sourceId=0x" + Integer.toHexString(this.sourceId) +
+                '}';
+    }
 }

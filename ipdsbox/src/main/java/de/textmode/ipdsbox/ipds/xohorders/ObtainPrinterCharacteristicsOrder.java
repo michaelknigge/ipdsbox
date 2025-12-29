@@ -36,4 +36,9 @@ public final class ObtainPrinterCharacteristicsOrder extends XohOrder {
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "ObtainPrinterCharacteristicsOrder{}";
+    }
 }

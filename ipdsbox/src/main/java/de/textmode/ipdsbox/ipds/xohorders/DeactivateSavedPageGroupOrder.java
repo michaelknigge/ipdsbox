@@ -51,4 +51,11 @@ public final class DeactivateSavedPageGroupOrder extends XohOrder {
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "DeactivateSavedPageGroupOrder{" +
+                "triplets=" + this.triplets +
+                '}';
+    }
 }

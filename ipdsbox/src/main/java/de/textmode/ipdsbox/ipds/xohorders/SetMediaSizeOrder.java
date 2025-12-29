@@ -111,4 +111,14 @@ public final class SetMediaSizeOrder extends XohOrder {
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "SetMediaSizeOrder{" +
+                "unitBase=0x" + Integer.toHexString(this.unitBase) +
+                ", upub=" + this.upub +
+                ", xmExtent=" + this.xmExtent +
+                ", ymExtent=" + this.ymExtent +
+                '}';
+    }
 }

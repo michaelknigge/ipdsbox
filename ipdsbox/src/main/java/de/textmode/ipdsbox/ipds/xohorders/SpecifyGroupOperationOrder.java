@@ -66,4 +66,12 @@ public final class SpecifyGroupOperationOrder extends XohOrder {
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "SpecifyGroupOperationOrder{" +
+                "operation=0x" + Integer.toHexString(this.operation) +
+                ", groupLevel=0x" + Integer.toHexString(this.groupLevel) +
+                '}';
+    }
 }

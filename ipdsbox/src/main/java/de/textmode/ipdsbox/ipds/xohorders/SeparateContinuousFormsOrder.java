@@ -29,4 +29,9 @@ public final class SeparateContinuousFormsOrder extends XohOrder {
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "SeparateContinuousFormsOrder{}";
+    }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -125,5 +126,21 @@ public final class SelectMediumModificationsOrder extends XohOrder {
                 out.writeBytes(this.modificationParameters);
             }
         }
+
+        @Override
+        public String toString() {
+            return "MediumModification{" +
+                    "type=0x" + Integer.toHexString(this.type) +
+                    ", modificationId=" + this.modificationId +
+                    ", modificationParameters=" + StringUtils.toHexString(this.modificationParameters) +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "SelectMediumModificationsOrder{" +
+                "modifications=" + this.modifications +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package de.textmode.ipdsbox.ipds.xohorders;
 
 import java.io.IOException;
 
+import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -81,5 +82,14 @@ public final class TraceOrder extends XohOrder {
     @Override
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
+    }
+
+    @Override
+    public String toString() {
+        return "TraceOrder{" +
+                "function=0x" + Integer.toHexString(this.function) +
+                ", controlFlags=0x" + Integer.toHexString(this.controlFlags) +
+                ", options=" + StringUtils.toHexString(this.options) +
+                '}';
     }
 }

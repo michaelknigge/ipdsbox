@@ -30,4 +30,8 @@ public final class EjectToFrontFacingOrder extends XohOrder {
         visitor.handle(this);
     }
 
+    @Override
+    public String toString() {
+        return "EjectToFrontFacingOrder{}";
+    }
 }

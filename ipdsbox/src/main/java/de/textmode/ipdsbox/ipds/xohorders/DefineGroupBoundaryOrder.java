@@ -97,4 +97,13 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
     public void accept(final XohOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "DefineGroupBoundaryOrder{" +
+                "orderType=0x" + Integer.toHexString(this.orderType) +
+                ", groupLevel=" + this.groupLevel +
+                ", triplets=" + this.triplets +
+                '}';
+    }
 }
