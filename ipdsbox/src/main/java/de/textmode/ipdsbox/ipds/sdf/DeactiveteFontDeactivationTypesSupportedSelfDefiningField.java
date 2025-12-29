@@ -16,16 +16,18 @@ public class DeactiveteFontDeactivationTypesSupportedSelfDefiningField extends S
     private List<Integer> types = new ArrayList<>();
 
     /**
-     * Constructs the {@link DeactiveteFontDeactivationTypesSupportedSelfDefiningField}.
+     * Constructs a new {@link DeactiveteFontDeactivationTypesSupportedSelfDefiningField}.
      */
-    public DeactiveteFontDeactivationTypesSupportedSelfDefiningField() throws IOException {
+    public DeactiveteFontDeactivationTypesSupportedSelfDefiningField() {
         super(SelfDefiningFieldId.DeactiveteFontDeactivationTypesSupported);
     }
 
     /**
-     * Constructs the {@link DeactiveteFontDeactivationTypesSupportedSelfDefiningField}.
+     * Constructs a new {@link DeactiveteFontDeactivationTypesSupportedSelfDefiningField}
+     * from the given {@link IpdsByteArrayInputStream}.
      */
-    public DeactiveteFontDeactivationTypesSupportedSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    DeactiveteFontDeactivationTypesSupportedSelfDefiningField(
+            final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.DeactiveteFontDeactivationTypesSupported);
 

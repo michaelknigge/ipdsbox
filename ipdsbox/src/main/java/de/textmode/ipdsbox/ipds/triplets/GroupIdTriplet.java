@@ -65,8 +65,6 @@ public final class GroupIdTriplet extends Triplet {
     /**
      * Returns the {@link GroupIdData} of the {@link GroupIdTriplet} or <code>null</code> if the
      * {@link GroupIdTriplet} does not contain grouping information.
-     * @return the {@link GroupIdData} of the {@link GroupIdTriplet} or <code>null</code> if the
-     * {@link GroupIdTriplet} does not contain grouping information.
      */
     public GroupIdData getGroupIdData() {
         return this.data;

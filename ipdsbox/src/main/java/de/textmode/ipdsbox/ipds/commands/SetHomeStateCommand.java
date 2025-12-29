@@ -11,8 +11,8 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * complete page continues through the print process, and the printer returns to home state. If this command is
  * syntactically correct, no exceptions can result from its execution.
  *
- * <p>If the printer is in any resource state, such as page-segment state, overlay state, font state, or any derivative of
- * these states, the partial resource is deleted before the printer returns to home state. In home state, an SHS
+ * <p>If the printer is in any resource state, such as page-segment state, overlay state, font state, or any derivative
+ * of these states, the partial resource is deleted before the printer returns to home state. In home state, an SHS
  * command is treated as a No Operation (NOP) command.
  */
 public final class SetHomeStateCommand extends IpdsCommand {

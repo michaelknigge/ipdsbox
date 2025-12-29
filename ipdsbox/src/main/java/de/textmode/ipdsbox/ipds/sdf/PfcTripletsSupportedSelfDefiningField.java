@@ -19,14 +19,14 @@ public class PfcTripletsSupportedSelfDefiningField extends SelfDefiningField{
     /**
      * Constructs the {@link PfcTripletsSupportedSelfDefiningField}.
      */
-    public PfcTripletsSupportedSelfDefiningField() throws IOException {
+    public PfcTripletsSupportedSelfDefiningField() {
         super(SelfDefiningFieldId.PfcTripletsSupported);
     }
 
     /**
-     * Constructs the {@link PfcTripletsSupportedSelfDefiningField}.
+     * Constructs the {@link PfcTripletsSupportedSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
-    public PfcTripletsSupportedSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    PfcTripletsSupportedSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.PfcTripletsSupported);
 

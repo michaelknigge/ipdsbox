@@ -123,7 +123,7 @@ public final class IpdsByteArrayInputStream {
      * Reads a complete {@link Triplet} from the underlying byte array.
      *
      * @return A byte array containg the raw data of the {@link Triplet} or <code>null</code> if there is
-     *  no further {@link Triplet} available.
+     * no further {@link Triplet} available.
      *
      * @throws IOException if the {@link Triplet} to be read is broken.
      */

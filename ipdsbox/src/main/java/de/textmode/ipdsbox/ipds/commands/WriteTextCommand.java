@@ -32,6 +32,7 @@ public final class WriteTextCommand extends IpdsCommand {
 
         this.ptocaData = ptocaData;
     }
+
     /**
      * Constructs the {@link WriteTextCommand} from the given {@link IpdsByteArrayInputStream}.
      */

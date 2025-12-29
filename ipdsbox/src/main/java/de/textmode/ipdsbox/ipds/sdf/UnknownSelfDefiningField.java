@@ -9,15 +9,15 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 /**
  * A self-defining field that is not parsed.
  */
-public class UnknownSelfDefiningField extends SelfDefiningField{
+public class UnknownSelfDefiningField extends SelfDefiningField {
 
     private byte[] rawData;
 
     /**
-     * Constructs the {@link UnknownSelfDefiningField}.
+     * Constructs the {@link UnknownSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
-    public UnknownSelfDefiningField(final IpdsByteArrayInputStream ipds, final int sdfId) throws IOException {
-        super (sdfId);
+    public UnknownSelfDefiningField(final IpdsByteArrayInputStream ipds, final int sdfId) {
+        super(sdfId);
         this.rawData = ipds.readRemainingBytes();
     }
 

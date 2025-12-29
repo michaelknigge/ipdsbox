@@ -65,7 +65,7 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
     }
 
     /**
-     * Creates a {@link PrintableAreaSelfDefiningField} from the given stream.
+     * Creates a {@link PrintableAreaSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     PrintableAreaSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.PrintableArea);

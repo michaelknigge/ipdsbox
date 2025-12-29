@@ -17,16 +17,17 @@ public class MediumModificationIdsSupportedSelfDefiningField extends SelfDefinin
     private List<Integer> mediumModificationIds = new ArrayList<>();
 
     /**
-     * Constructs the {@link MediumModificationIdsSupportedSelfDefiningField}.
+     * Constructs a new {@link MediumModificationIdsSupportedSelfDefiningField}.
      */
-    public MediumModificationIdsSupportedSelfDefiningField() throws IOException {
+    public MediumModificationIdsSupportedSelfDefiningField() {
         super(SelfDefiningFieldId.MediumModificationIdsSupported);
     }
 
     /**
-     * Constructs the {@link MediumModificationIdsSupportedSelfDefiningField}.
+     * Constructs the {@link MediumModificationIdsSupportedSelfDefiningField}
+     * from the given {@link IpdsByteArrayInputStream}.
      */
-    public MediumModificationIdsSupportedSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    MediumModificationIdsSupportedSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.MediumModificationIdsSupported);
 
@@ -36,7 +37,8 @@ public class MediumModificationIdsSupportedSelfDefiningField extends SelfDefinin
     }
 
     /**
-     * Writes this {@link MediumModificationIdsSupportedSelfDefiningField} to the given {@link IpdsByteArrayOutputStream}.
+     * Writes this {@link MediumModificationIdsSupportedSelfDefiningField}
+     * to the given {@link IpdsByteArrayOutputStream}.
      */
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {

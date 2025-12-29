@@ -97,12 +97,12 @@ public final class StoragePoolsSelfDefiningField extends SelfDefiningField {
     /**
      * Creates a new {@link StoragePoolsSelfDefiningField}.
      */
-    public StoragePoolsSelfDefiningField() throws IOException {
+    public StoragePoolsSelfDefiningField() {
         super(SelfDefiningFieldId.StoragePools);
     }
 
     /**
-     * Creates a {@link StoragePoolsSelfDefiningField} from the stream.
+     * Creates a {@link StoragePoolsSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     StoragePoolsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.StoragePools);

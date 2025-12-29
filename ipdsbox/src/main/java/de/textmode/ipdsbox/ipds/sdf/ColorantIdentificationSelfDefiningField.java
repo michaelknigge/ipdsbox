@@ -22,13 +22,19 @@ public final class ColorantIdentificationSelfDefiningField extends SelfDefiningF
         private int colorantAvailabilityFlags;
         private String colorantName;
 
+        /**
+         * Creates a new {@link ColorantIdentificationEntry}.
+         */
         public ColorantIdentificationEntry() {
             this.entryType = 0x01;
             this.colorantAvailabilityFlags = 0x00;
             this.colorantName = "AFPC_Device_K";
         }
 
-        public ColorantIdentificationEntry(final IpdsByteArrayInputStream ipds) throws IOException {
+        /**
+         * Creates a new {@link ColorantIdentificationEntry} from the given {@link IpdsByteArrayInputStream}.
+         */
+        ColorantIdentificationEntry(final IpdsByteArrayInputStream ipds) throws IOException {
             final int len = ipds.readUnsignedByte();
 
             this.entryType = ipds.readUnsignedByte();
@@ -106,14 +112,14 @@ public final class ColorantIdentificationSelfDefiningField extends SelfDefiningF
 
 
     /**
-     * Constructs the {@link ColorantIdentificationSelfDefiningField}.
+     * Constructs a new {@link ColorantIdentificationSelfDefiningField}.
      */
     public ColorantIdentificationSelfDefiningField() {
         super(SelfDefiningFieldId.ColorantIdentification);
     }
 
     /**
-     * Constructs the {@link ColorantIdentificationSelfDefiningField}.
+     * Constructs a new {@link ColorantIdentificationSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     ColorantIdentificationSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.ColorantIdentification);

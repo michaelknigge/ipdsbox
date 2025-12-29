@@ -10,8 +10,8 @@ import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
 import de.textmode.ipdsbox.ipds.triplets.TripletId;
 
 /**
- * This self-defining field reports the active setup name on the printer, if any. If there is an active setup name, it is
- * returned using a Setup Name (X'9E') triplet in the active-setup-name field. If there is no active setup name, the
+ * This self-defining field reports the active setup name on the printer, if any. If there is an active setup name, it
+ * is returned using a Setup Name (X'9E') triplet in the active-setup-name field. If there is no active setup name, the
  * SDF-length field is returned as X'0004' and the active-setup-name field is omitted.
  */
 public final class ActiveSetupNameSelfDefiningField extends SelfDefiningField {
@@ -21,12 +21,12 @@ public final class ActiveSetupNameSelfDefiningField extends SelfDefiningField {
     /**
      * Creates a new {@link ActiveSetupNameSelfDefiningField}.
      */
-    public ActiveSetupNameSelfDefiningField() throws IOException {
+    public ActiveSetupNameSelfDefiningField() {
         super(SelfDefiningFieldId.ActiveSetupName);
     }
 
     /**
-     * Creates a {@link ActiveSetupNameSelfDefiningField} from the stream.
+     * Creates a {@link ActiveSetupNameSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     ActiveSetupNameSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.ActiveSetupName);

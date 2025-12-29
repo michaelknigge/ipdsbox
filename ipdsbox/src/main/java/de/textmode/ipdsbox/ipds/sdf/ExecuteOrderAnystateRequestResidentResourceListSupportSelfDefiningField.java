@@ -59,14 +59,17 @@ public final class ExecuteOrderAnystateRequestResidentResourceListSupportSelfDef
     /**
      * Creates a new {@link ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField}.
      */
-    public ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField() throws IOException {
+    public ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField() {
         super(SelfDefiningFieldId.ExecuteOrderAnystateRequestResidentResourceListSupport);
     }
 
     /**
-     * Creates a {@link ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField} from the stream.
+     * Creates a {@link ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField}
+     * from the given {@link IpdsByteArrayInputStream}.
      */
-    ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField(
+            final IpdsByteArrayInputStream ipds) throws IOException {
+
         super(SelfDefiningFieldId.ExecuteOrderAnystateRequestResidentResourceListSupport);
 
         while (ipds.bytesAvailable() > 0) {

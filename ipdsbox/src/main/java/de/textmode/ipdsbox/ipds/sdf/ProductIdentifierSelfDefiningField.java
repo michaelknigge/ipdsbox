@@ -9,8 +9,8 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
- * The Product Identifier self-defining field is an optional field that specifies parameters that contain productidentification
- * data. Each parameter is defined with a product-identifier parameter ID that specifies what the
+ * The Product Identifier self-defining field is an optional field that specifies parameters that contain product
+ * identification data. Each parameter is defined with a product-identifier parameter ID that specifies what the
  * subsequent product identifier describes.
  */
 public final class ProductIdentifierSelfDefiningField extends SelfDefiningField {
@@ -61,12 +61,12 @@ public final class ProductIdentifierSelfDefiningField extends SelfDefiningField 
     /**
      * Creates a new {@link ProductIdentifierSelfDefiningField}.
      */
-    public ProductIdentifierSelfDefiningField() throws IOException {
+    public ProductIdentifierSelfDefiningField() {
         super(SelfDefiningFieldId.ProductIdentifier);
     }
 
     /**
-     * Creates a {@link ProductIdentifierSelfDefiningField} from the stream.
+     * Creates a {@link ProductIdentifierSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     ProductIdentifierSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.ProductIdentifier);

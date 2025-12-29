@@ -16,14 +16,14 @@ public class FinishingOperationsSelfDefiningField extends SelfDefiningField{
     private List<Integer> operationTypes = new ArrayList<>();
 
     /**
-     * Constructs the {@link FinishingOperationsSelfDefiningField}.
+     * Constructs a new {@link FinishingOperationsSelfDefiningField}.
      */
-    public FinishingOperationsSelfDefiningField() throws IOException {
+    public FinishingOperationsSelfDefiningField() {
         super(SelfDefiningFieldId.FinishingOperations);
     }
 
     /**
-     * Constructs the {@link FinishingOperationsSelfDefiningField}.
+     * Constructs a new {@link FinishingOperationsSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     public FinishingOperationsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 

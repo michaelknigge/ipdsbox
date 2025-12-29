@@ -34,6 +34,7 @@ public final class EndCommand extends IpdsCommand {
 
         this.dataBytes = dataBytes;
     }
+
     /**
      * Constructs the {@link EndCommand} from the given {@link IpdsByteArrayInputStream}.
      */

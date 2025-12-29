@@ -18,7 +18,7 @@ public final class Up3iTupelSelfDefiningField extends SelfDefiningField {
     private byte[] up3iDeviceInformation;
 
     /**
-     * Constructs the {@link Up3iTupelSelfDefiningField}.
+     * Constructs a new {@link Up3iTupelSelfDefiningField}.
      */
     public Up3iTupelSelfDefiningField() {
         super(SelfDefiningFieldId.Up3iTupel);
@@ -27,7 +27,7 @@ public final class Up3iTupelSelfDefiningField extends SelfDefiningField {
         this.up3iDeviceInformation = ByteUtils.EMPTY_BYTE_ARRAY;
     }
     /**
-     * Constructs the {@link Up3iTupelSelfDefiningField}.
+     * Constructs the {@link Up3iTupelSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     Up3iTupelSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.Up3iTupel);

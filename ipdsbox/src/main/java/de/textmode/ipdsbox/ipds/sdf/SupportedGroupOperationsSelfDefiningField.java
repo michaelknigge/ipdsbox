@@ -13,21 +13,21 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * the XOH-DGB-supported property pair (X'9004') and the XOH-SGO-supported property pair (X'9003') in the
  * Device-Control command-set vector of an STM reply.
  */
-public class SupportedGroupOperationsSelfDefiningField extends SelfDefiningField{
+public class SupportedGroupOperationsSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> operationTypes = new ArrayList<>();
 
     /**
-     * Constructs the {@link SupportedGroupOperationsSelfDefiningField}.
+     * Constructs a new {@link SupportedGroupOperationsSelfDefiningField}.
      */
-    public SupportedGroupOperationsSelfDefiningField() throws IOException {
+    public SupportedGroupOperationsSelfDefiningField() {
         super(SelfDefiningFieldId.SupportedGroupOperations);
     }
 
     /**
-     * Constructs the {@link SupportedGroupOperationsSelfDefiningField}.
+     * Constructs the {@link SupportedGroupOperationsSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
-    public SupportedGroupOperationsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    SupportedGroupOperationsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.SupportedGroupOperations);
 

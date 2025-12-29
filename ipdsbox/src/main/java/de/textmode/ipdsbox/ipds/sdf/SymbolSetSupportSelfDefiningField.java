@@ -181,12 +181,12 @@ public final class SymbolSetSupportSelfDefiningField extends SelfDefiningField {
     /**
      * Creates a new {@link SymbolSetSupportSelfDefiningField}.
      */
-    public SymbolSetSupportSelfDefiningField() throws IOException {
+    public SymbolSetSupportSelfDefiningField() {
         super(SelfDefiningFieldId.SymbolSetSupport);
     }
 
     /**
-     * Creates a {@link SymbolSetSupportSelfDefiningField} from the stream.
+     * Creates a {@link SymbolSetSupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     SymbolSetSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.SymbolSetSupport);

@@ -30,19 +30,19 @@ public enum XoaOrderCode {
     /**
      * The XOA Discard Buffered Data (DBD) command, sometimes called Discard Buffered Pages, deletes all
      * buffered data from the printer storage and returns the printer to home state. Any data currently being received
-     * is deleted. If this order is syntactically correct, no exceptions can result from its execution. The DBD order does
-     * not affect completely received resources, such as fonts, page segments, and overlays; however, if the printer
-     * is in any resource state, the printer deletes the partial resource before returning to home state.
+     * is deleted. If this order is syntactically correct, no exceptions can result from its execution. The DBD order
+     * does not affect completely received resources, such as fonts, page segments, and overlays; however, if the
+     * printer is in any resource state, the printer deletes the partial resource before returning to home state.
      */
     DiscardBufferedData(0xF200, "XOA Discard Buffered Data"),
 
     /**
      * The XOA Discard Unstacked Pages (DUP) command deletes all buffered data from the printer storage (just
      * like DBD), discards all printed but unstacked pages, and returns the printer to home state. Any data currently
-     * being received is deleted. If this order is syntactically correct, no exceptions can result from its execution. The
-     * DUP order does not affect completely received resources, such as fonts, page segments, and overlays;
-     * however, if the printer is in any resource state, the printer deletes the partial resource before returning to home
-     * state.
+     * being received is deleted. If this order is syntactically correct, no exceptions can result from its execution.
+     * The DUP order does not affect completely received resources, such as fonts, page segments, and overlays;
+     * however, if the printer is in any resource state, the printer deletes the partial resource before returning to
+     * home state.
      */
     DiscardUnstackedPages(0xF500, "XOA Discard Unstacked Pages"),
 
@@ -59,8 +59,8 @@ public enum XoaOrderCode {
      * The XOA Mark Form (MF) command causes the printer to mark the current or the next sheet with a devicespecific
      * form. This form is analogous to an overlay that is permanently stored in the printer; however, it is
      * invoked by the MF order. The printer defines the origin of the permanently-stored overlay (mark form) and the
-     * host cannot change it; that is, it is not affected by changes to the media origin. The host might add more data to
-     * the marked form, for example, job number or user ID, with a normal IPDS command sequence. The MF order
+     * host cannot change it; that is, it is not affected by changes to the media origin. The host might add more data
+     * to the marked form, for example, job number or user ID, with a normal IPDS command sequence. The MF order
      * can be used to print job-separator sheets or exception-summary sheets.
      */
     MarkForm(0x0800, "XOA Mark Form"),
@@ -68,8 +68,8 @@ public enum XoaOrderCode {
     /**
      * The XOA Obtain Additional Exception Information (OAEI) command requests that the printer return additional
      * information about an exception that the printer has just reported. The printer responds by placing available
-     * information, if any, in the special data area of a subsequent Acknowledge Reply (or in a series of replies). If the
-     * OAEI command is not sent with the Acknowledgement Required (ARQ) flag set, the command is treated as a
+     * information, if any, in the special data area of a subsequent Acknowledge Reply (or in a series of replies). If
+     * the OAEI command is not sent with the Acknowledgement Required (ARQ) flag set, the command is treated as a
      * No Operation (NOP) command.
      */
     ObtainAdditionalExceptionInformation(0xF900, "XOA Obtain Additional Exception Information"),

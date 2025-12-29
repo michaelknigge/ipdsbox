@@ -18,7 +18,7 @@ public final class KeepGroupTogetherSelfDefiningField extends SelfDefiningField 
     private int maximumTotalGroupLength;
 
     /**
-     * Constructs the {@link KeepGroupTogetherSelfDefiningField}.
+     * Constructs a new {@link KeepGroupTogetherSelfDefiningField}.
      */
     public KeepGroupTogetherSelfDefiningField() {
         super(SelfDefiningFieldId.KeepGroupTogether);
@@ -29,7 +29,7 @@ public final class KeepGroupTogetherSelfDefiningField extends SelfDefiningField 
         this.maximumTotalGroupLength = 0;
     }
     /**
-     * Constructs the {@link KeepGroupTogetherSelfDefiningField}.
+     * Constructs a new {@link KeepGroupTogetherSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     KeepGroupTogetherSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.KeepGroupTogether);

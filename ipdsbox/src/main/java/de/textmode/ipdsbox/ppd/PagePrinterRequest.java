@@ -107,8 +107,8 @@ public final class PagePrinterRequest {
         // "00000015 0000000E 00000001 00000005 0005D6E480"
         //     ^        ^        ^        ^         ^
         //     |        |        |        |         |
-        //     |        |        |        |         +-- 0005 = length, D6E4 = IPDS command code, 80 = Flag (ACK requested)
-        //     |        |        |        +-- Length of the following IPDS command. Maybe more than one can be sent at once?!?
+        //     |        |        |        |         +-- 0005 = length, D6E4 = IPDS command code, 80 = Flag (ACK req.)
+        //     |        |        |        +-- Length of the following IPDS command.
         //     |        |        +-- Some kind of flags?
         //     |        +-- Maybe an "operation code", 0x0E is "IPDS data"?
         //     +-- Complete length (incl. itself)

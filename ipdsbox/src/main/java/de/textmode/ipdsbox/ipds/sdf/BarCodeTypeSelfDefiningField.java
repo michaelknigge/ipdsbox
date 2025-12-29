@@ -61,12 +61,12 @@ public final class BarCodeTypeSelfDefiningField extends SelfDefiningField {
     /**
      * Creates a new {@link BarCodeTypeSelfDefiningField}.
      */
-    public BarCodeTypeSelfDefiningField() throws IOException {
+    public BarCodeTypeSelfDefiningField() {
         super(SelfDefiningFieldId.BarCodeType);
     }
 
     /**
-     * Creates a {@link BarCodeTypeSelfDefiningField} from the stream.
+     * Creates a {@link BarCodeTypeSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     BarCodeTypeSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.BarCodeType);

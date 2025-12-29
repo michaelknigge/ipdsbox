@@ -35,7 +35,8 @@ public final class IpdsCommandFactory {
      * provide {@link PagePrinterRequest}s that "fit together" (i. e. that all {@link PagePrinterRequest}s have the
      * same correlation ID (if present).
      */
-    public static IpdsCommand create(final List<PagePrinterRequest> requests) throws IOException, InvalidIpdsCommandException {
+    public static IpdsCommand create(
+            final List<PagePrinterRequest> requests) throws IOException, InvalidIpdsCommandException {
 
         final IpdsByteArrayOutputStream ipdsOutputStream = new IpdsByteArrayOutputStream();
 
@@ -97,7 +98,8 @@ public final class IpdsCommandFactory {
     /**
      * Creates a {@link IpdsCommand} from the given {@link IpdsByteArrayInputStream}.
      */
-    public static IpdsCommand create(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
+    public static IpdsCommand create(
+            final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException {
 
         // The implementation requires that the IpdsByteArrayInputStream contains exactly as many
         // bytes as specified in the length field.
@@ -106,7 +108,8 @@ public final class IpdsCommandFactory {
 
         if (commandLength != availableLength) {
             throw new InvalidIpdsCommandException(String.format(
-                "An IPDS command to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes.",
+                "An IPDS command to be read seems to be %1$d bytes long but "
+                 + "the IPDS data stream ends after %2$d bytes.",
                 commandLength,
                 availableLength));
         }

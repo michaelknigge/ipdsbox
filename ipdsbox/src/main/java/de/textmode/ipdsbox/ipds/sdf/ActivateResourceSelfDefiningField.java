@@ -60,12 +60,12 @@ public final class ActivateResourceSelfDefiningField extends SelfDefiningField {
     /**
      * Creates a new {@link ActivateResourceSelfDefiningField}.
      */
-    public ActivateResourceSelfDefiningField() throws IOException {
+    public ActivateResourceSelfDefiningField() {
         super(SelfDefiningFieldId.ActivateResource);
     }
 
     /**
-     * Creates a {@link ActivateResourceSelfDefiningField} from the stream.
+     * Creates a {@link ActivateResourceSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     ActivateResourceSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.ActivateResource);

@@ -22,7 +22,7 @@ public final class RequestSetupNameListOrder extends XoaOrder {
     /**
      * Constructs the {@link RequestSetupNameListOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    RequestSetupNameListOrder(final IpdsByteArrayInputStream ipds) throws IOException{
+    RequestSetupNameListOrder(final IpdsByteArrayInputStream ipds) throws IOException {
         super(XoaOrderCode.RequestSetupNameList);
 
         this.queryType = ipds.readUnsignedByte();
@@ -49,14 +49,14 @@ public final class RequestSetupNameListOrder extends XoaOrder {
     }
 
     /**
-     * Returns the quety type.
+     * Returns the query type.
      */
     public int getQueryType() {
         return this.queryType;
     }
 
     /**
-     * Sets the quety type.
+     * Sets the query type.
      */
     public void setQueryType(final int queryType) {
         this.queryType = queryType;

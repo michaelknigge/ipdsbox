@@ -15,16 +15,16 @@ public class CommonBarCodeTypeSelfDefiningField extends SelfDefiningField{
     private List<Integer> combinations = new ArrayList<>();
 
     /**
-     * Constructs the {@link CommonBarCodeTypeSelfDefiningField}.
+     * Constructs a new {@link CommonBarCodeTypeSelfDefiningField}.
      */
-    public CommonBarCodeTypeSelfDefiningField() throws IOException {
+    public CommonBarCodeTypeSelfDefiningField() {
         super(SelfDefiningFieldId.CommonBarCodeType);
     }
 
     /**
-     * Constructs the {@link CommonBarCodeTypeSelfDefiningField}.
+     * Constructs a new {@link CommonBarCodeTypeSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
-    public CommonBarCodeTypeSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    CommonBarCodeTypeSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.CommonBarCodeType);
 

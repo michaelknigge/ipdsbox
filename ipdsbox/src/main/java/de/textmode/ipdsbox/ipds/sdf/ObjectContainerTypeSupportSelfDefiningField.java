@@ -66,12 +66,12 @@ public final class ObjectContainerTypeSupportSelfDefiningField extends SelfDefin
     /**
      * Creates a new {@link ObjectContainerTypeSupportSelfDefiningField}.
      */
-    public ObjectContainerTypeSupportSelfDefiningField() throws IOException {
+    public ObjectContainerTypeSupportSelfDefiningField() {
         super(SelfDefiningFieldId.ObjectContainerTypeSupport);
     }
 
     /**
-     * Creates a {@link ObjectContainerTypeSupportSelfDefiningField} from the stream.
+     * Creates a {@link ObjectContainerTypeSupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     ObjectContainerTypeSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.ObjectContainerTypeSupport);

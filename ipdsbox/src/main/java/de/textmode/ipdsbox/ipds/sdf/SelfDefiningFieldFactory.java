@@ -28,7 +28,8 @@ public final class SelfDefiningFieldFactory {
         final int length = ipds.readUnsignedInteger16();
         if (length != data.length) {
             throw new IOException(String.format(
-                    "A self-defining field to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
+                    "A self-defining field to be read seems to be %1$d bytes long "
+                    + "but the IPDS data stream ends after %2$d bytes",
                     length,
                     data.length));
         }

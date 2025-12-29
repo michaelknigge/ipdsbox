@@ -16,14 +16,14 @@ public class FinishingOptionsSelfDefiningField extends SelfDefiningField{
     private List<Integer> optionTypes = new ArrayList<>();
 
     /**
-     * Constructs the {@link FinishingOptionsSelfDefiningField}.
+     * Constructs a new {@link FinishingOptionsSelfDefiningField}.
      */
-    public FinishingOptionsSelfDefiningField() throws IOException {
+    public FinishingOptionsSelfDefiningField() {
         super(SelfDefiningFieldId.FinishingOptions);
     }
 
     /**
-     * Constructs the {@link FinishingOptionsSelfDefiningField}.
+     * Constructs a new {@link FinishingOptionsSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     public FinishingOptionsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 

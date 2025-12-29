@@ -61,12 +61,12 @@ public final class MediaDestinationsSelfDefiningField extends SelfDefiningField 
     /**
      * Creates a new {@link MediaDestinationsSelfDefiningField}.
      */
-    public MediaDestinationsSelfDefiningField() throws IOException {
+    public MediaDestinationsSelfDefiningField() {
         super(SelfDefiningFieldId.MediaDestinations);
     }
 
     /**
-     * Creates a {@link MediaDestinationsSelfDefiningField} from the stream.
+     * Creates a {@link MediaDestinationsSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     MediaDestinationsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.MediaDestinations);

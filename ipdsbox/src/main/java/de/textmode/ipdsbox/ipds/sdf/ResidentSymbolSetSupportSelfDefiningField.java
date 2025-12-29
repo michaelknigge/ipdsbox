@@ -49,7 +49,7 @@ public class ResidentSymbolSetSupportSelfDefiningField extends SelfDefiningField
         }
 
         /**
-         * Returns a list of Font Typeface Global IDs
+         * Returns a list of Font Typeface Global IDs.
          */
         public List<Integer> getFgids() {
             return this.fgids;
@@ -85,16 +85,16 @@ public class ResidentSymbolSetSupportSelfDefiningField extends SelfDefiningField
     private List<ResidentSymbolSet> residentSymbolSets = new ArrayList<>();
 
     /**
-     * Constructs the {@link ResidentSymbolSetSupportSelfDefiningField}.
+     * Constructs a new {@link ResidentSymbolSetSupportSelfDefiningField}.
      */
-    public ResidentSymbolSetSupportSelfDefiningField() throws IOException {
+    public ResidentSymbolSetSupportSelfDefiningField() {
         super(SelfDefiningFieldId.ResidentSymbolSetSupport);
     }
 
     /**
-     * Constructs the {@link ResidentSymbolSetSupportSelfDefiningField}.
+     * Constructs the {@link ResidentSymbolSetSupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
-    public ResidentSymbolSetSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    ResidentSymbolSetSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.ResidentSymbolSetSupport);
 

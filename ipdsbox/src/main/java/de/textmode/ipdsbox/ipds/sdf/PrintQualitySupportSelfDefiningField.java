@@ -16,14 +16,14 @@ public class PrintQualitySupportSelfDefiningField extends SelfDefiningField {
     private List<Integer> boundaries = new ArrayList<>();
 
     /**
-     * Constructs the {@link PrintQualitySupportSelfDefiningField}.
+     * Constructs a new {@link PrintQualitySupportSelfDefiningField}.
      */
-    public PrintQualitySupportSelfDefiningField() throws IOException {
+    public PrintQualitySupportSelfDefiningField() {
         super(SelfDefiningFieldId.PrintQualitySupport);
     }
 
     /**
-     * Constructs the {@link PrintQualitySupportSelfDefiningField}.
+     * Constructs the {@link PrintQualitySupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     public PrintQualitySupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 

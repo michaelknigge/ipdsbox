@@ -80,26 +80,35 @@ public final class RequestResourceListOrder extends XoaOrder {
         visitor.handle(this);
     }
 
-    public class ResourceQuery {
+    public final class ResourceQuery {
 
         private int resourceType;
         private int resourceIdFormat;
         private byte[] resourceId;
 
+        /**
+         * Constructs a {@link ResourceQuery} with the given values.
+         */
         public ResourceQuery(final int resourceType, final int resourceIdFormat, final byte[] resourceId) {
             this.resourceType = resourceType;
             this.resourceIdFormat = resourceIdFormat;
             this.resourceId = resourceId;
         }
 
-        public ResourceQuery(final IpdsByteArrayInputStream ipds) throws IOException {
+        /**
+         * Constructs the {@link ResourceQuery} from the given {@link IpdsByteArrayInputStream}.
+         */
+        ResourceQuery(final IpdsByteArrayInputStream ipds) throws IOException {
             final int length = ipds.readUnsignedByte();
             this.resourceType = ipds.readUnsignedByte();
             this.resourceIdFormat = ipds.readUnsignedByte();
             this.resourceId = ipds.readBytes(length - 3);
         }
 
-        public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        /**
+         * Writes this {@link ResourceQuery} to the given {@link IpdsByteArrayOutputStream}.
+         */
+        void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
             out.writeUnsignedByte(3 + this.resourceId.length);
             out.writeUnsignedByte(this.resourceType);
             out.writeUnsignedByte(this.resourceIdFormat);

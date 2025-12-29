@@ -130,12 +130,12 @@ public final class ObjectContainerVersionSupportSelfDefiningField extends SelfDe
     /**
      * Creates a new {@link ObjectContainerVersionSupportSelfDefiningField}.
      */
-    public ObjectContainerVersionSupportSelfDefiningField() throws IOException {
+    public ObjectContainerVersionSupportSelfDefiningField() {
         super(SelfDefiningFieldId.ObjectContainerVersionSupport);
     }
 
     /**
-     * Creates a {@link ObjectContainerVersionSupportSelfDefiningField} from the stream.
+     * Creates a {@link ObjectContainerVersionSupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     ObjectContainerVersionSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.ObjectContainerVersionSupport);

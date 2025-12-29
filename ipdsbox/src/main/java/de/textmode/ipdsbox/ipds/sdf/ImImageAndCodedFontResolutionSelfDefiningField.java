@@ -16,7 +16,7 @@ public final class ImImageAndCodedFontResolutionSelfDefiningField extends SelfDe
     private int yPels;
 
     /**
-     * Constructs the {@link ImImageAndCodedFontResolutionSelfDefiningField}.
+     * Constructs a new {@link ImImageAndCodedFontResolutionSelfDefiningField}.
      */
     public ImImageAndCodedFontResolutionSelfDefiningField() {
         super(SelfDefiningFieldId.ImImageAndCodedFontResolution);
@@ -26,8 +26,10 @@ public final class ImImageAndCodedFontResolutionSelfDefiningField extends SelfDe
         this.xPels = 600;
         this.yPels = 600;
     }
+
     /**
-     * Creates and parses the IM-Image and Coded-Font Resolution self-defining field from the stream.
+     *  Constructs a new {@link ImImageAndCodedFontResolutionSelfDefiningField}
+     *  from the given {@link IpdsByteArrayInputStream}.
      */
     ImImageAndCodedFontResolutionSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.ImImageAndCodedFontResolution);

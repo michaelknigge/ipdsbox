@@ -50,18 +50,27 @@ public final class SelectMediumModificationsOrder extends XohOrder {
         visitor.handle(this);
     }
 
+    /**
+     * Medium Modifications.
+     */
     public final class MediumModification {
 
         private int type;
         private int modificationId;
         private byte[] modificationParameters;
 
+        /**
+         * Constructs a {@link MediumModification} with the given type and modification ID.
+         */
         public MediumModification(final int type, final int modificationId) throws IOException {
             this.type = type;
             this.modificationId = modificationId;
             this.modificationParameters = EMPTY_BYTE_ARRAY;
         }
 
+        /**
+         * Constructs the {@link MediumModification} from the given {@link IpdsByteArrayInputStream}.
+         */
         public MediumModification(final IpdsByteArrayInputStream in) throws IOException {
             final int len = in.readUnsignedInteger16();
             this.type = in.readUnsignedByte();

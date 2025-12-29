@@ -14,7 +14,7 @@ public final class PrinterSpeedSelfDefiningField extends SelfDefiningField {
     private long fpm;
 
     /**
-     * Constructs the {@link PrinterSpeedSelfDefiningField}.
+     * Constructs a new {@link PrinterSpeedSelfDefiningField}.
      */
     public PrinterSpeedSelfDefiningField() {
         super(SelfDefiningFieldId.PrinterSpeed);
@@ -22,8 +22,9 @@ public final class PrinterSpeedSelfDefiningField extends SelfDefiningField {
         this.ppm = 0;
         this.fpm = 0;
     }
+
     /**
-     * Constructs the {@link PrinterSpeedSelfDefiningField}.
+     * Constructs the {@link PrinterSpeedSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     PrinterSpeedSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.PrinterSpeed);

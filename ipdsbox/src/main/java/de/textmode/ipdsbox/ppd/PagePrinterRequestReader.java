@@ -32,11 +32,14 @@ public final class PagePrinterRequestReader {
 
     /**
      * Reads bytes from an {@link InputStream} and construct a new {@link PagePrinterRequest} from the read bytes.
+     *
      * @param in {@link InputStream} to be read from
+     *
      * @return If EOF occurred on reading the first byte <code>null</code> will be returned, otherwise
-     * a newly constructed {@link PagePrinterRequest}.
+     *  a newly constructed {@link PagePrinterRequest}.
+     *
      * @throws IOException If an error occurred while reading from the {@link InputStream} or when
-     * the {@link InputStream} ends unexpectedly.
+     *  the {@link InputStream} ends unexpectedly.
      */
     public static PagePrinterRequest read(final InputStream in) throws IOException {
         return read(in, false);
@@ -44,11 +47,14 @@ public final class PagePrinterRequestReader {
 
     /**
      * Reads bytes from an {@link InputStream} and construct a new {@link PagePrinterRequest} from the read bytes.
+     *
      * @param in {@link InputStream} to be read from
+     *
      * @return If EOF occurred on reading the first byte <code>null</code> will be returned, otherwise
-     * a newly constructed {@link PagePrinterRequest}.
+     *  a newly constructed {@link PagePrinterRequest}.
+     *
      * @throws IOException If an error occurred while reading from the {@link InputStream} or when
-     * the {@link InputStream} ends unexpectedly.
+     *  the {@link InputStream} ends unexpectedly.
      */
     public static PagePrinterRequest read(final InputStream in, final boolean printReadBytes) throws IOException {
 
@@ -104,11 +110,13 @@ public final class PagePrinterRequestReader {
      * its end while reading a byte.
      *
      * @param in {@link InputStream} to read from.
+     *
      * @param endOfStreamIsOkOnFirstByte <code>true</code> if and only if it is ok to reach the
-     * end of the stream when reading the first byte
+     *  end of the stream when reading the first byte
+     *
      * @return The positive integer value of the read 4 bytes. If the end of the stream has been
-     * reached -1 is returned if <i>endOfStreamIsOkOnFirstByte</i> is <code>true</code>, otherwise
-     * an {@link IOException} is thrown.
+     *  reached -1 is returned if <i>endOfStreamIsOkOnFirstByte</i> is <code>true</code>, otherwise
+     *  an {@link IOException} is thrown.
      */
     private static int readFourBytes(final InputStream in, final boolean endOfStreamIsOkOnFirstByte)
         throws IOException {

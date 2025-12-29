@@ -62,7 +62,7 @@ final class PagePrinterDaemon extends Observable implements Runnable {
      * @param serverSocket the {@link ServerSocket} that will be used for accepting connections
      * @param logger a logger used for output of messages to the user
      * @param requestHandler the {@link PagePrinterRequestHandler} that will be invoked for
-     * every {@link PagePrinterRequest}
+     *  every {@link PagePrinterRequest}
      */
     PagePrinterDaemon(final ServerSocket serverSocket, final LoggerInterface logger,
         final PagePrinterRequestHandler requestHandler) {

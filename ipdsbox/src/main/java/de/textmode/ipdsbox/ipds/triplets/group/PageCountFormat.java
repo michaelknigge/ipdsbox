@@ -1,6 +1,10 @@
 package de.textmode.ipdsbox.ipds.triplets.group;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 

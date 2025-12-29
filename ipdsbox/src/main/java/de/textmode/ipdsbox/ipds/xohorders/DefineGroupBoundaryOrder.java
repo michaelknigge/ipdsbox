@@ -21,6 +21,10 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
     private int groupLevel;
     private final List<Triplet> triplets = new ArrayList<>();
 
+
+    /**
+     * Constructs a {@link DefineGroupBoundaryOrder} with the given {order type and group leven
+     */
     public DefineGroupBoundaryOrder(final int orderType, final int groupLevel) {
         super(XohOrderCode.DefineGroupBoundary);
 

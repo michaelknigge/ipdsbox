@@ -88,7 +88,8 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
         return "ExceptionHandlingControlOrder{"
                 + "exceptionReportingFlags=0x" + Integer.toHexString(this.exceptionReportingFlags)
                 + ", automaticRecoveryFlags=0x" + Integer.toHexString(this.automaticRecoveryFlags)
-                + ", exceptionPresentationProcessingFlagsFlags=0x" + Integer.toHexString(this.exceptionPresentationProcessingFlagsFlags)
+                + ", exceptionPresentationProcessingFlagsFlags=0x" + Integer.toHexString(
+                        this.exceptionPresentationProcessingFlagsFlags)
                 + '}';
     }
 }

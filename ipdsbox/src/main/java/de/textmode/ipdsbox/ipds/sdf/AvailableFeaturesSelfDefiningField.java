@@ -17,12 +17,12 @@ public final class AvailableFeaturesSelfDefiningField extends SelfDefiningField 
     /**
      * Creates a new {@link AvailableFeaturesSelfDefiningField}.
      */
-    public AvailableFeaturesSelfDefiningField() throws IOException {
+    public AvailableFeaturesSelfDefiningField() {
         super(SelfDefiningFieldId.AvailableFeatures);
     }
 
     /**
-     * Creates a {@link AvailableFeaturesSelfDefiningField} from the stream.
+     * Creates a {@link AvailableFeaturesSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     AvailableFeaturesSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.AvailableFeatures);

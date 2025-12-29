@@ -29,7 +29,7 @@ public final class SetupNameTriplet extends Triplet {
         final byte[] encodedName = UTF16BE.encode(CharBuffer.wrap(this.setupName)).array();
         final int encodedFontNameLen = encodedName.length;
 
-        out.writeUnsignedByte(4+ encodedFontNameLen);
+        out.writeUnsignedByte(4 + encodedFontNameLen);
         out.writeUnsignedByte(this.getTripletId());
         out.writeUnsignedInteger16(0x0000);
         out.writeBytes(encodedName);

@@ -8,8 +8,8 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
- * This self-defining field reports the media attributes of all media that exist in the UP3I line. One of these selfdefining
- * fields is returned for each available IPDS media source for which there is UP3I information.
+ * This self-defining field reports the media attributes of all media that exist in the UP3I line. One of these
+ * self-defining fields is returned for each available IPDS media source for which there is UP3I information.
  */
 public final class Up3iPaperInputMediaSelfDefiningField extends SelfDefiningField {
 
@@ -17,7 +17,7 @@ public final class Up3iPaperInputMediaSelfDefiningField extends SelfDefiningFiel
     private byte[] up3iMediaInformation;
 
     /**
-     * Constructs the {@link Up3iPaperInputMediaSelfDefiningField}.
+     * Constructs a new {@link Up3iPaperInputMediaSelfDefiningField}.
      */
     public Up3iPaperInputMediaSelfDefiningField() {
         super(SelfDefiningFieldId.Up3iPaperInputMedia);
@@ -25,8 +25,9 @@ public final class Up3iPaperInputMediaSelfDefiningField extends SelfDefiningFiel
         this.mediaSourceId = 0x00;
         this.up3iMediaInformation = ByteUtils.EMPTY_BYTE_ARRAY;
     }
+
     /**
-     * Constructs the {@link Up3iPaperInputMediaSelfDefiningField}.
+     * Constructs the {@link Up3iPaperInputMediaSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
     Up3iPaperInputMediaSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.Up3iPaperInputMedia);

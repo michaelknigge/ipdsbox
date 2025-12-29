@@ -16,16 +16,17 @@ public class StandardOcaColorValueSupportSelfDefiningField extends SelfDefiningF
     private List<Integer> colorValues = new ArrayList<>();
 
     /**
-     * Constructs the {@link StandardOcaColorValueSupportSelfDefiningField}.
+     * Constructs a new {@link StandardOcaColorValueSupportSelfDefiningField}.
      */
-    public StandardOcaColorValueSupportSelfDefiningField() throws IOException {
+    public StandardOcaColorValueSupportSelfDefiningField() {
         super(SelfDefiningFieldId.StandardOcaColorValueSupport);
     }
 
     /**
-     * Constructs the {@link StandardOcaColorValueSupportSelfDefiningField}.
+     * Constructs the {@link StandardOcaColorValueSupportSelfDefiningField}
+     * from the given {@link IpdsByteArrayInputStream}.
      */
-    public StandardOcaColorValueSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    StandardOcaColorValueSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.StandardOcaColorValueSupport);
 
@@ -48,7 +49,7 @@ public class StandardOcaColorValueSupportSelfDefiningField extends SelfDefiningF
     }
 
     /**
-     * Returns a list containing all supported OCA colors
+     * Returns a list containing all supported OCA colors.
      */
     public List<Integer> getColorValues() {
         return this.colorValues;

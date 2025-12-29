@@ -18,16 +18,16 @@ public class DeviceAppearanceSelfDefiningField extends SelfDefiningField {
     private List<Integer> appearances = new ArrayList<>();
 
     /**
-     * Constructs the {@link DeviceAppearanceSelfDefiningField}.
+     * Constructs a new {@link DeviceAppearanceSelfDefiningField}.
      */
-    public DeviceAppearanceSelfDefiningField() throws IOException {
+    public DeviceAppearanceSelfDefiningField() {
         super(SelfDefiningFieldId.DeviceAppearance);
     }
 
     /**
-     * Constructs the {@link DeviceAppearanceSelfDefiningField}.
+     * Constructs a new {@link DeviceAppearanceSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
-    public DeviceAppearanceSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    DeviceAppearanceSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.DeviceAppearance);
 

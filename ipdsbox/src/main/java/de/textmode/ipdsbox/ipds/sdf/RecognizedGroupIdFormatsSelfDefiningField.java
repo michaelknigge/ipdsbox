@@ -12,21 +12,21 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * triplet. The printer must accept all formats (but unrecognized formats are ignored and don't need to be
  * supplied); this self-defining field can help a host program to determine which Group ID formats to supply.
  */
-public class RecognizedGroupIdFormatsSelfDefiningField extends SelfDefiningField{
+public class RecognizedGroupIdFormatsSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> groupIdFormats = new ArrayList<>();
 
     /**
-     * Constructs the {@link RecognizedGroupIdFormatsSelfDefiningField}.
+     * Constructs a new {@link RecognizedGroupIdFormatsSelfDefiningField}.
      */
-    public RecognizedGroupIdFormatsSelfDefiningField() throws IOException {
+    public RecognizedGroupIdFormatsSelfDefiningField() {
         super(SelfDefiningFieldId.RecognizedGroupIdFormats);
     }
 
     /**
-     * Constructs the {@link RecognizedGroupIdFormatsSelfDefiningField}.
+     * Constructs the {@link RecognizedGroupIdFormatsSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */
-    public RecognizedGroupIdFormatsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+    RecognizedGroupIdFormatsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
 
         super(SelfDefiningFieldId.RecognizedGroupIdFormats);
 

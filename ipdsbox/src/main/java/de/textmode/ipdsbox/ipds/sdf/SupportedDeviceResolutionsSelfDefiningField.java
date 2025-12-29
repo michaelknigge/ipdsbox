@@ -18,7 +18,7 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
     private int printHeadYpels;
 
     /**
-     * Constructs the {@link SupportedDeviceResolutionsSelfDefiningField}.
+     * Constructs a new {@link SupportedDeviceResolutionsSelfDefiningField}.
      */
     public SupportedDeviceResolutionsSelfDefiningField() {
         super(SelfDefiningFieldId.SupportedDeviceResolutions);
@@ -29,7 +29,8 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
         this.printHeadYpels = 0x01;
     }
     /**
-     * Constructs the {@link SupportedDeviceResolutionsSelfDefiningField}.
+     * Constructs the {@link SupportedDeviceResolutionsSelfDefiningField}
+     * from the given {@link IpdsByteArrayInputStream}.
      */
     SupportedDeviceResolutionsSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
         super(SelfDefiningFieldId.SupportedDeviceResolutions);
