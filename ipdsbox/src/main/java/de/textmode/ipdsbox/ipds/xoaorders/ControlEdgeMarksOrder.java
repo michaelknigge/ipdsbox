@@ -48,4 +48,11 @@ public final class ControlEdgeMarksOrder extends XoaOrder {
     public void accept(final XoaOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "ControlEdgeMarksOrder{" +
+                "edgeMark=0x" + Integer.toHexString(this.edgeMark) +
+                '}';
+    }
 }

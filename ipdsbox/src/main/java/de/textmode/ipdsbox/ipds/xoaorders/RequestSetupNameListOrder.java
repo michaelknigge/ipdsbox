@@ -90,4 +90,13 @@ public final class RequestSetupNameListOrder extends XoaOrder {
     public void accept(final XoaOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "RequestSetupNameListOrder{" +
+                "queryType=0x" + Integer.toHexString(this.queryType) +
+                ", requestFlags=0x" + Integer.toHexString(this.requestFlags) +
+                ", triplets=" + this.triplets +
+                '}';
+    }
 }

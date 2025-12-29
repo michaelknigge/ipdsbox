@@ -48,4 +48,11 @@ public final class PrintQualityControlOrder extends XoaOrder {
     public void accept(final XoaOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "PrintQualityControlOrder{" +
+                "qualityLevel=" + this.qualityLevel +
+                '}';
+    }
 }

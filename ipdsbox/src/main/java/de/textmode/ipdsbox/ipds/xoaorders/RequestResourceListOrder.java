@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -146,5 +147,23 @@ public final class RequestResourceListOrder extends XoaOrder {
         public void setResourceId(final byte[] resourceId) {
             this.resourceId = resourceId;
         }
+
+        @Override
+        public String toString() {
+            return "ResourceQuery{" +
+                    "resourceType=0x" + Integer.toHexString(this.resourceType) +
+                    ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat) +
+                    ", resourceId=" + StringUtils.toHexString(this.resourceId) +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "RequestResourceListOrder{" +
+                "queryType=" + this.queryType +
+                ", continuationIndicator=" + this.continuationIndicator +
+                ", resourceQueries=" + this.resourceQueries +
+                '}';
     }
 }

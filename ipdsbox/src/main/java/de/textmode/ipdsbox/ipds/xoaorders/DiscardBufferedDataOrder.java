@@ -29,4 +29,9 @@ public final class DiscardBufferedDataOrder extends XoaOrder {
     public void accept(final XoaOrderVisitor visitor) {
         visitor.handle(this);
     }
+
+    @Override
+    public String toString() {
+        return "DiscardBufferedDataOrder{}";
+    }
 }
