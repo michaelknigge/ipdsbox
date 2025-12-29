@@ -17,8 +17,8 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
     /**
      * Constructs the {@link ExceptionHandlingControlOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    ExceptionHandlingControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.ExceptionHandlingControl);
+    ExceptionHandlingControlOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XoaOrderCode.ExceptionHandlingControl);
 
         this.exceptionReportingFlags = ipds.readUnsignedByte();
         this.automaticRecoveryFlags = ipds.readUnsignedByte();

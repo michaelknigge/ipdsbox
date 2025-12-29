@@ -15,8 +15,8 @@ public final class PrintQualityControlOrder extends XoaOrder {
     /**
      * Constructs the {@link PrintQualityControlOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    PrintQualityControlOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.PrintQualityControl);
+    PrintQualityControlOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XoaOrderCode.PrintQualityControl);
 
         this.qualityLevel = ipds.readUnsignedByte();
     }

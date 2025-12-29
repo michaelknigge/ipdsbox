@@ -59,4 +59,9 @@ public interface XoaOrderVisitor {
      * Handle method for {@link RequestSetupNameListOrder}.
      */
     void handle(RequestSetupNameListOrder order);
+
+    /**
+     * Handle method for {@link UnknownXoaOrder}.
+     */
+    void handle(UnknownXoaOrder order);
 }

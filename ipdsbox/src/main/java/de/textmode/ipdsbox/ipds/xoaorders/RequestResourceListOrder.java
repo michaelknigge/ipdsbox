@@ -21,8 +21,8 @@ public final class RequestResourceListOrder extends XoaOrder {
     /**
      * Constructs the {@link RequestResourceListOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    RequestResourceListOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.ActivatePrinterAlarm);
+    RequestResourceListOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XoaOrderCode.ActivatePrinterAlarm);
 
         this.queryType = ipds.readUnsignedByte();
         this.continuationIndicator = ipds.readUnsignedInteger16();
@@ -44,14 +44,14 @@ public final class RequestResourceListOrder extends XoaOrder {
     }
 
     /**
-     * Returns the quety type.
+     * Returns the query type.
      */
     public int getQueryType() {
         return this.queryType;
     }
 
     /**
-     * Sets the quety type.
+     * Sets the query type.
      */
     public void setQueryType(final int queryType) {
         this.queryType = queryType;
@@ -91,7 +91,7 @@ public final class RequestResourceListOrder extends XoaOrder {
             this.resourceId = resourceId;
         }
 
-        public ResourceQuery(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
+        public ResourceQuery(final IpdsByteArrayInputStream ipds) throws IOException {
             final int length = ipds.readUnsignedByte();
             this.resourceType = ipds.readUnsignedByte();
             this.resourceIdFormat = ipds.readUnsignedByte();

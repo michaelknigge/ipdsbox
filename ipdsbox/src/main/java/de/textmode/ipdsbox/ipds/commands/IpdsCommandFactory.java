@@ -7,7 +7,6 @@ import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.acknowledge.AcknowledgeReply;
-import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 import de.textmode.ipdsbox.ppd.PagePrinterRequest;
 
@@ -22,7 +21,7 @@ public final class IpdsCommandFactory {
     /**
      * Creates a {@link IpdsCommand} from the given {@link PagePrinterRequest}.
      */
-    public static IpdsCommand create(final PagePrinterRequest request) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode,UnknownXohOrderCode {
+    public static IpdsCommand create(final PagePrinterRequest request) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
 
         if (request.getRequest() == 0x0E) {
             return create(new IpdsByteArrayInputStream(request.getData(), 8));
@@ -37,7 +36,7 @@ public final class IpdsCommandFactory {
      * provide {@link PagePrinterRequest}s that "fit together" (i. e. that all {@link PagePrinterRequest}s have the
      * same correlation ID (if present).
      */
-    public static IpdsCommand create(final List<PagePrinterRequest> requests) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode,UnknownXohOrderCode {
+    public static IpdsCommand create(final List<PagePrinterRequest> requests) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
 
         final IpdsByteArrayOutputStream ipdsOutputStream = new IpdsByteArrayOutputStream();
 
@@ -92,14 +91,14 @@ public final class IpdsCommandFactory {
     /**
      * Creates a {@link IpdsCommand} from the given byte array.
      */
-    public static IpdsCommand create(final byte[] data) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode,UnknownXohOrderCode {
+    public static IpdsCommand create(final byte[] data) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
         return create(new IpdsByteArrayInputStream(data));
     }
 
     /**
      * Creates a {@link IpdsCommand} from the given {@link IpdsByteArrayInputStream}.
      */
-    public static IpdsCommand create(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException,UnknownXoaOrderCode, UnknownXohOrderCode {
+    public static IpdsCommand create(final IpdsByteArrayInputStream ipds) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
 
         // The implementation requires that the IpdsByteArrayInputStream contains exactly as many
         // bytes as specified in the length field.

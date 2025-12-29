@@ -13,8 +13,8 @@ public final class DiscardBufferedDataOrder extends XoaOrder {
     /**
      * Constructs the {@link DiscardBufferedDataOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    DiscardBufferedDataOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.DiscardBufferedData);
+    DiscardBufferedDataOrder(final IpdsByteArrayInputStream ipds) {
+        super(XoaOrderCode.DiscardBufferedData);
     }
 
     @Override

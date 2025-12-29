@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.xoaorders;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 
 /**
@@ -19,24 +18,12 @@ public final class XoaOrderFactory {
     /**
      * Creates a {@link XoaOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public static XoaOrder create(final IpdsByteArrayInputStream ipds)
-        throws UnknownXoaOrderCode, IOException,InvalidIpdsCommandException {
+    public static XoaOrder create(final IpdsByteArrayInputStream ipds) throws IOException {
 
-        // TODO do not throw an exception.... create a "UnknownXoaOrder" instead
+        final int orderCodeId = ipds.readUnsignedInteger16();
+        final XoaOrderCode orderCode = XoaOrderCode.getIfKnown(orderCodeId);
 
-        // TODO
-        //  1. do not rewind...
-        //  2. the constructors do not need te read the order code...
-
-        // implement like SelfDefiningFieldFactory ... implement the same "style"....
-        // i. e. use "modern switch"...
-
-
-        // getIfKnown !!!
-        final XoaOrderCode code = XoaOrderCode.getFor(ipds.readUnsignedInteger16());
-        ipds.rewind(2); // Go back so the Order-Implementations will read the complete order...
-
-        return switch (code) {
+        return switch (orderCode) {
             case ActivatePrinterAlarm -> new ActivatePrinterAlarmOrder(ipds);
             case AlternateOffsetStacker -> new AlternateOffsetStackerOrder(ipds);
             case ControlEdgeMarks -> new ControlEdgeMarksOrder(ipds);
@@ -49,8 +36,7 @@ public final class XoaOrderFactory {
             case RequestResourceList -> new RequestResourceListOrder(ipds);
             case RequestSetupNameList -> new RequestSetupNameListOrder(ipds);
 
-            // TODO do not throw an exception.... create a "UnknownXoaOrder" instead
-            default -> throw new UnknownXoaOrderCode("No case for XoaOrderCode " + code);
+            default -> new UnknownXoaOrder(ipds, orderCodeId);
         };
     }
 }

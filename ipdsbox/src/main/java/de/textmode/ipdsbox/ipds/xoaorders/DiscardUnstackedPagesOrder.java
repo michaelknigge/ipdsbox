@@ -13,8 +13,8 @@ public final class DiscardUnstackedPagesOrder extends XoaOrder {
     /**
      * Constructs the {@link DiscardUnstackedPagesOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    DiscardUnstackedPagesOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.DiscardUnstackedPages);
+    DiscardUnstackedPagesOrder(final IpdsByteArrayInputStream ipds) {
+        super(XoaOrderCode.DiscardUnstackedPages);
     }
 
     @Override

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
@@ -23,8 +22,8 @@ public final class RequestSetupNameListOrder extends XoaOrder {
     /**
      * Constructs the {@link RequestSetupNameListOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    RequestSetupNameListOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException, InvalidIpdsCommandException {
-        super(ipds, XoaOrderCode.RequestSetupNameList);
+    RequestSetupNameListOrder(final IpdsByteArrayInputStream ipds) throws IOException{
+        super(XoaOrderCode.RequestSetupNameList);
 
         this.queryType = ipds.readUnsignedByte();
         this.requestFlags = ipds.readUnsignedByte();
@@ -79,7 +78,6 @@ public final class RequestSetupNameListOrder extends XoaOrder {
 
     /**
      * Returns a {@link List} of all {@link Triplet}s contained in the {@link RequestSetupNameListOrder}.
-     * @return {@link List} of all {@link Triplet}s contained in the {@link RequestSetupNameListOrder}.
      */
     public List<Triplet> getTriplets() {
         return this.triplets;

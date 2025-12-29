@@ -26,7 +26,6 @@ import de.textmode.ipdsbox.ipds.commands.LogicalPagePositionCommand;
 import de.textmode.ipdsbox.ipds.commands.NoOperationCommand;
 import de.textmode.ipdsbox.ipds.commands.SenseTypeAndModelCommand;
 import de.textmode.ipdsbox.ipds.commands.SetHomeStateCommand;
-import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xohorders.ObtainPrinterCharacteristicsOrder;
 import de.textmode.ipdsbox.ipds.xohorders.UnknownXohOrderCode;
 import de.textmode.ipdsbox.ppd.PagePrinterRequest;
@@ -195,9 +194,6 @@ public final class IpdsClient {
         } catch (final UnknownXohOrderCode e) {
             System.err.println(e.getMessage());
             return 1;
-        } catch (final UnknownXoaOrderCode e) {
-            System.err.println(e.getMessage());
-            return 1;
         }
 
         return 0;
@@ -206,7 +202,7 @@ public final class IpdsClient {
     /**
      * Obtain printer information using the STM (Sense and type model) command.
      */
-    private AcknowledgeReply obtainPrinterInfo(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode, UnknownXohOrderCode {
+    private AcknowledgeReply obtainPrinterInfo(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
@@ -277,7 +273,7 @@ public final class IpdsClient {
     /**
      * Obtain printer characteristics using the XOH-OPC command.
      */
-    private AcknowledgeReply obtainPrinterCharacteristics(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException, UnknownXoaOrderCode, UnknownXohOrderCode {
+    private AcknowledgeReply obtainPrinterCharacteristics(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
@@ -302,7 +298,7 @@ public final class IpdsClient {
      * Print text on a page.
      */
     private void writeText(final Socket printer, final String text, final boolean isDebugMode)
-            throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode, UnknownXoaOrderCode {
+            throws IOException, InvalidIpdsCommandException, UnknownXohOrderCode {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
@@ -551,7 +547,7 @@ public final class IpdsClient {
             }
         } catch (final IOException e) {
             System.err.println(e.getMessage());
-        } catch (final InvalidIpdsCommandException | UnknownXoaOrderCode | UnknownXohOrderCode e) {
+        } catch (final InvalidIpdsCommandException | UnknownXohOrderCode e) {
             throw new RuntimeException(e);
         }
     }
@@ -568,8 +564,7 @@ public final class IpdsClient {
     /**
      * Waits until the server has sent a {@link PagePrinterRequest}.
      */
-    synchronized PagePrinterRequest waitForServer()
-            throws UnknownXoaOrderCode, InvalidIpdsCommandException, IOException, UnknownXohOrderCode {
+    synchronized PagePrinterRequest waitForServer() {
 
         while (true) {
             synchronized (this.fifo) {

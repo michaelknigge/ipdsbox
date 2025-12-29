@@ -2,10 +2,8 @@ package de.textmode.ipdsbox.ipds.commands;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
-import de.textmode.ipdsbox.ipds.xoaorders.UnknownXoaOrderCode;
 import de.textmode.ipdsbox.ipds.xoaorders.XoaOrder;
 import de.textmode.ipdsbox.ipds.xoaorders.XoaOrderFactory;
 
@@ -25,8 +23,7 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
     /**
      * Constructs the {@link ExecuteOrderAnystateCommand}.
      */
-    ExecuteOrderAnystateCommand(final IpdsByteArrayInputStream ipds)
-            throws InvalidIpdsCommandException, IOException, UnknownXoaOrderCode {
+    ExecuteOrderAnystateCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.XOA);
 
         this.order = XoaOrderFactory.create(ipds);

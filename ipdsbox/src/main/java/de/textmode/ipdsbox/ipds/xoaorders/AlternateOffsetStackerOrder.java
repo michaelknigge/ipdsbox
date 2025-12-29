@@ -13,8 +13,8 @@ public final class AlternateOffsetStackerOrder extends XoaOrder {
     /**
      * Constructs the {@link AlternateOffsetStackerOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    AlternateOffsetStackerOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.AlternateOffsetStacker);
+    AlternateOffsetStackerOrder(final IpdsByteArrayInputStream ipds) {
+        super(XoaOrderCode.AlternateOffsetStacker);
     }
 
     @Override

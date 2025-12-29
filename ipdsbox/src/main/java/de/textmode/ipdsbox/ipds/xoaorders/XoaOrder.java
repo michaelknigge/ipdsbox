@@ -2,7 +2,6 @@ package de.textmode.ipdsbox.ipds.xoaorders;
 
 import java.io.IOException;
 
-import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
@@ -10,31 +9,35 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public abstract class XoaOrder {
 
-    private final XoaOrderCode orderCode;
+    private final int orderCodeId;
 
     /**
      * Constructs the {@link XoaOrder}.
      */
-    public XoaOrder(final XoaOrderCode orderCode) {
-        this.orderCode = orderCode;
+    protected XoaOrder(final int orderCodeId) {
+        this.orderCodeId = orderCodeId;
     }
 
     /**
-     * Constructs the {@link XoaOrder} object from IPDS data read with an {@link IpdsByteArrayInputStream}.
+     * Constructs the {@link XoaOrder}.
      */
-    public XoaOrder(final IpdsByteArrayInputStream ipds, final XoaOrderCode code) throws UnknownXoaOrderCode, IOException {
-        if (ipds.readUnsignedInteger16() != code.getValue()) {
-            throw new UnknownXoaOrderCode("Passed invalid data");
-        }
-
-        this.orderCode = code;
+    protected XoaOrder(final XoaOrderCode orderCode) {
+        this.orderCodeId = orderCode.getValue();
     }
 
     /**
-     * Returns the {@link XoaOrderCode} of this {@link XoaOrder}.
+     * Returns the ID of the {@link XoaOrderCode} of this {@link XoaOrder}.
+     */
+    public final int getOrderCodeId() {
+        return this.orderCodeId;
+    }
+
+    /**
+     * Returns the {@link XoaOrderCode} of this {@link XoaOrder}. Returns <code>null</code> if the
+     * {@link XoaOrderCode} is unknown.
      */
     public final XoaOrderCode getOrderCode() {
-        return this.orderCode;
+        return XoaOrderCode.getIfKnown(this.orderCodeId);
     }
 
     /**

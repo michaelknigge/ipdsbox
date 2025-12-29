@@ -117,15 +117,11 @@ public enum XoaOrderCode {
     }
 
     /**
-     * Gets the enum value for the given integer.
+     * Gets the enum value for the given integer. Returns <code>null</code> if the order
+     * code is unknown.
      */
-    public static XoaOrderCode getFor(final int value) throws UnknownXoaOrderCode {
-        final XoaOrderCode result = REVERSE_MAP.get(value);
-        if (result == null) {
-            throw new UnknownXoaOrderCode(
-                String.format("The XOA order code X'%1$s' is unknown.", Integer.toHexString(value)));
-        }
-        return result;
+    public static XoaOrderCode getIfKnown(final int value) {
+        return REVERSE_MAP.get(value);
     }
 
     /**

@@ -15,8 +15,8 @@ public final class ControlEdgeMarksOrder extends XoaOrder {
     /**
      * Constructs the {@link ControlEdgeMarksOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    ControlEdgeMarksOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.ControlEdgeMarks);
+    ControlEdgeMarksOrder(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(XoaOrderCode.ControlEdgeMarks);
 
         this.edgeMark = ipds.readUnsignedByte();
     }

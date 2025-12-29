@@ -13,8 +13,8 @@ public final class ObtainAdditionalExceptionInformationOrder extends XoaOrder {
     /**
      * Constructs the {@link ObtainAdditionalExceptionInformationOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    ObtainAdditionalExceptionInformationOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.ObtainAdditionalExceptionInformation);
+    ObtainAdditionalExceptionInformationOrder(final IpdsByteArrayInputStream ipds) {
+        super(XoaOrderCode.ObtainAdditionalExceptionInformation);
     }
 
     @Override

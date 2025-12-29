@@ -13,8 +13,8 @@ public final class MarkFormOrder extends XoaOrder {
     /**
      * Constructs the {@link MarkFormOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    public MarkFormOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.MarkForm);
+    public MarkFormOrder(final IpdsByteArrayInputStream ipds) {
+        super(XoaOrderCode.MarkForm);
     }
 
     @Override

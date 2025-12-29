@@ -13,8 +13,8 @@ public final class ActivatePrinterAlarmOrder extends XoaOrder {
     /**
      * Constructs the {@link ActivatePrinterAlarmOrder} from the given {@link IpdsByteArrayInputStream}.
      */
-    ActivatePrinterAlarmOrder(final IpdsByteArrayInputStream ipds) throws UnknownXoaOrderCode, IOException {
-        super(ipds, XoaOrderCode.ActivatePrinterAlarm);
+    ActivatePrinterAlarmOrder(final IpdsByteArrayInputStream ipds) {
+        super(XoaOrderCode.ActivatePrinterAlarm);
     }
 
     @Override
