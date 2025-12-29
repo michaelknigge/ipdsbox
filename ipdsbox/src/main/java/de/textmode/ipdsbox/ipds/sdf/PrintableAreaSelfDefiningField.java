@@ -15,7 +15,7 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
 
     public class MediaIdEntry {
         private final int mediaIdType;
-        private final byte mediaId[];
+        private final byte[] mediaId;
 
         MediaIdEntry(final int mediaIdType, final byte[] mediaId) {
             this.mediaIdType = mediaIdType;
