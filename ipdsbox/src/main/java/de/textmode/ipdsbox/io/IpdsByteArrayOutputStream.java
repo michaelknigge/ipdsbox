@@ -20,11 +20,6 @@ public final class IpdsByteArrayOutputStream {
 
     private final ByteArrayOutputStream baos;
 
-    // TODO: maybe we should implement static "createForXxxx" and "buildXxxx" Methods (like
-    //    "createForTriplet" and "buildTriplet" that perform specific tasks (i. e. for
-    //    Triplets the create-method sets length to 0, sets the given TripletID and the
-    //    "build"-Method then calculates and sets the lengths in the first byte...
-
     /**
      * Constructs an {@link IpdsByteArrayInputStream}.
      */
