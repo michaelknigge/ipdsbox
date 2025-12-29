@@ -1,0 +1,114 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adoptopenjdk'
+
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.gradle/wrapper/
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+
+    - name: Build with Gradle
+      run: ./gradlew clean build
+
+
+    - name: Upload ipdsbox Checkstyle results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsbox-main-checkstyle-results
+        path: ipdsbox/build/reports/checkstyle/main.html
+
+    - name: Upload ipdsbox-test Checkstyle results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsbox-test-checkstyle-results
+        path: ipdsbox/build/reports/checkstyle/test.html
+
+
+    - name: Upload ipdsclient Checkstyle results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsclient-main-checkstyle-results
+        path: ipdsclient/build/reports/checkstyle/main.html
+
+    - name: Upload ipdsclient-test Checkstyle results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsclient-test-checkstyle-results
+        path: ipdsclient/build/reports/checkstyle/test.html
+
+
+    - name: Upload ipdsproxy Checkstyle results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsproxy-main-checkstyle-results
+        path: ipdsproxy/build/reports/checkstyle/main.html
+
+    - name: Upload ipdsproxy-test Checkstyle results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsproxy-test-checkstyle-results
+        path: ipdsproxy/build/reports/checkstyle/test.html
+
+
+    - name: Upload ipdsbox SpotBugs results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsbox-main-spotbugs-results
+        path: ipdsbox/build/reports/spotbugs/main.html
+
+    - name: Upload ipdsbox-test SpotBugs results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsbox-test-spotbugs-results
+        path: ipdsbox/build/reports/spotbugs/test.html
+
+
+    - name: Upload ipdsclient SpotBugs results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsclient-main-spotbugs-results
+        path: ipdsclient/build/reports/spotbugs/main.html
+
+    - name: Upload ipdsclient-test SpotBugs results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsclient-test-spotbugs-results
+        path: ipdsclient/build/reports/spotbugs/test.html
+
+
+    - name: Upload ipdsproxy SpotBugs results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsproxy-main-spotbugs-results
+        path: ipdsproxy/build/reports/spotbugs/main.html
+
+    - name: Upload ipdsproxy-test SpotBugs results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipdsproxy-test-spotbugs-results
+        path: ipdsproxy/build/reports/spotbugs/test.html
+
