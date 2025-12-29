@@ -169,7 +169,8 @@ public final class IpdsClient {
 
             if (obtainPrinterInfo) {
                 if (ackReply.getAcknowledgeType() == 0x01 || ackReply.getAcknowledgeType() == 0x41) {
-                    this.printSenseTypeAndModelAcknowledgeData((SenseTypeAndModelAcknowledgeData) ackReply.getAcknowledgeData());
+                    this.printSenseTypeAndModelAcknowledgeData(
+                            (SenseTypeAndModelAcknowledgeData) ackReply.getAcknowledgeData());
                 } else {
                     System.out.println(String.format(
                             "Expected acknowledge type 0x01 or 0x41 but received acknowledge type %02X",
@@ -198,19 +199,27 @@ public final class IpdsClient {
     /**
      * Obtain printer information using the STM (Sense and type model) command.
      */
-    private AcknowledgeReply obtainPrinterInfo(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException {
+    private AcknowledgeReply obtainPrinterInfo(
+            final Socket printer,
+            final boolean isDebugMode) throws IOException, InvalidIpdsCommandException {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
         // "00000010 00000001 00000001 00000002"  --> Don't know what this means. a packet trace showed
         // that this is the first block of data that is sent to the printer...
-        PagePrinterRequest requestOut = new PagePrinterRequest(0x01, HexFormat.of().parseHex("0000000100000002"));
+        PagePrinterRequest requestOut = new PagePrinterRequest(
+                0x01,
+                HexFormat.of().parseHex("0000000100000002"));
+
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send X'00000010 00000001 00000001 00000002'");
 
         // The printer responses with "00000010 00000002 00000001 00000002"
         System.out.println("Wait for X'00000010 00000002 00000001 00000002'");
         PagePrinterRequest requestIn = this.waitForServer();
+        if (isDebugMode) {
+            System.out.println("Received: " + requestIn.toString());
+        }
 
         // "00000008 00000005"  --> Don't know what this means. a packet trace showed
         // that this is the second block of data that is sent to the printer...
@@ -221,13 +230,16 @@ public final class IpdsClient {
         // The printer responses with "00000008 00000006"
         System.out.println("Wait for X'00000008 00000006'");
         requestIn = this.waitForServer();
+        if (isDebugMode) {
+            System.out.println("Received: " + requestIn.toString());
+        }
 
         // Now finally send the STM...
         // "00000015 0000000E 00000001 00000005 0005D6E480"
         //     ^        ^        ^        ^         ^
         //     |        |        |        |         |
-        //     |        |        |        |         +-- 0005 = length, D6E4 = IPDS command code, 80 = Flag (ACK requested)
-        //     |        |        |        +-- Length of the following IPDS command. Guess more than one can be sent at once
+        //     |        |        |        |         +-- 0005 = length, D6E4 = IPDS command code, 80 = Flag (ACK req.)
+        //     |        |        |        +-- Length of the following IPDS command.
         //     |        |        +-- Count of IPDS Commands? Or some flags?
         //     |        +-- Maybe an "operation code", 0x0E is "IPDS data"?
         //     +-- Complete length (incl. itself)
@@ -237,6 +249,9 @@ public final class IpdsClient {
 
         System.out.println("Wait for Acknowledge Reply");
         requestIn = this.waitForServer();
+        if (isDebugMode) {
+            System.out.println("Received: " + requestIn.toString());
+        }
 
         AcknowledgeReply ackReply = (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
         if (ackReply.getAcknowledgeType() == 0xC0 || ackReply.getAcknowledgeType() == 0x80) {
@@ -255,6 +270,9 @@ public final class IpdsClient {
 
             System.out.println("Wait for Acknowledge Reply (again after NACK)");
             requestIn = this.waitForServer();
+            if (isDebugMode) {
+                System.out.println("Received: " + requestIn.toString());
+            }
 
             ackReply = (AcknowledgeReply) IpdsCommandFactory.create(requestIn);
         }
@@ -269,7 +287,9 @@ public final class IpdsClient {
     /**
      * Obtain printer characteristics using the XOH-OPC command.
      */
-    private AcknowledgeReply obtainPrinterCharacteristics(final Socket printer, final boolean isDebugMode) throws IOException, InvalidIpdsCommandException {
+    private AcknowledgeReply obtainPrinterCharacteristics(
+            final Socket printer,
+            final boolean isDebugMode) throws IOException, InvalidIpdsCommandException {
 
         final OutputStream streamToPrinter = printer.getOutputStream();
 
@@ -277,7 +297,9 @@ public final class IpdsClient {
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send SHS command");
 
-        final ExecuteOrderHomeStateCommand xoh = new ExecuteOrderHomeStateCommand(new ObtainPrinterCharacteristicsOrder());
+        final ExecuteOrderHomeStateCommand xoh = new ExecuteOrderHomeStateCommand(
+                new ObtainPrinterCharacteristicsOrder());
+
         xoh.getCommandFlags().isAcknowledgmentRequired(true);
         xoh.getCommandFlags().isLongAcknowledgeReplyAccepted(true);
         requestOut = new PagePrinterRequest(xoh);
@@ -363,10 +385,7 @@ public final class IpdsClient {
         // End Page (EP) with ARQ
 
 
-
-
         /*
-
         requestOut = new PagePrinterRequest(new ExecuteOrderHomeStateCommand(new SetMediaOriginOrder()));
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send XOH command (Media Origin)");
@@ -378,8 +397,9 @@ public final class IpdsClient {
         requestOut = new PagePrinterRequest(new LogicalPageDescriptorCommand());
         requestOut.writeTo(streamToPrinter, isDebugMode);
         System.out.println("Send LPD command");
-*/
-        /*********************
+        */
+
+        /*
         final LoadCopyControlCommand.Keyword kw = new LoadCopyControlCommand.Keyword(0xE1, 0x01);
 
         final LoadCopyControlCommand lcc = new LoadCopyControlCommand();
@@ -387,7 +407,7 @@ public final class IpdsClient {
         requestOut = new PagePrinterRequest(new LoadCopyControlCommand());
         requestOut.writeTo(streamToPrinter);
         System.out.println("Step 8: Send LCC command");
-         */
+        */
 
         /*
         requestOut = new PagePrinterRequest(new LogicalPagePositionCommand());
@@ -611,7 +631,9 @@ public final class IpdsClient {
         }
     }
 
-    private void printObtainPrinterCharacteristicsAcknowledgeData(final ObtainPrinterCharacteristicsAcknowledgeData data) {
+    private void printObtainPrinterCharacteristicsAcknowledgeData(
+            final ObtainPrinterCharacteristicsAcknowledgeData data) {
+
         System.out.println(" ");
         System.out.println("Printer Characteristics from XOH-OPC command");
         System.out.println("--------------------------------------------------------------------------------");
@@ -725,10 +747,12 @@ public final class IpdsClient {
     /**
      * Returns a textual description of a property pair.
      */
-    private static String decodePropertyPair(final SenseTypeAndModelAcknowledgeData.CommandSetVector vector, final Integer propertyPair) {
+    private static String decodePropertyPair(
+            final SenseTypeAndModelAcknowledgeData.CommandSetVector vector,
+            final Integer propertyPair) {
 
         if (vector.getSubsetIdOrCommandSetId() == 0xC4C3) { // Device Control Command Set
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x6001 -> "Multiple copy & copy-subgroup support in LCC";
                 case 0x6002 -> "Media-source-selection support in LCC";
                 case 0x6003 -> "Media-destination-selection support in LCC";
@@ -810,7 +834,8 @@ public final class IpdsClient {
                 case 0xF202 -> "Font Resolution and Metric Technology (X'84') triplets supported in AR commands";
                 case 0xF203 -> "Metric Adjustment (X'79') triplets supported in AR commands";
                 case 0xF204 -> "Data-object font support";
-                case 0xF205 -> "Color Management triplet support in IDO, LPD, RPO, SPE, WBCC, WGC, WIC2, WOCC, and WTC commands";
+                case 0xF205 -> "Color Management triplet support in "
+                        + "IDO, LPD, RPO, SPE, WBCC, WGC, WIC2, WOCC, and WTC commands";
                 case 0xF206 -> "Device Appearance (X'97') triplet support";
                 case 0xF209 -> "Extended copy set number format supported in the Group Information (X'6E') triplet";
                 case 0xF211 -> "Character-encoded object names in AR commands";
@@ -857,7 +882,7 @@ public final class IpdsClient {
                 return "WTC-TAP object area orientation support";
             }
 
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x1000 -> "Optimum performance if text data is in an ordered page";
                 case 0x1001 -> "Unordered text supported";
                 case 0x2001 -> "Text object support; includes support for the WTC command";
@@ -877,7 +902,7 @@ public final class IpdsClient {
                 return "Orientation support";
             }
 
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x1000 -> "Optimum performance when IM Image is in an ordered page";
                 case 0x1001 -> "IM-Image objects may be sent in any order";
                 default -> "** Unknown **";
@@ -901,7 +926,7 @@ public final class IpdsClient {
                 return "WIC2-IAP object area orientation support";
             }
 
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x1001 -> "IO-Image objects may be sent in any order";
                 case 0x1202 -> "IO-Image objects can be downloaded in home state as resources";
                 case 0x1206 -> "IO-Image support for LPD extents";
@@ -943,7 +968,7 @@ public final class IpdsClient {
                 return "WGC-GAP object area orientation support";
             }
 
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x1001 -> "Graphics objects may be sent in any order";
                 case 0x1207 -> "Support for GOCA image resolution in the WGC-GDD";
                 case 0x1208 -> "Negative object-area positioning";
@@ -980,7 +1005,7 @@ public final class IpdsClient {
                 return "WBCC-BCAP object area orientation support";
             }
 
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x1001 -> "Bar code objects may be sent in any order";
                 case 0x1208 -> "Negative object-area positioning";
                 case 0x1300 -> "Small-symbol support";
@@ -1001,13 +1026,15 @@ public final class IpdsClient {
                 return "WOCC-OCAP and IDO-DOAP object area orientation support";
             }
 
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x1201 -> "Data-object-resource support";
-                case 0x1203 -> "Object Container Presentation Space Size (X'9C') triplet supported for PDF objects in IDO, RPO, and WOCC commands";
+                case 0x1203 -> "Object Container Presentation Space Size (X'9C') triplet supported for "
+                        + "PDF objects in IDO, RPO, and WOCC commands";
                 case 0x1204 -> "Remove Resident Resource (RRR) command support";
                 case 0x1205 -> "Request Resident Resource List (RRRL) command support";
                 case 0x1208 -> "Negative object-area positioning";
-                case 0x1209 -> "Object Container Presentation Space Size (X'9C') triplet supported for SVG objects in IDO, RPO, and WOCC commands";
+                case 0x1209 -> "Object Container Presentation Space Size (X'9C') triplet supported for "
+                        + "SVG objects in IDO, RPO, and WOCC commands";
                 case 0x120A -> "Extension entries supported in the DORE command";
                 case 0x120B -> "Retired item 149";
                 case 0x120D -> "TrueType/OpenType Fonts supported as secondary resources in the DORE2 command";
@@ -1020,7 +1047,7 @@ public final class IpdsClient {
         }
 
         if (vector.getSubsetIdOrCommandSetId() == 0xD4C4) { // MO1 Subset of the Metadata Command Set
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0xD001 -> "Support for the AFP Tagging format";
                 default -> "** Unknown **";
             };
@@ -1031,7 +1058,7 @@ public final class IpdsClient {
                 return String.format("Overlay nesting up to %d levels is supported", (propertyPair & 0xFF));
             }
 
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x1102 -> "Extended overlay support; up to 32511 overlays can be activated at one time";
                 case 0x1501 -> "No overlay nesting is supported";
                 case 0x15FF -> "255 or more levels of overlay nesting supported";
@@ -1042,7 +1069,7 @@ public final class IpdsClient {
         }
 
         if (vector.getSubsetIdOrCommandSetId() == 0xD7E2) { // Page Segment Command Set
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0x1101 -> "Extended page segment support; up to 32511 page segments can be activated at one time";
                 default -> "** Unknown **";
             };
@@ -1053,7 +1080,7 @@ public final class IpdsClient {
                 return "Orientation support";
             }
 
-            return switch(propertyPair) {
+            return switch (propertyPair) {
                 case 0xB001 -> "Double-byte coded fonts and code pages";
                 case 0xB002 -> "Underscore width and position parameters in the LFI command are used by printer";
                 case 0xB003 -> "GRID-parts fields allowed in the LFC, LFCSC, and LCPC commands";
