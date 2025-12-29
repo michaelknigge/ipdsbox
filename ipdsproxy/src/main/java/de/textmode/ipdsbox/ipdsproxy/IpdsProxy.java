@@ -12,16 +12,22 @@ import java.time.LocalDateTime;
 import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.ppd.PagePrinterRequest;
 import de.textmode.ipdsbox.ppd.PagePrinterRequestReader;
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 /**
  * This is the main class of {@link IpdsProxy}, a little tool that accepts connections
- * from a print server (i. e. IBM InfoPrint) and forwards all received data to a
+ * from a print server (i.e. IBM InfoPrint) and forwards all received data to a
  * printer.
- * <p>
- * The tool is more or less of little use. Its purpose is to demonstrate the use of
+ *
+ * <p>The tool is more or less of little use. Its purpose is to demonstrate the use of
  * the low level class {@link PagePrinterRequestReader}. More functionality may be
- * added in the future, i. e. decoding IPDS commands to human readable descriptions.
+ * added in the future, i.e. decoding IPDS commands to human-readable descriptions.
  */
 public final class IpdsProxy {
 
