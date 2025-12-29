@@ -1,10 +1,7 @@
 package de.textmode.ipdsbox.core;
 
-import de.textmode.ipdsbox.printer.IpdsPrinter;
-
 /**
- * This {@link Exception} will be thrown if a faulty configuration of the {@link IpdsPrinter}
- * or {@link .textmode.ipdsbox.ppd.PagePrinterDaemon} is detected.
+ * This {@link Exception} will be thrown if a faulty configuration is detected.
  */
 public final class IpdsConfigurationException extends Exception {
 

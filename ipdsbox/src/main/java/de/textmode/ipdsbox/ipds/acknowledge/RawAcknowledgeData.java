@@ -35,8 +35,8 @@ public final class RawAcknowledgeData implements AcknowledgeData {
 
     @Override
     public String toString() {
-        return "RawAcknowledgeData{" +
-                "rawAcknowledgeData=" + StringUtils.toHexString(this.rawAcknowledgeData) +
-                '}';
+        return "RawAcknowledgeData{"
+                + "rawAcknowledgeData=" + StringUtils.toHexString(this.rawAcknowledgeData)
+                + '}';
     }
 }

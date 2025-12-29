@@ -178,10 +178,10 @@ public final class SenseTypeAndModelAcknowledgeData implements AcknowledgeData {
 
     @Override
     public String toString() {
-        return "SenseTypeAndModelAcknowledgeData{" +
-                "type=" + this.type +
-                ", model=" + this.model +
-                ", commandSetVectors=" + this.commandSetVectors +
-                '}';
+        return "SenseTypeAndModelAcknowledgeData{"
+                + "type=" + this.type
+                + ", model=" + this.model
+                + ", commandSetVectors=" + this.commandSetVectors
+                + '}';
     }
 }

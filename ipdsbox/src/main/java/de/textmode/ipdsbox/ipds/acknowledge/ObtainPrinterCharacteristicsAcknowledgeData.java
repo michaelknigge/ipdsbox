@@ -45,8 +45,8 @@ public final class ObtainPrinterCharacteristicsAcknowledgeData implements Acknow
 
     @Override
     public String toString() {
-        return "ObtainPrinterCharacteristicsAcknowledgeData{" +
-                "selfDefiningFields=" + this.selfDefiningFields +
-                '}';
+        return "ObtainPrinterCharacteristicsAcknowledgeData{"
+                + "selfDefiningFields=" + this.selfDefiningFields
+                + '}';
     }
 }
