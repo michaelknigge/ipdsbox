@@ -45,7 +45,10 @@ public final class ColorantIdentificationSelfDefiningField extends SelfDefiningF
             this.colorantName = UTF16BE.decode(ByteBuffer.wrap(ipds.readBytes(len - 5))).toString();
         }
 
-        public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+        /**
+         * Writes this {@link ColorantIdentificationEntry} to the given {@link IpdsByteArrayOutputStream}.
+         */
+        void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
 
             final byte[] utf16Name = UTF16BE.encode(this.colorantName).array();
 

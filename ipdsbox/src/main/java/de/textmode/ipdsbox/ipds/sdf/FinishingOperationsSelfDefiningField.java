@@ -11,7 +11,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * The Finishing Operations self-defining field lists all the different types of finishing operations that the printer
  * supports with the Finishing Operation (X'85') triplet.
  */
-public class FinishingOperationsSelfDefiningField extends SelfDefiningField{
+public class FinishingOperationsSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> operationTypes = new ArrayList<>();
 

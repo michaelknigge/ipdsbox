@@ -12,7 +12,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * Presentation Fidelity Control command. If the PFC command is supported by a printer, this self-defining field
  * must be returned in the XOH-OPC reply.
  */
-public class PfcTripletsSupportedSelfDefiningField extends SelfDefiningField{
+public class PfcTripletsSupportedSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> tripletIds = new ArrayList<>();
 

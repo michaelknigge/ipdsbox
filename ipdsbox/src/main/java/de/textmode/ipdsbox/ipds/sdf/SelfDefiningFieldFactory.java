@@ -19,6 +19,7 @@ public final class SelfDefiningFieldFactory {
      * Creates a {@link SelfDefiningField} from the given byte array. Note that the byte array must be
      * exactly as log as the self-defining field. If not an {@link IOException} wil be thrown.
      */
+    @SuppressWarnings("checkstyle:LineLength")
     public static SelfDefiningField create(final byte[] data) throws IOException {
 
         final IpdsByteArrayInputStream ipds = new IpdsByteArrayInputStream(data);

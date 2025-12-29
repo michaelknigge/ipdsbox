@@ -23,7 +23,7 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
 
 
     /**
-     * Constructs a {@link DefineGroupBoundaryOrder} with the given {order type and group leven
+     * Constructs a {@link DefineGroupBoundaryOrder} with the given order type and group level.
      */
     public DefineGroupBoundaryOrder(final int orderType, final int groupLevel) {
         super(XohOrderCode.DefineGroupBoundary);

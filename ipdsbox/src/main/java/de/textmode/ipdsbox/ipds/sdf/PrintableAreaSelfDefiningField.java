@@ -50,10 +50,10 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
     private int upub;
     private int actualMediumPresentationSpaceWidth;
     private int actualMediumPresentationSpaceLength;
-    private int xMPPAOffset;
-    private int yMPPAOffset;
-    private int xMPPAExtent;
-    private int yMPPAExtent;
+    private int xmPPAOffset;
+    private int ymPPAOffset;
+    private int xmPPAExtent;
+    private int ymPPAExtent;
     private int inputMediaSourceCharacteristicFlags;
     private final List<MediaIdEntry> mediaIdEntries = new ArrayList<>();
 
@@ -79,10 +79,10 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
         this.upub = ipds.readUnsignedInteger16();
         this.actualMediumPresentationSpaceWidth = ipds.readUnsignedInteger16();
         this.actualMediumPresentationSpaceLength = ipds.readUnsignedInteger16();
-        this.xMPPAOffset = ipds.readUnsignedInteger16();
-        this.yMPPAOffset = ipds.readUnsignedInteger16();
-        this.xMPPAExtent = ipds.readUnsignedInteger16();
-        this.yMPPAExtent = ipds.readUnsignedInteger16();
+        this.xmPPAOffset = ipds.readUnsignedInteger16();
+        this.ymPPAOffset = ipds.readUnsignedInteger16();
+        this.xmPPAExtent = ipds.readUnsignedInteger16();
+        this.ymPPAExtent = ipds.readUnsignedInteger16();
         this.inputMediaSourceCharacteristicFlags = ipds.readUnsignedInteger16();
 
         while (ipds.bytesAvailable() > 0) {
@@ -114,10 +114,10 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
         ipds.writeUnsignedInteger16(this.upub);
         ipds.writeUnsignedInteger16(this.actualMediumPresentationSpaceWidth);
         ipds.writeUnsignedInteger16(this.actualMediumPresentationSpaceLength);
-        ipds.writeUnsignedInteger16(this.xMPPAOffset);
-        ipds.writeUnsignedInteger16(this.yMPPAOffset);
-        ipds.writeUnsignedInteger16(this.xMPPAExtent);
-        ipds.writeUnsignedInteger16(this.yMPPAExtent);
+        ipds.writeUnsignedInteger16(this.xmPPAOffset);
+        ipds.writeUnsignedInteger16(this.ymPPAOffset);
+        ipds.writeUnsignedInteger16(this.xmPPAExtent);
+        ipds.writeUnsignedInteger16(this.ymPPAExtent);
         ipds.writeUnsignedInteger16(this.inputMediaSourceCharacteristicFlags);
 
         for (final MediaIdEntry mediaIdEntry : this.mediaIdEntries) {
@@ -198,59 +198,59 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
     }
 
     /**
-     * Returns the X m PPA offset.
+     * Returns the Xm PPA offset.
      */
-    public int getXMPPAOffset() {
-        return this.xMPPAOffset;
+    public int getXmPPAOffset() {
+        return this.xmPPAOffset;
     }
 
     /**
-     * Sets the X m PPA offset.
+     * Sets the Xm PPA offset.
      */
-    public void setXMPPAOffset(final int value) {
-        this.xMPPAOffset = value;
+    public void setXmPPAOffset(final int value) {
+        this.xmPPAOffset = value;
     }
 
     /**
-     * Returns the Y m PPA offset.
+     * Returns the Ym PPA offset.
      */
-    public int getYMPPAOffset() {
-        return this.yMPPAOffset;
+    public int getYmPPAOffset() {
+        return this.ymPPAOffset;
     }
 
     /**
-     * Sets the Y m PPA offset.
+     * Sets the Ym PPA offset.
      */
-    public void setYMPPAOffset(final int value) {
-        this.yMPPAOffset = value;
+    public void setYmPPAOffset(final int value) {
+        this.ymPPAOffset = value;
     }
 
     /**
-     * Returns the X m PPA extent.
+     * Returns the Xm PPA extent.
      */
-    public int getXMPPAExtent() {
-        return this.xMPPAExtent;
+    public int getXmPPAExtent() {
+        return this.xmPPAExtent;
     }
 
     /**
-     * Sets the X m PPA extent.
+     * Sets the Xm PPA extent.
      */
-    public void setXMPPAExtent(final int value) {
-        this.xMPPAExtent = value;
+    public void setXmPPAExtent(final int value) {
+        this.xmPPAExtent = value;
     }
 
     /**
-     * Returns the Y m PPA extent.
+     * Returns the Ym PPA extent.
      */
-    public int getYMPPAExtent() {
-        return this.yMPPAExtent;
+    public int getYmPPAExtent() {
+        return this.ymPPAExtent;
     }
 
     /**
-     * Sets the Y m PPA extent.
+     * Sets the Ym PPA extent.
      */
-    public void setYMPPAExtent(final int value) {
-        this.yMPPAExtent = value;
+    public void setYmPPAExtent(final int value) {
+        this.ymPPAExtent = value;
     }
 
     /**
@@ -275,10 +275,10 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
                 + ", upub=" + this.upub
                 + ", actualMediumPresentationSpaceWidth=" + this.actualMediumPresentationSpaceWidth
                 + ", actualMediumPresentationSpaceLength=" + this.actualMediumPresentationSpaceLength
-                + ", xMPPAOffset=" + this.xMPPAOffset
-                + ", yMPPAOffset=" + this.yMPPAOffset
-                + ", xMPPAExtent=" + this.xMPPAExtent
-                + ", yMPPAExtent=" + this.yMPPAExtent
+                + ", xmPPAOffset=" + this.xmPPAOffset
+                + ", ymkPPAOffset=" + this.ymPPAOffset
+                + ", xmPPAExtent=" + this.xmPPAExtent
+                + ", ymPPAExtent=" + this.ymPPAExtent
                 + ", inputMediaSourceCharacteristicFlags=" + this.inputMediaSourceCharacteristicFlags
                 + ", mediaIdEntries=" + this.mediaIdEntries
                 + '}';

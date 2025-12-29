@@ -28,6 +28,7 @@ public final class KeepGroupTogetherSelfDefiningField extends SelfDefiningField 
         this.upub = 0x3840; // 14.400
         this.maximumTotalGroupLength = 0;
     }
+
     /**
      * Constructs a new {@link KeepGroupTogetherSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */

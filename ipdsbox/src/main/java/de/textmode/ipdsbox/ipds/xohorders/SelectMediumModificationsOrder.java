@@ -126,7 +126,7 @@ public final class SelectMediumModificationsOrder extends XohOrder {
 
         public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
             out.writeUnsignedInteger16(
-                    5 + (this.modificationParameters == null ? 0 : this.modificationParameters.length) );
+                    5 + (this.modificationParameters == null ? 0 : this.modificationParameters.length));
 
             out.writeUnsignedByte(this.type);
             out.writeUnsignedInteger16(this.modificationId);

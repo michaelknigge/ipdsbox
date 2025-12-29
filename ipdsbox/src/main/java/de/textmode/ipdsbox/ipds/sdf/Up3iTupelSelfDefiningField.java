@@ -26,6 +26,7 @@ public final class Up3iTupelSelfDefiningField extends SelfDefiningField {
         this.tupelId = 0x00;
         this.up3iDeviceInformation = ByteUtils.EMPTY_BYTE_ARRAY;
     }
+
     /**
      * Constructs the {@link Up3iTupelSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
      */

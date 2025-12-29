@@ -105,8 +105,8 @@ public enum SelfDefiningFieldId {
     ProductIdentifier(0x0013, "Product Identifier"),
 
     /**
-     * This self-defining field lists the object containers supported by the printer and for each type of object indicates
-     * whether the object is supported in home state, in page or overlay state, or in all three states.
+     * This self-defining field lists the object containers supported by the printer and for each type of object
+     * indicates whether the object is supported in home state, in page or overlay state, or in all three states.
      */
     ObjectContainerTypeSupport(0x0014, "Object-Container Type Support"),
 

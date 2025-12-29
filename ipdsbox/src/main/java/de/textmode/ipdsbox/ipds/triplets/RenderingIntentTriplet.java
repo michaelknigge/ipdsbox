@@ -68,6 +68,7 @@ public final class RenderingIntentTriplet extends Triplet {
     /**
      * Returns the PTOCA.
      */
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public int getPTOCA() {
         return this.ptoca;
     }
@@ -75,6 +76,7 @@ public final class RenderingIntentTriplet extends Triplet {
     /**
      * Sets the PTOCA.
      */
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public void setPTOCA(final int ptoca) {
         this.ptoca = ptoca;
     }
@@ -82,6 +84,7 @@ public final class RenderingIntentTriplet extends Triplet {
     /**
      * Returns the GOCA.
      */
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public int getGOCA() {
         return this.goca;
     }
@@ -89,6 +92,7 @@ public final class RenderingIntentTriplet extends Triplet {
     /**
      * Sets the GOCA.
      */
+    @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
     public void setGOCA(final int goca) {
         this.goca = goca;
     }

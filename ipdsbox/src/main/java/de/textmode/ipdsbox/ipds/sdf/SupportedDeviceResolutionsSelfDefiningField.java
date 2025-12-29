@@ -6,8 +6,8 @@ import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 /**
- * This self-defining field lists the resolution (or resolutions) controlled by the printer; this includes the resolution
- * to which sheet-side data is RIPped and the number of printed pels per inch (often called the print-head
+ * This self-defining field lists the resolution (or resolutions) controlled by the printer; this includes the
+ * resolution to which sheet-side data is RIPped and the number of printed pels per inch (often called the print-head
  * resolution).
  */
 public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefiningField {
@@ -28,6 +28,7 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
         this.printHeadXpels = 0x01;
         this.printHeadYpels = 0x01;
     }
+
     /**
      * Constructs the {@link SupportedDeviceResolutionsSelfDefiningField}
      * from the given {@link IpdsByteArrayInputStream}.
