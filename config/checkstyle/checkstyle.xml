@@ -15,7 +15,6 @@
 
     Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
  -->
-
 <module name = "Checker">
     <property name="charset" value="UTF-8"/>
 
@@ -33,6 +32,8 @@
                   default="checkstyle-suppressions.xml" />
         <property name="optional" value="true"/>
     </module>
+	
+	<module name="SuppressWarningsFilter"/>
 
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.org/config_whitespace.html -->
@@ -51,6 +52,7 @@
         <property name="checkFormat" value="$1"/>
     </module>
     <module name="TreeWalker">
+        <module name="SuppressWarningsHolder"/>
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
@@ -175,12 +177,12 @@
              value="Type name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="MemberName">
-            <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
             <message key="name.invalidPattern"
              value="Member name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="ParameterName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
             <message key="name.invalidPattern"
              value="Parameter name ''{0}'' must match pattern ''{1}''."/>
         </module>
@@ -195,7 +197,7 @@
              value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
         </module>
         <module name="LocalVariableName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
             <message key="name.invalidPattern"
              value="Local variable name ''{0}'' must match pattern ''{1}''."/>
         </module>
