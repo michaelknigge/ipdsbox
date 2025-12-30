@@ -4,7 +4,14 @@ import java.io.ByteArrayOutputStream;
 
 import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.core.TestHelper;
-import de.textmode.ipdsbox.ipds.triplets.group.*;
+import de.textmode.ipdsbox.ipds.triplets.group.AixAndOs2ComDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.AixAndWindowsPrintDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.ExtendedOs400PrintDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.MvsAndVseComDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.MvsAndVsePrintDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.Os400PrintDataFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.VariableLengthGroupIdFormat;
+import de.textmode.ipdsbox.ipds.triplets.group.VmPrintDataFormat;
 import junit.framework.TestCase;
 
 /**
@@ -47,7 +54,7 @@ public final class GroupIdTripletTest extends TestCase {
     }
 
     /**
-     * Tests the {@link GroupIdTriplet} with {@link GroupIdDataFormatX02}.
+     * Tests the {@link GroupIdTriplet} with {@link VmPrintDataFormat}.
      */
     public void testFormatX02() throws Exception {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();

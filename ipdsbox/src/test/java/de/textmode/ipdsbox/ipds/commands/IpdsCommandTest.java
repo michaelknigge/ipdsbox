@@ -62,7 +62,7 @@ public final class IpdsCommandTest extends TestCase {
     /**
      * An IPDS command with an unknown IPDS command code.
      */
-    public void testIpdsCommandWithUnknownIpdsCommandCode() throws Exception{
+    public void testIpdsCommandWithUnknownIpdsCommandCode() throws Exception {
         final UnknownIpdsCommand command = (UnknownIpdsCommand) IpdsCommandFactory.create(streamFromHex("0005D61180"));
         assertEquals(null, command.getCommandCode());
         assertEquals(0xD611, command.getCommandCodeId());
@@ -72,7 +72,9 @@ public final class IpdsCommandTest extends TestCase {
      * Getting the data portion of an IPDS command that has no correlation id.
      */
     public void testGetDataWithoutCorrelationId() throws Exception {
-        final NoOperationCommand command = (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("0008D60300F1F2F3"));
+        final NoOperationCommand command =
+                (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("0008D60300F1F2F3"));
+
         assertEquals("NOP - No Operation", command.getDescription());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
@@ -84,7 +86,9 @@ public final class IpdsCommandTest extends TestCase {
      * Getting the data portion of an IPDS command that has a correlation id.
      */
     public void testNoOperationWithCorrelationId() throws Exception {
-        final NoOperationCommand command = (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("000AD603401234F1F2F3"));
+        final NoOperationCommand command =
+                (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("000AD603401234F1F2F3"));
+
         assertEquals("NOP - No Operation", command.getDescription());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 
@@ -109,7 +113,9 @@ public final class IpdsCommandTest extends TestCase {
      * Getting the data portion of an IPDS command that has a correlation id when there is no data portion.
      */
     public void testGetDataWithCorrelationIdWhenThereIsNoData() throws Exception {
-        final NoOperationCommand command = (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("0007D603401234"));
+        final NoOperationCommand command =
+                (NoOperationCommand) IpdsCommandFactory.create(streamFromHex("0007D603401234"));
+        
         assertEquals("NOP - No Operation", command.getDescription());
         assertEquals(IpdsCommandId.NOP, command.getCommandCode());
 

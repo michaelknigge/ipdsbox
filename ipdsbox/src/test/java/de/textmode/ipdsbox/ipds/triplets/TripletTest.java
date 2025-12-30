@@ -39,7 +39,8 @@ public final class TripletTest extends TestCase {
      */
     public void testWithNoData() throws Exception {
 
-        final GroupIdTriplet testTriplet = (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("0200"));
+        final GroupIdTriplet testTriplet =
+                (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("0200"));
 
         assertEquals(TripletId.GroupID.getId(), testTriplet.getTripletId());
         assertEquals(-1, testTriplet.getFormat());
@@ -51,7 +52,8 @@ public final class TripletTest extends TestCase {
      */
     public void testWithSomeBytesOfData() throws Exception {
 
-        final GroupIdTriplet testTriplet = (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("060006313233"));
+        final GroupIdTriplet testTriplet =
+                (GroupIdTriplet) TripletFactory.create(HexFormat.of().parseHex("060006313233"));
 
         assertEquals(TripletId.GroupID.getId(), testTriplet.getTripletId());
         assertEquals(0x06, testTriplet.getFormat());

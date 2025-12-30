@@ -10,7 +10,7 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTripletTest extends T
     /**
      * Test GCSGID/CPGID form of the Triplet.
      */
-    public void testWithGCSGID() throws Exception {
+    public void testWithGraphicCharacterSetGlobalIdentifier() throws Exception {
         final String hex = "00020004";
 
         final CodedGraphicCharacterSetGlobalIdentifierTriplet triplet =
@@ -25,7 +25,7 @@ public final class CodedGraphicCharacterSetGlobalIdentifierTripletTest extends T
     /**
      * Test CCSID form of the Triplet.
      */
-    public void testWithCCSID() throws Exception {
+    public void testWithCodedCharacterSetIdentifier() throws Exception {
         final String hex = "00000006";
 
         final CodedGraphicCharacterSetGlobalIdentifierTriplet triplet =
