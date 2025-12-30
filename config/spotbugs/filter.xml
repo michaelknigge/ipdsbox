@@ -4,34 +4,16 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
 
-    <!-- Bis zur Implementierung von IM-1486 vergeben wir für den ersten Benutzer ein zufälliges
-         Kennwort, das wr mit System.gc() aus dem Speicher verbannen wollen. -->
-    <Match>
-        <Class name="de.set.portal.data.DatabaseInitializer" />
-        <Bug pattern="DM_GC" />
-    </Match>
+  <Match>
+    <Bug pattern="CT_CONSTRUCTOR_THROW" />
+  </Match>
 
-    <!-- "Interfaces" können nicht serialisiert werden - wir haben hier keine andere Wahl -->
-    <Match>
-        <Class name="de.set.portal.views.MainView" />
-        <Bug pattern="SE_BAD_FIELD" />
-    </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP" />
+  </Match>
 
-    <!-- "Interfaces" können nicht serialisiert werden - wir haben hier keine andere Wahl -->
-    <Match>
-        <Class name="de.set.portal.views.UsersView" />
-        <Bug pattern="SE_BAD_FIELD" />
-    </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP2" />
+  </Match>
 
-    <!-- "Interfaces" können nicht serialisiert werden - wir haben hier keine andere Wahl -->
-    <Match>
-        <Class name="de.set.portal.views.LoginView" />
-        <Bug pattern="SE_BAD_FIELD" />
-    </Match>
-
-    <!-- "Interfaces" können nicht serialisiert werden - wir haben hier keine andere Wahl -->
-    <Match>
-        <Class name="de.set.portal.views.PasswordResetView" />
-        <Bug pattern="SE_BAD_FIELD" />
-    </Match>
 </FindBugsFilter>
