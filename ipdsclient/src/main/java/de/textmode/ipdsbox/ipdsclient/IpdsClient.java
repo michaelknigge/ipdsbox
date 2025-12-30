@@ -29,6 +29,7 @@ import de.textmode.ipdsbox.ipds.commands.SetHomeStateCommand;
 import de.textmode.ipdsbox.ipds.xohorders.ObtainPrinterCharacteristicsOrder;
 import de.textmode.ipdsbox.ppd.PagePrinterRequest;
 import de.textmode.ipdsbox.ppd.PagePrinterRequestReader;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -520,6 +521,7 @@ public final class IpdsClient {
     /**
      * Reads the next {@link PagePrinterRequest} from the printer. This should be only Acknowledge replies.
      */
+    @SuppressFBWarnings("THROWS_METHOD_THROWS_RUNTIMEEXCEPTION")
     private void readFromPrinter(final InputStream in, final OutputStream out, final boolean isDebugMode) {
 
         try {
@@ -580,7 +582,8 @@ public final class IpdsClient {
     /**
      * Waits until the server has sent a {@link PagePrinterRequest}.
      */
-    synchronized PagePrinterRequest waitForServer() {
+    @SuppressFBWarnings("THROWS_METHOD_THROWS_RUNTIMEEXCEPTION")
+    PagePrinterRequest waitForServer() {
 
         while (true) {
             synchronized (this.fifo) {

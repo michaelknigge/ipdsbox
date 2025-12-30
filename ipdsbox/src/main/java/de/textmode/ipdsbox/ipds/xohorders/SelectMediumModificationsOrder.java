@@ -123,7 +123,6 @@ public final class SelectMediumModificationsOrder extends XohOrder {
         /**
          * Writes this {@link MediumModification} to the given {@link IpdsByteArrayOutputStream}.
          */
-
         public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
             out.writeUnsignedInteger16(
                     5 + (this.modificationParameters == null ? 0 : this.modificationParameters.length));
