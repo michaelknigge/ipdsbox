@@ -14,47 +14,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class BarCodeTypeSelfDefiningField extends SelfDefiningField {
 
-    public class BarCodeEntry {
-        private int type;
-        private int modifiers;
-
-        /**
-         * Returns the bar code type.
-         */
-        public int getBarCodeType() {
-            return this.type;
-        }
-
-        /**
-         * Sets the bar code type.
-         */
-        public void setBarCodeType(final int type) {
-            this.type = type;
-        }
-
-        /**
-         * Returns the code value for modifiers.
-         */
-        public int getModifiers() {
-            return this.modifiers;
-        }
-
-        /**
-         * Sets the value for modifiers.
-         */
-        public void setModifiers(final int modifiers) {
-            this.modifiers = modifiers;
-        }
-
-        @Override
-        public String toString() {
-            return "BarCodeEntry{"
-                    + "type=0x" + Integer.toHexString(this.type)
-                    + ", modifiers=0x" + Integer.toHexString(this.modifiers)
-                    + '}';
-        }
-    }
-
     private int bcocaSubset;
     private List<BarCodeEntry> entries = new ArrayList<>();
 
@@ -132,5 +91,46 @@ public final class BarCodeTypeSelfDefiningField extends SelfDefiningField {
                 + "bcocaSubset=0x" + Integer.toHexString(this.bcocaSubset)
                 + ", entries=" + this.entries
                 + '}';
+    }
+
+    public static final class BarCodeEntry {
+        private int type;
+        private int modifiers;
+
+        /**
+         * Returns the bar code type.
+         */
+        public int getBarCodeType() {
+            return this.type;
+        }
+
+        /**
+         * Sets the bar code type.
+         */
+        public void setBarCodeType(final int type) {
+            this.type = type;
+        }
+
+        /**
+         * Returns the code value for modifiers.
+         */
+        public int getModifiers() {
+            return this.modifiers;
+        }
+
+        /**
+         * Sets the value for modifiers.
+         */
+        public void setModifiers(final int modifiers) {
+            this.modifiers = modifiers;
+        }
+
+        @Override
+        public String toString() {
+            return "BarCodeEntry{"
+                    + "type=0x" + Integer.toHexString(this.type)
+                    + ", modifiers=0x" + Integer.toHexString(this.modifiers)
+                    + '}';
+        }
     }
 }

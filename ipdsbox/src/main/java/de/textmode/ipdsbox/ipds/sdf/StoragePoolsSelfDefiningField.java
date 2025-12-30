@@ -14,84 +14,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class StoragePoolsSelfDefiningField extends SelfDefiningField {
 
-    public class StoragePoolEntry {
-        private int entryId;
-        private int storagePoolId;
-        private long emptySize;
-        private List<Integer> objectIds = new ArrayList<>();
-
-        /**
-         * Returns the entry ID.
-         */
-        public int getEntryId() {
-            return this.entryId;
-        }
-
-        /**
-         * Sets the entry ID.
-         */
-        public void setEntryId(final int entryId) {
-            this.entryId = entryId;
-        }
-
-        /**
-         * Returns the storage pool ID.
-         */
-        public int getStoragePoolId() {
-            return this.storagePoolId;
-        }
-
-        /**
-         * Sets the storage pool ID.
-         */
-        public void setStoragePoolId(final int storagePoolId) {
-            this.storagePoolId = storagePoolId;
-        }
-
-        /**
-         * Returns the size of the storage pool, in bytes, when empty.
-         */
-        public long getEmptySize() {
-            return this.emptySize;
-        }
-
-        /**
-         * Sets the size of the storage pool, in bytes, when empty.
-         */
-        public void setEmptySize(final long emptySize) {
-            this.emptySize = emptySize;
-        }
-
-        /**
-         * Returns a list of Object IDs.
-         */
-        public List<Integer> getObjectIds() {
-            return this.objectIds;
-        }
-
-        /**
-         * Sets a list of Object IDs.
-         */
-        public void setObjectIds(final List<Integer> objectIds) {
-            this.objectIds = objectIds;
-        }
-
-        @Override
-        public String toString() {
-            final StringJoiner sj = new StringJoiner(",", "[", "]");
-            for (final Integer id : this.objectIds) {
-                sj.add("0x" + Integer.toHexString(id));
-            }
-
-            return "StoragePoolEntry{"
-                    + "entryId=" + this.entryId
-                    + ", storagePoolId=" + this.storagePoolId
-                    + ", emptySize=" + this.emptySize
-                    + ", objectIds=" + sj.toString()
-                    + '}';
-        }
-    }
-
     private List<StoragePoolEntry> storagePoolEntries = new ArrayList<>();
 
     /**
@@ -169,5 +91,83 @@ public final class StoragePoolsSelfDefiningField extends SelfDefiningField {
         return "StoragePoolsSelfDefiningField{"
                 + "storagePoolEntries=" + this.storagePoolEntries
                 + '}';
+    }
+
+    public static final class StoragePoolEntry {
+        private int entryId;
+        private int storagePoolId;
+        private long emptySize;
+        private List<Integer> objectIds = new ArrayList<>();
+
+        /**
+         * Returns the entry ID.
+         */
+        public int getEntryId() {
+            return this.entryId;
+        }
+
+        /**
+         * Sets the entry ID.
+         */
+        public void setEntryId(final int entryId) {
+            this.entryId = entryId;
+        }
+
+        /**
+         * Returns the storage pool ID.
+         */
+        public int getStoragePoolId() {
+            return this.storagePoolId;
+        }
+
+        /**
+         * Sets the storage pool ID.
+         */
+        public void setStoragePoolId(final int storagePoolId) {
+            this.storagePoolId = storagePoolId;
+        }
+
+        /**
+         * Returns the size of the storage pool, in bytes, when empty.
+         */
+        public long getEmptySize() {
+            return this.emptySize;
+        }
+
+        /**
+         * Sets the size of the storage pool, in bytes, when empty.
+         */
+        public void setEmptySize(final long emptySize) {
+            this.emptySize = emptySize;
+        }
+
+        /**
+         * Returns a list of Object IDs.
+         */
+        public List<Integer> getObjectIds() {
+            return this.objectIds;
+        }
+
+        /**
+         * Sets a list of Object IDs.
+         */
+        public void setObjectIds(final List<Integer> objectIds) {
+            this.objectIds = objectIds;
+        }
+
+        @Override
+        public String toString() {
+            final StringJoiner sj = new StringJoiner(",", "[", "]");
+            for (final Integer id : this.objectIds) {
+                sj.add("0x" + Integer.toHexString(id));
+            }
+
+            return "StoragePoolEntry{"
+                    + "entryId=" + this.entryId
+                    + ", storagePoolId=" + this.storagePoolId
+                    + ", emptySize=" + this.emptySize
+                    + ", objectIds=" + sj.toString()
+                    + '}';
+        }
     }
 }

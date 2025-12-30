@@ -4,11 +4,13 @@ import java.net.ServerSocket;
 
 import de.textmode.ipdsbox.core.IpdsConfigurationException;
 import de.textmode.ipdsbox.core.LoggerInterface;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import junit.framework.TestCase;
 
 /**
  * JUnit tests of the {@link PagePrinterDaemonFactory}.
  */
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public final class PagePrinterDaemonFactoryTest extends TestCase {
 
     private static final int PORT_NUMBER = 7001;

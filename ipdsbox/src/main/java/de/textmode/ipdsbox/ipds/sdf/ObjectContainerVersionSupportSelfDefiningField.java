@@ -17,7 +17,95 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class ObjectContainerVersionSupportSelfDefiningField extends SelfDefiningField {
 
-    public class VersionRecord {
+    private static final Charset UTF16BE = Charset.forName("utf-16be");
+
+    private List<VersionRecord> versionRecords = new ArrayList<>();
+
+    /**
+     * Creates a new {@link ObjectContainerVersionSupportSelfDefiningField}.
+     */
+    public ObjectContainerVersionSupportSelfDefiningField() {
+        super(SelfDefiningFieldId.ObjectContainerVersionSupport);
+    }
+
+    /**
+     * Creates a {@link ObjectContainerVersionSupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
+     */
+    ObjectContainerVersionSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(SelfDefiningFieldId.ObjectContainerVersionSupport);
+
+        while (ipds.bytesAvailable() > 0) {
+            final int entryLength = ipds.readUnsignedByte();
+
+            final VersionRecord record = new VersionRecord();
+            record.setRegId(ipds.readBytes(16));
+            record.setFlags(ipds.readUnsignedByte());
+            record.setMajorVersion(ipds.readUnsignedInteger16());
+            record.setMinorVersion(ipds.readUnsignedInteger16());
+            record.setSubminorVersion(ipds.readUnsignedInteger16());
+
+            if (entryLength - 24 > 0) {
+                record.setVersionName(
+                        UTF16BE.decode(ByteBuffer.wrap(ipds.readBytes(entryLength - 24))).toString());
+            }
+
+            versionRecords.add(record);
+        }
+    }
+
+    /**
+     * Writes all data fields to the given {@code IpdsByteArrayOutputStream} in table order.
+     */
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+        final IpdsByteArrayOutputStream versionStream = new IpdsByteArrayOutputStream();
+
+        for (final VersionRecord version : this.versionRecords) {
+
+            final byte[] encodedVersionName = version.getVersionName() == null
+                    ? ByteUtils.EMPTY_BYTE_ARRAY
+                    : UTF16BE.encode(CharBuffer.wrap(version.getVersionName())).array();
+
+            final int len = 24 + encodedVersionName.length;
+
+            versionStream.writeUnsignedByte(len);
+            versionStream.writeBytes(version.regId);
+            versionStream.writeUnsignedByte(version.flags);
+            versionStream.writeUnsignedInteger16(version.getMajorVersion());
+            versionStream.writeUnsignedInteger16(version.getMinorVersion());
+            versionStream.writeUnsignedInteger16(version.getSubminorVersion());
+            versionStream.writeBytes(encodedVersionName);
+        }
+
+        final byte[] versionBytes = versionStream.toByteArray();
+
+        ipds.writeUnsignedInteger16(4 + versionBytes.length);
+        ipds.writeUnsignedInteger16(this.getSelfDefiningFieldId());
+        ipds.writeBytes(versionBytes);
+    }
+
+    /**
+     * Returns the version records.
+     */
+    public List<VersionRecord> getVersionRecords() {
+        return this.versionRecords;
+    }
+
+    /**
+     * Sets the version records.
+     */
+    public void setVersionRecords(final List<VersionRecord> versionRecords) {
+        this.versionRecords = versionRecords;
+    }
+
+    @Override
+    public String toString() {
+        return "ObjectContainerVersionSupportSelfDefiningField{"
+                + "versionRecords=" + this.versionRecords
+                + '}';
+    }
+
+    public static final class VersionRecord {
 
         private byte[] regId;
         private int flags;
@@ -121,91 +209,5 @@ public final class ObjectContainerVersionSupportSelfDefiningField extends SelfDe
                     + ", versionName='" + this.versionName + '\''
                     + '}';
         }
-    }
-
-    private static final Charset UTF16BE = Charset.forName("utf-16be");
-
-    private List<VersionRecord> versionRecords = new ArrayList<>();
-
-    /**
-     * Creates a new {@link ObjectContainerVersionSupportSelfDefiningField}.
-     */
-    public ObjectContainerVersionSupportSelfDefiningField() {
-        super(SelfDefiningFieldId.ObjectContainerVersionSupport);
-    }
-
-    /**
-     * Creates a {@link ObjectContainerVersionSupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
-     */
-    ObjectContainerVersionSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
-        super(SelfDefiningFieldId.ObjectContainerVersionSupport);
-
-        while (ipds.bytesAvailable() > 0) {
-            final int entryLength = ipds.readUnsignedByte();
-
-            final VersionRecord record = new VersionRecord();
-            record.setRegId(ipds.readBytes(16));
-            record.setFlags(ipds.readUnsignedByte());
-            record.setMajorVersion(ipds.readUnsignedInteger16());
-            record.setMinorVersion(ipds.readUnsignedInteger16());
-            record.setSubminorVersion(ipds.readUnsignedInteger16());
-
-            if (entryLength - 24 > 0) {
-                record.setVersionName(
-                        UTF16BE.decode(ByteBuffer.wrap(ipds.readBytes(entryLength - 24))).toString());
-            }
-        }
-    }
-
-    /**
-     * Writes all data fields to the given {@code IpdsByteArrayOutputStream} in table order.
-     */
-    @Override
-    public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
-        final IpdsByteArrayOutputStream versionStream = new IpdsByteArrayOutputStream();
-
-        for (final VersionRecord version : this.versionRecords) {
-
-            final byte[] encodedVersionName = version.getVersionName() == null
-                    ? ByteUtils.EMPTY_BYTE_ARRAY
-                    : UTF16BE.encode(CharBuffer.wrap(version.getVersionName())).array();
-
-            final int len = 24 + encodedVersionName.length;
-
-            versionStream.writeUnsignedByte(len);
-            versionStream.writeBytes(version.regId);
-            versionStream.writeUnsignedByte(version.flags);
-            versionStream.writeUnsignedInteger16(version.getMajorVersion());
-            versionStream.writeUnsignedInteger16(version.getMinorVersion());
-            versionStream.writeUnsignedInteger16(version.getSubminorVersion());
-            versionStream.writeBytes(encodedVersionName);
-        }
-
-        final byte[] versionBytes = versionStream.toByteArray();
-
-        ipds.writeUnsignedInteger16(4 + versionBytes.length);
-        ipds.writeUnsignedInteger16(this.getSelfDefiningFieldId());
-        ipds.writeBytes(versionBytes);
-    }
-
-    /**
-     * Returns the version records.
-     */
-    public List<VersionRecord> getVersionRecords() {
-        return this.versionRecords;
-    }
-
-    /**
-     * Sets the version records.
-     */
-    public void setVersionRecords(final List<VersionRecord> versionRecords) {
-        this.versionRecords = versionRecords;
-    }
-
-    @Override
-    public String toString() {
-        return "ObjectContainerVersionSupportSelfDefiningField{"
-                + "versionRecords=" + this.versionRecords
-                + '}';
     }
 }

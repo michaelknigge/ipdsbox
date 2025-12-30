@@ -10,7 +10,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 /**
  * The Common Bar Code Type/Modifier self-defining field lists those bar codes that are supported by the printer.
  */
-public class CommonBarCodeTypeSelfDefiningField extends SelfDefiningField {
+public final class CommonBarCodeTypeSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> combinations = new ArrayList<>();
 

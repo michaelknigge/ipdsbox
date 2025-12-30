@@ -15,47 +15,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class ProductIdentifierSelfDefiningField extends SelfDefiningField {
 
-    public class ProductIdentifierEntry {
-        private int parameterId;
-        private byte[] parameterValue;
-
-        /**
-         * Returns the Product-identifier parameter ID.
-         */
-        public int getParameterId() {
-            return this.parameterId;
-        }
-
-        /**
-         * Sets the Product-identifier parameter ID.
-         */
-        public void setParameterId(final int parameterId) {
-            this.parameterId = parameterId;
-        }
-
-        /**
-         * Returns the parameter value.
-         */
-        public byte[] getParameterValue() {
-            return this.parameterValue;
-        }
-
-        /**
-         * Sets the parameter value.
-         */
-        public void setParameterValue(final byte[] parameterValue) {
-            this.parameterValue = parameterValue;
-        }
-
-        @Override
-        public String toString() {
-            return "ProductIdentifierEntry{"
-                    + "parameterId=0x" + Integer.toHexString(this.parameterId)
-                    + ", parameterValue=" + StringUtils.toHexString(this.parameterValue)
-                    + '}';
-        }
-    }
-
     private List<ProductIdentifierEntry> entries = new ArrayList<>();
 
     /**
@@ -73,10 +32,12 @@ public final class ProductIdentifierSelfDefiningField extends SelfDefiningField 
 
         while (ipds.bytesAvailable() > 0) {
             final int len = ipds.readUnsignedByte();
-            final ProductIdentifierEntry entry = new ProductIdentifierEntry();
+            final ProductIdentifierEntry entry = new ProductIdentifierEntry(
+                    ipds.readUnsignedInteger16(),
+                    ipds.readBytes(len - 3));
 
-            entry.setParameterId(ipds.readUnsignedInteger16());
-            entry.setParameterValue(ipds.readBytes(len - 3));
+            //entry.setParameterId(ipds.readUnsignedInteger16());
+            //entry.setParameterValue(ipds.readBytes(len - 3));
 
             this.entries.add(entry);
         }
@@ -120,5 +81,51 @@ public final class ProductIdentifierSelfDefiningField extends SelfDefiningField 
         return "ProductIdentifierSelfDefiningField{"
                 + "entries=" + this.entries
                 + '}';
+    }
+
+    public static final class ProductIdentifierEntry {
+        private int parameterId;
+        private byte[] parameterValue;
+
+        public ProductIdentifierEntry(final int parameterId, final byte[] parameterValue) {
+            this.parameterId = parameterId;
+            this.parameterValue = parameterValue;
+        }
+
+        /**
+         * Returns the Product-identifier parameter ID.
+         */
+        public int getParameterId() {
+            return this.parameterId;
+        }
+
+        /**
+         * Sets the Product-identifier parameter ID.
+         */
+        public void setParameterId(final int parameterId) {
+            this.parameterId = parameterId;
+        }
+
+        /**
+         * Returns the parameter value.
+         */
+        public byte[] getParameterValue() {
+            return this.parameterValue;
+        }
+
+        /**
+         * Sets the parameter value.
+         */
+        public void setParameterValue(final byte[] parameterValue) {
+            this.parameterValue = parameterValue;
+        }
+
+        @Override
+        public String toString() {
+            return "ProductIdentifierEntry{"
+                    + "parameterId=0x" + Integer.toHexString(this.parameterId)
+                    + ", parameterValue=" + StringUtils.toHexString(this.parameterValue)
+                    + '}';
+        }
     }
 }

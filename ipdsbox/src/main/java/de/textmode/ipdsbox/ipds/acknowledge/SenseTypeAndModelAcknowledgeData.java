@@ -11,7 +11,92 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
 public final class SenseTypeAndModelAcknowledgeData implements AcknowledgeData {
 
-    public class CommandSetVector {
+    private int type;
+    private int model;
+    private List<CommandSetVector> commandSetVectors = new ArrayList<>();
+
+    SenseTypeAndModelAcknowledgeData(final IpdsByteArrayInputStream ipds) throws IOException {
+        ipds.skip(1); // Skip the fix 0xFF
+
+        this.type = ipds.readUnsignedInteger16();
+        this.model = ipds.readUnsignedByte();
+
+        ipds.skip(2); // Skip the fix 0x0000;
+
+        while (ipds.bytesAvailable() > 0) {
+            final int length = ipds.readUnsignedInteger16() - 2;
+            final byte[] vecorBytes = ipds.readBytes(length);
+
+            this.commandSetVectors.add(new CommandSetVector(new IpdsByteArrayInputStream(vecorBytes)));
+        }
+    }
+
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
+        out.writeUnsignedByte(0xFF);
+        out.writeUnsignedInteger16(this.type);
+        out.writeByte(this.model);
+        out.writeUnsignedInteger16(0x0000);
+
+        for (final CommandSetVector commandSetVector : this.commandSetVectors) {
+            commandSetVector.writeTo(out);
+        }
+    }
+
+    /**
+     * Returns device type of the printer, or of the printer that is being emulated
+     * or mimicked. For example, X'3820' for the 3820 page printer.
+     */
+    public int getType() {
+        return this.type;
+    }
+
+    /**
+     * Sets device type of the printer, or of the printer that is being emulated
+     * or mimicked. For example, X'3820' for the 3820 page printer.
+     */
+    public void setType(final int type) {
+        this.type = type;
+    }
+
+    /**
+     * Returns the model number of the printer.
+     */
+    public int getModel() {
+        return this.model;
+    }
+
+    /**
+     * Sets the model number of the printer.
+     */
+    public void setModel(final int model) {
+        this.model = model;
+    }
+
+    /**
+     * Returns a {@link List} of Zero or more command-set vectors.
+     */
+    public List<CommandSetVector> getCommandSetVectors() {
+        return this.commandSetVectors;
+    }
+
+    /**
+     * Sets a {@link List} of Zero or more command-set vectors.
+     */
+    public void setCommandSetVectors(final List<CommandSetVector> commandSetVectors) {
+        this.commandSetVectors = commandSetVectors;
+    }
+
+    @Override
+    public String toString() {
+        return "SenseTypeAndModelAcknowledgeData{"
+                + "type=" + this.type
+                + ", model=" + this.model
+                + ", commandSetVectors=" + this.commandSetVectors
+                + '}';
+    }
+
+    public static final class CommandSetVector {
         private int subsetIdOrCommandSetId;
         private int levelOrSubsetId;
 
@@ -98,90 +183,5 @@ public final class SenseTypeAndModelAcknowledgeData implements AcknowledgeData {
                     + ", propertyPairs=" + this.propertyPairs
                     + '}';
         }
-    }
-
-    private int type;
-    private int model;
-    private List<CommandSetVector> commandSetVectors = new ArrayList<>();
-
-    SenseTypeAndModelAcknowledgeData(final IpdsByteArrayInputStream ipds) throws IOException {
-        ipds.skip(1); // Skip the fix 0xFF
-
-        this.type = ipds.readUnsignedInteger16();
-        this.model = ipds.readUnsignedByte();
-
-        ipds.skip(2); // Skip the fix 0x0000;
-
-        while (ipds.bytesAvailable() > 0) {
-            final int length = ipds.readUnsignedInteger16() - 2;
-            final byte[] vecorBytes = ipds.readBytes(length);
-
-            this.commandSetVectors.add(new CommandSetVector(new IpdsByteArrayInputStream(vecorBytes)));
-        }
-    }
-
-    @Override
-    public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedByte(0xFF);
-        out.writeUnsignedInteger16(this.type);
-        out.writeByte(this.model);
-        out.writeUnsignedInteger16(0x0000);
-
-        for (final CommandSetVector commandSetVector : this.commandSetVectors) {
-            commandSetVector.writeTo(out);
-        }
-    }
-
-    /**
-     * Returns device type of the printer, or of the printer that is being emulated
-     * or mimicked. For example, X'3820' for the 3820 page printer.
-     */
-    public int getType() {
-        return this.type;
-    }
-
-    /**
-     * Sets device type of the printer, or of the printer that is being emulated
-     * or mimicked. For example, X'3820' for the 3820 page printer.
-     */
-    public void setType(final int type) {
-        this.type = type;
-    }
-
-    /**
-     * Returns the model number of the printer.
-     */
-    public int getModel() {
-        return this.model;
-    }
-
-    /**
-     * Sets the model number of the printer.
-     */
-    public void setModel(final int model) {
-        this.model = model;
-    }
-
-    /**
-     * Returns a {@link List} of Zero or more command-set vectors.
-     */
-    public List<CommandSetVector> getCommandSetVectors() {
-        return this.commandSetVectors;
-    }
-
-    /**
-     * Sets a {@link List} of Zero or more command-set vectors.
-     */
-    public void setCommandSetVectors(final List<CommandSetVector> commandSetVectors) {
-        this.commandSetVectors = commandSetVectors;
-    }
-
-    @Override
-    public String toString() {
-        return "SenseTypeAndModelAcknowledgeData{"
-                + "type=" + this.type
-                + ", model=" + this.model
-                + ", commandSetVectors=" + this.commandSetVectors
-                + '}';
     }
 }

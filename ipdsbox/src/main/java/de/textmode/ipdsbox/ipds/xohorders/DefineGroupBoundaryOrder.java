@@ -14,8 +14,8 @@ import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
  */
 public final class DefineGroupBoundaryOrder extends XohOrder {
 
-    public static int INITIATE_GROUP = 0x00;
-    public static int TERMINATE_GROUP = 0x01;
+    public static final int INITIATE_GROUP = 0x00;
+    public static final int TERMINATE_GROUP = 0x01;
 
     private int orderType;
     private int groupLevel;

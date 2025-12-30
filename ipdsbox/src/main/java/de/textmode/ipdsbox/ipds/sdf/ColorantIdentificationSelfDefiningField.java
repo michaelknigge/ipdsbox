@@ -15,7 +15,66 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class ColorantIdentificationSelfDefiningField extends SelfDefiningField {
 
-    public class ColorantIdentificationEntry {
+    private List<ColorantIdentificationEntry> entries = new ArrayList<>();
+
+    /**
+     * Constructs a new {@link ColorantIdentificationSelfDefiningField}.
+     */
+    public ColorantIdentificationSelfDefiningField() {
+        super(SelfDefiningFieldId.ColorantIdentification);
+    }
+
+    /**
+     * Constructs a new {@link ColorantIdentificationSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
+     */
+    ColorantIdentificationSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(SelfDefiningFieldId.ColorantIdentification);
+
+        while (ipds.bytesAvailable() > 0) {
+            this.entries.add(new ColorantIdentificationEntry(ipds));
+        }
+    }
+
+    /**
+     * Writes all data fields to the given {@code IpdsByteArrayOutputStream} in table order.
+     */
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+        final IpdsByteArrayOutputStream temp = new IpdsByteArrayOutputStream();
+
+        for (final ColorantIdentificationEntry entry : this.entries) {
+            entry.writeTo(temp);
+        }
+
+        final byte[] entriesArray = temp.toByteArray();
+
+        ipds.writeUnsignedInteger16(4 + entriesArray.length);
+        ipds.writeUnsignedInteger16(SelfDefiningFieldId.ColorantIdentification.getId());
+        ipds.writeBytes(entriesArray);
+    }
+
+    /**
+     * Returns a list of colorant identification entries.
+     */
+    public List<ColorantIdentificationEntry> getEntries() {
+        return this.entries;
+    }
+
+    /**
+     * Sets a list of colorant identification entries.
+     */
+    public void setEntries(final List<ColorantIdentificationEntry> entries) {
+        this.entries = entries;
+    }
+
+    @Override
+    public String toString() {
+        return "ColorantIdentificationSelfDefiningField{"
+                + "entries=" + this.entries
+                + '}';
+    }
+
+    public static final class ColorantIdentificationEntry {
         private static final Charset UTF16BE = Charset.forName("utf-16be");
 
         private int entryType;
@@ -109,65 +168,5 @@ public final class ColorantIdentificationSelfDefiningField extends SelfDefiningF
                     + ", colorantName='" + this.colorantName + '\''
                     + '}';
         }
-    }
-
-    private List<ColorantIdentificationEntry> entries = new ArrayList<>();
-
-
-    /**
-     * Constructs a new {@link ColorantIdentificationSelfDefiningField}.
-     */
-    public ColorantIdentificationSelfDefiningField() {
-        super(SelfDefiningFieldId.ColorantIdentification);
-    }
-
-    /**
-     * Constructs a new {@link ColorantIdentificationSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
-     */
-    ColorantIdentificationSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
-        super(SelfDefiningFieldId.ColorantIdentification);
-
-        while (ipds.bytesAvailable() > 0) {
-            this.entries.add(new ColorantIdentificationEntry(ipds));
-        }
-    }
-
-    /**
-     * Writes all data fields to the given {@code IpdsByteArrayOutputStream} in table order.
-     */
-    @Override
-    public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
-        final IpdsByteArrayOutputStream temp = new IpdsByteArrayOutputStream();
-
-        for (final ColorantIdentificationEntry entry : this.entries) {
-            entry.writeTo(temp);
-        }
-
-        final byte[] entriesArray = temp.toByteArray();
-
-        ipds.writeUnsignedInteger16(4 + entriesArray.length);
-        ipds.writeUnsignedInteger16(SelfDefiningFieldId.ColorantIdentification.getId());
-        ipds.writeBytes(entriesArray);
-    }
-
-    /**
-     * Returns a list of colorant identification entries.
-     */
-    public List<ColorantIdentificationEntry> getEntries() {
-        return this.entries;
-    }
-
-    /**
-     * Sets a list of colorant identification entries.
-     */
-    public void setEntries(final List<ColorantIdentificationEntry> entries) {
-        this.entries = entries;
-    }
-
-    @Override
-    public String toString() {
-        return "ColorantIdentificationSelfDefiningField{"
-                + "entries=" + this.entries
-                + '}';
     }
 }

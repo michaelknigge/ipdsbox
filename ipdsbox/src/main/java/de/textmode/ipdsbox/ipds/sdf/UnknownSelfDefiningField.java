@@ -9,7 +9,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 /**
  * A self-defining field that is not parsed.
  */
-public class UnknownSelfDefiningField extends SelfDefiningField {
+public final class UnknownSelfDefiningField extends SelfDefiningField {
 
     private byte[] rawData;
 

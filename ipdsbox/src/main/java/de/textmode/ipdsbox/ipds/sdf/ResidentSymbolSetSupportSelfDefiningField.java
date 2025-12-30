@@ -13,74 +13,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * command. If this self-defining field is returned, the printer must also return the Select-Medium-Modificationssupport
  * property ID (X'900E') in the Sense Type and Model reply.
  */
-public class ResidentSymbolSetSupportSelfDefiningField extends SelfDefiningField {
-
-    public final class ResidentSymbolSet {
-        private int codePageId;
-        private List<Integer> cpgids;
-        private List<Integer> fgids;
-
-        /**
-         * Returns the Code Page Support ID.
-         */
-        public int getCodePageId() {
-            return this.codePageId;
-        }
-
-        /**
-         * Sets the Code Page Support ID.
-         */
-        public void setCodePageId(final int codePageId) {
-            this.codePageId = codePageId;
-        }
-
-        /**
-         * Returns a list of Code Page Global IDs.
-         */
-        public List<Integer> getCpgids() {
-            return this.cpgids;
-        }
-
-        /**
-         * Sets a list of Code Page Global IDs.
-         */
-        public void setCpgids(final List<Integer> cpgids) {
-            this.cpgids = cpgids;
-        }
-
-        /**
-         * Returns a list of Font Typeface Global IDs.
-         */
-        public List<Integer> getFgids() {
-            return this.fgids;
-        }
-
-        /**
-         * Sets a list of Font Typeface Global IDs.
-         */
-        public void setFgids(final List<Integer> fgids) {
-            this.fgids = fgids;
-        }
-
-        @Override
-        public String toString() {
-            final StringJoiner cpgidsJoiner = new StringJoiner(",", "[", "]");
-            for (final Integer cpgid : this.cpgids) {
-                cpgidsJoiner.add("0x" + Integer.toHexString(cpgid));
-            }
-
-            final StringJoiner fgidsJoiner = new StringJoiner(",", "[", "]");
-            for (final Integer fgid : this.fgids) {
-                fgidsJoiner.add("0x" + Integer.toHexString(fgid));
-            }
-
-            return "ResidentSymbolSet{"
-                    + "codePageId=" + this.codePageId
-                    + ", cpgids=" + cpgidsJoiner.toString()
-                    + ", fgids=" + fgidsJoiner.toString()
-                    + '}';
-        }
-    }
+public final class ResidentSymbolSetSupportSelfDefiningField extends SelfDefiningField {
 
     private List<ResidentSymbolSet> residentSymbolSets = new ArrayList<>();
 
@@ -174,5 +107,72 @@ public class ResidentSymbolSetSupportSelfDefiningField extends SelfDefiningField
         return "ResidentSymbolSetSupportSelfDefiningField{"
                 + "residentSymbolSets=" + this.residentSymbolSets
                 + '}';
+    }
+
+    public static final class ResidentSymbolSet {
+        private int codePageId;
+        private List<Integer> cpgids = new ArrayList<>();
+        private List<Integer> fgids = new ArrayList<>();
+
+        /**
+         * Returns the Code Page Support ID.
+         */
+        public int getCodePageId() {
+            return this.codePageId;
+        }
+
+        /**
+         * Sets the Code Page Support ID.
+         */
+        public void setCodePageId(final int codePageId) {
+            this.codePageId = codePageId;
+        }
+
+        /**
+         * Returns a list of Code Page Global IDs.
+         */
+        public List<Integer> getCpgids() {
+            return this.cpgids;
+        }
+
+        /**
+         * Sets a list of Code Page Global IDs.
+         */
+        public void setCpgids(final List<Integer> cpgids) {
+            this.cpgids = cpgids;
+        }
+
+        /**
+         * Returns a list of Font Typeface Global IDs.
+         */
+        public List<Integer> getFgids() {
+            return this.fgids;
+        }
+
+        /**
+         * Sets a list of Font Typeface Global IDs.
+         */
+        public void setFgids(final List<Integer> fgids) {
+            this.fgids = fgids;
+        }
+
+        @Override
+        public String toString() {
+            final StringJoiner cpgidsJoiner = new StringJoiner(",", "[", "]");
+            for (final Integer cpgid : this.cpgids) {
+                cpgidsJoiner.add("0x" + Integer.toHexString(cpgid));
+            }
+
+            final StringJoiner fgidsJoiner = new StringJoiner(",", "[", "]");
+            for (final Integer fgid : this.fgids) {
+                fgidsJoiner.add("0x" + Integer.toHexString(fgid));
+            }
+
+            return "ResidentSymbolSet{"
+                    + "codePageId=" + this.codePageId
+                    + ", cpgids=" + cpgidsJoiner.toString()
+                    + ", fgids=" + fgidsJoiner.toString()
+                    + '}';
+        }
     }
 }

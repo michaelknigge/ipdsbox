@@ -13,7 +13,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * (SPE) command. Support for the Device Appearance (X'97') triplet is indicated by property pair X'F206' in the
  * Device-Control command-set vector of an STM reply.
  */
-public class DeviceAppearanceSelfDefiningField extends SelfDefiningField {
+public final class DeviceAppearanceSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> appearances = new ArrayList<>();
 

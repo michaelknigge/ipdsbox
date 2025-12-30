@@ -11,7 +11,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * The DF Deactivation Types Supported self-defining field lists the optional deactivation types that are supported
  * by the printer.
  */
-public class DeactiveteFontDeactivationTypesSupportedSelfDefiningField extends SelfDefiningField {
+public final class DeactiveteFontDeactivationTypesSupportedSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> types = new ArrayList<>();
 

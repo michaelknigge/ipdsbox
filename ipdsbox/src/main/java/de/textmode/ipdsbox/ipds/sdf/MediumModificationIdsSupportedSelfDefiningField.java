@@ -12,7 +12,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * command. If this self-defining field is returned, the printer must also return the Select-Medium-Modificationssupport
  * property ID (X'900E') in the Sense Type and Model reply.
  */
-public class MediumModificationIdsSupportedSelfDefiningField extends SelfDefiningField {
+public final class MediumModificationIdsSupportedSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> mediumModificationIds = new ArrayList<>();
 

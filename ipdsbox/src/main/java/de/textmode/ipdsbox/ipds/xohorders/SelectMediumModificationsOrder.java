@@ -50,10 +50,17 @@ public final class SelectMediumModificationsOrder extends XohOrder {
         visitor.handle(this);
     }
 
+    @Override
+    public String toString() {
+        return "SelectMediumModificationsOrder{"
+                + "modifications=" + this.modifications
+                + '}';
+    }
+
     /**
      * Medium Modifications.
      */
-    public final class MediumModification {
+    public static final class MediumModification {
 
         private int type;
         private int modificationId;
@@ -143,12 +150,5 @@ public final class SelectMediumModificationsOrder extends XohOrder {
                     + ", modificationParameters=" + StringUtils.toHexString(this.modificationParameters)
                     + '}';
         }
-    }
-
-    @Override
-    public String toString() {
-        return "SelectMediumModificationsOrder{"
-                + "modifications=" + this.modifications
-                + '}';
     }
 }

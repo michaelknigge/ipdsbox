@@ -44,7 +44,7 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         }
     }
 
-    public static class CopySubgroup {
+    public static final class CopySubgroup {
         private final int copies;
         private final List<Keyword> keywords = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         }
     }
 
-    public static class Keyword {
+    public static final class Keyword {
         private int keywordId;
         private int keywordParameter;
 

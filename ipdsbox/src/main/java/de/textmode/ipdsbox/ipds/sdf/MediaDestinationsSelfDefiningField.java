@@ -14,47 +14,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class MediaDestinationsSelfDefiningField extends SelfDefiningField {
 
-    public class MediaDestinationsEntry {
-        private int first;
-        private int last;
-
-        /**
-         * Returns the First number in a range of available, contiguous media-destination IDs.
-         */
-        public int getFirst() {
-            return this.first;
-        }
-
-        /**
-         * Sets the First number in a range of available, contiguous media-destination IDs.
-         */
-        public void setFirst(final int first) {
-            this.first = first;
-        }
-
-        /**
-         * Returns the Last number in a range of available, contiguous media-destination IDs.
-         */
-        public int getLast() {
-            return this.last;
-        }
-
-        /**
-         * Sets the Last number in a range of available, contiguous media-destination IDs.
-         */
-        public void setLast(final int last) {
-            this.last = last;
-        }
-
-        @Override
-        public String toString() {
-            return "MediaDestinationsEntry{"
-                    + "first=" + this.first
-                    + ", last=" + this.last
-                    + '}';
-        }
-    }
-
     private int defaultId;
     private List<MediaDestinationsEntry> entries = new ArrayList<>();
 
@@ -131,5 +90,46 @@ public final class MediaDestinationsSelfDefiningField extends SelfDefiningField 
                 + "defaultId=" + this.defaultId
                 + ", entries=" + this.entries
                 + '}';
+    }
+
+    public static final class MediaDestinationsEntry {
+        private int first;
+        private int last;
+
+        /**
+         * Returns the First number in a range of available, contiguous media-destination IDs.
+         */
+        public int getFirst() {
+            return this.first;
+        }
+
+        /**
+         * Sets the First number in a range of available, contiguous media-destination IDs.
+         */
+        public void setFirst(final int first) {
+            this.first = first;
+        }
+
+        /**
+         * Returns the Last number in a range of available, contiguous media-destination IDs.
+         */
+        public int getLast() {
+            return this.last;
+        }
+
+        /**
+         * Sets the Last number in a range of available, contiguous media-destination IDs.
+         */
+        public void setLast(final int last) {
+            this.last = last;
+        }
+
+        @Override
+        public String toString() {
+            return "MediaDestinationsEntry{"
+                    + "first=" + this.first
+                    + ", last=" + this.last
+                    + '}';
+        }
     }
 }

@@ -15,52 +15,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class ObjectContainerTypeSupportSelfDefiningField extends SelfDefiningField {
 
-    public class TypeRecord {
-        private int type;
-        private List<byte[]> regIds = new ArrayList<>();
-
-        /**
-         * Returns the type.
-         */
-        public int getType() {
-            return this.type;
-        }
-
-        /**
-         * Sets the type.
-         */
-        public void setType(final int type) {
-            this.type = type;
-        }
-
-        /**
-         * Returns a list of all MO:DCA-registered object IDs supported.
-         */
-        public List<byte[]> getRegIds() {
-            return this.regIds;
-        }
-
-        /**
-         * Sets a list of all MO:DCA-registered object IDs supported.
-         */
-        public void setRegIds(final List<byte[]> fgids) {
-            this.regIds = fgids;
-        }
-
-        @Override
-        public String toString() {
-            final StringJoiner sj = new StringJoiner(",", "[", "]");
-            for (final byte[] regId : this.regIds) {
-                sj.add(StringUtils.toHexString(regId));
-            }
-
-            return "TypeRecord{"
-                    + "type=0x" + Integer.toHexString(this.type)
-                    + ", regIds=" + sj.toString()
-                    + '}';
-        }
-    }
-
     private List<TypeRecord> typeRecords = new ArrayList<>();
 
     /**
@@ -132,5 +86,51 @@ public final class ObjectContainerTypeSupportSelfDefiningField extends SelfDefin
         return "ObjectContainerTypeSupportSelfDefiningField{"
                 + "typeRecords=" + this.typeRecords
                 + '}';
+    }
+
+    public static final class TypeRecord {
+        private int type;
+        private List<byte[]> regIds = new ArrayList<>();
+
+        /**
+         * Returns the type.
+         */
+        public int getType() {
+            return this.type;
+        }
+
+        /**
+         * Sets the type.
+         */
+        public void setType(final int type) {
+            this.type = type;
+        }
+
+        /**
+         * Returns a list of all MO:DCA-registered object IDs supported.
+         */
+        public List<byte[]> getRegIds() {
+            return this.regIds;
+        }
+
+        /**
+         * Sets a list of all MO:DCA-registered object IDs supported.
+         */
+        public void setRegIds(final List<byte[]> fgids) {
+            this.regIds = fgids;
+        }
+
+        @Override
+        public String toString() {
+            final StringJoiner sj = new StringJoiner(",", "[", "]");
+            for (final byte[] regId : this.regIds) {
+                sj.add(StringUtils.toHexString(regId));
+            }
+
+            return "TypeRecord{"
+                    + "type=0x" + Integer.toHexString(this.type)
+                    + ", regIds=" + sj.toString()
+                    + '}';
+        }
     }
 }

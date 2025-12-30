@@ -11,7 +11,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * The Print-Quality Support self-defining field specifies the minimum values for print quality supported by the
  * printer. This field need not be returned by printers that have only one print quality.
  */
-public class PrintQualitySupportSelfDefiningField extends SelfDefiningField {
+public final class PrintQualitySupportSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> boundaries = new ArrayList<>();
 

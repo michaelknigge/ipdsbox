@@ -9,7 +9,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * Represents the Font Resolution and Metric Technology (X'84') triplet.
  * This triplet contains information about raster font resolution and metric technology.
  */
-public class FontResolutionAndMetricTechnologyTriplet extends Triplet {
+public final class FontResolutionAndMetricTechnologyTriplet extends Triplet {
 
     private int metricTechnology;
     private int unitBase;

@@ -13,38 +13,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
 
-    public class MediaIdEntry {
-        private final int mediaIdType;
-        private final byte[] mediaId;
-
-        MediaIdEntry(final int mediaIdType, final byte[] mediaId) {
-            this.mediaIdType = mediaIdType;
-            this.mediaId = mediaId;
-        }
-
-        /**
-         * Returns the media ID type.
-         */
-        public int getMediaIdType() {
-            return this.mediaIdType;
-        }
-
-        /**
-         * Returns the media ID.
-         */
-        public byte[] getMediaId() {
-            return this.mediaId;
-        }
-
-        @Override
-        public String toString() {
-            return "MediaIdEntry{"
-                    + "mediaIdType=" + this.mediaIdType
-                    + ", mediaId=0x" + StringUtils.toHexString(this.mediaId)
-                    + '}';
-        }
-    }
-
     private int mediaSourceId;
     private int unitBase;
     private int upub;
@@ -282,5 +250,37 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
                 + ", inputMediaSourceCharacteristicFlags=" + this.inputMediaSourceCharacteristicFlags
                 + ", mediaIdEntries=" + this.mediaIdEntries
                 + '}';
+    }
+
+    public static final class MediaIdEntry {
+        private final int mediaIdType;
+        private final byte[] mediaId;
+
+        MediaIdEntry(final int mediaIdType, final byte[] mediaId) {
+            this.mediaIdType = mediaIdType;
+            this.mediaId = mediaId;
+        }
+
+        /**
+         * Returns the media ID type.
+         */
+        public int getMediaIdType() {
+            return this.mediaIdType;
+        }
+
+        /**
+         * Returns the media ID.
+         */
+        public byte[] getMediaId() {
+            return this.mediaId;
+        }
+
+        @Override
+        public String toString() {
+            return "MediaIdEntry{"
+                    + "mediaIdType=" + this.mediaIdType
+                    + ", mediaId=0x" + StringUtils.toHexString(this.mediaId)
+                    + '}';
+        }
     }
 }

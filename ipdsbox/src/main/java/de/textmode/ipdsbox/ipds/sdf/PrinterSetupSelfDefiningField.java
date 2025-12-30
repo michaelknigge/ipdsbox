@@ -10,7 +10,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 /**
  * The Printer Setup self-defining field lists all setup IDs that are currently active in the printer.
  */
-public class PrinterSetupSelfDefiningField extends SelfDefiningField {
+public final class PrinterSetupSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> setupIds = new ArrayList<>();
 

@@ -13,47 +13,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class ExecuteOrderAnystateRequestResidentResourceListSupportSelfDefiningField extends SelfDefiningField {
 
-    public class ResourceSupportEntry {
-        private int resourceType;
-        private int resourceIdFormat;
-
-        /**
-         * Returns the resource type.
-         */
-        public int getResourceType() {
-            return this.resourceType;
-        }
-
-        /**
-         * Sets the resource type.
-         */
-        public void setResourceType(final int resourceType) {
-            this.resourceType = resourceType;
-        }
-
-        /**
-         * Returns the resource ID format.
-         */
-        public int getResourceIdFormat() {
-            return this.resourceIdFormat;
-        }
-
-        /**
-         * Sets the resource ID format.
-         */
-        public void setResourceIdFormat(final int resourceIdFormat) {
-            this.resourceIdFormat = resourceIdFormat;
-        }
-
-        @Override
-        public String toString() {
-            return "ResourceSupportEntry{"
-                    + "resourceType=0x" + Integer.toHexString(this.resourceType)
-                    + ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat)
-                    + '}';
-        }
-    }
-
     private List<ResourceSupportEntry> entries = new ArrayList<>();
 
     /**
@@ -114,5 +73,46 @@ public final class ExecuteOrderAnystateRequestResidentResourceListSupportSelfDef
         return "ResourceSupportEntry{"
                 + "entries=" + this.entries
                 + '}';
+    }
+
+    public static final class ResourceSupportEntry {
+        private int resourceType;
+        private int resourceIdFormat;
+
+        /**
+         * Returns the resource type.
+         */
+        public int getResourceType() {
+            return this.resourceType;
+        }
+
+        /**
+         * Sets the resource type.
+         */
+        public void setResourceType(final int resourceType) {
+            this.resourceType = resourceType;
+        }
+
+        /**
+         * Returns the resource ID format.
+         */
+        public int getResourceIdFormat() {
+            return this.resourceIdFormat;
+        }
+
+        /**
+         * Sets the resource ID format.
+         */
+        public void setResourceIdFormat(final int resourceIdFormat) {
+            this.resourceIdFormat = resourceIdFormat;
+        }
+
+        @Override
+        public String toString() {
+            return "ResourceSupportEntry{"
+                    + "resourceType=0x" + Integer.toHexString(this.resourceType)
+                    + ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat)
+                    + '}';
+        }
     }
 }

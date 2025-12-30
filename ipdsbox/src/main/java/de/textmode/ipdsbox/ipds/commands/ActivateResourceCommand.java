@@ -48,7 +48,7 @@ public final class ActivateResourceCommand extends IpdsCommand {
         }
     }
 
-    public class ActivateResourceEntry {
+    public static final class ActivateResourceEntry {
         private int resourceType;
         private int haid;
         private int sectionID;

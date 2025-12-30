@@ -11,7 +11,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * The Finishing Options self-defining field lists all the finishing options that the printer
  * supports with the Finishing Operation (X'85') triplet.
  */
-public class FinishingOptionsSelfDefiningField extends SelfDefiningField {
+public final class FinishingOptionsSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> optionTypes = new ArrayList<>();
 

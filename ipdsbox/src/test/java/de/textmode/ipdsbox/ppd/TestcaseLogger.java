@@ -14,6 +14,13 @@ public final class TestcaseLogger implements LoggerInterface {
     private final List<String> logs = new ArrayList<>();
 
     /**
+     * Discard all collected log messages.
+     */
+    public void reset() {
+        this.logs.clear();
+    }
+
+    /**
      * Returns the {@link List} with all collected log messages.
      * @return A {@link List} with all collected log messages
      */

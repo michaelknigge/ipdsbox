@@ -11,7 +11,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * The Standard OCA Color Value Support self-defining field specifies the set of Standard OCA color values that
  * are supported by the printer. This self-defining field has no meaning for other color spaces.
  */
-public class StandardOcaColorValueSupportSelfDefiningField extends SelfDefiningField {
+public final class StandardOcaColorValueSupportSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> colorValues = new ArrayList<>();
 

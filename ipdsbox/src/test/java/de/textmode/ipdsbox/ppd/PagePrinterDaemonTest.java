@@ -9,11 +9,13 @@ import java.util.Observer;
 
 import de.textmode.ipdsbox.core.IpdsConfigurationException;
 import de.textmode.ipdsbox.ppd.PagePrinterDaemon.DaemonState;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import junit.framework.TestCase;
 
 /**
  * JUnit tests of the {@link PagePrinterDaemon}.
  */
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public final class PagePrinterDaemonTest extends TestCase implements Observer {
 
     private static final String LOCALHOST = "localhost";

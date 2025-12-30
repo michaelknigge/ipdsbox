@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 /**
  * Unit-Tests for the class {@link IpdsByteArrayOutputStream}.
  */
-public class IpdsByteArrayOutputStreamTest extends TestCase {
+public final class IpdsByteArrayOutputStreamTest extends TestCase {
 
     /**
      * Checks writing some bytes.

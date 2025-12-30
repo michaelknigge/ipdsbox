@@ -12,6 +12,13 @@ public final class TestcasePagePrinterRequestHandler implements PagePrinterReque
     private final List<PagePrinterRequest> requests = new ArrayList<>();
 
     /**
+     * Discard all saved {@link PagePrinterRequest}s.
+     */
+    public void reset() {
+        this.requests.clear();
+    }
+
+    /**
      * Returns a list with all handled {@link PagePrinterRequest}s.
      *
      * @return a list with all handled {@link PagePrinterRequest}s.

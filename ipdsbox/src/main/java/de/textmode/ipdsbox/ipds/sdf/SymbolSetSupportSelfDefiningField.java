@@ -12,7 +12,116 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  */
 public final class SymbolSetSupportSelfDefiningField extends SelfDefiningField {
 
-    public class SymbolSetSupportEntry {
+    private List<SymbolSetSupportEntry> entries = new ArrayList<>();
+
+    /**
+     * Creates a new {@link SymbolSetSupportSelfDefiningField}.
+     */
+    public SymbolSetSupportSelfDefiningField() {
+        super(SelfDefiningFieldId.SymbolSetSupport);
+    }
+
+    /**
+     * Creates a {@link SymbolSetSupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
+     */
+    SymbolSetSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
+        super(SelfDefiningFieldId.SymbolSetSupport);
+
+        while (ipds.bytesAvailable() > 0) {
+            final int entryLength = ipds.readUnsignedByte();
+
+            final SymbolSetSupportEntry entry = new SymbolSetSupportEntry();
+            entry.setValueEntryId(ipds.readUnsignedByte());
+
+            final int count;
+
+            if (entry.getValueEntryId() == 0x01) {
+                // parse fixed-box size entry
+                entry.setXBoxSize(ipds.readUnsignedByte());
+                entry.setYBoxSize(ipds.readUnsignedByte());
+                ipds.skip(2);
+                count = entryLength - 6;
+            } else {
+                // pase variable-box size entry
+                entry.setUnitBase(ipds.readUnsignedByte());
+                ipds.skip(1);
+                entry.setPpub(ipds.readUnsignedInteger16());
+                entry.setMaximumSize(ipds.readUnsignedByte());
+                entry.setUniformSize(ipds.readUnsignedByte());
+                ipds.skip(2);
+                count = entryLength - 10;
+            }
+
+            for (int ix = 0; ix < count; ++ix) {
+                entry.getFgids().add(ipds.readUnsignedInteger16());
+            }
+
+            this.entries.add(entry);
+        }
+    }
+
+    /**
+     * Writes all data fields to the given {@code IpdsByteArrayOutputStream} in table order.
+     */
+    @Override
+    public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+        final IpdsByteArrayOutputStream entryStream = new IpdsByteArrayOutputStream();
+
+        for (final SymbolSetSupportEntry entry : this.entries) {
+
+            if (entry.getValueEntryId() == 0x01) {
+                entryStream.writeUnsignedByte(6 + entry.getFgids().size() * 2);
+                entryStream.writeUnsignedByte(entry.getValueEntryId()); // Should be 0x01
+                entryStream.writeUnsignedByte(entry.getXBoxSize());
+                entryStream.writeUnsignedByte(entry.getYBoxSize());
+                entryStream.writeUnsignedByte(0x00);
+                entryStream.writeUnsignedByte(0x02);
+            } else {
+                entryStream.writeUnsignedByte(10 + entry.getFgids().size() * 2);
+                entryStream.writeUnsignedByte(entry.getValueEntryId()); // Should be 0x02
+                entryStream.writeUnsignedByte(entry.getUnitBase());
+                entryStream.writeUnsignedByte(0x00);
+                entryStream.writeUnsignedInteger16(entry.getPpub());
+                entryStream.writeUnsignedByte(entry.getMaximumSize());
+                entryStream.writeUnsignedByte(entry.getUniformSize());
+                entryStream.writeUnsignedByte(0x00);
+                entryStream.writeUnsignedByte(0x02);
+            }
+
+            for (final Integer fgid : entry.getFgids()) {
+                entryStream.writeUnsignedInteger16(fgid);
+            }
+        }
+
+        final byte[] entries = entryStream.toByteArray();
+
+        ipds.writeUnsignedInteger16(4 + entries.length);
+        ipds.writeUnsignedInteger16(this.getSelfDefiningFieldId());
+        ipds.writeBytes(entries);
+    }
+
+    /**
+     * Returns the entries (fixed-box size and variable-box size value entries).
+     */
+    public List<SymbolSetSupportEntry> getEntries() {
+        return this.entries;
+    }
+
+    /**
+     * Sets the entries (fixed-box size and variable-box size value entries).
+     */
+    public void setEntries(final List<SymbolSetSupportEntry> entries) {
+        this.entries = entries;
+    }
+
+    @Override
+    public String toString() {
+        return "SymbolSetSupportSelfDefiningField{"
+                + "entries=" + this.entries
+                + '}';
+    }
+
+    public static final class SymbolSetSupportEntry {
         private int valueEntryId; // 0x01 (fixed-box) or 0x02 (variable-box)
 
         // only for fixed-box sizes
@@ -174,114 +283,5 @@ public final class SymbolSetSupportSelfDefiningField extends SelfDefiningField {
                     + ", fgids=" + this.fgids
                     + '}';
         }
-    }
-
-    private List<SymbolSetSupportEntry> entries = new ArrayList<>();
-
-    /**
-     * Creates a new {@link SymbolSetSupportSelfDefiningField}.
-     */
-    public SymbolSetSupportSelfDefiningField() {
-        super(SelfDefiningFieldId.SymbolSetSupport);
-    }
-
-    /**
-     * Creates a {@link SymbolSetSupportSelfDefiningField} from the given {@link IpdsByteArrayInputStream}.
-     */
-    SymbolSetSupportSelfDefiningField(final IpdsByteArrayInputStream ipds) throws IOException {
-        super(SelfDefiningFieldId.SymbolSetSupport);
-
-        while (ipds.bytesAvailable() > 0) {
-            final int entryLength = ipds.readUnsignedByte();
-
-            final SymbolSetSupportEntry entry = new SymbolSetSupportEntry();
-            entry.setValueEntryId(ipds.readUnsignedByte());
-
-            final int count;
-
-            if (entry.getValueEntryId() == 0x01) {
-                // parse fixed-box size entry
-                entry.setXBoxSize(ipds.readUnsignedByte());
-                entry.setYBoxSize(ipds.readUnsignedByte());
-                ipds.skip(2);
-                count = entryLength - 6;
-            } else {
-                // pase variable-box size entry
-                entry.setUnitBase(ipds.readUnsignedByte());
-                ipds.skip(1);
-                entry.setPpub(ipds.readUnsignedInteger16());
-                entry.setMaximumSize(ipds.readUnsignedByte());
-                entry.setUniformSize(ipds.readUnsignedByte());
-                ipds.skip(2);
-                count = entryLength - 10;
-            }
-
-            for (int ix = 0; ix < count; ++ix) {
-                entry.getFgids().add(ipds.readUnsignedInteger16());
-            }
-
-            this.entries.add(entry);
-        }
-    }
-
-    /**
-     * Writes all data fields to the given {@code IpdsByteArrayOutputStream} in table order.
-     */
-    @Override
-    public void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
-        final IpdsByteArrayOutputStream entryStream = new IpdsByteArrayOutputStream();
-
-        for (final SymbolSetSupportEntry entry : this.entries) {
-
-            if (entry.getValueEntryId() == 0x01) {
-                entryStream.writeUnsignedByte(6 + entry.getFgids().size() * 2);
-                entryStream.writeUnsignedByte(entry.getValueEntryId()); // Should be 0x01
-                entryStream.writeUnsignedByte(entry.getXBoxSize());
-                entryStream.writeUnsignedByte(entry.getYBoxSize());
-                entryStream.writeUnsignedByte(0x00);
-                entryStream.writeUnsignedByte(0x02);
-            } else {
-                entryStream.writeUnsignedByte(10 + entry.getFgids().size() * 2);
-                entryStream.writeUnsignedByte(entry.getValueEntryId()); // Should be 0x02
-                entryStream.writeUnsignedByte(entry.getUnitBase());
-                entryStream.writeUnsignedByte(0x00);
-                entryStream.writeUnsignedInteger16(entry.getPpub());
-                entryStream.writeUnsignedByte(entry.getMaximumSize());
-                entryStream.writeUnsignedByte(entry.getUniformSize());
-                entryStream.writeUnsignedByte(0x00);
-                entryStream.writeUnsignedByte(0x02);
-            }
-
-            for (final Integer fgid : entry.getFgids()) {
-                entryStream.writeUnsignedInteger16(fgid);
-            }
-        }
-
-        final byte[] entries = entryStream.toByteArray();
-
-        ipds.writeUnsignedInteger16(4 + entries.length);
-        ipds.writeUnsignedInteger16(this.getSelfDefiningFieldId());
-        ipds.writeBytes(entries);
-    }
-
-    /**
-     * Returns the entries (fixed-box size and variable-box size value entries).
-     */
-    public List<SymbolSetSupportEntry> getEntries() {
-        return this.entries;
-    }
-
-    /**
-     * Sets the entries (fixed-box size and variable-box size value entries).
-     */
-    public void setEntries(final List<SymbolSetSupportEntry> entries) {
-        this.entries = entries;
-    }
-
-    @Override
-    public String toString() {
-        return "SymbolSetSupportSelfDefiningField{"
-                + "entries=" + this.entries
-                + '}';
     }
 }

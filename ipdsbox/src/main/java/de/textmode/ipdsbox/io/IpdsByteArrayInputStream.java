@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 import de.textmode.ipdsbox.core.ByteUtils;
 import de.textmode.ipdsbox.ipds.sdf.SelfDefiningField;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * The {@link IpdsByteArrayInputStream} is not really an DataInputStream, but it follows the
@@ -127,6 +128,7 @@ public final class IpdsByteArrayInputStream {
      *
      * @throws IOException if the {@link Triplet} to be read is broken.
      */
+    @SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
     public byte[] readTripletIfExists() throws IOException {
         final int available = this.bytesAvailable();
         if (available == 0) {
@@ -159,6 +161,7 @@ public final class IpdsByteArrayInputStream {
      *
      * @throws IOException if the {@link SelfDefiningField} to be read is broken.
      */
+    @SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
     public byte[] readSelfDefiningFieldIfExists() throws IOException {
         final int available = this.bytesAvailable();
         if (available == 0) {

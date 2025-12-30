@@ -49,7 +49,14 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
         }
     }
 
-    public final class FontEquivalenceEntry {
+    @Override
+    public String toString() {
+        return "LoadFontEquivalenceCommand{"
+                + "entries=" + this.entries
+                + '}';
+    }
+
+    public static final class FontEquivalenceEntry {
 
         private int fontLocalId;
         private int haid;
@@ -213,12 +220,5 @@ public final class LoadFontEquivalenceCommand extends IpdsCommand {
                     + ", flags=0x" + Integer.toHexString(this.flags)
                     + '}';
         }
-    }
-
-    @Override
-    public String toString() {
-        return "LoadFontEquivalenceCommand{"
-                + "entries=" + this.entries
-                + '}';
     }
 }

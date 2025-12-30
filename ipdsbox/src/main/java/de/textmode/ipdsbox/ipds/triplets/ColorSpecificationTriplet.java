@@ -9,7 +9,6 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class ColorSpecificationTriplet extends Triplet {
 
     private int colorSpace;
-    private byte[] reserved4; // 4 bytes
     private int colSize1;
     private int colSize2;
     private int colSize3;

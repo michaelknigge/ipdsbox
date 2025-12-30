@@ -80,7 +80,7 @@ public final class RequestResourceListOrder extends XoaOrder {
         visitor.handle(this);
     }
 
-    public final class ResourceQuery {
+    public static final class ResourceQuery {
 
         private int resourceType;
         private int resourceIdFormat;
