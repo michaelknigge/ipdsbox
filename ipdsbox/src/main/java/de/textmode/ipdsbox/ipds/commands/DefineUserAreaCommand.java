@@ -40,8 +40,8 @@ public final class DefineUserAreaCommand extends IpdsCommand {
         this.reset = ipds.readUnsignedByte();
         this.unitBase = ipds.readUnsignedByte();
         this.upub = ipds.readUnsignedInteger16();
-        this.xmOffset = ipds.readUnsignedInteger24();
-        this.ymOffset = ipds.readUnsignedInteger24();
+        this.xmOffset = ipds.readInteger24();
+        this.ymOffset = ipds.readInteger24();
         this.xmExtent = ipds.readUnsignedInteger24();
         this.ymExtent = ipds.readUnsignedInteger24();
     }
@@ -51,8 +51,8 @@ public final class DefineUserAreaCommand extends IpdsCommand {
         ipds.writeUnsignedByte(this.reset);
         ipds.writeUnsignedByte(this.unitBase);
         ipds.writeUnsignedInteger16(this.upub);
-        ipds.writeUnsignedInteger24(this.xmOffset);
-        ipds.writeUnsignedInteger24(this.ymOffset);
+        ipds.writeInteger24(this.xmOffset);
+        ipds.writeInteger24(this.ymOffset);
         ipds.writeUnsignedInteger24(this.xmExtent);
         ipds.writeUnsignedInteger24(this.ymExtent);
     }

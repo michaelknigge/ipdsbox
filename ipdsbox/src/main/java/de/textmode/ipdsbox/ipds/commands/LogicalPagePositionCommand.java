@@ -32,18 +32,18 @@ public final class LogicalPagePositionCommand extends IpdsCommand {
         super(ipds, IpdsCommandId.LPP);
 
         ipds.skip(1);
-        this.xmPageOffset = ipds.readUnsignedInteger24();
+        this.xmPageOffset = ipds.readInteger24();
         this.placement = ipds.readUnsignedByte();
-        this.ymPageOffset = ipds.readUnsignedInteger24();
+        this.ymPageOffset = ipds.readInteger24();
         this.orientation = ipds.readUnsignedInteger16();
     }
 
     @Override
     protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
         ipds.writeUnsignedByte(0x00);
-        ipds.writeUnsignedInteger24(this.xmPageOffset);
+        ipds.writeInteger24(this.xmPageOffset);
         ipds.writeUnsignedByte(this.placement);
-        ipds.writeUnsignedInteger24(this.ymPageOffset);
+        ipds.writeInteger24(this.ymPageOffset);
         ipds.writeUnsignedInteger16(this.orientation);
     }
 
