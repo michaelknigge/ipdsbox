@@ -37,25 +37,25 @@ public final class LogicalPageDescriptorCommand extends IpdsCommand {
 
         super(IpdsCommandId.LPD);
 
-        this.unitBase = 0x00;
+        this.unitBase = 0x00; // Ten inches
         this.xupub = 0x3840; // 14.400
         this.yupub = 0x3840; // 14.400
         this.xpExtent = 0x7FFF;
         this.ypExtent = 0x7FFF;
         this.orderedDataFlags = 0x00;
 
-        this.iAxisOrientation = 0x0000;
-        this.bAxisOrientation = 0x2D00;
+        this.iAxisOrientation = 0x0000; // 0 Degrees
+        this.bAxisOrientation = 0x2D00; // 90 Degrees
 
         this.initialInline = 0x0000;
         this.initialBaseline = 0x0000;
 
-        this.inlineMargin = 0xFFFF;
-        this.intercharAdjustment = 0xFFFF;
+        this.inlineMargin = 0xFFFF; // Printer Default
+        this.intercharAdjustment = 0xFFFF; // Printer Default
 
-        this.baselineIncrement = 0xFFFF;
-        this.fontLocalId = 0xFF;
-        this.color = 0xFFFF;
+        this.baselineIncrement = 0xFFFF; // Printer Default
+        this.fontLocalId = 0xFF; // Printer Default
+        this.color = 0xFF07; // IOCA Black
     }
 
     /**
@@ -122,8 +122,8 @@ public final class LogicalPageDescriptorCommand extends IpdsCommand {
 
         ipds.writeUnsignedInteger16(this.iAxisOrientation);
         ipds.writeUnsignedInteger16(this.bAxisOrientation);
-        ipds.writeUnsignedInteger16(this.initialInline);
-        ipds.writeUnsignedInteger16(this.initialBaseline);
+        ipds.writeInteger16(this.initialInline);
+        ipds.writeInteger16(this.initialBaseline);
         ipds.writeUnsignedInteger16(this.inlineMargin);
         ipds.writeUnsignedInteger16(this.intercharAdjustment);
 
