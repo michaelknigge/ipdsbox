@@ -30,16 +30,16 @@ public final class ObtainPrinterCharacteristicsAcknowledgeData implements Acknow
     }
 
     /**
-     * Returns a {@link List} of {@link SelfDefiningField}s that descrbe printer characteristics.
+     * Returns a {@link List} of {@link SelfDefiningField}s that describe printer characteristics.
      */
-    public List<SelfDefiningField> getType() {
+    public List<SelfDefiningField> getSelfDefiningField() {
         return this.selfDefiningFields;
     }
 
     /**
      * Sets a {@link List} of {@link SelfDefiningField}s that descrbe printer characteristics.
      */
-    public void setType(final List<SelfDefiningField> selfDefiningFields) {
+    public void setSelfDefiningFields(final List<SelfDefiningField> selfDefiningFields) {
         this.selfDefiningFields = selfDefiningFields;
     }
 
