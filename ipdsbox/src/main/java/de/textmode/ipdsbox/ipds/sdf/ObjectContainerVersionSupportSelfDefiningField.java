@@ -49,7 +49,7 @@ public final class ObjectContainerVersionSupportSelfDefiningField extends SelfDe
                         UTF16BE.decode(ByteBuffer.wrap(ipds.readBytes(entryLength - 24))).toString());
             }
 
-            versionRecords.add(record);
+            this.versionRecords.add(record);
         }
     }
 
@@ -96,6 +96,14 @@ public final class ObjectContainerVersionSupportSelfDefiningField extends SelfDe
      */
     public void setVersionRecords(final List<VersionRecord> versionRecords) {
         this.versionRecords = versionRecords;
+    }
+
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
     }
 
     @Override

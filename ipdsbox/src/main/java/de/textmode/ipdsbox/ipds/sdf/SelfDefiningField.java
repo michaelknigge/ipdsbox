@@ -43,4 +43,9 @@ public abstract class SelfDefiningField {
     public void setSelfDefiningFieldId(final int selfDefiningFieldId) {
         this.selfDefiningFieldId = selfDefiningFieldId;
     }
+
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    public abstract void accept(final SelfDefiningFieldVisitor visitor);
 }

@@ -76,6 +76,14 @@ public final class Up3iPaperInputMediaSelfDefiningField extends SelfDefiningFiel
         this.up3iMediaInformation = up3iMediaInformation;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "Up3iTupelSelfDefiningField{"

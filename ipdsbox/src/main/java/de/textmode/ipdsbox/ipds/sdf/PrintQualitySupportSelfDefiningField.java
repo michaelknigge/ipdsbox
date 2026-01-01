@@ -61,6 +61,14 @@ public final class PrintQualitySupportSelfDefiningField extends SelfDefiningFiel
         this.boundaries = boundaries;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "PrintQualitySupportSelfDefiningField{"

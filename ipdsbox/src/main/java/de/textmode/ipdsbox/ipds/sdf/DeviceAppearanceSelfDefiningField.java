@@ -63,6 +63,14 @@ public final class DeviceAppearanceSelfDefiningField extends SelfDefiningField {
         this.appearances = appearances;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "DeviceAppearanceSelfDefiningField{"

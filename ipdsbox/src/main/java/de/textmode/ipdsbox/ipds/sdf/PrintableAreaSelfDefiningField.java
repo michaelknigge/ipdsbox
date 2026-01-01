@@ -235,6 +235,14 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
         this.inputMediaSourceCharacteristicFlags = value;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "PrintableAreaSelfDefiningField{"

@@ -59,6 +59,14 @@ public final class AvailableFeaturesSelfDefiningField extends SelfDefiningField 
         this.featureIds = featureIds;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "AvailableFeaturesSelfDefiningField{"

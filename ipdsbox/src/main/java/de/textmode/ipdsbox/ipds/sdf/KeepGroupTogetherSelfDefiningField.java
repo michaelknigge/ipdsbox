@@ -111,6 +111,14 @@ public final class KeepGroupTogetherSelfDefiningField extends SelfDefiningField 
         this.maximumTotalGroupLength = maximumTotalGroupLength;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "KeepGroupTogetherSelfDefiningField{"

@@ -73,6 +73,14 @@ public final class PrinterSpeedSelfDefiningField extends SelfDefiningField {
         this.fpm = fpm;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "PrinterSpeedSelfDefiningField{"

@@ -62,6 +62,14 @@ public final class StandardOcaColorValueSupportSelfDefiningField extends SelfDef
         this.colorValues = colorValues;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "StandardOcaColorValueSupportSelfDefiningField{"

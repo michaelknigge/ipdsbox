@@ -77,6 +77,14 @@ public final class Up3iTupelSelfDefiningField extends SelfDefiningField {
         this.up3iDeviceInformation = up3iDeviceInformation;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+    
     @Override
     public String toString() {
         return "Up3iTupelSelfDefiningField{"

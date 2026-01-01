@@ -116,6 +116,14 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
         this.printHeadYpels = printHeadYpels;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "SupportedDeviceResolutionsSelfDefiningField{"

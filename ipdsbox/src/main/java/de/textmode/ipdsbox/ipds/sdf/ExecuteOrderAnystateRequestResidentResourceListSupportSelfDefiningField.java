@@ -68,6 +68,14 @@ public final class ExecuteOrderAnystateRequestResidentResourceListSupportSelfDef
         this.entries = entries;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "ResourceSupportEntry{"

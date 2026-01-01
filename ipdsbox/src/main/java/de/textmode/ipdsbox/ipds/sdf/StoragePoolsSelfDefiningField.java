@@ -86,6 +86,14 @@ public final class StoragePoolsSelfDefiningField extends SelfDefiningField {
         this.storagePoolEntries = storagePoolEntries;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "StoragePoolsSelfDefiningField{"

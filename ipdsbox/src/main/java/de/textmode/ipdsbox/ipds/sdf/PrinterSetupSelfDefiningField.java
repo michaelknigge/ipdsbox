@@ -60,6 +60,14 @@ public final class PrinterSetupSelfDefiningField extends SelfDefiningField {
         this.setupIds = setupIds;
     }
 
+    /**
+     * Accept method for the {@link SelfDefiningFieldVisitor}.
+     */
+    @Override
+    public void accept(final SelfDefiningFieldVisitor visitor) {
+        visitor.handle(this);
+    }
+
     @Override
     public String toString() {
         return "PrinterSetupSelfDefiningField{"
