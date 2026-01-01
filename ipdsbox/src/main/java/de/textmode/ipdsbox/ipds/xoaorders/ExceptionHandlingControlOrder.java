@@ -12,7 +12,18 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
 
     private int exceptionReportingFlags;
     private int automaticRecoveryFlags;
-    private int exceptionPresentationProcessingFlagsFlags;
+    private int exceptionPresentationProcessingFlags;
+
+    /**
+     * Constructs the {@link ExceptionHandlingControlOrder} with default values.
+     */
+    public ExceptionHandlingControlOrder() throws IOException {
+        super(XoaOrderCode.ExceptionHandlingControl);
+
+        this.exceptionReportingFlags = 0x01; // Only "Report all other exceptions with AEAs"
+        this.automaticRecoveryFlags = 0x00;
+        this.exceptionPresentationProcessingFlags = 0x00;
+    }
 
     /**
      * Constructs the {@link ExceptionHandlingControlOrder} from the given {@link IpdsByteArrayInputStream}.
@@ -22,7 +33,7 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
 
         this.exceptionReportingFlags = ipds.readUnsignedByte();
         this.automaticRecoveryFlags = ipds.readUnsignedByte();
-        this.exceptionPresentationProcessingFlagsFlags = ipds.readUnsignedByte();
+        this.exceptionPresentationProcessingFlags = ipds.readUnsignedByte();
     }
 
     @Override
@@ -30,7 +41,7 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
         out.writeUnsignedInteger16(this.getOrderCodeId());
         out.writeUnsignedByte(this.exceptionReportingFlags);
         out.writeUnsignedByte(this.automaticRecoveryFlags);
-        out.writeUnsignedByte(this.exceptionPresentationProcessingFlagsFlags);
+        out.writeUnsignedByte(this.exceptionPresentationProcessingFlags);
     }
 
     /**
@@ -64,15 +75,15 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
     /**
      * Returns the Exception-presentation processing flags.
      */
-    public int getExceptionPresentationProcessingFlagsFlags() {
-        return this.exceptionPresentationProcessingFlagsFlags;
+    public int getExceptionPresentationProcessingFlags() {
+        return this.exceptionPresentationProcessingFlags;
     }
 
     /**
      * Sets the Exception-presentation processing flags.
      */
-    public void setExceptionPresentationProcessingFlagsFlags(final int exceptionPresentationProcessingFlagsFlags) {
-        this.exceptionPresentationProcessingFlagsFlags = exceptionPresentationProcessingFlagsFlags;
+    public void setExceptionPresentationProcessingFlags(final int exceptionPresentationProcessingFlags) {
+        this.exceptionPresentationProcessingFlags = exceptionPresentationProcessingFlags;
     }
 
     /**
@@ -88,8 +99,8 @@ public final class ExceptionHandlingControlOrder extends XoaOrder {
         return "ExceptionHandlingControlOrder{"
                 + "exceptionReportingFlags=0x" + Integer.toHexString(this.exceptionReportingFlags)
                 + ", automaticRecoveryFlags=0x" + Integer.toHexString(this.automaticRecoveryFlags)
-                + ", exceptionPresentationProcessingFlagsFlags=0x" + Integer.toHexString(
-                        this.exceptionPresentationProcessingFlagsFlags)
+                + ", exceptionPresentationProcessingFlags=0x" + Integer.toHexString(
+                        this.exceptionPresentationProcessingFlags)
                 + '}';
     }
 }
