@@ -11,22 +11,22 @@ import de.textmode.ipdsbox.ipds.xoaorders.XoaOrderFactory;
  * The Execute Order Anystate (XOA) command identifies a set of orders that take effect immediately, regardless
  * of the current command state of the printer. This command is valid in any printer state.
  */
-public final class ExecuteOrderAnystateCommand extends IpdsCommand {
+public final class ExecuteOrderAnyStateCommand extends IpdsCommand {
 
     private final XoaOrder order;
 
     /**
-     * Constructs a {@link ExecuteOrderAnystateCommand} with the given {@link XoaOrder}.
+     * Constructs a {@link ExecuteOrderAnyStateCommand} with the given {@link XoaOrder}.
      */
-    public ExecuteOrderAnystateCommand(final XoaOrder order) {
+    public ExecuteOrderAnyStateCommand(final XoaOrder order) {
         super(IpdsCommandId.XOA);
         this.order = order;
     }
 
     /**
-     * Constructs the {@link ExecuteOrderAnystateCommand} from the given {@link IpdsByteArrayInputStream}.
+     * Constructs the {@link ExecuteOrderAnyStateCommand} from the given {@link IpdsByteArrayInputStream}.
      */
-    ExecuteOrderAnystateCommand(final IpdsByteArrayInputStream ipds) throws IOException {
+    ExecuteOrderAnyStateCommand(final IpdsByteArrayInputStream ipds) throws IOException {
         super(ipds, IpdsCommandId.XOA);
 
         this.order = XoaOrderFactory.create(ipds);
@@ -34,7 +34,7 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
 
     /**
      * Returns the {@link XoaOrder} that carries all parameters and
-     * information of this {@link ExecuteOrderAnystateCommand}.
+     * information of this {@link ExecuteOrderAnyStateCommand}.
      */
     public XoaOrder getOrder() {
         return this.order;
@@ -47,7 +47,7 @@ public final class ExecuteOrderAnystateCommand extends IpdsCommand {
 
     @Override
     public String toString() {
-        return "ExecuteOrderAnystateCommand{"
+        return "ExecuteOrderAnyStateCommand{"
                 + "order=" + this.order
                 + '}';
     }

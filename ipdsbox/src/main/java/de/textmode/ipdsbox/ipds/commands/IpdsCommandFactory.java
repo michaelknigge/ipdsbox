@@ -177,7 +177,7 @@ public final class IpdsCommandFactory {
             //case WOCC -> new WriteObjectContainerControlCommand(ipds);
             case WT -> new WriteTextCommand(ipds);
             //case WTC -> new WriteTextControlCommand(ipds);
-            case XOA -> new ExecuteOrderAnystateCommand(ipds);
+            case XOA -> new ExecuteOrderAnyStateCommand(ipds);
             case XOH -> new ExecuteOrderHomeStateCommand(ipds);
 
             default -> new UnknownIpdsCommand(ipds, commandIdValue);
