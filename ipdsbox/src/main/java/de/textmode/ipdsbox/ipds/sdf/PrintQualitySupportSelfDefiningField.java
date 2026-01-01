@@ -30,7 +30,7 @@ public final class PrintQualitySupportSelfDefiningField extends SelfDefiningFiel
         super(SelfDefiningFieldId.PrintQualitySupport);
 
         while (ipds.bytesAvailable() > 0) {
-            this.boundaries.add(ipds.readUnsignedInteger16());
+            this.boundaries.add(ipds.readUnsignedByte());
         }
     }
 
@@ -39,11 +39,11 @@ public final class PrintQualitySupportSelfDefiningField extends SelfDefiningFiel
      */
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(4 + (this.boundaries.size() * 2));
+        out.writeUnsignedInteger16(4 + (this.boundaries.size()));
         out.writeUnsignedInteger16(this.getSelfDefiningFieldId());
 
         for (final Integer boundary : this.boundaries) {
-            out.writeUnsignedInteger16(boundary);
+            out.writeUnsignedByte(boundary);
         }
     }
 
