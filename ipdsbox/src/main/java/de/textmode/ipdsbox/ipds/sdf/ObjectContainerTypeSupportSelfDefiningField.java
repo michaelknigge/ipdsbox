@@ -32,7 +32,7 @@ public final class ObjectContainerTypeSupportSelfDefiningField extends SelfDefin
 
         while (ipds.bytesAvailable() > 0) {
             final int len = ipds.readUnsignedByte();
-            final int count = len - 2;
+            final int count = (len - 2) / 16;
 
             final TypeRecord typeRecord = new TypeRecord();
             typeRecord.setType(ipds.readUnsignedByte());

@@ -31,7 +31,7 @@ public final class RemoveSavedPageGroupOrder extends XohOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XohOrderCode.RemoveSavedGroup.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
 
         for (final Triplet triplet : this.triplets) {
             triplet.writeTo(out);

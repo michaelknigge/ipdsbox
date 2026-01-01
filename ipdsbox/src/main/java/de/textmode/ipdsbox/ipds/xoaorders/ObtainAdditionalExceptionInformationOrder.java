@@ -19,7 +19,7 @@ public final class ObtainAdditionalExceptionInformationOrder extends XoaOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XoaOrderCode.ObtainAdditionalExceptionInformation.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
     }
 
     /**

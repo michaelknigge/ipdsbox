@@ -32,7 +32,7 @@ public final class SelectMediumModificationsOrder extends XohOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XohOrderCode.SelectMediumModifications.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
 
         out.writeUnsignedInteger32(0x00);
         out.writeUnsignedInteger32(0x00);

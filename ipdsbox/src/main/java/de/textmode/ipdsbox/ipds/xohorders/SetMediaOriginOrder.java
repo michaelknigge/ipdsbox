@@ -47,7 +47,7 @@ public final class SetMediaOriginOrder extends XohOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XohOrderCode.SetMediaOrigin.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
         out.writeUnsignedByte(this.origin);
     }
 

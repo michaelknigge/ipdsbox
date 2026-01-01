@@ -38,7 +38,7 @@ public final class RequestSetupNameListOrder extends XoaOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XoaOrderCode.RequestSetupNameList.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
         out.writeUnsignedByte(this.queryType);
         out.writeUnsignedByte(this.requestFlags);
         out.writeUnsignedInteger16(0);

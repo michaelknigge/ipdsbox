@@ -21,8 +21,8 @@ public final class SetMediaSizeOrder extends XohOrder {
     public SetMediaSizeOrder() {
         super(XohOrderCode.SetMediaSize);
 
-        this.unitBase = 0x00;
-        this.upub = 0x3840;
+        this.unitBase = 0x00; // Ten inches
+        this.upub = 0x3840; // 14.400
         this.xmExtent = 0xFFFF;
         this.ymExtent = 0xFFFF;
     }
@@ -41,7 +41,7 @@ public final class SetMediaSizeOrder extends XohOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XohOrderCode.SetMediaOrigin.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
         out.writeUnsignedByte(this.unitBase);
         out.writeUnsignedInteger16(this.upub);
         out.writeUnsignedInteger16(this.xmExtent);

@@ -23,7 +23,7 @@ public final class RequestResourceListOrder extends XoaOrder {
      * Constructs the {@link RequestResourceListOrder} from the given {@link IpdsByteArrayInputStream}.
      */
     RequestResourceListOrder(final IpdsByteArrayInputStream ipds) throws IOException {
-        super(XoaOrderCode.ActivatePrinterAlarm);
+        super(XoaOrderCode.RequestResourceList);
 
         this.queryType = ipds.readUnsignedByte();
         this.continuationIndicator = ipds.readUnsignedInteger16();
@@ -35,7 +35,7 @@ public final class RequestResourceListOrder extends XoaOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XoaOrderCode.ActivatePrinterAlarm.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
         out.writeUnsignedByte(this.queryType);
         out.writeUnsignedInteger16(this.continuationIndicator);
 

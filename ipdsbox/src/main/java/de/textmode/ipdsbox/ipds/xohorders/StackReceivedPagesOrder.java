@@ -19,7 +19,7 @@ public final class StackReceivedPagesOrder extends XohOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XohOrderCode.StackReceivedPages.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
     }
 
     /**

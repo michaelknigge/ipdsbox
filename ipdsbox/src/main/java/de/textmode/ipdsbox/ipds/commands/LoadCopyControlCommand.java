@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -12,10 +13,12 @@ public final class LoadCopyControlCommand extends IpdsCommand {
     private final List<CopySubgroup> subgroups = new ArrayList<>();
 
     /**
-     * Constructs a {@link LoadCopyControlCommand} with default values.
+     * Constructs a {@link LoadCopyControlCommand} with default values (which is, one copy, no further
+     * specific settings like paper tray or whatever).
      */
     public LoadCopyControlCommand() {
         super(IpdsCommandId.LCC);
+        this.subgroups.add(new CopySubgroup());
     }
 
     /**
@@ -38,7 +41,11 @@ public final class LoadCopyControlCommand extends IpdsCommand {
     }
 
     @Override
-    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+    protected void writeDataTo(final IpdsByteArrayOutputStream ipds) throws IOException, InvalidIpdsCommandException {
+        if (this.subgroups.isEmpty()) {
+            throw new InvalidIpdsCommandException("LCC requires at least one copy subgroup");
+        }
+
         for (final CopySubgroup subgroup : this.subgroups) {
             subgroup.writeTo(ipds);
         }
@@ -49,10 +56,10 @@ public final class LoadCopyControlCommand extends IpdsCommand {
         private final List<Keyword> keywords = new ArrayList<>();
 
         public CopySubgroup() {
-            this.copies = 1;
+            this(1);
         }
 
-        CopySubgroup(final int copies) {
+        public CopySubgroup(final int copies) {
             this.copies = copies;
         }
 

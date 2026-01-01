@@ -19,7 +19,7 @@ public final class MarkFormOrder extends XoaOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XoaOrderCode.MarkForm.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
     }
 
     /**

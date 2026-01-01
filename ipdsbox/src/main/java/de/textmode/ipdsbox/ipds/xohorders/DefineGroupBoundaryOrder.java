@@ -36,7 +36,6 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
      * Constructs the {@link DefineGroupBoundaryOrder} from the given {@link IpdsByteArrayInputStream}.
      */
     DefineGroupBoundaryOrder(final IpdsByteArrayInputStream ipds) throws IOException {
-
         super(XohOrderCode.DefineGroupBoundary);
 
         this.orderType = ipds.readByte();
@@ -50,7 +49,7 @@ public final class DefineGroupBoundaryOrder extends XohOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XohOrderCode.DefineGroupBoundary.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
         out.writeUnsignedByte(this.orderType);
         out.writeUnsignedByte(this.groupLevel);
 

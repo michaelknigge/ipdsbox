@@ -19,7 +19,7 @@ public final class ActivatePrinterAlarmOrder extends XoaOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XoaOrderCode.ActivatePrinterAlarm.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
     }
 
     /**

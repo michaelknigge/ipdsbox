@@ -28,7 +28,7 @@ public final class TraceOrder extends XohOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XohOrderCode.Trace.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
         out.writeUnsignedByte(this.function);
         out.writeUnsignedByte(this.controlFlags);
         out.writeBytes(this.options);

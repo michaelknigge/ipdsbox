@@ -19,7 +19,7 @@ public final class DiscardUnstackedPagesOrder extends XoaOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XoaOrderCode.DiscardUnstackedPages.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
     }
 
     /**

@@ -25,7 +25,7 @@ public final class SpecifyGroupOperationOrder extends XohOrder {
 
     @Override
     public void writeTo(final IpdsByteArrayOutputStream out) throws IOException {
-        out.writeUnsignedInteger16(XohOrderCode.SpecifyGroupOperation.getValue());
+        out.writeUnsignedInteger16(this.getOrderCodeId());
         out.writeUnsignedByte(this.operation);
         out.writeUnsignedByte(this.groupLevel);
     }
