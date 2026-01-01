@@ -23,7 +23,7 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
     private int xmPPAExtent;
     private int ymPPAExtent;
     private int inputMediaSourceCharacteristicFlags;
-    private final List<MediaIdEntry> mediaIdEntries = new ArrayList<>();
+    private List<MediaIdEntry> mediaIdEntries = new ArrayList<>();
 
     /**
      * Creates a new {@link PrintableAreaSelfDefiningField}.
@@ -233,6 +233,20 @@ public final class PrintableAreaSelfDefiningField extends SelfDefiningField {
      */
     public void setInputMediaSourceCharacteristicFlags(final int value) {
         this.inputMediaSourceCharacteristicFlags = value;
+    }
+
+    /**
+     * Returns the {@link MediaIdEntry}s.
+     */
+    public List<MediaIdEntry> getMediaIdEntries() {
+        return this.mediaIdEntries;
+    }
+
+    /**
+     * Sets the {@link MediaIdEntry}s.
+     */
+    public void setMediaIdEntries(final List<MediaIdEntry> mediaIdEntries) {
+        this.mediaIdEntries = mediaIdEntries;
     }
 
     /**
