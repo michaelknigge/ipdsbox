@@ -36,9 +36,9 @@ public interface SelfDefiningFieldVisitor {
     void handle(final CommonBarCodeTypeSelfDefiningField sdf);
 
     /**
-     * Handle method for {@link DeactiveteFontDeactivationTypesSupportedSelfDefiningField}.
+     * Handle method for {@link DeactivateFontDeactivationTypesSupportedSelfDefiningField}.
      */
-    void handle(final DeactiveteFontDeactivationTypesSupportedSelfDefiningField sdf);
+    void handle(final DeactivateFontDeactivationTypesSupportedSelfDefiningField sdf);
 
     /**
      * Handle method for {@link DeviceAppearanceSelfDefiningField}.

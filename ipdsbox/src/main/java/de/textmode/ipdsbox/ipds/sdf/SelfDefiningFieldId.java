@@ -114,7 +114,7 @@ public enum SelfDefiningFieldId {
      * The DF Deactivation Types Supported self-defining field lists the optional deactivation types that are supported
      * by the printer.
      */
-    DeactiveteFontDeactivationTypesSupported(0x0015, "DF Deactivation Types Supported"),
+    DeactivateFontDeactivationTypesSupported(0x0015, "DF Deactivation Types Supported"),
 
     /**
      * The PFC Triplets Supported self-defining field lists the optional triplets that are supported by the printer on

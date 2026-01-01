@@ -11,25 +11,25 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
  * The DF Deactivation Types Supported self-defining field lists the optional deactivation types that are supported
  * by the printer.
  */
-public final class DeactiveteFontDeactivationTypesSupportedSelfDefiningField extends SelfDefiningField {
+public final class DeactivateFontDeactivationTypesSupportedSelfDefiningField extends SelfDefiningField {
 
     private List<Integer> types = new ArrayList<>();
 
     /**
-     * Constructs a new {@link DeactiveteFontDeactivationTypesSupportedSelfDefiningField}.
+     * Constructs a new {@link DeactivateFontDeactivationTypesSupportedSelfDefiningField}.
      */
-    public DeactiveteFontDeactivationTypesSupportedSelfDefiningField() {
-        super(SelfDefiningFieldId.DeactiveteFontDeactivationTypesSupported);
+    public DeactivateFontDeactivationTypesSupportedSelfDefiningField() {
+        super(SelfDefiningFieldId.DeactivateFontDeactivationTypesSupported);
     }
 
     /**
-     * Constructs a new {@link DeactiveteFontDeactivationTypesSupportedSelfDefiningField}
+     * Constructs a new {@link DeactivateFontDeactivationTypesSupportedSelfDefiningField}
      * from the given {@link IpdsByteArrayInputStream}.
      */
-    DeactiveteFontDeactivationTypesSupportedSelfDefiningField(
+    DeactivateFontDeactivationTypesSupportedSelfDefiningField(
             final IpdsByteArrayInputStream ipds) throws IOException {
 
-        super(SelfDefiningFieldId.DeactiveteFontDeactivationTypesSupported);
+        super(SelfDefiningFieldId.DeactivateFontDeactivationTypesSupported);
 
         while (ipds.bytesAvailable() > 0) {
             this.types.add(ipds.readUnsignedByte());
@@ -37,7 +37,7 @@ public final class DeactiveteFontDeactivationTypesSupportedSelfDefiningField ext
     }
 
     /**
-     * Writes this {@link DeactiveteFontDeactivationTypesSupportedSelfDefiningField}
+     * Writes this {@link DeactivateFontDeactivationTypesSupportedSelfDefiningField}
      * to the given {@link IpdsByteArrayOutputStream}.
      */
     @Override
@@ -74,7 +74,7 @@ public final class DeactiveteFontDeactivationTypesSupportedSelfDefiningField ext
 
     @Override
     public String toString() {
-        return "DeactiveteFontDeactivationTypesSupportedSelfDefiningField{"
+        return "DeactivateFontDeactivationTypesSupportedSelfDefiningField{"
                 + "types=" + this.types
                 + '}';
     }

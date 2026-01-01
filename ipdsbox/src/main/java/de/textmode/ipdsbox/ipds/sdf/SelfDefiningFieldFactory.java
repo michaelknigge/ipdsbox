@@ -60,7 +60,7 @@ public final class SelfDefiningFieldFactory {
             case SupportedGroupOperations -> new SupportedGroupOperationsSelfDefiningField(ipds);
             case ProductIdentifier -> new ProductIdentifierSelfDefiningField(ipds);
             case ObjectContainerTypeSupport -> new ObjectContainerTypeSupportSelfDefiningField(ipds);
-            case DeactiveteFontDeactivationTypesSupported -> new DeactiveteFontDeactivationTypesSupportedSelfDefiningField(ipds);
+            case DeactivateFontDeactivationTypesSupported -> new DeactivateFontDeactivationTypesSupportedSelfDefiningField(ipds);
             case PfcTripletsSupported -> new PfcTripletsSupportedSelfDefiningField(ipds);
             case PrinterSetup -> new PrinterSetupSelfDefiningField(ipds);
             case FinishingOperations -> new FinishingOperationsSelfDefiningField(ipds);
