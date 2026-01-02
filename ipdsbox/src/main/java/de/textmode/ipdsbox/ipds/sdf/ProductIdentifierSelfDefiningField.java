@@ -36,9 +36,6 @@ public final class ProductIdentifierSelfDefiningField extends SelfDefiningField 
                     ipds.readUnsignedInteger16(),
                     ipds.readBytes(len - 3));
 
-            //entry.setParameterId(ipds.readUnsignedInteger16());
-            //entry.setParameterValue(ipds.readBytes(len - 3));
-
             this.entries.add(entry);
         }
     }
