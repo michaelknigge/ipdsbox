@@ -344,6 +344,48 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
         OBJECT_CONTAINER_TYPES.put("06072B12000401014500000000000000", "Non-OCA Resource Object");
     }
 
+    private static final HashMap<Integer, String> FONT_DEACTIVATION_TYPES = new HashMap<>();
+
+    static {
+        FONT_DEACTIVATION_TYPES.put(Integer.valueOf(0x22), "Deactivate a font index for a double-byte coded font section");
+        FONT_DEACTIVATION_TYPES.put(Integer.valueOf(0x50), "Deactivate a coded font");
+        FONT_DEACTIVATION_TYPES.put(Integer.valueOf(0x51), "Deactivate a coded font and all associated components");
+        FONT_DEACTIVATION_TYPES.put(Integer.valueOf(0x5D), "Deactivate all resident coded fonts and all associated components");
+        FONT_DEACTIVATION_TYPES.put(Integer.valueOf(0x5E), "Deactivate all coded fonts");
+        FONT_DEACTIVATION_TYPES.put(Integer.valueOf(0x5F), "Deactivate all coded fonts and all associated components");
+    }
+
+    private static final HashMap<Integer, String> FINISHING_OPERATIONS = new HashMap<>();
+
+    static {
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x01), "Corner staple");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x02), "Saddle-stitch out");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x03), "Edge stitch");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x04), "Fold in");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x05), "Separation cut");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x06), "Perforation cut");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x07), "Z fold");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x08), "Center-fold in");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x09), "Trim after center fold or saddle stitch");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x0A), "Punch");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x0C), "Perfect bind");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x0D), "Ring bind");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x0E), "C-fold in");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x0F), "Accordion-fold in");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x12), "Saddle-stitch in");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x14), "Fold out");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x18), "Center-fold out");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x19), "Trim");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x1E), "C-fold out");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x1F), "Accordion-fold out");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x20), "Double parallel-fold in");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x21), "Double gate-fold in");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x22), "Single gate-fold in");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x30), "Double parallel-fold out");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x31), "Double gate-fold out");
+        FINISHING_OPERATIONS.put(Integer.valueOf(0x32), "Single gate-fold out");
+    }
+
 
     private static final String INDENTION = "  ";
 
@@ -502,8 +544,8 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
 
     @Override
     public void handle(final ActiveSetupNameSelfDefiningField sdf) {
-        this.out.println("Activate Setup");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+        this.out.println("Active Setup");
+        this.printField(1, 10, sdf.getActiveSetupName() == null ? "none" : sdf.getActiveSetupName().getSetupName(), "Setup name");
     }
 
     @Override
@@ -543,7 +585,14 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final ColorantIdentificationSelfDefiningField sdf) {
         this.out.println("Colorant Identification");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        for (final ColorantIdentificationSelfDefiningField.ColorantIdentificationEntry entry : sdf.getEntries()) {
+            this.out.println();
+
+            this.printFieldAsHex(1, 27, entry.getEntryType(), "Entry type");
+            this.printFieldAsHex(1, 27, entry.getColorantAvailabilityFlags(), "Colorant availability flags");
+            this.printField(1, 27, entry.getColorantName(), "Colorant name");
+        }
     }
 
     @Override
@@ -561,13 +610,21 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final DeactivateFontDeactivationTypesSupportedSelfDefiningField sdf) {
         this.out.println("Deactivate Font Deactivation Types");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        for (final Integer type : sdf.getTypes()) {
+            final String deactivationType = FONT_DEACTIVATION_TYPES.get(type);
+            final String hint = deactivationType == null ? "unknown" : deactivationType;
+            this.printFieldAsHex(1, 4, type, hint, "Type");
+        }
     }
 
     @Override
     public void handle(final DeviceAppearanceSelfDefiningField sdf) {
         this.out.println("Device Appearance");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        for (final Integer type : sdf.getAppearances()) {
+            this.printFieldAsHex(1, 10, type, "Appearance");
+        }
     }
 
     @Override
@@ -588,13 +645,22 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final FinishingOperationsSelfDefiningField sdf) {
         this.out.println("Finishing Operations");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        for (final Integer type : sdf.getOperationTypes()) {
+            final String operationType = FINISHING_OPERATIONS.get(type);
+            final String hint = operationType == null ? "unknown" : operationType;
+
+            this.printFieldAsHex(1, 14, type, hint, "Operation type");
+        }
     }
 
     @Override
     public void handle(final FinishingOptionsSelfDefiningField sdf) {
         this.out.println("Finishing Options");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        for (final Integer type : sdf.getOptionTypes()) {
+            this.printFieldAsHex(1, 11, type, "Option type");
+        }
     }
 
     @Override
