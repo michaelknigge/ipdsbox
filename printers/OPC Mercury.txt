@@ -1,0 +1,278 @@
+Printer Characteristics from XOH-OPC command
+--------------------------------------------------------------------------------
+Printable Area
+  Media Source ID                           : 0x00 (0)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x2e84 (11908)
+  Actual medium presentation space length   : 0x41c6 (16838)
+  Xm offset of the physical printable media : 0x00 (0)
+  Ym offset of the physical printable media : 0x00 (0)
+  Xm extent of the physical printable media : 0x2e84 (11908)
+  Ym extent of the physical printable media : 0x41c6 (16838)
+  Input media source characteristic flags   : 0xd0a0
+
+Printable Area
+  Media Source ID                           : 0x01 (1)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x2e84 (11908)
+  Actual medium presentation space length   : 0x41c6 (16838)
+  Xm offset of the physical printable media : 0x00 (0)
+  Ym offset of the physical printable media : 0x00 (0)
+  Xm extent of the physical printable media : 0x2e84 (11908)
+  Ym extent of the physical printable media : 0x41c6 (16838)
+  Input media source characteristic flags   : 0xd0a0
+
+IM-Image and Coded-Font Resolution
+  Unit Base            : 0x00
+  Font Resolutions     : 0xff
+  X pels per unit base : 0x0bb8 (3000)
+  Y pels per unit base : 0x0bb8 (3000)
+
+Storage Pools
+
+  Entry ID        : 0x01
+  Storage pool ID : 0x01
+  Size in Bytes   : 13421773
+    Object ID : 0x11 (Page graphics data)
+    Object ID : 0x12 (Page image data)
+    Object ID : 0x13 (Page text data)
+    Object ID : 0x14 (Page bar code data)
+
+  Entry ID        : 0x01
+  Storage pool ID : 0x02
+  Size in Bytes   : 13421773
+    Object ID : 0x21 (Overlay graphics data)
+    Object ID : 0x22 (Overlay image data)
+    Object ID : 0x23 (Overlay text data)
+    Object ID : 0x24 (Overlay bar code data)
+    Object ID : 0x31 (Page segment graphics data)
+    Object ID : 0x32 (Page segment image data)
+    Object ID : 0x33 (Page segment text data)
+    Object ID : 0x34 (Page segment bar code data)
+
+  Entry ID        : 0x01
+  Storage pool ID : 0x03
+  Size in Bytes   : 13421773
+    Object ID : 0x40 (Single-byte coded-font index tables)
+    Object ID : 0x42 (Single-byte coded-font patterns)
+    Object ID : 0x48 (Double-byte coded-font index tables)
+    Object ID : 0x4a (Double-byte coded-font patterns)
+    Object ID : 0x50 (Code pages)
+    Object ID : 0x60 (Font character sets)
+    Object ID : 0x70 (Coded fonts)
+
+Installed Features
+  Feature ID : 0x0100 (Duplex)
+  Feature ID : 0x0300 (Cut-sheet output)
+  Feature ID : 0x0600 (Offset stacker)
+  Feature ID : 0x0800 (MICR: capable of printing toned pels that are impregnated with a magnetic material)
+
+Available Features
+  Feature ID : 0x0100 (Duplex)
+  Feature ID : 0x0300 (Cut-sheet output)
+  Feature ID : 0x0600 (Offset stacker)
+  Feature ID : 0x0800 (MICR: capable of printing toned pels that are impregnated with a magnetic material)
+
+XOA-RRL RT & RIDF Support
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x02 (Double-byte LF1-type coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x03 (Double-byte LF1-type coded-font section)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x04 (Page segment)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x05 (Overlay)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x06 (Device-version code page)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x07 (Font character set)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x08 (Single-byte coded font index)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x09 (Double-byte coded font section index)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x12 (Specific code page)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x40 (Data object resource)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x41 (Data-object font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x42 (Data-object-font components)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+Activate Resource
+
+  Resource type      : 0x41 (Data-object font)
+  Resource ID format : 0x0a (Data-object-font format)
+
+  Resource type      : 0x42 (Data-object-font components)
+  Resource ID format : 0x0a (Data-object-font format)
+
+Medium Modification IDs
+  Medium Modification ID : 0xa0ff (41215)
+  Medium Modification ID : 0xa100 (41216)
+  Medium Modification ID : 0xa200 (41472)
+
+Common Bar Code Type
+  Combination : 0x0d (Codabar, modifier-byte options X'01' and X'02')
+  Combination : 0x11 (Code 128, modifier-byte option X'02')
+  Combination : 0x18 (POSTNET (deprecated), modifier-byte options X'00' through X'03')
+  Combination : 0x1a (RM4SCC, modifier-byte option X'00')
+  Combination : 0x1b (Japan Postal Bar Code, modifier-byte options X'00' and X'01')
+  Combination : 0x1c (Data Matrix, modifier-byte option X'00')
+  Combination : 0x1d (MaxiCode, modifier-byte option X'00')
+  Combination : 0x1e (PDF417, modifier-byte options X'00' and X'01')
+  Combination : 0x1f (Australia Post Bar Code, modifier-byte options X'01' through X'08')
+  Combination : 0x20 (QR Code, modifier-byte option X'02')
+  Combination : 0x21 (Code 93, modifier-byte option X'00')
+  Combination : 0x22 (Intelligent Mail Barcode, modifier-byte options X'00' through X'03')
+  Combination : 0x23 (Royal Mail RED TAG (deprecated), modifier-byte option X'00')
+  Combination : 0x24 (GS1 DataBar, modifier-byte options X'00' through X'04' and X'11' through X'1B')
+  Combination : 0x86 (UPC-Two-digit Supplemental, modifier-byte options X'01' and X'02')
+  Combination : 0x87 (UPC_Five-digit Supplemental, modifier-byte options X'01' and X'02')
+  Combination : 0x8c (Interleaved 2-of-5, modifier-byte options X'03' and X'04')
+  Combination : 0x91 (Code 128, modifier-byte option X'03')
+  Combination : 0x92 (Code 128, modifier-byte option X'04')
+  Combination : 0x93 (Code 128 (Intelligent Mail Container Barcode), modifier-byte option X'05')
+  Combination : 0x96 (EAN Two-digit Supplemental, modifier-byte option X'01')
+  Combination : 0x97 (EAN Five-digit Supplemental, modifier-byte option X'01')
+  Combination : 0x98 (POSTNET (PLANET, deprecated), modifier-byte option X'04')
+  Combination : 0x9a (RM4SCC, modifier-byte option X'01')
+
+Media Destinations
+  Default ID : 0x01 (1)
+
+    First ID : 0x01 (1)
+    Last ID  : 0x02 (2)
+
+Supported Group Operations
+  Operation : 0x01 (Keep group together as a print unit)
+  Operation : 0x04 (Finish)
+
+Product Identifier
+
+  Parameter ID : 0x01 (Unique Product Identifier)
+  Parameter value : F0F0F5F0F0F0F083F0C4C3C600F1F0F0F0F0F0F0F0F5F0F0F0F70000A5F1F14BF64BF1F2F2
+    Device type              : 005000
+    Model number             : 0c0
+    Manufacturer             : DCF
+    Plant of manufacture     :  1
+    Sequence number          : 000000050007
+    Tag                      : 0x00
+    Engineering change level : v11.6.122
+
+  Parameter ID : 0x03 (Printer name)
+  Parameter value : C4C3C640C396949781A38982938540F5F0F0F000000000000000000000000000
+    Printer name : DCF Compatible 5000             
+
+Object Container Type
+
+  Type : 0x01 (Page or overlay state)
+    MO:DCA-registered object ID : 06072B12000401013900000000000000 (Color Management Resource (CMR))
+    MO:DCA-registered object ID : 06072B12000401011400000000000000 (Color Mapping Table (CMT))
+    MO:DCA-registered object ID : 06072B12000401010D00000000000000 (EPS)
+    MO:DCA-registered object ID : 06072B12000401013000000000000000 (EPS with Transparency)
+    MO:DCA-registered object ID : 06072B12000401011600000000000000 (GIF)
+    MO:DCA-registered object ID : 06072B12000401011700000000000000 (AFPC JPEG Subset)
+    MO:DCA-registered object ID : 06072B12000401012200000000000000 (PCL Page Object)
+    MO:DCA-registered object ID : 06072B12000401013F00000000000000 (PDF Multiple Page File)
+    MO:DCA-registered object ID : 06072B12000401014000000000000000 (PDF Multiple Page - with Transparency - File)
+    MO:DCA-registered object ID : 06072B12000401011900000000000000 (PDF Single-page Object)
+    MO:DCA-registered object ID : 06072B12000401013100000000000000 (PDF with Transparency)
+    MO:DCA-registered object ID : 06072B12000401011A00000000000000 (PDF Resource Object)
+    MO:DCA-registered object ID : 06072B12000401014100000000000000 (AFPC PNG Subset)
+    MO:DCA-registered object ID : 06072B12000401014400000000000000 (AFPC SVG Subset)
+    MO:DCA-registered object ID : 06072B12000401014200000000000000 (AFPC TIFF Subset)
+
+  Type : 0x01 (Page or overlay state)
+    MO:DCA-registered object ID : 06072B12000401010E00000000000000 (TIFF)
+    MO:DCA-registered object ID : 06072B12000401013C00000000000000 (TIFF without Transparency)
+    MO:DCA-registered object ID : 06072B12000401013D00000000000000 (TIFF Multiple Image File)
+    MO:DCA-registered object ID : 06072B12000401013E00000000000000 (TIFF Multiple Image - without Transparency - File)
+
+  Type : 0x02 (Home state)
+    MO:DCA-registered object ID : 06072B12000401013900000000000000 (Color Management Resource (CMR))
+    MO:DCA-registered object ID : 06072B12000401011400000000000000 (Color Mapping Table (CMT))
+    MO:DCA-registered object ID : 06072B12000401010D00000000000000 (EPS)
+    MO:DCA-registered object ID : 06072B12000401013000000000000000 (EPS with Transparency)
+    MO:DCA-registered object ID : 06072B12000401011600000000000000 (GIF)
+    MO:DCA-registered object ID : 06072B12000401011700000000000000 (AFPC JPEG Subset)
+    MO:DCA-registered object ID : 06072B12000401012200000000000000 (PCL Page Object)
+    MO:DCA-registered object ID : 06072B12000401012F00000000000000 (IOCA FS45 Tile Resource)
+    MO:DCA-registered object ID : 06072B12000401013F00000000000000 (PDF Multiple Page File)
+    MO:DCA-registered object ID : 06072B12000401014000000000000000 (PDF Multiple Page - with Transparency - File)
+    MO:DCA-registered object ID : 06072B12000401011900000000000000 (PDF Single-page Object)
+    MO:DCA-registered object ID : 06072B12000401013100000000000000 (PDF with Transparency)
+    MO:DCA-registered object ID : 06072B12000401014100000000000000 (AFPC PNG Subset)
+    MO:DCA-registered object ID : 06072B12000401014400000000000000 (AFPC SVG Subset)
+    MO:DCA-registered object ID : 06072B12000401014200000000000000 (AFPC TIFF Subset)
+
+  Type : 0x02 (Home state)
+    MO:DCA-registered object ID : 06072B12000401010E00000000000000 (TIFF)
+    MO:DCA-registered object ID : 06072B12000401013C00000000000000 (TIFF without Transparency)
+    MO:DCA-registered object ID : 06072B12000401013D00000000000000 (TIFF Multiple Image File)
+    MO:DCA-registered object ID : 06072B12000401013E00000000000000 (TIFF Multiple Image - without Transparency - File)
+    MO:DCA-registered object ID : 06072B12000401013500000000000000 (TrueType/OpenType Font Collection)
+    MO:DCA-registered object ID : 06072B12000401013300000000000000 (TrueType/OpenType Font)
+
+Deactivate Font Deactivation Types
+  Type : 0x22 (Deactivate a font index for a double-byte coded font section)
+  Type : 0x50 (Deactivate a coded font)
+  Type : 0x51 (Deactivate a coded font and all associated components)
+  Type : 0x5d (Deactivate all resident coded fonts and all associated components)
+  Type : 0x5e (Deactivate all coded fonts)
+  Type : 0x5f (Deactivate all coded fonts and all associated components)
+
+PFC Triplets
+  Triplet ID : 0x74 (Toner Saver)
+  Triplet ID : 0x75 (Color Fidelity)
+  Triplet ID : 0x86 (Text Fidelity)
+  Triplet ID : 0x88 (Finishing Fidelity)
+  Triplet ID : 0x96 (CMR Tag Fidelity)
+
+Finishing Operations
+  Operation type : 0x01 (Corner staple)
+  Operation type : 0x02 (Saddle-stitch out)
+  Operation type : 0x03 (Edge stitch)
+  Operation type : 0x04 (Fold in)
+  Operation type : 0x05 (Separation cut)
+  Operation type : 0x06 (Perforation cut)
+  Operation type : 0x07 (Z fold)
+  Operation type : 0x08 (Center-fold in)
+  Operation type : 0x09 (Trim after center fold or saddle stitch)
+  Operation type : 0x0a (Punch)
+  Operation type : 0x0c (Perfect bind)
+  Operation type : 0x0d (Ring bind)
+  Operation type : 0x0e (C-fold in)
+  Operation type : 0x0f (Accordion-fold in)
+  Operation type : 0x12 (Saddle-stitch in)
+  Operation type : 0x14 (Fold out)
+  Operation type : 0x18 (Center-fold out)
+  Operation type : 0x19 (Trim)
+  Operation type : 0x1e (C-fold out)
+  Operation type : 0x1f (Accordion-fold out)
+  Operation type : 0x20 (Double parallel-fold in)
+  Operation type : 0x21 (Double gate-fold in)
+  Operation type : 0x22 (Single gate-fold in)
+  Operation type : 0x30 (Double parallel-fold out)
+  Operation type : 0x31 (Double gate-fold out)
+  Operation type : 0x32 (Single gate-fold out)
