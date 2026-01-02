@@ -1,0 +1,52 @@
+Printer Information from STM command
+--------------------------------------------------------------------------------
+Device Type: 0x4224
+Model      : 0xC2
+ 
+Command Set ID : 0xC4C3 (Device Control Command Set)
+Level ID       : 0xFF10 (DC1 subset ID)
+  Property pair : 0x80F2 (Discard Buffered Data)
+  Property pair : 0x80F4 (Request Resource List)
+  Property pair : 0x80F6 (Exception-Handling Control)
+  Property pair : 0x80F8 (Print-Quality Control)
+  Property pair : 0x9003 (Specify Group Operation)
+  Property pair : 0x9004 (Define Group Boundary)
+  Property pair : 0x9005 (Erase Residual Print Data)
+  Property pair : 0x9007 (Erase Residual Font Data)
+  Property pair : 0x9015 (Select Input Media Source)
+  Property pair : 0x9017 (Set Media Size)
+  Property pair : 0x90F3 (Obtain Printer Characteristics)
+  Property pair : 0x90F5 (Page Counters Control)
+ 
+Command Set ID : 0xD7E3 (Text Command Set)
+Level ID       : 0xFF20 (PTOCA PT2 data)
+  Property pair : 0x1001 (Unordered text supported)
+  Property pair : 0x2000 (** Unknown **)
+  Property pair : 0x4003 (Standard OCA color-support)
+  Property pair : 0x5041 (Multiple text-orientation support for all supported media origins)
+ 
+Command Set ID : 0xC9D4 (IM-Image Command Set)
+Level ID       : 0xFF10 (IMD1 data)
+  Property pair : 0x1001 (IM-Image objects may be sent in any order)
+  Property pair : 0x4003 (Standard OCA color-support)
+ 
+Command Set ID : 0xE5C7 (Graphics Command Set)
+Level ID       : 0xFF20 (GOCA DR/2V0 data)
+  Property pair : 0x1001 (Graphics objects may be sent in any order)
+  Property pair : 0x4003 (Standard OCA color-support)
+ 
+Command Set ID : 0xD7E2 (Page Segment Command Set)
+Level ID       : 0xFF10 (PS1 subset)
+ 
+Command Set ID : 0xD6D3 (Overlay Command Set)
+Level ID       : 0xFF10 (OL1 subset)
+  Property pair : 0x1001 (** Unknown **)
+  Property pair : 0x1505 (Overlay nesting up to 5 levels is supported)
+ 
+Command Set ID : 0xC2C3 (Bar Code Command Set)
+Level ID       : 0xFF10 (BCOCA BCD1 data)
+  Property pair : 0x1001 (Bar code objects may be sent in any order)
+  Property pair : 0x4003 (Standard OCA color-support)
+ 
+Command Set ID : 0xC3C6 (Loaded Font Command Set)
+Level ID       : 0xFF20 (LF2 subset ID; symbol set coded font)

@@ -1,0 +1,84 @@
+Printer Characteristics from XOH-OPC command
+--------------------------------------------------------------------------------
+Printable Area
+  Media Source ID                           : 0x20 (32)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x4a40 (19008)
+  Actual medium presentation space length   : 0x4380 (17280)
+  Xm offset of the physical printable media : 0x00 (0)
+  Ym offset of the physical printable media : 0x00 (0)
+  Xm extent of the physical printable media : 0x4a40 (19008)
+  Ym extent of the physical printable media : 0x4380 (17280)
+  Input media source characteristic flags   : 0x3000
+
+IM-Image and Coded-Font Resolution
+  Unit Base            : 0x00
+  Font Resolutions     : 0x00
+  X pels per unit base : 0x05a0 (1440)
+  Y pels per unit base : 0x05a0 (1440)
+
+Storage Pools
+
+  Entry ID        : 0x01
+  Storage pool ID : 0x00
+  Size in Bytes   : 28672
+
+Standard OCA Color Value
+  OCA color value : 0x08 (Black)
+  OCA color value : 0x01 (Blue)
+  OCA color value : 0x02 (Red)
+  OCA color value : 0x04 (Green)
+  OCA color value : 0x03 (Pink/magenta)
+  OCA color value : 0x05 (Turquoise/cyan)
+  OCA color value : 0x06 (Yellow)
+  OCA color value : 0x10 (Brown)
+
+Print Quality
+  Boundary : 0x01 (1)
+  Boundary : 0x56 (86)
+  Boundary : 0xab (171)
+
+XOA-RRL RT & RIDF Support
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x04 (Page segment)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x05 (Overlay)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x06 (Device-version code page)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x07 (Font character set)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x08 (Single-byte coded font index)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+Supported Group Operations
+  Operation : 0x01 (Keep group together as a print unit)
+
+Product Identifier
+
+  Parameter ID : 0x01 (Unique Product Identifier)
+  Parameter value : F0F0F4F2F2F4F1C3F2E2D7C50000F0F0F0F0F0F0F0F0F0F0F0F10000000000000000000000F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0
+    Device type              : 004224
+    Model number             : 1C2
+    Manufacturer             : SPE
+    Sequence number          : 000000000001
+    Tag                      : 0x00
+    Engineering change level :          
+    Device-specific information : F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0F0
