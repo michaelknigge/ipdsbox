@@ -69,8 +69,8 @@ IM-Image and Coded-Font Resolution
 Storage Pools
 
   Entry ID        : 0x01
-  Storage pool ID : 0x01
-  Size in Bytes   : 0x01
+  Storage pool ID : 0x00
+  Size in Bytes   : 290768693
     Object ID : 0x11 (Page graphics data)
     Object ID : 0x12 (Page image data)
     Object ID : 0x13 (Page text data)
