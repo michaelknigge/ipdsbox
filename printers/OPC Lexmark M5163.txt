@@ -1,0 +1,332 @@
+Printer Characteristics from XOH-OPC command
+--------------------------------------------------------------------------------
+Printable Area
+  Media Source ID                           : 0x00 (0)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x2e82 (11906)
+  Actual medium presentation space length   : 0x41c6 (16838)
+  Xm offset of the physical printable media : 0xe3 (227)
+  Ym offset of the physical printable media : 0xe3 (227)
+  Xm extent of the physical printable media : 0x2cbc (11452)
+  Ym extent of the physical printable media : 0x4000 (16384)
+  Input media source characteristic flags   : 0xd000
+
+    Media ID type  : 0x10 (MO:DCA media type OID)
+    Input media ID : 06072B120004030100 (ISO A4 white (210 x 297 mm))
+
+Printable Area
+  Media Source ID                           : 0x62 (98)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x2e82 (11906)
+  Actual medium presentation space length   : 0x41c6 (16838)
+  Xm offset of the physical printable media : 0xe3 (227)
+  Ym offset of the physical printable media : 0xe3 (227)
+  Xm extent of the physical printable media : 0x2cbc (11452)
+  Ym extent of the physical printable media : 0x4000 (16384)
+  Input media source characteristic flags   : 0xd000
+
+    Media ID type  : 0x00 (user defined)
+    Input media ID : D4976DC68585848599 (Mp_Feeder)
+
+Printable Area
+  Media Source ID                           : 0x63 (99)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x2e82 (11906)
+  Actual medium presentation space length   : 0x41c6 (16838)
+  Xm offset of the physical printable media : 0xe3 (227)
+  Ym offset of the physical printable media : 0xe3 (227)
+  Xm extent of the physical printable media : 0x2cbc (11452)
+  Ym extent of the physical printable media : 0x4000 (16384)
+  Input media source characteristic flags   : 0xd200
+
+    Media ID type  : 0x10 (MO:DCA media type OID)
+    Input media ID : 06072B120004030100 (ISO A4 white (210 x 297 mm))
+
+Printable Area
+  Media Source ID                           : 0x40 (64)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x185c (6236)
+  Actual medium presentation space length   : 0x30b8 (12472)
+  Xm offset of the physical printable media : 0xe3 (227)
+  Ym offset of the physical printable media : 0xe3 (227)
+  Xm extent of the physical printable media : 0x2ef2 (12018)
+  Ym extent of the physical printable media : 0x1696 (5782)
+  Input media source characteristic flags   : 0x5600
+
+    Media ID type  : 0x00 (user defined)
+    Input media ID : D48195A481936DC595A5 (Manual_Env)
+
+IM-Image and Coded-Font Resolution
+  Unit Base            : 0x00
+  Font Resolutions     : 0xff
+  X pels per unit base : 0x1770 (6000)
+  Y pels per unit base : 0x1770 (6000)
+
+Storage Pools
+
+  Entry ID        : 0x01
+  Storage pool ID : 0x01
+  Size in Bytes   : 0x01
+    Object ID : 0x11 (Page graphics data)
+    Object ID : 0x12 (Page image data)
+    Object ID : 0x13 (Page text data)
+    Object ID : 0x14 (Page bar code data)
+    Object ID : 0x21 (Overlay graphics data)
+    Object ID : 0x22 (Overlay image data)
+    Object ID : 0x23 (Overlay text data)
+    Object ID : 0x24 (Overlay bar code data)
+    Object ID : 0x31 (Page segment graphics data)
+    Object ID : 0x32 (Page segment image data)
+    Object ID : 0x33 (Page segment text data)
+    Object ID : 0x34 (Page segment bar code data)
+    Object ID : 0x40 (Single-byte coded-font index tables)
+    Object ID : 0x41 (Single-byte coded-font descriptors)
+    Object ID : 0x42 (Single-byte coded-font patterns)
+    Object ID : 0x48 (Double-byte coded-font index tables)
+    Object ID : 0x49 (Double-byte coded-font descriptors)
+    Object ID : 0x4a (Double-byte coded-font patterns)
+    Object ID : 0x50 (Code pages)
+    Object ID : 0x60 (Font character sets)
+    Object ID : 0x70 (Coded fonts)
+
+Standard OCA Color Value
+  OCA color value : 0x01 (Blue)
+  OCA color value : 0x02 (Red)
+  OCA color value : 0x03 (Pink/magenta)
+  OCA color value : 0x04 (Green)
+  OCA color value : 0x05 (Turquoise/cyan)
+  OCA color value : 0x06 (Yellow)
+  OCA color value : 0x08 (Black)
+  OCA color value : 0x09 (Dark blue)
+  OCA color value : 0x0a (Orange)
+  OCA color value : 0x0b (Purple)
+  OCA color value : 0x0c (Dark green)
+  OCA color value : 0x0d (Dark turquoise)
+  OCA color value : 0x0e (Mustard)
+  OCA color value : 0x0f (Gray)
+  OCA color value : 0x10 (Brown)
+
+Installed Features
+  Feature ID : 0x0300 (Cut-sheet output)
+  Feature ID : 0x0600 (Offset stacker)
+  Feature ID : 0x0100 (Duplex)
+  Feature ID : 0x0700 (Envelopes)
+
+Available Features
+  Feature ID : 0x0300 (Cut-sheet output)
+  Feature ID : 0x0600 (Offset stacker)
+  Feature ID : 0x0100 (Duplex)
+  Feature ID : 0x0700 (Envelopes)
+
+Print Quality
+  Boundary : 0x01 (1)
+  Boundary : 0x56 (86)
+  Boundary : 0xab (171)
+
+XOA-RRL RT & RIDF Support
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x02 (Double-byte LF1-type coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x02 (Double-byte LF1-type coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x03 (Double-byte LF1-type coded-font section)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x04 (Page segment)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x05 (Overlay)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x06 (Device-version code page)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x06 (Device-version code page)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x07 (Font character set)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x07 (Font character set)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x08 (Single-byte coded font index)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x09 (Double-byte coded font section index)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x11 (Graphic character set supported in a font character set)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x12 (Specific code page)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x12 (Specific code page)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x40 (Data object resource)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x40 (Data object resource)
+  Resource ID format : 0x09 (Object-OID format)
+
+  Resource type      : 0x41 (Data-object font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x42 (Data-object-font components)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x42 (Data-object-font components)
+  Resource ID format : 0x09 (Object-OID format)
+
+  Resource type      : 0xff (All-resources resource type)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+Activate Resource
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x06 (MVS Host Unalterable Remote Font Environment)
+
+  Resource type      : 0x03 (Double-byte LF1-type coded-font section)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x03 (Double-byte LF1-type coded-font section)
+  Resource ID format : 0x06 (MVS Host Unalterable Remote Font Environment)
+
+  Resource type      : 0x06 (Device-version code page)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x07 (Font character set)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x08 (Single-byte coded font index)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x08 (Single-byte coded font index)
+  Resource ID format : 0x06 (MVS Host Unalterable Remote Font Environment)
+
+  Resource type      : 0x09 (Double-byte coded font section index)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x09 (Double-byte coded font section index)
+  Resource ID format : 0x06 (MVS Host Unalterable Remote Font Environment)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x07 (Coded-font format)
+
+  Resource type      : 0x40 (Data object resource)
+  Resource ID format : 0x09 (Object-OID format)
+
+  Resource type      : 0x41 (Data-object font)
+  Resource ID format : 0x0a (Data-object-font format)
+
+  Resource type      : 0x42 (Data-object-font components)
+  Resource ID format : 0x09 (Object-OID format)
+
+Common Bar Code Type
+  Combination : 0x0d (Codabar, modifier-byte options X'01' and X'02')
+  Combination : 0x11 (Code 128, modifier-byte option X'02')
+  Combination : 0x18 (POSTNET (deprecated), modifier-byte options X'00' through X'03')
+  Combination : 0x1a (RM4SCC, modifier-byte option X'00')
+  Combination : 0x1b (Japan Postal Bar Code, modifier-byte options X'00' and X'01')
+  Combination : 0x21 (Code 93, modifier-byte option X'00')
+  Combination : 0x22 (Intelligent Mail Barcode, modifier-byte options X'00' through X'03')
+  Combination : 0x1c (Data Matrix, modifier-byte option X'00')
+  Combination : 0x1d (MaxiCode, modifier-byte option X'00')
+  Combination : 0x1e (PDF417, modifier-byte options X'00' and X'01')
+  Combination : 0x20 (QR Code, modifier-byte option X'02')
+  Combination : 0x1f (Australia Post Bar Code, modifier-byte options X'01' through X'08')
+  Combination : 0x86 (UPC-Two-digit Supplemental, modifier-byte options X'01' and X'02')
+  Combination : 0x87 (UPC_Five-digit Supplemental, modifier-byte options X'01' and X'02')
+  Combination : 0x8c (Interleaved 2-of-5, modifier-byte options X'03' and X'04')
+  Combination : 0x91 (Code 128, modifier-byte option X'03')
+  Combination : 0x92 (Code 128, modifier-byte option X'04')
+  Combination : 0x93 (Code 128 (Intelligent Mail Container Barcode), modifier-byte option X'05')
+  Combination : 0x96 (EAN Two-digit Supplemental, modifier-byte option X'01')
+  Combination : 0x97 (EAN Five-digit Supplemental, modifier-byte option X'01')
+  Combination : 0x98 (POSTNET (PLANET, deprecated), modifier-byte option X'04')
+  Combination : 0x9a (RM4SCC, modifier-byte option X'01')
+
+Media Destinations
+  Default ID : 0x01 (1)
+
+    First ID : 0x01 (1)
+    Last ID  : 0x01 (1)
+
+Supported Group Operations
+  Operation : 0x01 (Keep group together as a print unit)
+
+Product Identifier
+
+  Parameter ID : 0x01 (Unique Product Identifier)
+  Parameter value : F0F0F4F0F6F3F0F0F0D3E7D20000F4F0F6F3F3F6F9F9F0C4F3F00000F0F5F0F0F0F1F0F1F1C27AD3E6F14BC4D5F44BD7F1F2F58140
+    Device type              : 004063
+    Model number             : 000
+    Manufacturer             : LXK
+    Sequence number          : 406336990D30
+    Tag                      : 0x00
+    Engineering change level : 050001011
+    Device-specific information : C27AD3E6F14BC4D5F44BD7F1F2F58140
+
+  Parameter ID : 0x03 (Printer name)
+  Parameter value : D385A79481999240D4F5F1F6F3
+    Printer name : Lexmark M5163
+
+Object Container Type
+
+  Type : 0x02 (Home state)
+    MO:DCA-registered object ID : 06072B12000401011700000000000000 (AFPC JPEG Subset)
+    MO:DCA-registered object ID : 06072B12000401013300000000000000 (TrueType/OpenType Font)
+    MO:DCA-registered object ID : 06072B12000401013500000000000000 (TrueType/OpenType Font Collection)
+    MO:DCA-registered object ID : 06072B12000401012F00000000000000 (IOCA FS45 Tile Resource)
+    MO:DCA-registered object ID : 06072B12000401011600000000000000 (GIF)
+    MO:DCA-registered object ID : 06072B12000401010E00000000000000 (TIFF)
+    MO:DCA-registered object ID : 06072B12000401013D00000000000000 (TIFF Multiple Image File)
+    MO:DCA-registered object ID : 06072B12000401013C00000000000000 (TIFF without Transparency)
+    MO:DCA-registered object ID : 06072B12000401013E00000000000000 (TIFF Multiple Image - without Transparency - File)
+    MO:DCA-registered object ID : 06072B12000401014200000000000000 (AFPC TIFF Subset)
+    MO:DCA-registered object ID : 06072B12000401010D00000000000000 (EPS)
+    MO:DCA-registered object ID : 06072B12000401013000000000000000 (EPS with Transparency)
+    MO:DCA-registered object ID : 06072B12000401011400000000000000 (Color Mapping Table (CMT))
+
+  Type : 0x01 (Page or overlay state)
+    MO:DCA-registered object ID : 06072B12000401011700000000000000 (AFPC JPEG Subset)
+    MO:DCA-registered object ID : 06072B12000401011600000000000000 (GIF)
+    MO:DCA-registered object ID : 06072B12000401010E00000000000000 (TIFF)
+    MO:DCA-registered object ID : 06072B12000401013D00000000000000 (TIFF Multiple Image File)
+    MO:DCA-registered object ID : 06072B12000401013C00000000000000 (TIFF without Transparency)
+    MO:DCA-registered object ID : 06072B12000401013E00000000000000 (TIFF Multiple Image - without Transparency - File)
+    MO:DCA-registered object ID : 06072B12000401014200000000000000 (AFPC TIFF Subset)
+    MO:DCA-registered object ID : 06072B12000401010D00000000000000 (EPS)
+    MO:DCA-registered object ID : 06072B12000401013000000000000000 (EPS with Transparency)
+
+PFC Triplets
+  Triplet ID : 0x75 (Color Fidelity)
+  Triplet ID : 0x86 (Text Fidelity)
+  Triplet ID : 0x88 (Finishing Fidelity)
+  Triplet ID : 0x96 (CMR Tag Fidelity)
