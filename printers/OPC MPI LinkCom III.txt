@@ -1,0 +1,130 @@
+Printer Characteristics from XOH-OPC command
+--------------------------------------------------------------------------------
+Printable Area
+  Media Source ID                           : 0x00 (0)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x2e80 (11904)
+  Actual medium presentation space length   : 0x41c1 (16833)
+  Xm offset of the physical printable media : 0xe6 (230)
+  Ym offset of the physical printable media : 0xe6 (230)
+  Xm extent of the physical printable media : 0x2cb4 (11444)
+  Ym extent of the physical printable media : 0x3ff5 (16373)
+  Input media source characteristic flags   : 0x5000
+
+Printable Area
+  Media Source ID                           : 0x01 (1)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x2e80 (11904)
+  Actual medium presentation space length   : 0x41c1 (16833)
+  Xm offset of the physical printable media : 0xe6 (230)
+  Ym offset of the physical printable media : 0xe6 (230)
+  Xm extent of the physical printable media : 0x2cb4 (11444)
+  Ym extent of the physical printable media : 0x3ff5 (16373)
+  Input media source characteristic flags   : 0x5000
+
+Printable Area
+  Media Source ID                           : 0x40 (64)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x30b6 (12470)
+  Actual medium presentation space length   : 0x185b (6235)
+  Xm offset of the physical printable media : 0xe6 (230)
+  Ym offset of the physical printable media : 0xe6 (230)
+  Xm extent of the physical printable media : 0x2eea (12010)
+  Ym extent of the physical printable media : 0x168f (5775)
+  Input media source characteristic flags   : 0x5400
+
+Printable Area
+  Media Source ID                           : 0x63 (99)
+  Unit Base                                 : 0x00
+  Units per unit base                       : 0x3840 (14400)
+  Actual medium presentation space width    : 0x2e80 (11904)
+  Actual medium presentation space length   : 0x41c1 (16833)
+  Xm offset of the physical printable media : 0xe6 (230)
+  Ym offset of the physical printable media : 0xe6 (230)
+  Xm extent of the physical printable media : 0x2cb4 (11444)
+  Ym extent of the physical printable media : 0x3ff5 (16373)
+  Input media source characteristic flags   : 0x5200
+
+IM-Image and Coded-Font Resolution
+  Unit Base            : 0x00
+  Font Resolutions     : 0x00
+  X pels per unit base : 0x0bb8 (3000)
+  Y pels per unit base : 0x0bb8 (3000)
+
+Storage Pools
+
+  Entry ID        : 0x01
+  Storage pool ID : 0x01
+  Size in Bytes   : 2097152
+
+Installed Features
+  Feature ID : 0x0300 (Cut-sheet output)
+  Feature ID : 0x0700 (Envelopes)
+
+Available Features
+  Feature ID : 0x0300 (Cut-sheet output)
+  Feature ID : 0x0700 (Envelopes)
+
+XOA-RRL RT & RIDF Support
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x04 (Page segment)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x05 (Overlay)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x06 (Device-version code page)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x07 (Font character set)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x08 (Single-byte coded font index)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x00 (Host-Assigned Resource ID)
+
+  Resource type      : 0x10 (Coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+Activate Resource
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x01 (Single-byte LF1-type and LF2-type coded font)
+  Resource ID format : 0x06 (MVS Host Unalterable Remote Font Environment)
+
+  Resource type      : 0x08 (Single-byte coded font index)
+  Resource ID format : 0x03 (GRID-parts format)
+
+  Resource type      : 0x08 (Single-byte coded font index)
+  Resource ID format : 0x06 (MVS Host Unalterable Remote Font Environment)
+
+Common Bar Code Type
+  Combination : 0x0d (Codabar, modifier-byte options X'01' and X'02')
+  Combination : 0x11 (Code 128, modifier-byte option X'02')
+  Combination : 0x18 (POSTNET (deprecated), modifier-byte options X'00' through X'03')
+  Combination : 0x1a (RM4SCC, modifier-byte option X'00')
+  Combination : 0x1f (Australia Post Bar Code, modifier-byte options X'01' through X'08')
+  Combination : 0x1b (Japan Postal Bar Code, modifier-byte options X'00' and X'01')
+  Combination : 0x22 (Intelligent Mail Barcode, modifier-byte options X'00' through X'03')
+  Combination : 0x1e (PDF417, modifier-byte options X'00' and X'01')
+  Combination : 0x1d (MaxiCode, modifier-byte option X'00')
+  Combination : 0x1c (Data Matrix, modifier-byte option X'00')
+  Combination : 0x20 (QR Code, modifier-byte option X'02')
+  Combination : 0x98 (POSTNET (PLANET, deprecated), modifier-byte option X'04')
+
+Supported Group Operations
+  Operation : 0x01 (Keep group together as a print unit)
+  Operation : 0x05 (Identify named group)
