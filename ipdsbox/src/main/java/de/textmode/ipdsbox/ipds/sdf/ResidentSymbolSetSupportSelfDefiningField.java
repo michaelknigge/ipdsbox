@@ -91,14 +91,14 @@ public final class ResidentSymbolSetSupportSelfDefiningField extends SelfDefinin
     /**
      * Returns a list containing all supported Resident Symbol-Sets.
      */
-    public List<ResidentSymbolSet> getMediumModificationIds() {
+    public List<ResidentSymbolSet> getResidentSymbolSets() {
         return this.residentSymbolSets;
     }
 
     /**
      * Sets a list containing all supported Resident Symbol-Sets.
      */
-    public void setMediumModificationIds(final List<ResidentSymbolSet> residentSymbolSets) {
+    public void setResidentSymbolSets(final List<ResidentSymbolSet> residentSymbolSets) {
         this.residentSymbolSets = residentSymbolSets;
     }
 

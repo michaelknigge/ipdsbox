@@ -13,7 +13,7 @@ import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefiningField {
 
     private int ripXpels;
-    private int rinYpels;
+    private int ripYpels;
     private int printHeadXpels;
     private int printHeadYpels;
 
@@ -24,7 +24,7 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
         super(SelfDefiningFieldId.SupportedDeviceResolutions);
 
         this.ripXpels = 01;
-        this.rinYpels = 0x01;
+        this.ripYpels = 0x01;
         this.printHeadXpels = 0x01;
         this.printHeadYpels = 0x01;
     }
@@ -37,7 +37,7 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
         super(SelfDefiningFieldId.SupportedDeviceResolutions);
 
         this.ripXpels = ipds.readUnsignedInteger16();
-        this.rinYpels = ipds.readUnsignedInteger16();
+        this.ripYpels = ipds.readUnsignedInteger16();
         this.printHeadXpels = ipds.readUnsignedInteger16();
         this.printHeadYpels = ipds.readUnsignedInteger16();
     }
@@ -51,7 +51,7 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
         ipds.writeUnsignedInteger16(SelfDefiningFieldId.SupportedDeviceResolutions.getId());
 
         ipds.writeUnsignedInteger16(this.ripXpels);
-        ipds.writeUnsignedInteger16(this.rinYpels);
+        ipds.writeUnsignedInteger16(this.ripYpels);
         ipds.writeUnsignedInteger16(this.printHeadXpels);
         ipds.writeUnsignedInteger16(this.printHeadYpels);
     }
@@ -76,16 +76,16 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
      * Returns the resolution to which sheet-side data is RIPped for pels per inch
      * in the direction of the media path.
      */
-    public int getRinYpels() {
-        return this.rinYpels;
+    public int getRipYpels() {
+        return this.ripYpels;
     }
 
     /**
      * Sets the resolution to which sheet-side data is RIPped for pels per inch
      * in the direction of the media path.
      */
-    public void setRinYpels(final int rinYpels) {
-        this.rinYpels = rinYpels;
+    public void setRipYpels(final int ripYpels) {
+        this.ripYpels = ripYpels;
     }
 
     /**
@@ -128,7 +128,7 @@ public final class SupportedDeviceResolutionsSelfDefiningField extends SelfDefin
     public String toString() {
         return "SupportedDeviceResolutionsSelfDefiningField{"
                 + "ripXpels=0x" + Integer.toHexString(this.ripXpels)
-                + ", rinYpels=0x" + Integer.toHexString(this.rinYpels)
+                + ", rinYpels=0x" + Integer.toHexString(this.ripYpels)
                 + ", printHeadXpels=0x" + Integer.toHexString(this.printHeadXpels)
                 + ", printHeadYpels=0x" + Integer.toHexString(this.printHeadYpels)
                 + '}';

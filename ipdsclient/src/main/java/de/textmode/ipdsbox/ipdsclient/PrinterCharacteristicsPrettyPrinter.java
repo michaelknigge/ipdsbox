@@ -386,6 +386,477 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
         FINISHING_OPERATIONS.put(Integer.valueOf(0x32), "Single gate-fold out");
     }
 
+    private static final HashMap<Integer, String> GROUP_ID_FORMATS = new HashMap<>();
+
+    static {
+        GROUP_ID_FORMATS.put(Integer.valueOf(0x01), "MVS and VSE print-data format");
+        GROUP_ID_FORMATS.put(Integer.valueOf(0x02), "VM print-data format");
+        GROUP_ID_FORMATS.put(Integer.valueOf(0x03), "OS/400 print-data format");
+        GROUP_ID_FORMATS.put(Integer.valueOf(0x04), "MVS and VSE COM-data format");
+        GROUP_ID_FORMATS.put(Integer.valueOf(0x05), "AIX and OS/2 COM-data format");
+        GROUP_ID_FORMATS.put(Integer.valueOf(0x06), "AIX and Windows print-data");
+        GROUP_ID_FORMATS.put(Integer.valueOf(0x08), "Variable-length Group ID format");
+        GROUP_ID_FORMATS.put(Integer.valueOf(0x13), "Extended OS/400 print-data format");
+    }
+
+    private static final HashMap<Integer, String> CPGIDS = new HashMap<>();
+
+    static {
+        CPGIDS.put(Integer.valueOf(37), "USA/Canada - CECP");
+        CPGIDS.put(Integer.valueOf(256), "International #1");
+        CPGIDS.put(Integer.valueOf(259), "Symbols, Set 7");
+        CPGIDS.put(Integer.valueOf(273), "Germany F.R./Austria - CECP");
+        CPGIDS.put(Integer.valueOf(274), "Old Belgium Code Page");
+        CPGIDS.put(Integer.valueOf(275), "Brazil - CECP");
+        CPGIDS.put(Integer.valueOf(276), "Canada (French) - 94");
+        CPGIDS.put(Integer.valueOf(277), "Denmark, Norway - CECP");
+        CPGIDS.put(Integer.valueOf(278), "Finland, Sweden - CECP");
+        CPGIDS.put(Integer.valueOf(280), "Italy - CECP");
+        CPGIDS.put(Integer.valueOf(281), "Japan (Latin) - CECP");
+        CPGIDS.put(Integer.valueOf(282), "Portugal - CECP");
+        CPGIDS.put(Integer.valueOf(284), "Spain/Latin America - CECP");
+        CPGIDS.put(Integer.valueOf(285), "United Kingdom - CECP");
+        CPGIDS.put(Integer.valueOf(286), "Austria/Germany F.R., Alternate (3270)");
+        CPGIDS.put(Integer.valueOf(290), "Japanese (Katakana) Extended");
+        CPGIDS.put(Integer.valueOf(293), "APL (USA)");
+        CPGIDS.put(Integer.valueOf(297), "France - CECP");
+        CPGIDS.put(Integer.valueOf(300), "Japan (Kanji) - Host, DBCS");
+        CPGIDS.put(Integer.valueOf(301), "Japan (Kanji) - PC, DBCS");
+        CPGIDS.put(Integer.valueOf(310), "Graphic Escape APL/TN");
+        CPGIDS.put(Integer.valueOf(367), "ASCII");
+        CPGIDS.put(Integer.valueOf(420), "Arabic Bilingual");
+        CPGIDS.put(Integer.valueOf(421), "Maghreb/French");
+        CPGIDS.put(Integer.valueOf(423), "Greece - 183");
+        CPGIDS.put(Integer.valueOf(424), "Israel (Hebrew)");
+        CPGIDS.put(Integer.valueOf(425), "Arabic/Latin for OS/390 Open Edition");
+        CPGIDS.put(Integer.valueOf(437), "Personal Computer");
+        CPGIDS.put(Integer.valueOf(500), "International #5");
+        CPGIDS.put(Integer.valueOf(720), "MS DOS Arabic (Transparent ASMO)");
+        CPGIDS.put(Integer.valueOf(737), "MS DOS Greek");
+        CPGIDS.put(Integer.valueOf(775), "MS DOS Baltic Rim");
+        CPGIDS.put(Integer.valueOf(803), "Hebrew Character Set A");
+        CPGIDS.put(Integer.valueOf(806), "PC Indian Script Code (ISCII-91)");
+        CPGIDS.put(Integer.valueOf(808), "PC Data, Cyrillic, Russian with euro");
+        CPGIDS.put(Integer.valueOf(813), "Greece ISO 8859-7");
+        CPGIDS.put(Integer.valueOf(819), "ISO/ANSI Multilingual");
+        CPGIDS.put(Integer.valueOf(833), "Korean Extended");
+        CPGIDS.put(Integer.valueOf(834), "Korean Hangul - Host, DBCS with UDCs");
+        CPGIDS.put(Integer.valueOf(835), "Traditional Chinese DBCS - Host");
+        CPGIDS.put(Integer.valueOf(836), "Simplified Chinese Extended");
+        CPGIDS.put(Integer.valueOf(837), "Simplified Chinese DBCS-HOST");
+        CPGIDS.put(Integer.valueOf(838), "Thai with Low Tone Marks & Ancient Characters");
+        CPGIDS.put(Integer.valueOf(848), "PC, Cyrillic, Ukrainian with euro");
+        CPGIDS.put(Integer.valueOf(849), "PC Data, Cyrillic, Belorussian with euro");
+        CPGIDS.put(Integer.valueOf(850), "Personal Computer - Multilingual Page");
+        CPGIDS.put(Integer.valueOf(851), "Greece - Personal Computer");
+        CPGIDS.put(Integer.valueOf(852), "Latin 2 - Personal Computer");
+        CPGIDS.put(Integer.valueOf(853), "Latin 3 - Personal Computer");
+        CPGIDS.put(Integer.valueOf(855), "Cyrillic - Personal Computer");
+        CPGIDS.put(Integer.valueOf(856), "Hebrew - Personal Computer");
+        CPGIDS.put(Integer.valueOf(857), "Latin #5, Turkey - Personal Computer");
+        CPGIDS.put(Integer.valueOf(858), "Personal Computer - Multilingual with euro");
+        CPGIDS.put(Integer.valueOf(859), "PC Latin 9");
+        CPGIDS.put(Integer.valueOf(860), "Portugal - Personal Computer");
+        CPGIDS.put(Integer.valueOf(861), "Iceland - Personal Computer");
+        CPGIDS.put(Integer.valueOf(862), "Israel - Personal Computer");
+        CPGIDS.put(Integer.valueOf(863), "Canadian French - Personal Computer");
+        CPGIDS.put(Integer.valueOf(864), "Arabic - Personal Computer");
+        CPGIDS.put(Integer.valueOf(865), "Nordic - Personal Computer");
+        CPGIDS.put(Integer.valueOf(866), "PC Data, Cyrillic, Russian");
+        CPGIDS.put(Integer.valueOf(867), "Israel - Personal Computer");
+        CPGIDS.put(Integer.valueOf(868), "Urdu - Personal Computer");
+        CPGIDS.put(Integer.valueOf(869), "Greece - Personal Computer");
+        CPGIDS.put(Integer.valueOf(870), "Latin 2 - EBCDIC Multilingual");
+        CPGIDS.put(Integer.valueOf(871), "Iceland - CECP");
+        CPGIDS.put(Integer.valueOf(872), "Cyrillic - PC with euro");
+        CPGIDS.put(Integer.valueOf(874), "Thai with Low Tone Marks & Ancient Chars - PC");
+        CPGIDS.put(Integer.valueOf(875), "Greece");
+        CPGIDS.put(Integer.valueOf(878), "Russian internet koi8-r");
+        CPGIDS.put(Integer.valueOf(880), "Cyrillic, Multilingual");
+        CPGIDS.put(Integer.valueOf(891), "Korea - Personal Computer");
+        CPGIDS.put(Integer.valueOf(892), "EBCDIC, OCR A");
+        CPGIDS.put(Integer.valueOf(893), "EBCDIC, OCR B");
+        CPGIDS.put(Integer.valueOf(895), "Japan 7-Bit Latin");
+        CPGIDS.put(Integer.valueOf(896), "Japan 7-Bit Katakana Extended");
+        CPGIDS.put(Integer.valueOf(897), "Japan PC #1");
+        CPGIDS.put(Integer.valueOf(899), "Symbol - Personal Computer");
+        CPGIDS.put(Integer.valueOf(901), "PC Baltic Multi with Euro");
+        CPGIDS.put(Integer.valueOf(902), "8-bit Estonia with Euro");
+        CPGIDS.put(Integer.valueOf(903), "People's Republic of China (PRC)-PC");
+        CPGIDS.put(Integer.valueOf(904), "Taiwan - Personal Computer");
+        CPGIDS.put(Integer.valueOf(905), "Latin 3 - EBCDIC");
+        CPGIDS.put(Integer.valueOf(912), "Latin 2 - ISO");
+        CPGIDS.put(Integer.valueOf(913), "Latin 3 - ISO");
+        CPGIDS.put(Integer.valueOf(914), "Latin 4");
+        CPGIDS.put(Integer.valueOf(915), "Cyrillic, 8-Bit");
+        CPGIDS.put(Integer.valueOf(916), "Hebrew (Latin)");
+        CPGIDS.put(Integer.valueOf(918), "Urdu Bilingual");
+        CPGIDS.put(Integer.valueOf(920), "Latin #5 - Turkey");
+        CPGIDS.put(Integer.valueOf(921), "Baltic - Multilingual, superset of ISO 8859-13");
+        CPGIDS.put(Integer.valueOf(922), "Estonia, similar to ISO 8859-1");
+        CPGIDS.put(Integer.valueOf(923), "Latin 9");
+        CPGIDS.put(Integer.valueOf(924), "Latin 9 EBCDIC");
+        CPGIDS.put(Integer.valueOf(926), "Korean PC Data Double-Byte incl. 1880 UDC");
+        CPGIDS.put(Integer.valueOf(927), "T-Ch PC Data Double-Byte incl. 6204 UDC");
+        CPGIDS.put(Integer.valueOf(928), "S-Ch PC Data Double-Byte incl. 1880 UDC");
+        CPGIDS.put(Integer.valueOf(941), "Japanese DBCS PC for Open environment");
+        CPGIDS.put(Integer.valueOf(947), "Pure DBCS for Big-5");
+        CPGIDS.put(Integer.valueOf(951), "Korean DBCS-PC (10104 characters)");
+        CPGIDS.put(Integer.valueOf(952), "Japanese EUC for JIS X 0208 including 83 NEC selected chars + 940 UDC");
+        CPGIDS.put(Integer.valueOf(953), "Japanese EUC for JIS X 0212 + IBM Select + UDC");
+        CPGIDS.put(Integer.valueOf(955), "Japanese TCP, JIS X0208-1978");
+        CPGIDS.put(Integer.valueOf(960), "Traditional Chinese DBCS-EUC SICGCC Primary set (1st plane)");
+        CPGIDS.put(Integer.valueOf(961), "Traditional Chinese TBCS-EUC SICGCC Full set + IBM Select + UDC");
+        CPGIDS.put(Integer.valueOf(963), "T-Ch TCP, CNS 11643 plane 2 only");
+        CPGIDS.put(Integer.valueOf(971), "Korean EUC, DBCS EUC (G1, KSC 5601)");
+        CPGIDS.put(Integer.valueOf(1002), "DCF Release 2 Compatibility");
+        CPGIDS.put(Integer.valueOf(1004), "Latin-1 Extended, Desk Top Publishing/Windows");
+        CPGIDS.put(Integer.valueOf(1006), "Urdu, 8-Bit");
+        CPGIDS.put(Integer.valueOf(1008), "Arabic 8-Bit ISO/ASCII");
+        CPGIDS.put(Integer.valueOf(1009), "ISO IRV");
+        CPGIDS.put(Integer.valueOf(1010), "7-Bit France");
+        CPGIDS.put(Integer.valueOf(1011), "7-Bit Germany F.R.");
+        CPGIDS.put(Integer.valueOf(1012), "7-Bit Italy");
+        CPGIDS.put(Integer.valueOf(1013), "7-Bit United Kingdom");
+        CPGIDS.put(Integer.valueOf(1014), "7-Bit Spain");
+        CPGIDS.put(Integer.valueOf(1015), "7-Bit Portugal");
+        CPGIDS.put(Integer.valueOf(1016), "7-Bit Norway");
+        CPGIDS.put(Integer.valueOf(1017), "7-Bit Denmark");
+        CPGIDS.put(Integer.valueOf(1018), "7-Bit Finland/Sweden");
+        CPGIDS.put(Integer.valueOf(1019), "7-Bit Netherlands");
+        CPGIDS.put(Integer.valueOf(1020), "Canadian (French) Variant");
+        CPGIDS.put(Integer.valueOf(1021), "Switzerland Variant");
+        CPGIDS.put(Integer.valueOf(1023), "Spain Variant");
+        CPGIDS.put(Integer.valueOf(1025), "Cyrillic, Multilingual");
+        CPGIDS.put(Integer.valueOf(1026), "Latin #5 - Turkey");
+        CPGIDS.put(Integer.valueOf(1027), "Japanese (Latin) Extended");
+        CPGIDS.put(Integer.valueOf(1040), "Korean Extended - Personal Computer");
+        CPGIDS.put(Integer.valueOf(1041), "Japanese Extended - Personal Computer");
+        CPGIDS.put(Integer.valueOf(1042), "Simplified Chinese Extended - PC");
+        CPGIDS.put(Integer.valueOf(1043), "Traditional Chinese Extended - PC");
+        CPGIDS.put(Integer.valueOf(1046), "Arabic Extended-Euro");
+        CPGIDS.put(Integer.valueOf(1047), "Latin 1/Open Systems");
+        CPGIDS.put(Integer.valueOf(1051), "H-P Emulation, Roman 8");
+        CPGIDS.put(Integer.valueOf(1070), "USA/Canada - CECP");
+        CPGIDS.put(Integer.valueOf(1079), "Spain/Latin America - CECP");
+        CPGIDS.put(Integer.valueOf(1081), "France - CECP");
+        CPGIDS.put(Integer.valueOf(1084), "International #5");
+        CPGIDS.put(Integer.valueOf(1088), "Revised Korean - Personal Computer");
+        CPGIDS.put(Integer.valueOf(1089), "Arabic Code Page, Data Storage & Interchange");
+        CPGIDS.put(Integer.valueOf(1097), "Farsi Bilingual - EBCDIC");
+        CPGIDS.put(Integer.valueOf(1098), "Farsi - Personal Computer");
+        CPGIDS.put(Integer.valueOf(1100), "Multinational Emulation");
+        CPGIDS.put(Integer.valueOf(1101), "British NRC Set");
+        CPGIDS.put(Integer.valueOf(1102), "Dutch NRC Set");
+        CPGIDS.put(Integer.valueOf(1103), "Finnish NRC Set");
+        CPGIDS.put(Integer.valueOf(1104), "French NRC Set");
+        CPGIDS.put(Integer.valueOf(1105), "Norwegian/Danish NRC Set");
+        CPGIDS.put(Integer.valueOf(1106), "Swedish NRC Set");
+        CPGIDS.put(Integer.valueOf(1107), "Norwegian/Danish NRC Alternate");
+        CPGIDS.put(Integer.valueOf(1112), "Baltic - Multilingual, EBCDIC");
+        CPGIDS.put(Integer.valueOf(1114), "Taiwan - Personal Computer");
+        CPGIDS.put(Integer.valueOf(1115), "People's Republic of China (PRC)-PC");
+        CPGIDS.put(Integer.valueOf(1122), "Estonia, EBCDIC");
+        CPGIDS.put(Integer.valueOf(1123), "Cyrillic, Ukraine");
+        CPGIDS.put(Integer.valueOf(1124), "Cyrillic, Ukraine");
+        CPGIDS.put(Integer.valueOf(1125), "PC, Cyrillic, Ukrainian");
+        CPGIDS.put(Integer.valueOf(1126), "Korean - Personal Computer for Windows");
+        CPGIDS.put(Integer.valueOf(1127), "Arabic/French - Personal Computer");
+        CPGIDS.put(Integer.valueOf(1129), "Vietnamese ISO-8");
+        CPGIDS.put(Integer.valueOf(1130), "Vietnamese EBCDIC");
+        CPGIDS.put(Integer.valueOf(1131), "PC Data, Cyrillic, Belorussian");
+        CPGIDS.put(Integer.valueOf(1132), "Lao EBCDIC");
+        CPGIDS.put(Integer.valueOf(1133), "Lao ISO-8");
+        CPGIDS.put(Integer.valueOf(1137), "Devanagari EBCDIC");
+        CPGIDS.put(Integer.valueOf(1140), "USA, Canada, etc. ECECP");
+        CPGIDS.put(Integer.valueOf(1141), "Austria, Germany ECECP");
+        CPGIDS.put(Integer.valueOf(1142), "Denmark, Norway ECECP");
+        CPGIDS.put(Integer.valueOf(1143), "Finland, Sweden ECECP");
+        CPGIDS.put(Integer.valueOf(1144), "Italy ECECP");
+        CPGIDS.put(Integer.valueOf(1145), "Spain, Latin America (Spanish) ECECP");
+        CPGIDS.put(Integer.valueOf(1146), "UK ECECP");
+        CPGIDS.put(Integer.valueOf(1147), "France ECECP");
+        CPGIDS.put(Integer.valueOf(1148), "International ECECP");
+        CPGIDS.put(Integer.valueOf(1149), "Iceland ECECP");
+        CPGIDS.put(Integer.valueOf(1153), "EBCDIC Latin 2 Multilingual with euro");
+        CPGIDS.put(Integer.valueOf(1154), "EBCDIC Cyrillic, Multilingual with euro");
+        CPGIDS.put(Integer.valueOf(1155), "EBCDIC Turkey with euro");
+        CPGIDS.put(Integer.valueOf(1156), "EBCDIC Baltic Multi with euro");
+        CPGIDS.put(Integer.valueOf(1157), "EBCDIC Estonia with euro");
+        CPGIDS.put(Integer.valueOf(1158), "EBCDIC Cyrillic, Ukraine with euro");
+        CPGIDS.put(Integer.valueOf(1159), "T-Chinese EBCDIC");
+        CPGIDS.put(Integer.valueOf(1160), "Thai with Low Tone Marks & Ancient Characters");
+        CPGIDS.put(Integer.valueOf(1161), "Thai with Low Tone Marks & Ancient Chars - PC");
+        CPGIDS.put(Integer.valueOf(1162), "Thai MS Windows");
+        CPGIDS.put(Integer.valueOf(1163), "Vietnamese ISO-8 with euro");
+        CPGIDS.put(Integer.valueOf(1164), "Vietnamese EBCDIC with euro");
+        CPGIDS.put(Integer.valueOf(1165), "Latin 2 EBCDIC/Open Systems");
+        CPGIDS.put(Integer.valueOf(1166), "EBCDIC Cyrillic, Multilingual with euro");
+        CPGIDS.put(Integer.valueOf(1167), "Belarusian/Ukrainian KOI8-RU");
+        CPGIDS.put(Integer.valueOf(1168), "Ukrainian KOI8-U");
+        CPGIDS.put(Integer.valueOf(1250), "Windows, Latin 2");
+        CPGIDS.put(Integer.valueOf(1251), "Windows, Cyrillic");
+        CPGIDS.put(Integer.valueOf(1252), "Windows, Latin 1");
+        CPGIDS.put(Integer.valueOf(1253), "Windows, Greek");
+        CPGIDS.put(Integer.valueOf(1254), "Windows, Turkish");
+        CPGIDS.put(Integer.valueOf(1255), "Windows, Hebrew");
+        CPGIDS.put(Integer.valueOf(1256), "Windows, Arabic");
+        CPGIDS.put(Integer.valueOf(1257), "Windows, Baltic Rim");
+        CPGIDS.put(Integer.valueOf(1258), "Windows, Vietnamese");
+        CPGIDS.put(Integer.valueOf(1275), "Apple, Latin 1");
+        CPGIDS.put(Integer.valueOf(1276), "Adobe (PostScript) Standard Encoding");
+        CPGIDS.put(Integer.valueOf(1277), "Adobe (PostScript) Latin 1");
+        CPGIDS.put(Integer.valueOf(1280), "Apple Greek");
+        CPGIDS.put(Integer.valueOf(1281), "Apple Turkish");
+        CPGIDS.put(Integer.valueOf(1282), "Apple Central European");
+        CPGIDS.put(Integer.valueOf(1283), "Apple Cyrillic");
+        CPGIDS.put(Integer.valueOf(1284), "Apple, Croatian");
+        CPGIDS.put(Integer.valueOf(1285), "Apple, Romanian");
+        CPGIDS.put(Integer.valueOf(1286), "Apple, Icelandic");
+        CPGIDS.put(Integer.valueOf(1287), "DEC Greek 8-Bit");
+        CPGIDS.put(Integer.valueOf(1288), "DEC Turkish 8-Bit");
+        CPGIDS.put(Integer.valueOf(1351), "DBCS-PC, including 940 HP UDCs, Japanese");
+        CPGIDS.put(Integer.valueOf(1362), "Korean Hangul - PC, DBCS with UDCs");
+        CPGIDS.put(Integer.valueOf(1372), "MS T-Chinese Big-5 (Special for DB2)");
+        CPGIDS.put(Integer.valueOf(1374), "DB Big-5 extension for HKSCS");
+        CPGIDS.put(Integer.valueOf(1376), "Traditional Chinese DBCS-Host extension for HKSCS");
+        CPGIDS.put(Integer.valueOf(1380), "Simplified Chinese GB PC-DATA");
+        CPGIDS.put(Integer.valueOf(1382), "Simplified Chinese EUC");
+        CPGIDS.put(Integer.valueOf(1385), "Simplified Chinese 2 Byte, growing CS for GB18030, also used for GBK PC-DATA");
+        CPGIDS.put(Integer.valueOf(1391), "Simplified Chinese 4 Byte, growing CS for GB18030");
+        CPGIDS.put(Integer.valueOf(1393), "Shift_JISX0213 DBCS");
+        CPGIDS.put(Integer.valueOf(1400), "ISO 10646 UCS-BMP (Based on Unicode V6.0)");
+        CPGIDS.put(Integer.valueOf(1401), "ISO 10646 UCS-SMP (Based on Unicode V6.0)");
+        CPGIDS.put(Integer.valueOf(1402), "ISO 10646 UCS-SIP (Based on Unicode V6.0)");
+        CPGIDS.put(Integer.valueOf(1414), "ISO 10646 UCS-SSP (Based on Unicode 4.0)");
+        CPGIDS.put(Integer.valueOf(1445), "IBM AFP PUA No. 1");
+        CPGIDS.put(Integer.valueOf(1446), "ISO 10646 UCS-PUP15 (Based on Unicode 4.0)");
+        CPGIDS.put(Integer.valueOf(1447), "ISO 10646 UCS-PUP16 (Based on Unicode 4.0)");
+        CPGIDS.put(Integer.valueOf(1448), "UCS-BMP (Generic UDC)");
+        CPGIDS.put(Integer.valueOf(1449), "IBM default PUA");
+        CPGIDS.put(Integer.valueOf(65520), "Empty Unicode Plane");
+    }
+
+    private static final HashMap<Integer, String> FGIDS = new HashMap<>();
+
+    static {
+        FGIDS.put(Integer.valueOf(2), "Delegate");
+        FGIDS.put(Integer.valueOf(3), "OCR-B");
+        FGIDS.put(Integer.valueOf(5), "Rhetoric/Orator");
+        FGIDS.put(Integer.valueOf(8), "Scribe/Symbol");
+        FGIDS.put(Integer.valueOf(10), "Cyrillic 22");
+        FGIDS.put(Integer.valueOf(11), "Courier");
+        FGIDS.put(Integer.valueOf(12), "Prestige");
+        FGIDS.put(Integer.valueOf(13), "Artisan");
+        FGIDS.put(Integer.valueOf(18), "Courier Italic");
+        FGIDS.put(Integer.valueOf(19), "OCR-A");
+        FGIDS.put(Integer.valueOf(20), "Pica");
+        FGIDS.put(Integer.valueOf(21), "Katakana");
+        FGIDS.put(Integer.valueOf(25), "Presentor");
+        FGIDS.put(Integer.valueOf(26), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(30), "Symbol");
+        FGIDS.put(Integer.valueOf(31), "Aviv");
+        FGIDS.put(Integer.valueOf(36), "Letter Gothic");
+        FGIDS.put(Integer.valueOf(38), "Orator Bold");
+        FGIDS.put(Integer.valueOf(39), "Gothic Bold");
+        FGIDS.put(Integer.valueOf(40), "Gothic");
+        FGIDS.put(Integer.valueOf(41), "Roman Text");
+        FGIDS.put(Integer.valueOf(42), "Serif");
+        FGIDS.put(Integer.valueOf(43), "Serif Italic");
+        FGIDS.put(Integer.valueOf(44), "Katakana Gothic");
+        FGIDS.put(Integer.valueOf(46), "Courier Bold");
+        FGIDS.put(Integer.valueOf(49), "Shalom");
+        FGIDS.put(Integer.valueOf(50), "Shalom Bold");
+        FGIDS.put(Integer.valueOf(51), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(52), "Courier");
+        FGIDS.put(Integer.valueOf(55), "Aviv Bold");
+        FGIDS.put(Integer.valueOf(61), "Naseem");
+        FGIDS.put(Integer.valueOf(62), "Naseem Italic");
+        FGIDS.put(Integer.valueOf(63), "Naseem Bold");
+        FGIDS.put(Integer.valueOf(64), "Naseem Italic Bold");
+        FGIDS.put(Integer.valueOf(66), "Gothic");
+        FGIDS.put(Integer.valueOf(68), "Gothic Italic");
+        FGIDS.put(Integer.valueOf(69), "Gothic Bold");
+        FGIDS.put(Integer.valueOf(70), "Serif");
+        FGIDS.put(Integer.valueOf(71), "Serif Italic");
+        FGIDS.put(Integer.valueOf(72), "Serif Bold");
+        FGIDS.put(Integer.valueOf(74), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(75), "Courier");
+        FGIDS.put(Integer.valueOf(76), "APL");
+        FGIDS.put(Integer.valueOf(78), "Katakana");
+        FGIDS.put(Integer.valueOf(80), "Symbol");
+        FGIDS.put(Integer.valueOf(84), "Script");
+        FGIDS.put(Integer.valueOf(85), "Courier");
+        FGIDS.put(Integer.valueOf(86), "Prestige");
+        FGIDS.put(Integer.valueOf(87), "Letter Gothic");
+        FGIDS.put(Integer.valueOf(91), "Light Italic");
+        FGIDS.put(Integer.valueOf(92), "Courier Italic");
+        FGIDS.put(Integer.valueOf(95), "Adjudant");
+        FGIDS.put(Integer.valueOf(96), "Old World");
+        FGIDS.put(Integer.valueOf(98), "Shalom");
+        FGIDS.put(Integer.valueOf(99), "Aviv");
+        FGIDS.put(Integer.valueOf(101), "Shalom Bold");
+        FGIDS.put(Integer.valueOf(102), "Aviv Bold");
+        FGIDS.put(Integer.valueOf(103), "Nasseem");
+        FGIDS.put(Integer.valueOf(109), "Letter Gothic Italic");
+        FGIDS.put(Integer.valueOf(110), "Letter Gothic Bold");
+        FGIDS.put(Integer.valueOf(111), "Prestige Bold");
+        FGIDS.put(Integer.valueOf(112), "Prestige Italic");
+        FGIDS.put(Integer.valueOf(154), "Essay");
+        FGIDS.put(Integer.valueOf(155), "Boldface Italic");
+        FGIDS.put(Integer.valueOf(157), "Title");
+        FGIDS.put(Integer.valueOf(158), "Modern");
+        FGIDS.put(Integer.valueOf(159), "Boldface");
+        FGIDS.put(Integer.valueOf(160), "Essay");
+        FGIDS.put(Integer.valueOf(162), "Essay Italic");
+        FGIDS.put(Integer.valueOf(163), "Essay Bold");
+        FGIDS.put(Integer.valueOf(164), "Prestige");
+        FGIDS.put(Integer.valueOf(167), "Barak");
+        FGIDS.put(Integer.valueOf(168), "Barak Bold");
+        FGIDS.put(Integer.valueOf(173), "Essay");
+        FGIDS.put(Integer.valueOf(174), "Gothic");
+        FGIDS.put(Integer.valueOf(175), "Document");
+        FGIDS.put(Integer.valueOf(178), "Barak");
+        FGIDS.put(Integer.valueOf(179), "Barak Bold");
+        FGIDS.put(Integer.valueOf(180), "Barak");
+        FGIDS.put(Integer.valueOf(181), "Barak Mixed Bold");
+        FGIDS.put(Integer.valueOf(182), "Barak");
+        FGIDS.put(Integer.valueOf(183), "Barak Bold");
+        FGIDS.put(Integer.valueOf(186), "Press Roman");
+        FGIDS.put(Integer.valueOf(187), "Press Roman Bold");
+        FGIDS.put(Integer.valueOf(188), "Press Roman Italic");
+        FGIDS.put(Integer.valueOf(189), "Press Roman Italic Bold");
+        FGIDS.put(Integer.valueOf(190), "Foundry");
+        FGIDS.put(Integer.valueOf(191), "Foundry Bold");
+        FGIDS.put(Integer.valueOf(194), "Foundry Italic");
+        FGIDS.put(Integer.valueOf(195), "Foundry Italic Bold");
+        FGIDS.put(Integer.valueOf(203), "Data 1");
+        FGIDS.put(Integer.valueOf(204), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(205), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(211), "Shalom");
+        FGIDS.put(Integer.valueOf(212), "Shalom Bold");
+        FGIDS.put(Integer.valueOf(221), "Prestige");
+        FGIDS.put(Integer.valueOf(222), "Gothic");
+        FGIDS.put(Integer.valueOf(223), "Courier");
+        FGIDS.put(Integer.valueOf(225), "Symbol");
+        FGIDS.put(Integer.valueOf(226), "Shalom");
+        FGIDS.put(Integer.valueOf(229), "Serif");
+        FGIDS.put(Integer.valueOf(230), "Gothic");
+        FGIDS.put(Integer.valueOf(232), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(233), "Matrix Courier");
+        FGIDS.put(Integer.valueOf(234), "Shalom Bold");
+        FGIDS.put(Integer.valueOf(244), "Courier Double Wide");
+        FGIDS.put(Integer.valueOf(245), "Courier Bold Double Wide");
+        FGIDS.put(Integer.valueOf(247), "Shalom Bold");
+        FGIDS.put(Integer.valueOf(248), "Shalom");
+        FGIDS.put(Integer.valueOf(249), "Katakana");
+        FGIDS.put(Integer.valueOf(252), "Courier");
+        FGIDS.put(Integer.valueOf(253), "Courier Bold");
+        FGIDS.put(Integer.valueOf(254), "Courier");
+        FGIDS.put(Integer.valueOf(255), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(256), "Prestige");
+        FGIDS.put(Integer.valueOf(258), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(259), "Matrix Gothic");
+        FGIDS.put(Integer.valueOf(279), "Nasseem");
+        FGIDS.put(Integer.valueOf(281), "Gothic Text");
+        FGIDS.put(Integer.valueOf(282), "Aviv");
+        FGIDS.put(Integer.valueOf(283), "Letter Gothic");
+        FGIDS.put(Integer.valueOf(285), "Letter Gothic");
+        FGIDS.put(Integer.valueOf(290), "Gothic Text");
+        FGIDS.put(Integer.valueOf(300), "Gothic");
+        FGIDS.put(Integer.valueOf(304), "Gothic Text");
+        FGIDS.put(Integer.valueOf(305), "OCR-A");
+        FGIDS.put(Integer.valueOf(306), "OCR-B");
+        FGIDS.put(Integer.valueOf(307), "APL");
+        FGIDS.put(Integer.valueOf(318), "Prestige Bold");
+        FGIDS.put(Integer.valueOf(319), "Prestige Italic");
+        FGIDS.put(Integer.valueOf(322), "APL Bold");
+        FGIDS.put(Integer.valueOf(400), "Gothic");
+        FGIDS.put(Integer.valueOf(404), "Letter Gothic Bold");
+        FGIDS.put(Integer.valueOf(416), "Courier Roman Medium");
+        FGIDS.put(Integer.valueOf(420), "Courier Roman Bold");
+        FGIDS.put(Integer.valueOf(424), "Courier Roman Italic");
+        FGIDS.put(Integer.valueOf(428), "Courier Roman Italic Bold");
+        FGIDS.put(Integer.valueOf(432), "Prestige");
+        FGIDS.put(Integer.valueOf(434), "Orator Bold");
+        FGIDS.put(Integer.valueOf(435), "Orator Bold");
+        FGIDS.put(Integer.valueOf(751), "Sonoran Serif");
+        FGIDS.put(Integer.valueOf(752), "Nasseem");
+        FGIDS.put(Integer.valueOf(753), "Nasseem Bold");
+        FGIDS.put(Integer.valueOf(754), "Nasseem Bold");
+        FGIDS.put(Integer.valueOf(755), "Nasseem Bold");
+        FGIDS.put(Integer.valueOf(756), "Nasseem Italic");
+        FGIDS.put(Integer.valueOf(757), "Nasseem Bold Italic");
+        FGIDS.put(Integer.valueOf(758), "Nasseem Bold Italic");
+        FGIDS.put(Integer.valueOf(759), "Nasseem Bold Italic");
+        FGIDS.put(Integer.valueOf(760), "Times Roman");
+        FGIDS.put(Integer.valueOf(761), "Times Roman Bold");
+        FGIDS.put(Integer.valueOf(762), "Times Roman Bold");
+        FGIDS.put(Integer.valueOf(763), "Times Roman Italic");
+        FGIDS.put(Integer.valueOf(764), "Times Roman Bold Italic");
+        FGIDS.put(Integer.valueOf(765), "Times Roman Bold Italic");
+        FGIDS.put(Integer.valueOf(1051), "Sonoran Serif");
+        FGIDS.put(Integer.valueOf(1053), "Sonoran Serif Bold");
+        FGIDS.put(Integer.valueOf(1056), "Sonoran Serif Italic");
+        FGIDS.put(Integer.valueOf(1351), "Sonoran Serif");
+        FGIDS.put(Integer.valueOf(1653), "Sonoran Serif Bold");
+        FGIDS.put(Integer.valueOf(1803), "Sonoran Serif Bold");
+        FGIDS.put(Integer.valueOf(2103), "Sonoran Serif Bold");
+        FGIDS.put(Integer.valueOf(2304), "Helvetica Roman Medium");
+        FGIDS.put(Integer.valueOf(2305), "Helvetica Roman Bold");
+        FGIDS.put(Integer.valueOf(2306), "Helvetica Roman Italic");
+        FGIDS.put(Integer.valueOf(2307), "Helvetica Roman Italic Bold");
+        FGIDS.put(Integer.valueOf(2308), "Times New Roman Medium");
+        FGIDS.put(Integer.valueOf(2309), "Times New Roman Bold");
+        FGIDS.put(Integer.valueOf(2310), "Times New Roman Italic");
+        FGIDS.put(Integer.valueOf(2311), "Times New Roman Italic Bold");
+        FGIDS.put(Integer.valueOf(4407), "Sonoran Serif");
+        FGIDS.put(Integer.valueOf(4427), "Sonoran Serif Bold");
+        FGIDS.put(Integer.valueOf(4535), "Sonoran Serif Italic");
+        FGIDS.put(Integer.valueOf(4919), "Goudy");
+        FGIDS.put(Integer.valueOf(4939), "Goudy Bold");
+        FGIDS.put(Integer.valueOf(5047), "Goudy Italic");
+        FGIDS.put(Integer.valueOf(5047), "Goudy Bold Italic");
+        FGIDS.put(Integer.valueOf(5687), "Times Roman");
+        FGIDS.put(Integer.valueOf(5707), "Times Roman Bold");
+        FGIDS.put(Integer.valueOf(5815), "Times Roman Italic");
+        FGIDS.put(Integer.valueOf(5835), "Times Roman Italic Bold");
+        FGIDS.put(Integer.valueOf(5943), "University");
+        FGIDS.put(Integer.valueOf(6199), "Palatino");
+        FGIDS.put(Integer.valueOf(6219), "Palatino Bold");
+        FGIDS.put(Integer.valueOf(6327), "Palatino Italic");
+        FGIDS.put(Integer.valueOf(6347), "Palatino Italic Bold");
+        FGIDS.put(Integer.valueOf(8503), "Baskerville");
+        FGIDS.put(Integer.valueOf(8523), "Baskerville Bold");
+        FGIDS.put(Integer.valueOf(8631), "Baskerville Italic");
+        FGIDS.put(Integer.valueOf(8651), "Baskerville Italic Bold");
+        FGIDS.put(Integer.valueOf(8759), "Nasseem");
+        FGIDS.put(Integer.valueOf(8779), "Nasseem Bold");
+        FGIDS.put(Integer.valueOf(8887), "Nasseem Italic");
+        FGIDS.put(Integer.valueOf(8907), "Nasseem Italic Bold");
+        FGIDS.put(Integer.valueOf(12855), "Narkisim");
+        FGIDS.put(Integer.valueOf(12875), "Narkisim Bold");
+        FGIDS.put(Integer.valueOf(16951), "Century Schoolbook");
+        FGIDS.put(Integer.valueOf(16971), "Century Schoolbook Bold");
+        FGIDS.put(Integer.valueOf(17079), "Century Schoolbook Italic");
+        FGIDS.put(Integer.valueOf(17099), "Century Schoolbook Italic Bold");
+        FGIDS.put(Integer.valueOf(20224), "Boldface");
+        FGIDS.put(Integer.valueOf(33335), "Optima");
+        FGIDS.put(Integer.valueOf(33355), "Optima Bold");
+        FGIDS.put(Integer.valueOf(33463), "Optima Italic");
+        FGIDS.put(Integer.valueOf(33483), "Optima Italic Bold");
+        FGIDS.put(Integer.valueOf(33591), "Futura");
+        FGIDS.put(Integer.valueOf(33601), "Futura Bold");
+        FGIDS.put(Integer.valueOf(33719), "Futura Italic");
+        FGIDS.put(Integer.valueOf(33729), "Futura Italic Bold");
+        FGIDS.put(Integer.valueOf(34103), "Helvetica");
+        FGIDS.put(Integer.valueOf(34123), "Helvetica Bold");
+        FGIDS.put(Integer.valueOf(34231), "Helvetica Italic");
+        FGIDS.put(Integer.valueOf(34251), "Helvetica Italic Bold");
+        FGIDS.put(Integer.valueOf(37431), "Old English");
+        FGIDS.put(Integer.valueOf(41783), "Coronet Cursive");
+        FGIDS.put(Integer.valueOf(41803), "Coronet Cursive Bold");
+    }
 
     private static final String INDENTION = "  ";
 
@@ -951,13 +1422,41 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final RecognizedGroupIdFormatsSelfDefiningField sdf) {
         this.out.println("Recognized Group ID Formats");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        if (sdf.getGroupIdFormats().isEmpty()) {
+            this.out.println("None");
+        } else {
+            for (final Integer id : sdf.getGroupIdFormats()) {
+                final String format = GROUP_ID_FORMATS.get(id);
+                final String hint = format == null ? "unknown" : format;
+
+                this.printFieldAsHex(1, 15, id, hint, "Group ID format");
+            }
+        }
     }
 
     @Override
     public void handle(final ResidentSymbolSetSupportSelfDefiningField sdf) {
         this.out.println("Resident Symbol Set");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        for (final ResidentSymbolSetSupportSelfDefiningField.ResidentSymbolSet symbolSet : sdf.getResidentSymbolSets()) {
+            this.out.println("");
+            this.printFieldAsHex(1, 23, symbolSet.getCodePageId(), "Code Page ID");
+
+            for (final Integer cpgid : symbolSet.getCpgids()) {
+                final String cpName = CPGIDS.get(cpgid);
+                final String hint = cpName == null ? "unknown" : cpName;
+
+                this.printFieldAsHex(1, 23, cpgid, hint, "Code Page Golbal ID");
+            }
+
+            for (final Integer fgid : symbolSet.getFgids()) {
+                final String fontName = FGIDS.get(fgid);
+                final String hint = fontName == null ? "unknown" : fontName;
+
+                this.printFieldAsHex(1, 23, fgid, hint, "Font Typeface Golbal ID");
+            }
+        }
     }
 
     @Override
@@ -995,7 +1494,12 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final SupportedDeviceResolutionsSelfDefiningField sdf) {
         this.out.println("Supported Device Resolutions");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        final int width = 17;
+        this.printFieldAsHex(1, width, sdf.getRipXpels(), "RIP X pels");
+        this.printFieldAsHex(1, width, sdf.getRipYpels(), "RIP Y pels");
+        this.printFieldAsHex(1, width, sdf.getPrintHeadXpels(), "Print head X pels");
+        this.printFieldAsHex(1, width, sdf.getPrintHeadYpels(), "Print head X pels");
     }
 
     @Override
@@ -1013,24 +1517,51 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final SymbolSetSupportSelfDefiningField sdf) {
         this.out.println("Symbol Set");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        final int width = 18;
+        for (final SymbolSetSupportSelfDefiningField.SymbolSetSupportEntry entry : sdf.getEntries()) {
+
+            if (entry.getValueEntryId() == 0x01) {
+                this.printFieldAsHex(1, width, entry.getValueEntryId(), "Fixed-box size", "Value entry ID");
+                this.printFieldAsHex(1, width, entry.getXBoxSize(), "X box size");
+                this.printFieldAsHex(1, width, entry.getYBoxSize(), "Y box size");
+
+            } else if (entry.getValueEntryId() == 0x02) {
+                this.printFieldAsHex(1, width, entry.getValueEntryId(), "Variable-box size", "Value entry ID");
+                this.printFieldAsHex(1, width, entry.getUnitBase(), "Unit base");
+                this.printFieldAsHex(1, width, entry.getPpub(), "Pels per unit base");
+                this.printFieldAsHex(1, width, entry.getMaximumSize(), "Maximum size");
+                this.printFieldAsHex(1, width, entry.getUniformSize(), "Uniform size");
+            }
+
+            for (final Integer fgid : entry.getFgids()) {
+                final String fontName = FGIDS.get(fgid);
+                final String hint = fontName == null ? "unknown" : fontName;
+
+                this.printFieldAsHex(2, 23, fgid, hint, "Font Typeface Golbal ID");
+            }
+        }
     }
 
     @Override
     public void handle(final UnknownSelfDefiningField sdf) {
         this.out.println("Unknown");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+        this.printFieldAsHex(2, 12, sdf.getRawData(), "Unknown data");
     }
 
     @Override
     public void handle(final Up3iPaperInputMediaSelfDefiningField sdf) {
         this.out.println("UP3I Paper Input");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        this.printFieldAsHex(1, 22, sdf.getMediaSourceId(), "Media source ID");
+        this.printFieldAsHex(1, 22, sdf.getUp3iMediaInformation(), "UP3I media information");
     }
 
     @Override
     public void handle(final Up3iTupelSelfDefiningField sdf) {
         this.out.println("UP3I Tupel");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        this.printFieldAsHex(1, 23, sdf.getTupelId(), "Tupel ID");
+        this.printFieldAsHex(1, 23, sdf.getUp3iDeviceInformation(), "UP3I device information");
     }
 }
