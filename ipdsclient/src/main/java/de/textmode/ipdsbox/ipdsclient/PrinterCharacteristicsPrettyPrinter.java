@@ -447,7 +447,6 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
         this.out.print(" : ");
     }
 
-
     /**
      * Prints the indention.
      */
@@ -849,8 +848,8 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
             this.out.println();
 
             this.printFieldAsHex(1, width, entry.getEntryId(), "Entry ID");
-            this.printFieldAsHex(1, width, entry.getEntryId(), "Storage pool ID");
-            this.printFieldAsHex(1, width, entry.getEntryId(), "Size in Bytes");
+            this.printFieldAsHex(1, width, entry.getStoragePoolId(), "Storage pool ID");
+            this.printField(1, width, entry.getEmptySize(), "Size in Bytes");
 
             for (final Integer id : entry.getObjectIds()) {
                 final String objectId = OBJECT_IDS.get(id);
