@@ -57,6 +57,7 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     private static final Charset EBCDIC = Charset.forName("ibm-500");
 
     private static final HashMap<Integer, String> GROUP_OPERATIONS = new HashMap<>();
+
     static {
         GROUP_OPERATIONS.put(Integer.valueOf(0x01), "Keep group together as a print unit");
         GROUP_OPERATIONS.put(Integer.valueOf(0x02), "Keep group together for microfilm output");
@@ -67,6 +68,7 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     }
 
     private static final HashMap<Integer, String> RESOURCE_TYPE = new HashMap<>();
+
     static {
         RESOURCE_TYPE.put(Integer.valueOf(0x01), "Single-byte LF1-type and LF2-type coded font");
         RESOURCE_TYPE.put(Integer.valueOf(0x02), "Double-byte LF1-type coded font");
@@ -88,6 +90,7 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     }
 
     private static final HashMap<Integer, String> RESOURCE_ID_FORMAT = new HashMap<>();
+
     static {
         RESOURCE_ID_FORMAT.put(Integer.valueOf(0x00), "Host-Assigned Resource ID");
         RESOURCE_ID_FORMAT.put(Integer.valueOf(0x03), "GRID-parts format");
@@ -102,6 +105,7 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
 
 
     private static final HashMap<Integer, String> OBJECT_IDS = new HashMap<>();
+
     static {
         OBJECT_IDS.put(Integer.valueOf(0x0007), "Symbol sets");
         OBJECT_IDS.put(Integer.valueOf(0x0011), "Page graphics data");
@@ -128,6 +132,7 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     }
 
     private static final HashMap<Integer, String> OCA_COLORS = new HashMap<>();
+
     static {
         OCA_COLORS.put(Integer.valueOf(0x0001), "Blue");
         OCA_COLORS.put(Integer.valueOf(0x0002), "Red");
@@ -148,6 +153,7 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     }
 
     private static final HashMap<Integer, String> FEATURES = new HashMap<>();
+
     static {
         FEATURES.put(Integer.valueOf(0x0100), "Duplex");
         FEATURES.put(Integer.valueOf(0x0200), "Manual two-channel switch");
@@ -165,6 +171,7 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     }
 
     private static final HashMap<Integer, String> COMMON_BAR_CODE_TYPE = new HashMap<>();
+
     static {
         COMMON_BAR_CODE_TYPE.put(Integer.valueOf(0x0D), "Codabar, modifier-byte options X'01' and X'02'");
         COMMON_BAR_CODE_TYPE.put(Integer.valueOf(0x11), "Code 128, modifier-byte option X'02'");
@@ -193,78 +200,80 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     }
 
     private static final HashMap<String, String> MEDIA_TYPES = new HashMap<>();
+
     static {
-        MEDIA_TYPES.put("06072B120004030100" ,"ISO A4 white (210 x 297 mm)");
-        MEDIA_TYPES.put("06072B120004030101" ,"ISO A4 colored");
-        MEDIA_TYPES.put("06072B120004030102" ,"ISO A4 transparent");
-        MEDIA_TYPES.put("06072B120004030105" ,"ISO 1/3 A4");
-        MEDIA_TYPES.put("06072B120004030107" ,"ISO A4 tab (225 x 297 mm)");
-        MEDIA_TYPES.put("06072B12000403010A" ,"ISO A3 white (297 x 420 mm)");
-        MEDIA_TYPES.put("06072B12000403010B" ,"ISO A3 colored");
-        MEDIA_TYPES.put("06072B120004030114" ,"ISO A5 white (148.5 x 210 mm)");
-        MEDIA_TYPES.put("06072B120004030115" ,"ISO A5 colored");
-        MEDIA_TYPES.put("06072B12000403011E" ,"ISO B4 white (250 x 353 mm)");
-        MEDIA_TYPES.put("06072B12000403011F" ,"ISO B4 colored");
-        MEDIA_TYPES.put("06072B120004030128" ,"ISO B5 white (176 x 250 mm)");
-        MEDIA_TYPES.put("06072B120004030129" ,"ISO B5 colored");
-        MEDIA_TYPES.put("06072B12000403012A" ,"JIS B4 (257 x 364 mm)");
-        MEDIA_TYPES.put("06072B12000403012B" ,"JIS B5 (182 x 257 mm)");
-        MEDIA_TYPES.put("06072B120004030132" ,"North American letter white (8.5 x 11 inch)");
-        MEDIA_TYPES.put("06072B120004030133" ,"North American letter colored");
-        MEDIA_TYPES.put("06072B120004030134" ,"North American letter transparent");
-        MEDIA_TYPES.put("06072B12000403013C" ,"North American legal white (8.5 x 14 inch)");
-        MEDIA_TYPES.put("06072B12000403013D" ,"North American legal colored");
-        MEDIA_TYPES.put("06072B12000403013F" ,"North American legal 13 (Folio) (8.5 x 13 inch)");
-        MEDIA_TYPES.put("06072B120004030141" ,"North American executive (7.25 x 10.5 inch)");
-        MEDIA_TYPES.put("06072B120004030143" ,"North American ledger (11 x 17 inch)");
-        MEDIA_TYPES.put("06072B120004030145" ,"North American statement (5.5 x 8.5 inch)");
-        MEDIA_TYPES.put("06072B120004030149" ,"ISO B5 envelope (176 x 250 mm)");
-        MEDIA_TYPES.put("06072B12000403014B" ,"Com10 envelope (9.5 x 4.125 inch)");
-        MEDIA_TYPES.put("06072B12000403014C" ,"Monarch envelope (7.5 x 3.875 inch)");
-        MEDIA_TYPES.put("06072B12000403014D" ,"DL envelope (220 x 110 mm)");
-        MEDIA_TYPES.put("06072B12000403014F" ,"C5 envelope (229 x 162 mm)");
-        MEDIA_TYPES.put("06072B120004030150" ,"Japan postcard envelope (200 x 150 mm)");
-        MEDIA_TYPES.put("06072B120004030151" ,"Japan postcard (Hagaki) (100 x 148 mm)");
-        MEDIA_TYPES.put("06072B120004030153" ,"ISO B4 envelope (250 x 353 mm)");
-        MEDIA_TYPES.put("06072B12000403015D" ,"ISO C4 envelope (229 x 324 mm)");
-        MEDIA_TYPES.put("06072B120004030167" ,"ISO C5 envelope (162 x 229 mm)");
-        MEDIA_TYPES.put("06072B120004030171" ,"ISO long envelope");
-        MEDIA_TYPES.put("06072B12000403017B" ,"North American 10 x 13 envelope");
-        MEDIA_TYPES.put("06082B12000403018105" ,"North American 9 x 12 envelope");
-        MEDIA_TYPES.put("06082B1200040301810F" ,"North American business envelope (9.5 x 4.125 inch)");
-        MEDIA_TYPES.put("06082B12000403018111" ,"Letter tab (9 x 11 inch)");
-        MEDIA_TYPES.put("06082B12000403018112" ,"Legal tab (9 x 14 inch)");
-        MEDIA_TYPES.put("06082B12000403018113" ,"Manual (9 x 12 inch)");
-        MEDIA_TYPES.put("06082B12000403018114" ,"Media (8 x 10.5 inch)");
-        MEDIA_TYPES.put("06082B12000403018115" ,"Media (9 x 14 inch)");
-        MEDIA_TYPES.put("06082B12000403018116" ,"Index Card");
-        MEDIA_TYPES.put("06082B12000403018117" ,"US Postcard");
-        MEDIA_TYPES.put("06082B12000403018118" ,"ISO A6 Postcard (105 x 148 mm)");
-        MEDIA_TYPES.put("06082B12000403018119" ,"Oversize A3 (16.923 x 12.007 inch)");
-        MEDIA_TYPES.put("06082B1200040301811A" ,"Media (14 x 17 inch)");
-        MEDIA_TYPES.put("06082B1200040301811B" ,"Media (12 x 18 inch)");
-        MEDIA_TYPES.put("06082B1200040301811C" ,"Media (14 x 18 inch)");
-        MEDIA_TYPES.put("06082B1200040301811D" ,"Media (8.5 x 10 inch)");
-        MEDIA_TYPES.put("06082B12000403018120" ,"Media (8 x 10 inch)");
-        MEDIA_TYPES.put("06082B12000403018122" ,"Oversize A4 (8.465 x 12.007 inch)");
-        MEDIA_TYPES.put("06082B12000403018123" ,"Media (8 x 13 in)");
-        MEDIA_TYPES.put("06082B12000403018124" ,"Media (8.25 x 13 in)");
-        MEDIA_TYPES.put("06082B12000403018125" ,"Media (8.25 x 14 in)");
-        MEDIA_TYPES.put("06082B12000403018126" ,"Media (8.5 x 12.4 in)");
-        MEDIA_TYPES.put("06082B12000403018127" ,"Media (10 x 14 in)");
-        MEDIA_TYPES.put("06082B12000403018128" ,"Media (10 x 15 in)");
-        MEDIA_TYPES.put("06082B12000403018129" ,"Media (11 x 14 in)");
-        MEDIA_TYPES.put("06082B1200040301812A" ,"Media (11 x 15 in)");
-        MEDIA_TYPES.put("06082B1200040301812B" ,"ISO B6 (128 x 182 mm)");
-        MEDIA_TYPES.put("06082B1200040301812C" ,"Reply-paid PC (148 x 200 mm)");
-        MEDIA_TYPES.put("06082B1200040301812D" ,"Media (170 x 210 mm)");
-        MEDIA_TYPES.put("06082B1200040301812E" ,"Media (182 x 210 mm)");
-        MEDIA_TYPES.put("06082B1200040301812F" ,"Media (210 x 340 mm)");
-        MEDIA_TYPES.put("06082B12000403018130" ,"8KAI Media (267 x 390 mm)");
-        MEDIA_TYPES.put("06082B12000403018131" ,"16KAI Media (195 x 267 mm)");
+        MEDIA_TYPES.put("06072B120004030100", "ISO A4 white (210 x 297 mm)");
+        MEDIA_TYPES.put("06072B120004030101", "ISO A4 colored");
+        MEDIA_TYPES.put("06072B120004030102", "ISO A4 transparent");
+        MEDIA_TYPES.put("06072B120004030105", "ISO 1/3 A4");
+        MEDIA_TYPES.put("06072B120004030107", "ISO A4 tab (225 x 297 mm)");
+        MEDIA_TYPES.put("06072B12000403010A", "ISO A3 white (297 x 420 mm)");
+        MEDIA_TYPES.put("06072B12000403010B", "ISO A3 colored");
+        MEDIA_TYPES.put("06072B120004030114", "ISO A5 white (148.5 x 210 mm)");
+        MEDIA_TYPES.put("06072B120004030115", "ISO A5 colored");
+        MEDIA_TYPES.put("06072B12000403011E", "ISO B4 white (250 x 353 mm)");
+        MEDIA_TYPES.put("06072B12000403011F", "ISO B4 colored");
+        MEDIA_TYPES.put("06072B120004030128", "ISO B5 white (176 x 250 mm)");
+        MEDIA_TYPES.put("06072B120004030129", "ISO B5 colored");
+        MEDIA_TYPES.put("06072B12000403012A", "JIS B4 (257 x 364 mm)");
+        MEDIA_TYPES.put("06072B12000403012B", "JIS B5 (182 x 257 mm)");
+        MEDIA_TYPES.put("06072B120004030132", "North American letter white (8.5 x 11 inch)");
+        MEDIA_TYPES.put("06072B120004030133", "North American letter colored");
+        MEDIA_TYPES.put("06072B120004030134", "North American letter transparent");
+        MEDIA_TYPES.put("06072B12000403013C", "North American legal white (8.5 x 14 inch)");
+        MEDIA_TYPES.put("06072B12000403013D", "North American legal colored");
+        MEDIA_TYPES.put("06072B12000403013F", "North American legal 13 (Folio) (8.5 x 13 inch)");
+        MEDIA_TYPES.put("06072B120004030141", "North American executive (7.25 x 10.5 inch)");
+        MEDIA_TYPES.put("06072B120004030143", "North American ledger (11 x 17 inch)");
+        MEDIA_TYPES.put("06072B120004030145", "North American statement (5.5 x 8.5 inch)");
+        MEDIA_TYPES.put("06072B120004030149", "ISO B5 envelope (176 x 250 mm)");
+        MEDIA_TYPES.put("06072B12000403014B", "Com10 envelope (9.5 x 4.125 inch)");
+        MEDIA_TYPES.put("06072B12000403014C", "Monarch envelope (7.5 x 3.875 inch)");
+        MEDIA_TYPES.put("06072B12000403014D", "DL envelope (220 x 110 mm)");
+        MEDIA_TYPES.put("06072B12000403014F", "C5 envelope (229 x 162 mm)");
+        MEDIA_TYPES.put("06072B120004030150", "Japan postcard envelope (200 x 150 mm)");
+        MEDIA_TYPES.put("06072B120004030151", "Japan postcard (Hagaki) (100 x 148 mm)");
+        MEDIA_TYPES.put("06072B120004030153", "ISO B4 envelope (250 x 353 mm)");
+        MEDIA_TYPES.put("06072B12000403015D", "ISO C4 envelope (229 x 324 mm)");
+        MEDIA_TYPES.put("06072B120004030167", "ISO C5 envelope (162 x 229 mm)");
+        MEDIA_TYPES.put("06072B120004030171", "ISO long envelope");
+        MEDIA_TYPES.put("06072B12000403017B", "North American 10 x 13 envelope");
+        MEDIA_TYPES.put("06082B12000403018105", "North American 9 x 12 envelope");
+        MEDIA_TYPES.put("06082B1200040301810F", "North American business envelope (9.5 x 4.125 inch)");
+        MEDIA_TYPES.put("06082B12000403018111", "Letter tab (9 x 11 inch)");
+        MEDIA_TYPES.put("06082B12000403018112", "Legal tab (9 x 14 inch)");
+        MEDIA_TYPES.put("06082B12000403018113", "Manual (9 x 12 inch)");
+        MEDIA_TYPES.put("06082B12000403018114", "Media (8 x 10.5 inch)");
+        MEDIA_TYPES.put("06082B12000403018115", "Media (9 x 14 inch)");
+        MEDIA_TYPES.put("06082B12000403018116", "Index Card");
+        MEDIA_TYPES.put("06082B12000403018117", "US Postcard");
+        MEDIA_TYPES.put("06082B12000403018118", "ISO A6 Postcard (105 x 148 mm)");
+        MEDIA_TYPES.put("06082B12000403018119", "Oversize A3 (16.923 x 12.007 inch)");
+        MEDIA_TYPES.put("06082B1200040301811A", "Media (14 x 17 inch)");
+        MEDIA_TYPES.put("06082B1200040301811B", "Media (12 x 18 inch)");
+        MEDIA_TYPES.put("06082B1200040301811C", "Media (14 x 18 inch)");
+        MEDIA_TYPES.put("06082B1200040301811D", "Media (8.5 x 10 inch)");
+        MEDIA_TYPES.put("06082B12000403018120", "Media (8 x 10 inch)");
+        MEDIA_TYPES.put("06082B12000403018122", "Oversize A4 (8.465 x 12.007 inch)");
+        MEDIA_TYPES.put("06082B12000403018123", "Media (8 x 13 in)");
+        MEDIA_TYPES.put("06082B12000403018124", "Media (8.25 x 13 in)");
+        MEDIA_TYPES.put("06082B12000403018125", "Media (8.25 x 14 in)");
+        MEDIA_TYPES.put("06082B12000403018126", "Media (8.5 x 12.4 in)");
+        MEDIA_TYPES.put("06082B12000403018127", "Media (10 x 14 in)");
+        MEDIA_TYPES.put("06082B12000403018128", "Media (10 x 15 in)");
+        MEDIA_TYPES.put("06082B12000403018129", "Media (11 x 14 in)");
+        MEDIA_TYPES.put("06082B1200040301812A", "Media (11 x 15 in)");
+        MEDIA_TYPES.put("06082B1200040301812B", "ISO B6 (128 x 182 mm)");
+        MEDIA_TYPES.put("06082B1200040301812C", "Reply-paid PC (148 x 200 mm)");
+        MEDIA_TYPES.put("06082B1200040301812D", "Media (170 x 210 mm)");
+        MEDIA_TYPES.put("06082B1200040301812E", "Media (182 x 210 mm)");
+        MEDIA_TYPES.put("06082B1200040301812F", "Media (210 x 340 mm)");
+        MEDIA_TYPES.put("06082B12000403018130", "8KAI Media (267 x 390 mm)");
+        MEDIA_TYPES.put("06082B12000403018131", "16KAI Media (195 x 267 mm)");
     }
 
     private static final HashMap<String, String> OBJECT_CONTAINER_TYPES = new HashMap<>();
+
     static {
         OBJECT_CONTAINER_TYPES.put("06072B12000401010500000000000000", "IOCA FS10");
         OBJECT_CONTAINER_TYPES.put("06072B12000401010B00000000000000", "IOCA FS11");
@@ -306,7 +315,6 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
         OBJECT_CONTAINER_TYPES.put("06072B12000401014400000000000000", "AFPC SVG Subset");
         OBJECT_CONTAINER_TYPES.put("06072B12000401014500000000000000", "Non-OCA Resource Object");
     }
-
 
 
     private static final String INDENTION = "  ";
@@ -776,7 +784,7 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
                 this.printFieldAsHex(1, width, entry.getParameterId(), "Printer name", "Parameter ID");
                 this.printFieldAsHex(1, width, entry.getParameterValue(), "Parameter value");
 
-                this.printField(2, 12, EBCDIC.decode(ByteBuffer.wrap(entry.getParameterValue())).toString(),"Printer name");
+                this.printField(2, 12, EBCDIC.decode(ByteBuffer.wrap(entry.getParameterValue())).toString(), "Printer name");
                 continue;
             }
 
