@@ -690,7 +690,12 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final KeepGroupTogetherSelfDefiningField sdf) {
         this.out.println("Keep Group Together");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        final int width = 26;
+        this.printFieldAsHex(1, width, sdf.getMaximumNumberOfSheets(), "Maximum number of sheets");
+        this.printFieldAsHex(1, width, sdf.getUnitBase(), "Unit base");
+        this.printFieldAsHex(1, width, sdf.getUpub(), "Units per unit base");
+        this.printFieldAsHex(1, width, sdf.getMaximumTotalGroupLength(), "Maximum total group length");
     }
 
     @Override
@@ -708,7 +713,10 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final MediumModificationIdsSupportedSelfDefiningField sdf) {
         this.out.println("Medium Modification IDs");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        for (final Integer mmid : sdf.getMediumModificationIds()) {
+            this.printFieldWithHex(1, 22, mmid, "Medium Modification ID");
+        }
     }
 
     @Override
@@ -737,7 +745,22 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final ObjectContainerVersionSupportSelfDefiningField sdf) {
         this.out.println("Object Container Version");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        final int width = 27;
+
+        for (final ObjectContainerVersionSupportSelfDefiningField.VersionRecord version : sdf.getVersionRecords()) {
+            this.out.println();
+
+            final String regId = OBJECT_CONTAINER_TYPES.get(StringUtils.toHexString(version.getRegId()));
+            final String hint = regId == null ? "unknown" : regId;
+
+            this.printFieldAsHex(1, width, version.getRegId(), hint, "MO:DCA-registered object ID");
+            this.printFieldAsHex(1, width, version.getFlags(), "Flags");
+            this.printFieldAsHex(1, width, version.getMajorVersion(), "MKajor version");
+            this.printFieldAsHex(1, width, version.getMinorVersion(), "Minor version");
+            this.printFieldAsHex(1, width, version.getSubminorVersion(), "Subminor version");
+            this.printField(1, width, version.getVersionName(), "Version name");
+        }
     }
 
     @Override
