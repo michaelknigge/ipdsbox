@@ -199,6 +199,34 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
         COMMON_BAR_CODE_TYPE.put(Integer.valueOf(0x9A), "RM4SCC, modifier-byte option X'01'");
     }
 
+    private static final HashMap<Integer, String> BAR_CODE_TYPE = new HashMap<>();
+
+    static {
+        BAR_CODE_TYPE.put(Integer.valueOf(0x06), "UPC - Two-digit Supplemental");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x07), "UPC - Five-digit Supplemental");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x0A), "Industrial 2-of-5");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x0B), "Matrix 2-of-5");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x0C), "Interleaved 2-of-5, ITF-14, and AIM USS-I 2/5");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x0D), "Codabar, 2-of-7 and AIM USS-Codabar");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x11), "Code 128 – GS1-128, UCC/EAN 128, Intelligent Mail Container Barcode, Intelligent Mail Package Barcode, and AIM USS-128");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x16), "EAN Two-digit Supplemental");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x17), "EAN Five-digit Supplemental");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x18), "POSTNET and PLANET (deprecated)");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x1A), "RM4SCC and Dutch KIX");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x1B), "Japan Postal Bar Code");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x1C), "Data Matrix (2D bar code)");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x1D), "MaxiCode (2D bar code)");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x1E), "PDF417 (2D bar code)");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x1F), "Australia Post Bar Code");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x20), "QR Code, QR Code with Image (2D bar code)");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x21), "Code 93");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x22), "Intelligent Mail Barcode");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x23), "Royal Mail RED TAG (deprecated)");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x24), "GS1 DataBar");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x25), "Royal Mail Mailmark");
+        BAR_CODE_TYPE.put(Integer.valueOf(0x26), "Aztec Code");
+    }
+
     private static final HashMap<String, String> MEDIA_TYPES = new HashMap<>();
 
     static {
@@ -493,7 +521,23 @@ final class PrinterCharacteristicsPrettyPrinter implements SelfDefiningFieldVisi
     @Override
     public void handle(final BarCodeTypeSelfDefiningField sdf) {
         this.out.println("Bar Code Type");
-        this.out.println(INDENTION + sdf.toString()); // TODO: pretty print
+
+        if (sdf.getBcocaSubset() == 0xFF10) {
+            this.printFieldAsHex(1, 12, sdf.getBcocaSubset(), "BCD1", "BCOCA subset");
+        } else if (sdf.getBcocaSubset() == 0xFF20) {
+            this.printFieldAsHex(1, 12, sdf.getBcocaSubset(), "BCD2", "BCOCA subset");
+        } else {
+            this.printFieldAsHex(1, 12, sdf.getBcocaSubset(), "unknown", "BCOCA subset");
+        }
+
+        for (final BarCodeTypeSelfDefiningField.BarCodeEntry entry : sdf.getEntries()) {
+            final String type = BAR_CODE_TYPE.get(entry.getBarCodeType());
+            final String hint = type == null ? "unknown" : type;
+
+            this.printFieldAsHex(2, 13, entry.getBarCodeType(), hint, "Bar code type");
+            this.printFieldAsHex(2, 13, entry.getModifiers(), hint, "Modifier code");
+        }
+
     }
 
     @Override
