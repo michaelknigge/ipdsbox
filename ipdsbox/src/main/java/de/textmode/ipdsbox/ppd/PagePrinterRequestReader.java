@@ -3,6 +3,7 @@ package de.textmode.ipdsbox.ppd;
 import java.io.IOException;
 import java.io.InputStream;
 
+import de.textmode.ipdsbox.core.ByteUtils;
 import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
 
@@ -76,12 +77,8 @@ public final class PagePrinterRequestReader {
             throw new IOException(ERROR_INVALID_LENGTH + length);
         }
 
-        if (dataLength == 0) {
-            return new PagePrinterRequest(request);
-        }
-
-        // Now read the remaining bytes of the request.
-        final byte[] buffer = new byte[dataLength];
+        // Now read the remaining bytes of the request (if there are any).
+        final byte[] buffer = dataLength == 0 ? ByteUtils.EMPTY_BYTE_ARRAY : new byte[dataLength];
 
         int offset = 0;
         while (dataLength > 0) {
