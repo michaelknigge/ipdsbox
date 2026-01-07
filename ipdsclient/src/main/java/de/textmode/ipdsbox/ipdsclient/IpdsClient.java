@@ -595,10 +595,14 @@ public final class IpdsClient {
             // and a "high level" PagePrinterRequestReader, that automatically handles the PPD/PPR low-level
             // requests/stuff automatically (i. e. send 0x0D on exception X'1000..00' automatically) and that
             // collects/concats ack-replies if the "AcknowledgmentContinuationRequested"....
-            while ((req = PagePrinterRequestReader.read(in, isDebugMode)) != null) {
+            while ((req = PagePrinterRequestReader.read(in)) != null) {
+
                 if (req.getRequest() != 0x0E) {
                     this.addToFiFo(req);
                 } else {
+                    // Note: Implementation is not really correct... the 0x0E request *MAY* contain
+                    // multiple IPDS commands... here we assume that re receive just one ACK per request,
+                    // which is probaly fine in the real world...
                     final IpdsByteArrayInputStream is = new IpdsByteArrayInputStream(req.getData());
                     is.skip(8);
                     is.skip(4);
