@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.textmode.ipdsbox.core.StringUtils;
 import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
 import de.textmode.ipdsbox.io.IpdsByteArrayOutputStream;
+import de.textmode.ipdsbox.ipds.triplets.Triplet;
+import de.textmode.ipdsbox.ipds.triplets.TripletFactory;
 
 /**
  * The Activate Resource (AR) command, previously known as Load Resource Equivalence (LRE), requests the
@@ -30,7 +31,10 @@ public final class ActivateResourceCommand extends IpdsCommand {
         super(ipds, IpdsCommandId.AR);
 
         while (ipds.bytesAvailable() > 0) {
-            this.entries.add(new ActivateResourceEntry(ipds));
+            final int length = ipds.readUnsignedInteger16();
+            final byte[] entry = ipds.readBytes(length - 2);
+
+            this.entries.add(new ActivateResourceEntry(new IpdsByteArrayInputStream(entry)));
         }
     }
 
@@ -48,6 +52,13 @@ public final class ActivateResourceCommand extends IpdsCommand {
         }
     }
 
+    @Override
+    public String toString() {
+        return "ActivateResourceCommand{"
+                + "entries=" + this.entries
+                + '}';
+    }
+
     public static final class ActivateResourceEntry {
         private int resourceType;
         private int haid;
@@ -55,22 +66,53 @@ public final class ActivateResourceCommand extends IpdsCommand {
         private int resourceIdFormat;
         private int fontInlineSequence;
         private int resourceClassFlags;
-        private byte[] resourceId;
+        private List<Triplet> resourceIdTriplets = new ArrayList();
 
         ActivateResourceEntry(final IpdsByteArrayInputStream ipds) throws IOException {
-            final int length = ipds.readUnsignedInteger16();
 
-            this.resourceType = ipds.readUnsignedByte();
-            this.haid = ipds.readUnsignedInteger16();
-            this.sectionID = ipds.readUnsignedByte();
-            this.resourceIdFormat = ipds.readUnsignedByte();
-            this.fontInlineSequence = ipds.readUnsignedInteger16();
+            if (ipds.bytesAvailable() >= 1) {
+                this.resourceType = ipds.readUnsignedByte();
+            }
 
-            // TODO parse.. attention... may contain triplets!
-            this.resourceId = ipds.readBytes(length - 12);
+            if (ipds.bytesAvailable() >= 2) {
+                this.haid = ipds.readUnsignedInteger16();
+            }
+
+            if (ipds.bytesAvailable() >= 1) {
+                this.sectionID = ipds.readUnsignedByte();
+            }
+
+            if (ipds.bytesAvailable() >= 1) {
+                this.resourceIdFormat = ipds.readUnsignedByte();
+            }
+
+            if (ipds.bytesAvailable() >= 2) {
+                this.fontInlineSequence = ipds.readUnsignedInteger16();
+            }
+
+            if (ipds.bytesAvailable() >= 2) {
+                ipds.skip(2); // two bytes "reserved"
+            }
+
+            if (ipds.bytesAvailable() >= 1) {
+                this.resourceClassFlags = ipds.readUnsignedByte();
+            }
+
+            // TODO... There is a fixed part in front of the triplets :-(
+            byte[] rawTriplet = ipds.readTripletIfExists();
+            while (rawTriplet != null) {
+                this.resourceIdTriplets.add(TripletFactory.create(rawTriplet));
+                rawTriplet = ipds.readTripletIfExists();
+
+            }
+
         }
 
         void writeTo(final IpdsByteArrayOutputStream ipds) throws IOException {
+            throw new IOException("Not Yet Implemented");
+
+
+            /*
             ipds.writeUnsignedInteger16(12 + this.resourceId.length);
 
             ipds.writeUnsignedByte(this.resourceType);
@@ -80,6 +122,7 @@ public final class ActivateResourceCommand extends IpdsCommand {
             ipds.writeUnsignedInteger16(this.fontInlineSequence);
 
             ipds.writeBytes(this.resourceId);
+             */
         }
 
         /**
@@ -169,28 +212,27 @@ public final class ActivateResourceCommand extends IpdsCommand {
         /**
          * Returns the Resource ID.
          */
-        public byte[] getResourceId() {
-            return this.resourceId;
+        public List<Triplet> getResourceIdTriplets() {
+            return this.resourceIdTriplets;
         }
 
         /**
          * Sets the Resource ID.
          */
-        public void setResourceId(final byte[] resourceId) {
-            this.resourceId = resourceId;
+        public void setResourceIdTriplets(final List<Triplet> resourceIdTriplets) {
+            this.resourceIdTriplets = resourceIdTriplets;
         }
 
         @Override
         public String toString() {
             return "ActivateResourceEntry{"
-                    + "length=" + 12 + this.resourceId.length
-                    + ", resourceType=0x" + Integer.toHexString(this.resourceType)
+                    + "resourceType=0x" + Integer.toHexString(this.resourceType)
                     + ", haid=" + Integer.toHexString(this.haid)
                     + ", sectionID=0x" + Integer.toHexString(this.sectionID)
                     + ", resourceIdFormat=0x" + Integer.toHexString(this.resourceIdFormat)
                     + ", fontInlineSequence=0x" + Integer.toHexString(this.fontInlineSequence)
                     + ", resourceClassFlags=0x" + Integer.toHexString(this.resourceClassFlags)
-                    + ", resourceId=" + StringUtils.toHexString(this.resourceId)
+                    + ", resourceIdTriplets=" + this.resourceIdTriplets
                     + '}';
         }
     }
