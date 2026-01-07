@@ -3,13 +3,17 @@ package de.textmode.ipdsbox.ipdsproxy;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 
+import de.textmode.ipdsbox.core.InvalidIpdsCommandException;
 import de.textmode.ipdsbox.core.StringUtils;
+import de.textmode.ipdsbox.io.IpdsByteArrayInputStream;
+import de.textmode.ipdsbox.ipds.commands.IpdsCommandFactory;
 import de.textmode.ipdsbox.ppd.PagePrinterRequest;
 import de.textmode.ipdsbox.ppd.PagePrinterRequestReader;
 import org.apache.commons.cli.CommandLine;
@@ -72,7 +76,7 @@ public final class IpdsProxy {
      *
      * @param args the command line arguments passed to {@link IpdsProxy}.
      */
-    int realMain(final String[] args) {
+    private int realMain(final String[] args) {
         final Options options = new Options();
         options.addOption(Option.builder(OPTION_HELP_SHORT)
                                 .longOpt(OPTION_HELP_LONG)
@@ -148,8 +152,10 @@ public final class IpdsProxy {
      * @param remotePrinterHost host name or IP address of the IPDS printer
      * @param remotePortNumber port number of the IPDS printer
      */
-    private void accecptAndHandleConnections(final ServerSocket passiveSocket, final String remotePrinterHost,
-        final int remotePortNumber) {
+    private void accecptAndHandleConnections(
+            final ServerSocket passiveSocket,
+            final String remotePrinterHost,
+            final int remotePortNumber) {
 
         while (true) {
             System.out.println("Waiting for connection from print server..."); //$NON-NLS-1$
@@ -255,14 +261,14 @@ public final class IpdsProxy {
         final Thread t = new Thread() {
             @Override
             public void run() {
-                readAndWriteData(streamFromPrinter, streamToPrintServer, Direction.FROM_PRINTER_TO_SPOOLER);
+                readAndWriteData(streamFromPrinter, streamToPrintServer, System.out, Direction.FROM_PRINTER_TO_SPOOLER);
             }
         };
 
         t.start();
 
         // Read data from the print server and pass it to the printer...
-        readAndWriteData(streamFromPrintServer, streamToPrinter, Direction.FROM_SPOOLER_TO_PRINTER);
+        readAndWriteData(streamFromPrintServer, streamToPrinter, System.out, Direction.FROM_SPOOLER_TO_PRINTER);
     }
 
     /**
@@ -276,37 +282,119 @@ public final class IpdsProxy {
     private static void readAndWriteData(
             final InputStream in,
             final OutputStream out,
+            final PrintStream printStream,
             final Direction direction) {
 
         try {
             PagePrinterRequest req;
 
             while ((req = PagePrinterRequestReader.read(in)) != null) {
-                System.out.println("\n\n");
-                if (direction == Direction.FROM_PRINTER_TO_SPOOLER) {
-                    System.out.println("=== Received from Printer =========================\n");
-                } else {
-                    System.out.println("=== Received from Spooler =========================\n");
+
+                // synchronized to we don't mix outputs from spooler and printer...
+                synchronized (printStream) {
+
+                    printStream.println("\n\n");
+                    if (direction == Direction.FROM_PRINTER_TO_SPOOLER) {
+                        printStream.println("=== Received from Printer =========================\n");
+                    } else {
+                        printStream.println("=== Received from Spooler =========================\n");
+                    }
+
+                    // TODO: Build IpdsCommand from byte[]
+                    //  --> ATTENTION! A PagePrinterRequest may contain multiple IPDS-Commands!
+                    //  --> see: "0000009D0000000E000000010000008D0007D6974000080009D633400009F2000009D68F40000A05000009D68F40000B07000013D62E40000C000C000000000000000000200017D63F40000D017EFF00000000000000000000000000000AD68F40000EF50001000AD68F40000F1600000010D68F4000101700003840FFFFFFFF000BD68F40001103000125000BD68F400012030001800007D603C00013"
+                    //
+                    //   Overall length: 0000009D
+                    //   IPDS-Commands in request: 0000000E
+                    //   Flag?!?: 00000001
+                    //   Length of all following data (IPDS commands): 0000008D
+                    //
+                    //   Length of first IPDS Command: 0007
+                    //   IPDS command code: D697
+                    //   IPDS command flags and data: 400008
+                    //
+                    //   Length of second IPDS command: 0009
+                    //   IPDS command code: D633
+                    //   IPDS command flags and data: 400009F200
+                    //
+                    //   and so on....
+                    //
+                    // TODO: Print the IpdsCommandFlags
+                    // TODO: Print the decoded IpdsCommand
+                    // TODO: Handle "unknown" IPDS Commands
+                    // TODO: Synchronized output because two threads are reading and writing at the same time...
+
+                    printStream.println(
+                            LocalDateTime.now()
+                                    + " "
+                                    + "Request: 0x"
+                                    + Integer.toHexString(req.getRequest())
+                                    + " : "
+                                    + StringUtils.toHexString(req.getData()));
+
+                    if (req.getRequest() == 0x0E) {
+                        try {
+                            decodeAndPrintCommands(new IpdsByteArrayInputStream(req.getData()), printStream);
+                        } catch (final IOException ex) {
+                            printStream.println("\n\n");
+                            printStream.println("Error parsing IPDS commands: " + ex.getMessage());
+                            ex.printStackTrace(printStream);
+                        }
+
+                        printStream.println("\n\n");
+                    }
+
+                    req.writeTo(out);
                 }
-
-                // TODO: Build IpdsCommand from byte[]
-                // TODO: Print the IpdsCommandFlags
-                // TODO: Print the decoded IpdsCommand
-                // TODO: Handle "unknown" IPDS Commands
-                // TODO: Synchronized output becase two threads are reading and writing at the same time...
-
-                System.out.println(
-                        LocalDateTime.now()
-                        + " "
-                        + "Request: 0x"
-                        + Integer.toHexString(req.getRequest())
-                        + " : "
-                        + StringUtils.toHexString(req.getData()));
-
-                req.writeTo(out);
             }
         } catch (final IOException e) {
-            System.err.println(e.getMessage());
+            printStream.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Decodes and prints all IPDS commands that are readable from the given {@link IpdsByteArrayInputStream}.
+     */
+    static void decodeAndPrintCommands(
+            final IpdsByteArrayInputStream is,
+            final PrintStream printStream) throws IOException {
+
+        if (is.bytesAvailable() == 0) {
+            return;
+        }
+
+        // The four "Flag-Bytes" (or whatever they are) should be present..
+        if (is.bytesAvailable() <= 8) {
+            throw new IOException("First 8 bytes are missing only " + is.bytesAvailable() + " bytes available");
+        }
+
+        // We don't know what that first 4 bytes are meaing.... skip them...
+        is.skip(4);
+
+
+        // The next 4 bytes contain the complete length of all following IPDS commands, *excluding* the
+        // length of the length field itself.
+        final long completeLength = is.readUnsignedInteger32();
+
+        if (is.bytesAvailable() != completeLength) {
+            throw new IOException(
+                    "Expecting " + completeLength + " bytes but only " + is.bytesAvailable() + " bytes available");
+        }
+
+        while (is.bytesAvailable() > 0) {
+            final int offset = is.tell();
+            final byte[] ipdsCommandData = is.readIpdsCommandIfExists();
+
+            // This should really not happen...
+            if (ipdsCommandData == null) {
+                throw new IOException("Could not read next IPDS command from stream");
+            }
+
+            try {
+                printStream.println(IpdsCommandFactory.create(ipdsCommandData));
+            } catch (final InvalidIpdsCommandException e) {
+                printStream.println("Error: Could not parse IPDS command at offset " + offset + ": " + e.getMessage());
+            }
         }
     }
 }
