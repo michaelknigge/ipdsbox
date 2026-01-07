@@ -201,6 +201,5 @@ public final class IpdsByteArrayInputStreamTest extends TestCase {
 
         is.rewind(2);
         assertTrue(is.readUnsignedByte() == 0x11);
-
     }
 }

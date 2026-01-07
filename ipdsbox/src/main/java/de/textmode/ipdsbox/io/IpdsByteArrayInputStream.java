@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 import de.textmode.ipdsbox.core.ByteUtils;
+import de.textmode.ipdsbox.ipds.commands.IpdsCommand;
 import de.textmode.ipdsbox.ipds.sdf.SelfDefiningField;
 import de.textmode.ipdsbox.ipds.triplets.Triplet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -119,6 +120,39 @@ public final class IpdsByteArrayInputStream {
         this.offset -= count;
         this.bytesLeft += count;
     }
+
+    /**
+     * Reads a complete {@link IpdsCommand} from the underlying byte array.
+     *
+     * @return A byte array containg the raw data of the {@link IpdsCommand} or <code>null</code> if there is
+     * no further {@link IpdsCommand} available.
+     *
+     * @throws IOException if the {@link IpdsCommand} to be read is broken.
+     */
+    @SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
+    public byte[] readIpdsCommandIfExists() throws IOException {
+        final int available = this.bytesAvailable();
+        if (available == 0) {
+            return null;
+        }
+
+        final int length = this.readUnsignedInteger16();
+        if (available < (length - 2)) {
+            throw new IOException(String.format(
+                "An IPDS command to be read seems to be %1$d bytes long but the IPDS data stream ends after %2$d bytes",
+                length, available));
+        }
+
+        final byte[] buffer = new byte[length];
+
+        System.arraycopy(this.data, this.offset - 2, buffer, 0, length);
+
+        this.offset += (length - 2);
+        this.bytesLeft -= (length - 2);
+
+        return buffer;
+    }
+
 
     /**
      * Reads a complete {@link Triplet} from the underlying byte array.
