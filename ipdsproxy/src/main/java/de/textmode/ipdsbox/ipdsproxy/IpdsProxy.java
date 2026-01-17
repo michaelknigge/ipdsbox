@@ -378,7 +378,7 @@ public final class IpdsProxy {
 
         if (is.bytesAvailable() != completeLength) {
             throw new IOException(
-                    "Expecting " + completeLength + " bytes but only " + is.bytesAvailable() + " bytes available");
+                    "Expecting " + completeLength + " bytes but " + is.bytesAvailable() + " bytes available");
         }
 
         while (is.bytesAvailable() > 0) {
